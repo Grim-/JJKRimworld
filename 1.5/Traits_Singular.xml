@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <TraitDef>
+    <defName>Sukuna_Vessel</defName>
+    <commonality>0</commonality>
+    <degreeDatas>
+      <li>
+        <label>Vessel</label>
+        <description>The vessel of Sukuna is a chosen host imbued with the malevolent presence of Sukuna, a powerful cursed spirit, shaping the narrative of 'Jujutsu Kaisen' with their intertwined destinies.</description>
+      </li>
+    </degreeDatas>
+  </TraitDef>
+
+  <TraitDef>
+    <defName>JJK_Gojo_SixEyes</defName>
+    <commonality>0</commonality>
+    <degreeDatas>
+      <li>
+        <label>Six Eyes</label>
+        <description>Six Eyes are not a cursed technique that needs to be activated, but an innate gift that grants the bearer the ability to master the Limitless.</description>
+      </li>
+    </degreeDatas>
+  </TraitDef>
+
+</Defs>

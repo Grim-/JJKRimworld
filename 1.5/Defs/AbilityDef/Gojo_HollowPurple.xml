@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <AbilityDef>
+      <defName>Gojo_HollowPurple</defName>
+      <label>Hollow Purple</label>
+      <description>This technique brings the concept of motion and reversal into reality. Purple is born from merging both infinites: Blue and Red, to produce an imaginary mass that rushes forth. Sends forth a projectile that damages anything in its way.</description>
+      <iconPath>Abilities/Gojo/HollowPurple</iconPath>
+      <cooldownTicksRange>60</cooldownTicksRange>
+      <category>Cursed_Energy</category>
+      <displayOrder>200</displayOrder>
+      <aiCanUse>true</aiCanUse>
+      <verbProperties>
+        <verbClass>Verb_CastAbility</verbClass>
+        <range>20</range>
+        <warmupTime>0.5</warmupTime>
+        <soundCast>FireSpew_Resolve</soundCast>
+        <targetParams>
+          <canTargetPawns>True</canTargetPawns>
+          <canTargetLocations>True</canTargetLocations>
+          <canTargetSelf>True</canTargetSelf>
+          <canTargetAnimals>True</canTargetAnimals>
+          <canTargetItems>True</canTargetItems>
+        </targetParams>
+      </verbProperties>
+      <comps>
+        <li Class="CompProperties_AbilityLaunchProjectile">
+          <projectileDef>Hollow_Purple</projectileDef>
+        </li>
+        <li Class="JJK.CompProperties_AbilityCECost">
+              <cursedEnergyCost>0.15</cursedEnergyCost>
+        </li>
+      </comps>
+    </AbilityDef>
+</Defs>

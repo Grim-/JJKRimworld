@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="EtherealThingBase">
+  <defName>CursedTechniqueAmplification_BlueProjectile</defName>
+  <label>Reversed Cursed Technique: Blue</label>
+  <thingClass>ThingWithComps</thingClass>
+  <tickerType>Normal</tickerType>
+  <drawerType>RealtimeOnly</drawerType>
+  <drawOffscreen>true</drawOffscreen>
+  <category>PsychicEmitter</category>
+  <altitudeLayer>MoteOverheadLow</altitudeLayer>
+  <graphicData>
+    <graphicClass>Graphic_Single</graphicClass>
+    <texPath>Things/Projectile/Gojo/Blue</texPath>
+    <shaderType>MoteGlowDistorted</shaderType>
+    <drawSize>1</drawSize>
+    <shaderParameters>
+      <_DistortionTex>/Other/Ripples</_DistortionTex>
+      <_distortionIntensity>0.05</_distortionIntensity>
+      <_DistortionScale>0.4</_DistortionScale>
+      <_distortionScrollSpeed>(0.07, 0.07, 0.0)</_distortionScrollSpeed>
+    </shaderParameters>
+  </graphicData>
+  <comps>
+    <li Class="CompProperties_Glower">
+      <glowRadius>15</glowRadius>
+      <glowColor>(0,0,255,0)</glowColor>
+    </li>
+    <li Class="CompProperties_DestroyAfterDelay">
+      <delayTicks>6000</delayTicks>
+    </li>
+    <li Class="JJK.CompProperties_PawnPuller">
+    </li>
+  </comps>
+</ThingDef>
+</Defs>

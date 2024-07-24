@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKHeavenlyPact</defName>
+    <label>Heavenly Pact</label>
+    <description>In exchange for complete absence of Cursed Energy, grants the user a superhuman physical body with enhanced senses and peak physical potential.</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergyCost>10</JJK_CursedEnergyCost>
+      <JJK_CursedEnergy>0.0001</JJK_CursedEnergy>
+      <MeleeDPS>10</MeleeDPS>
+      <MaxHitPoints>10</MaxHitPoints>
+      <MoveSpeed>3</MoveSpeed>
+      <MeleeHitChance>3</MeleeHitChance>
+      <MeleeArmorPenetration>0.4</MeleeArmorPenetration>
+      <MeleeDodgeChance>4</MeleeDodgeChance>
+      <CarryingCapacity>10</CarryingCapacity>
+      <PainShockThreshold>0.1</PainShockThreshold>
+    </statFactors>
+    <capMods>
+      <li>
+        <capacity>Sight</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>Hearing</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>BloodFiltration</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>BloodPumping</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>Breathing</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>Moving</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <postFactor>3</postFactor>
+      </li>
+      <li>
+        <capacity>Consciousness</capacity>
+        <postFactor>3</postFactor>
+      </li>
+    </capMods>
+  </GeneDef>
+</Defs>

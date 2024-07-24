@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <EffecterDef>
+    <defName>JJK_RCTAuraEffect</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <moteDef>Mote_RCTAura</moteDef>
+        <ticksBetweenMotes>30</ticksBetweenMotes>
+        <scale>1.5~2.0</scale>
+        <speed>0~0</speed>
+        <rotation>0</rotation>
+        <angle>0~0</angle>
+        <absoluteAngle>true</absoluteAngle>
+        <positionRadius>0</positionRadius>
+        <burstCount>3</burstCount>
+        <makeMoteOnSubtrigger>True</makeMoteOnSubtrigger>
+
+        <attachToSpawnThing>True</attachToSpawnThing>
+      </li>
+    </children>
+  </EffecterDef>
+
+  <ThingDef ParentName="MoteBase">
+    <defName>Mote_RCTAura</defName>
+    <thingClass>MoteAttached</thingClass>
+    <altitudeLayer>MoteOverheadLow</altitudeLayer>
+    <graphicData>
+      <texPath>Animations/Effect_PowerChords/Effect_PowerChords_1_000</texPath>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <mote>
+      <fadeInTime>0.25</fadeInTime>
+      <solidTime>30</solidTime>
+      <fadeOutTime>4.7</fadeOutTime>
+      <growthRate>0</growthRate>
+    </mote>
+  </ThingDef>
+</Defs>

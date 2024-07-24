@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKGrade2</defName>
+    <label>Grade 2 Sorcerer</label>
+    <description>The second grade of Jujutsu Sorcerer</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
+      <JJK_CursedEnergy>1.15</JJK_CursedEnergy>
+    </statFactors>
+    <exclusionTags>
+      <li>
+        Gene_JJKGrade3
+      </li>
+      <li>
+        Gene_JJKGrade1
+      </li>
+      <li>
+        Gene_JJKSpecialGrade_Large
+      </li>
+    </exclusionTags>
+  </GeneDef>
+</Defs>

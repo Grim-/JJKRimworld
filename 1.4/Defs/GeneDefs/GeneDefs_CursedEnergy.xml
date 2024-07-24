@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <GeneDef>
+    <defName>Cursed_Energy</defName>
+    <label>Curse Energy</label>
+    <description>Carriers of this gene have a reserve of biological strength powered by a resource called hemogen. The resource can be gained and spent in various ways, all of which are unlocked by other genes.\n\nCarriers lose 2 hemogen per day from biological entropy.</description>
+    <geneClass>JJK.Gene_CursedEnergy</geneClass>
+    <resourceGizmoType>JJK.GeneGizmo_ResourceCursedEnergy</resourceGizmoType>
+    <resourceLabel>Cursed Energy</resourceLabel>
+    <resourceGizmoThresholds>
+      <li>0.25</li>
+      <li>0.5</li>
+      <li>0.75</li>
+    </resourceGizmoThresholds>
+    <showGizmoOnWorldView>true</showGizmoOnWorldView>
+    <showGizmoWhenDrafted>true</showGizmoWhenDrafted>
+    <resourceDescription> A sinister and potent force originating from malevolent spirits, utilized by sorcerers for combat and exorcism but posing grave danger to both wielders and targets alike</resourceDescription>
+    <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
+    <selectionWeight>0</selectionWeight>
+    <displayCategory>Hemogen</displayCategory>
+    <displayOrderInCategory>-2</displayOrderInCategory>
+    <customEffectDescriptions>
+      <li>Gives cursed energy supply.</li>
+    </customEffectDescriptions>
+    <symbolPack>
+      <prefixSymbols>
+        <li><symbol>cursed energy</symbol></li>
+      </prefixSymbols>
+    </symbolPack>
+    <minAgeActive>3</minAgeActive>
+    <resourceLossPerDay>-0.20</resourceLossPerDay>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>1</biostatMet>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_FireArrow</defName>
+    <label>Fire Arrow</label>
+    <description>Manipulate flames for long-range attacks by forming an arrow.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <prerequisite>Cursed_Energy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>Fire_Arrow</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_Dismantle</defName>
+    <label>Dismantle</label>
+    <description>A ranged slashing attack that is normally used for inanimate objects, however it can also be used against cursed spirits and sorcerers to great effectiveness.</description>
+    <iconPath>UI/Icons/Gene_Dismantle</iconPath>
+    <prerequisite>Cursed_Energy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>Dismantle</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_Cleave</defName>
+    <label>Cleave</label>
+    <description>A slashing attack that adjusts itself depending on the target's toughness and cursed energy level to cut them down in one fell swoop.</description>
+    <iconPath>UI/Icons/Gene_Cleave</iconPath>
+    <prerequisite>Cursed_Energy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>Cleave</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_HollowPurple</defName>
+    <label>Hollow Purple</label>
+    <description>This technique brings the concept of motion and reversal into reality. Purple is born from merging both infinites: Blue and Red, to produce an imaginary mass that rushes forth.</description>
+    <iconPath>Abilities/Gojo/HollowPurple</iconPath>
+    <prerequisite>Cursed_Energy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>HollowPurple</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+
+
+  <GeneDef>
+    <defName>Gene_Reversed_CursedTechnique_Red</defName>
+    <label>Reversed Cursed Technique: Red</label>
+    <description>The reverse Limitless technique is powered by positive energy generated from reverse cursed technique as opposed to negative cursed energy. This reverses the effect of the strengthened Limitless, producing a strong repelling effect rather than an attracting one.</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Cursed_Energy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>Reversed_CursedTechnique_Red</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_Reversed_CursedTechnique_Blue</defName>
+    <label>Reversed Cursed Technique: Blue</label>
+    <description>Blue is achieved when the Limitless user greatly amplifies the amount of cursed energy poured into the technique. This brings the concepts of "negative numbers" and "negative distance" into reality, forcing real space to compensate and fill in the area by drawing everything toward the impossibility. This generates a strong force of attraction, similar to a powerful magnet.</description>
+    <iconPath>Things/Projectile/Gojo/Blue</iconPath>
+    <prerequisite>Cursed_Energy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>Reversed_CursedTechnique_Blue</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+
+</Defs>

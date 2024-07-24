@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <AbilityDef>
+      <defName>CursedTechnique_BlueApplicationSelfTeleport</defName>
+      <label>Cursed Technique Application: Blue (Self-Teleport)</label>
+      <description>Blue can be used to bridge the gap between two points in space by compressing the space between them, allowing the user to teleport themselves.</description>
+      <iconPath>Things/Projectile/Gojo/Blue</iconPath>
+      <cooldownTicksRange>60</cooldownTicksRange>
+      <category>Cursed_Energy</category>
+      <displayOrder>201</displayOrder>
+      <aiCanUse>true</aiCanUse>
+      <verbProperties>
+        <verbClass>Verb_CastAbility</verbClass>
+        <range>20</range>
+        <warmupTime>0</warmupTime>
+        <soundCast>FireSpew_Resolve</soundCast>
+        <targetParams>
+          <canTargetSelf>False</canTargetSelf>
+          <canTargetPawns>False</canTargetPawns>
+          <canTargetLocations>True</canTargetLocations>
+        </targetParams>
+      </verbProperties>
+      <comps>
+        <li Class="JJK.CompProperties_BlueSelfTeleport">
+          <compClass>JJK.CompAbilityEffect_BlueSelfTeleport</compClass>
+          <MaxRange>20</MaxRange>
+        </li>
+        <li Class="JJK.CompProperties_AbilityCECost">
+          <cursedEnergyCost>0.15</cursedEnergyCost>
+        </li>
+      </comps>
+    </AbilityDef>
+</Defs>

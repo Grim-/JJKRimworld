@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<AbilityDef ParentName="AbilityTouchBase">
+  <defName>JJK_IdleTransfiguration</defName>
+  <label>Idle Transfiguration</label>
+  <description>Change the shape of the targets soul into something monstrous. 'Hey you want to know something about digusting humans? There is so many of them!'</description>
+  <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+  <category>Sanguophage</category>
+  <displayOrder>100</displayOrder>
+  <warmupEffecter>Bloodfeed_Warmup</warmupEffecter>
+  <warmupStartSound>Bloodfeed_Cast</warmupStartSound>
+  <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+  <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+  <hostile>true</hostile>
+  <verbProperties>
+    <verbClass>Verb_CastAbilityTouch</verbClass>
+    <drawAimPie>false</drawAimPie>
+    <range>-1</range>
+    <warmupTime>0.5</warmupTime>
+    <targetParams>
+      <canTargetPawns>True</canTargetPawns>
+      <canTargetLocations>false</canTargetLocations>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="JJK.CompProperties_IdleTransfiguration">
+        <compClass>JJK.CompAbilityEffect_IdleTransfiguration</compClass>
+    </li>
+    <li Class="JJK.CompProperties_AbilityCECost">
+          <cursedEnergyCost>0.15</cursedEnergyCost>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

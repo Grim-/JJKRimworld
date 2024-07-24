@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKSpecialGrade_Large</defName>
+    <label>Special Grade Sorcerer (Large)</label>
+    <description>Special grades cannot be accurately ranked as they tend to have a combination of larger cursed energy reserves and a bizare or extreme set of techniques. </description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
+      <JJK_CursedEnergy>3</JJK_CursedEnergy>
+    </statFactors>
+  </GeneDef>
+</Defs>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <StatDef>
+    <defName>JJK_CursedEnergy</defName>
+    <label>Cursed Energy</label>
+    <category>PawnMisc</category>
+    <description>Cursed Energy Reserves</description>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>100</maxValue>
+    <toStringStyle>PercentOne</toStringStyle>
+    <showOnPawns>true</showOnPawns>
+  </StatDef>
+
+<StatDef>
+  <defName>JJK_CursedEnergyCost</defName>
+  <label>CE Cost Multiplier</label>
+  <category>PawnMisc</category>
+  <description>Cursed Energy Efficiency</description>
+  <defaultBaseValue>1</defaultBaseValue>
+  <minValue>0</minValue>
+  <maxValue>1</maxValue>
+  <toStringStyle>PercentOne</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+
+<StatDef>
+  <defName>JJK_CursedEnergyRegen</defName>
+  <label>CE Regen</label>
+  <category>PawnMisc</category>
+  <description>Cursed Energy Regeneration</description>
+  <defaultBaseValue>0.025</defaultBaseValue><!-- 0.025 = 2.5% every half hour -->
+  <minValue>0</minValue>
+  <maxValue>1</maxValue>
+  <toStringStyle>PercentOne</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+
+<StatDef>
+  <defName>JJK_CursedEnergyRegenSpeed</defName>
+  <label>CE Regen Speed</label>
+  <category>PawnMisc</category>
+  <description>Cursed Energy Regeneration Speed</description>
+  <defaultBaseValue>1</defaultBaseValue>
+  <minValue>1</minValue>
+  <maxValue>100</maxValue>
+  <toStringStyle>PercentOne</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+
+<StatDef>
+  <defName>JJK_CursedEnergyDamageBonus</defName>
+  <label>CE Damage Bonus</label>
+  <category>PawnMisc</category>
+  <description>Cursed Energy Damage Bonus</description>
+  <defaultBaseValue>1</defaultBaseValue>
+  <minValue>0</minValue>
+  <maxValue>200</maxValue>
+  <toStringStyle>PercentOne</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+
+<StatDef>
+  <defName>JJK_RCTSpeedBonus</defName>
+  <label>RCT Healing Speed Bonus</label>
+  <category>PawnMisc</category>
+  <description>Reversed Cursed Technique Healing Speed Bonus</description>
+  <defaultBaseValue>1</defaultBaseValue>
+  <minValue>1</minValue>
+  <maxValue>10</maxValue>
+  <toStringStyle>PercentOne</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+</Defs>
