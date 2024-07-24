@@ -11,6 +11,7 @@ namespace JJK
     {
         public float cursedEnergyCost = 1f;
     }
+
 }
     
 
