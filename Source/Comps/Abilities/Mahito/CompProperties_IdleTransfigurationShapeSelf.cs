@@ -24,33 +24,50 @@ namespace JJK
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
             if (target.Pawn == null) return;
+        }
 
-            List<FloatMenuOption> bodyPartOptions = new List<FloatMenuOption>();
+ 
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            if (Props.ShapeShiftOptions != null && Props.ShapeShiftOptions.Any())
+            {
+                yield return new Gizmo_MultiOptions(GetAllOptions());
+            }
+        }
+
+        private List<Gizmo_MultiOptions.Option> GetAllOptions()
+        {
+            var options = new List<Gizmo_MultiOptions.Option>();
             var groupedOptions = Props.ShapeShiftOptions.GroupBy(o => o.BodyPartDef);
 
             foreach (var group in groupedOptions)
             {
-                bodyPartOptions.Add(new FloatMenuOption(group.Key.label, () => ShowTransfigurationOptions(target.Pawn, group.Key, group.ToList())));
+                options.Add(new Gizmo_MultiOptions.Option(
+                    group.Key.label,
+                    null, // or appropriate icon if available
+                    () => { } // Empty action as this option just shows sub-options
+                ));
+
+                foreach (var option in group)
+                {
+                    options.Add(new Gizmo_MultiOptions.Option(
+                        "  " + option.OptionLabel, // Indented to show it's a sub-option
+                        null, // or appropriate icon if available
+                        () => ApplyShapeShift(parent.pawn, option)
+                    ));
+                }
+
+                if (changedParts.Any(c => c.BodyPartDef == group.Key))
+                {
+                    options.Add(new Gizmo_MultiOptions.Option(
+                        $"  Revert {group.Key.label}",
+                        null, // or appropriate icon if available
+                        () => RevertChange(parent.pawn, group.Key)
+                    ));
+                }
             }
 
-            Find.WindowStack.Add(new FloatMenu(bodyPartOptions));
-        }
-
-        private void ShowTransfigurationOptions(Pawn target, BodyPartDef bodyPartDef, List<TransfigurationOption> options)
-        {
-            List<FloatMenuOption> transfigurationOptions = new List<FloatMenuOption>();
-
-            foreach (var option in options)
-            {
-                transfigurationOptions.Add(new FloatMenuOption(option.OptionLabel, () => ApplyShapeShift(target, option)));
-            }
-
-            if (changedParts.Any(c => c.BodyPartDef == bodyPartDef))
-            {
-                transfigurationOptions.Add(new FloatMenuOption($"Revert {bodyPartDef.label}", () => RevertChange(target, bodyPartDef)));
-            }
-
-            Find.WindowStack.Add(new FloatMenu(transfigurationOptions));
+            return options;
         }
 
         private void ApplyShapeShift(Pawn target, TransfigurationOption option)
@@ -160,58 +177,4 @@ namespace JJK
             // Note: BodyPart is not saved, it's restored in RestoreBodyParts
         }
     }
-    //public class CompProperties_IdleTransfigurationShapeSelf : CompProperties_CursedAbilityProps
-    //{
-    //    public List<TransfigurationOption> ShapeShiftOptions;
-
-    //    public CompProperties_IdleTransfigurationShapeSelf()
-    //    {
-    //        compClass = typeof(CompAbilityEffect_IdleTransfigurationShapeSelf);
-    //    }
-    //}
-
-    //public class CompAbilityEffect_IdleTransfigurationShapeSelf : BaseCursedEnergyAbility
-    //{
-    //    public new CompProperties_IdleTransfigurationShapeSelf Props => (CompProperties_IdleTransfigurationShapeSelf)props;
-
-    //    public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
-    //    {
-    //        if (target.Pawn == null) return;
-
-    //        List<FloatMenuOption> options = new List<FloatMenuOption>();
-
-    //        foreach (var option in Props.ShapeShiftOptions)
-    //        {
-    //            options.Add(new FloatMenuOption(option.OptionLabel, () => ApplyShapeShift(target.Pawn, option)));
-    //        }
-
-    //        Find.WindowStack.Add(new FloatMenu(options));
-    //    }
-
-    //    private void ApplyShapeShift(Pawn target, TransfigurationOption option)
-    //    {
-    //        BodyPartRecord targetPart = target.RaceProps.body.GetPartsWithDef(option.BodyPartDef).RandomElementWithFallback();
-
-    //        if (targetPart != null)
-    //        {
-    //            Hediff existingPart = target.health.hediffSet.hediffs.FirstOrDefault(h => h.Part == targetPart);
-    //            if (existingPart != null)
-    //            {
-    //                target.health.RemoveHediff(existingPart);
-    //            }
-
-    //            Hediff newPart = HediffMaker.MakeHediff(option.HediffDef, target, targetPart);
-    //            target.health.AddHediff(newPart);
-
-    //            Hediff cooldown = HediffMaker.MakeHediff(JJKDefOf.JJK_IdleTransfigurationCooldown, target);
-    //            target.health.AddHediff(cooldown);
-
-    //            Messages.Message($"{target.LabelShort} has shape-shifted their {targetPart.Label} into a {newPart.Label}!", MessageTypeDefOf.PositiveEvent);
-    //        }
-    //        else
-    //        {
-    //            Messages.Message($"Failed to find a suitable body part on {target.LabelShort} for shape-shifting.", MessageTypeDefOf.RejectInput);
-    //        }
-    //    }
-    //}
 }

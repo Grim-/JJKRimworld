@@ -18,6 +18,7 @@ namespace JJK
         public static StatDef JJK_CursedEnergyRegenSpeed;
         public static StatDef JJK_CursedEnergyDamageBonus;
 
+        public static StatDef JJK_RCTHealingBonus;
         public static StatDef JJK_RCTSpeedBonus;
 
         public static GeneDef Gene_JJKCursedEnergy;
@@ -27,16 +28,20 @@ namespace JJK
         public static GeneDef Gene_JJKHeavenlyPact;
         public static GeneDef Gene_Shoko;
         public static GeneDef Gene_JJKSixEyes;
-        public static GeneDef Gene_JJKSpecialGrade_Large;
+        public static GeneDef Gene_JJKSpecialGrade;
+        public static GeneDef Gene_JJKSpecialGrade_Monstrous;
         public static GeneDef Gene_JJKSukuna;
         public static GeneDef Gene_Kenjaku;
         public static GeneDef Gene_JJKLimitless;
         public static GeneDef Gene_JJKMahito;
 
+
+        public static GeneDef Gene_JJKGeto;
+
+
         public static ThingDef JJK_Flyer;
 
 
-        public static HediffDef RCTRegenHediff;
         public static MentalStateDef TransfiguredState_Murderous;
 
         public static AbilityDef JJK_KenjakuPosess;
@@ -45,13 +50,20 @@ namespace JJK
 
 
         public static ThinkTreeDef JJK_SummonedCreature;
+        public static ThinkTreeDef ZombieWorkSlave;
 
-        public static HediffDef JJK_IdleTransfigurationCooldown;
 
         public static JobDef JJK_DefendMaster;
         public static JobDef ChannelRCT;
 
+        public static HediffDef RCTRegenHediff;
+        public static HediffDef ZombieWorkSlaveHediff;
+        public static HediffDef JJK_IdleTransfigurationCooldown;
         public static HediffDef JJK_IdleTransfigurationBeastStatBoost;
+
+
+        public static BackstoryDef ZombieChildhoodStory;
+        public static BackstoryDef ZombieAdulthoodStory;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         static JJKDefOf()

@@ -4,7 +4,7 @@ using Verse;
 
 namespace JJK
 {
-    internal class CompEffect_RCTBlue : ThingComp
+    internal class CompEffect_PawnPuller : ThingComp
     {
         private CompProperties_PawnPuller Props => (CompProperties_PawnPuller)props;
 
@@ -75,7 +75,7 @@ namespace JJK
     {
         public CompProperties_PawnPuller()
         {
-            compClass = typeof(CompEffect_RCTBlue);
+            compClass = typeof(CompEffect_PawnPuller);
         }
     }
 }

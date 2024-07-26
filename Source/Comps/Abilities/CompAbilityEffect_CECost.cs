@@ -37,7 +37,7 @@ namespace JJK
             Gene_CursedEnergy gene_cursedEnergy = parent.pawn.GetCursedEnergy();
             if (gene_cursedEnergy != null)
             {
-                gene_cursedEnergy.ConsumeCursedEnergy(parent.pawn, GetCost());
+                gene_cursedEnergy.ConsumeCursedEnergy(GetCost());
             }
         }
     }

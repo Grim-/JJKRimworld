@@ -61,7 +61,7 @@ namespace JJK
             Find.World.GetComponent<DollTransformationWorldComponent>().StorePawn(TargetPawn);
             RemovePawnFromMap(TargetPawn);
 
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, Cost);
+            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);
         }
 
         private void RemovePawnFromMap(Pawn Pawn)

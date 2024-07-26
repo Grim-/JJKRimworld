@@ -26,26 +26,35 @@ namespace JJK
                 return;
             }
 
+
+
+            if (target.Pawn.genes.HasActiveGene(JJKDefOf.Gene_Kenjaku))
+            {
+                Messages.Message("Cannot posses another with Kenjaku Gene", MessageTypeDefOf.NegativeEvent);
+                return;
+            }        
+
+
             Pawn caster = parent.pawn;
             Pawn targetPawn = target.Pawn;
 
             // Detailed debug logging
-            Log.Message($"JJK: Attempting possession. Caster: {caster.LabelShort}, Target: {targetPawn.LabelShort}");
-            Log.Message($"JJK: Caster genes: {string.Join(", ", caster.genes.GenesListForReading.Select(g => g.def.defName))}");
+            //Log.Message($"JJK: Attempting possession. Caster: {caster.LabelShort}, Target: {targetPawn.LabelShort}");
+            //Log.Message($"JJK: Caster genes: {string.Join(", ", caster.genes.GenesListForReading.Select(g => g.def.defName))}");
 
             // Check for Cursed Energy gene (as a comparison)
             var cursedEnergyGene = caster.GetCursedEnergy();
-            Log.Message($"JJK: Cursed Energy Gene found: {cursedEnergyGene != null}");
+            //Log.Message($"JJK: Cursed Energy Gene found: {cursedEnergyGene != null}");
 
             // Check if the caster has the Gene_Kenjaku
             Gene_Kenjaku kenjakuGene = caster.GetKenjakuGene();
-            Log.Message($"JJK: Kenjaku Gene found: {kenjakuGene != null}");
+            //Log.Message($"JJK: Kenjaku Gene found: {kenjakuGene != null}");
 
             // Additional checks
             var allGenes = caster.genes.GenesListForReading;
-            Log.Message($"JJK: Total genes on caster: {allGenes.Count}");
+            //Log.Message($"JJK: Total genes on caster: {allGenes.Count}");
             var kenjakuGeneFromList = allGenes.FirstOrDefault(g => g is Gene_Kenjaku);
-            Log.Message($"JJK: Kenjaku Gene found in list: {kenjakuGeneFromList != null}");
+            //Log.Message($"JJK: Kenjaku Gene found in list: {kenjakuGeneFromList != null}");
 
             if (kenjakuGene == null)
             {
@@ -54,7 +63,7 @@ namespace JJK
                 return;
             }
 
-            Log.Message("JJK: Kenjaku Gene found, attempting possession");
+            //Log.Message("JJK: Kenjaku Gene found, attempting possession");
 
             // Attempt possession
             kenjakuGene.PossessPawn(caster, targetPawn);

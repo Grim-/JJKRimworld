@@ -33,7 +33,7 @@ namespace JJK
 
 
 
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, cost);
+            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(cost);
 
 
             GenSpawn.Spawn(storedPawn, targetThing.Position, targetThing.Map);

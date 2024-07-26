@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 using Verse.Noise;
 
@@ -85,7 +86,6 @@ namespace JJK
                 Pawn.health.RemoveHediff(CurrentRCTHediff);
             }
         }
-
         protected virtual bool RestoreMissingParts(Gene_CursedEnergy CursedEnergy, Pawn Target)
         {
             List<Hediff_MissingPart> MissingParts = GetMissingPartsPrioritized(Target);
@@ -99,8 +99,21 @@ namespace JJK
                     float CostForPart = GetPartCost();
                     if (CursedEnergy.Value >= CostForPart)
                     {
-                        HealthUtility.Cure(HighestPrio);
-                        parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, CostForPart);
+                        float StatHealBonusValue = parent.pawn.GetStatValue(JJKDefOf.JJK_RCTHealingBonus);
+
+                        // Calculate healing progress
+                        float healingProgress = 0.2f + (0.1f * StatHealBonusValue);
+
+                        // Reduce severity of the missing part
+                        HighestPrio.Severity -= healingProgress;
+
+                        // If severity reaches 0 or below, fully restore the part
+                        if (HighestPrio.Severity <= 0)
+                        {
+                            HealthUtility.Cure(HighestPrio);
+                        }
+
+                        parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(CostForPart);
                     }
                 }
 
@@ -109,7 +122,6 @@ namespace JJK
 
             return false;
         }
-
         protected virtual void HealOtherProblems(Gene_CursedEnergy CasterCursedEnergy, Pawn Target)
         {
             Hediff problem = GetOtherProblems(Target);
@@ -120,11 +132,72 @@ namespace JJK
 
                 if (CasterCursedEnergy.Value >= CostForProblem)
                 {
-                    HealthUtility.Cure(problem);
-                    CasterCursedEnergy.ConsumeCursedEnergy(parent.pawn, CostForProblem);
+                    float healingBonus = parent.pawn.GetStatValue(JJKDefOf.JJK_RCTHealingBonus);
+
+                    // Reduce severity more with higher healing bonus
+                    float severityReduction = Mathf.Min(problem.Severity, 0.1f * (1 + healingBonus));
+                    problem.Severity -= severityReduction;
+
+                    if (problem.Severity <= 0)
+                    {
+                        HealthUtility.Cure(problem);
+                    }
+
+                    CasterCursedEnergy.ConsumeCursedEnergy(CostForProblem);
                 }
             }
         }
+
+        //protected virtual bool RestoreMissingParts(Gene_CursedEnergy CursedEnergy, Pawn Target)
+        //{
+        //    List<Hediff_MissingPart> MissingParts = GetMissingPartsPrioritized(Target);
+
+        //    if (MissingParts != null && MissingParts.Count > 0)
+        //    {
+        //        Hediff_MissingPart HighestPrio = MissingParts.FirstOrDefault();
+
+        //        if (HighestPrio != null)
+        //        {
+        //            float CostForPart = GetPartCost();
+        //            if (CursedEnergy.Value >= CostForPart)
+        //            {
+        //                HealthUtility.Cure(HighestPrio);
+        //                parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, CostForPart);
+        //            }
+        //        }
+
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
+
+        //protected virtual void HealOtherProblems(Gene_CursedEnergy CasterCursedEnergy, Pawn Target)
+        //{
+        //    Hediff problem = GetOtherProblems(Target);
+
+        //    if (problem != null)
+        //    {
+        //        float CostForProblem = GetProblemCost(problem);
+
+        //        if (CasterCursedEnergy.Value >= CostForProblem)
+        //        {
+        //            HealthUtility.Cure(problem);
+        //            CasterCursedEnergy.ConsumeCursedEnergy(parent.pawn, CostForProblem);
+        //        }
+        //    }
+        //}
+
+
+        protected List<Hediff_MissingPart> GetMissingPartsPrioritized(Pawn pawn)
+        {
+            return pawn.health.hediffSet.hediffs
+                .OfType<Hediff_MissingPart>()
+                .OrderByDescending(x => x.TendPriority)
+                .ToList();
+        }
+
+
         public virtual float GetPartCost()
         {
             return Props.CEPartRegenCost * parent.pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost);
@@ -137,14 +210,6 @@ namespace JJK
         public virtual float GetProblemCost(Hediff ProblemDiff)
         {
             return (Props.CEProblemRegenSeverityBase * ProblemDiff.Severity) * parent.pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost);
-        }
-
-        protected List<Hediff_MissingPart> GetMissingPartsPrioritized(Pawn pawn)
-        {
-            return pawn.health.hediffSet.hediffs
-                .OfType<Hediff_MissingPart>()
-                .OrderByDescending(x => x.TendPriority)
-                .ToList();
         }
 
         protected Hediff GetOtherProblems(Pawn pawn)

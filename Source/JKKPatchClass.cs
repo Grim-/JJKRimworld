@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using RimWorld;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -15,6 +17,38 @@ namespace JJK
         {
             var harmony = new Harmony("com.jjk.jjkpatches");
             harmony.PatchAll();
+        }
+    }
+
+
+    [HarmonyPatch(typeof(Pawn))]
+    [HarmonyPatch("GetDisabledWorkTypes")]
+    public static class Patch_Pawn_GetDisabledWorkTypes
+    {
+        private static List<WorkTypeDef> cachedDisabledTypes;
+
+        [HarmonyPostfix]
+        public static void Postfix(Pawn __instance, ref List<WorkTypeDef> __result, bool permanentOnly)
+        {
+            if (__instance.health.hediffSet.HasHediff(JJKDefOf.ZombieWorkSlaveHediff))
+            {
+                if (cachedDisabledTypes == null)
+                {
+                    cachedDisabledTypes = new List<WorkTypeDef>
+                {
+                    WorkTypeDefOf.Childcare,
+                    WorkTypeDefOf.Doctor,
+                    WorkTypeDefOf.DarkStudy,
+                    WorkTypeDefOf.Research
+                };
+                }
+
+                // Combine the original disabled types with our additional disabled types
+                if (__result == null)
+                {
+                    __result = new List<WorkTypeDef>(cachedDisabledTypes);
+                }
+            }
         }
     }
 
@@ -127,6 +161,7 @@ namespace JJK
         }
     }
 
+
     [HarmonyPatch(typeof(Pawn_Thinker))]
     [HarmonyPatch("MainThinkTree", MethodType.Getter)]
     public static class Patch_Pawn_Thinker_MainThinkTree
@@ -134,6 +169,11 @@ namespace JJK
         public static bool Prefix(Pawn_Thinker __instance, ref ThinkTreeDef __result)
         {
             Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
+            if (__instance.pawn.health.hediffSet.HasHediff(JJKDefOf.ZombieWorkSlaveHediff))
+            {
+                __result = JJKDefOf.ZombieWorkSlave;
+                return false;
+            }
 
             if (pawn != null && IsSummonedCreature(pawn))
             {

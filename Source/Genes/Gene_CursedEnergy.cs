@@ -35,31 +35,43 @@ namespace JJK
 
         private int CurrentTick = 0;
 
+        public override float Value
+        {
+            get => base.Value;
+            set => base.Value = Mathf.Clamp(value, 0f, Max);
+        }
 
         public string DisplayLabel => Label + " (" + "Gene".Translate() + ")";
-
         public float ResourceLossPerDay => def.resourceLossPerDay;
-
         public override float InitialResourceMax => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergy);
-
         public override float MinLevelForAlert => 0.15f;
-
         public override float MaxLevelOffset => 0.1f;
 
-       // public override int ValueForDisplay => base.ValueForDisplay;
-       // public override int MaxForDisplay => (int)Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergy);
 
-        public override float Max => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergy);
 
+        private float lastMax;
+        public override float Max
+        {
+            get
+            {
+                float currentMax = Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergy, true);
+                if (currentMax != lastMax)
+                {
+                    lastMax = currentMax;
+                    ForceBaseMaxUpdate(currentMax);
+                }
+                return currentMax;
+            }
+        }
         protected override Color BarColor => new ColorInt(3, 3, 138).ToColor;
-
         protected override Color BarHighlightColor => new ColorInt(42, 42, 145).ToColor;
 
 
+        public override int ValueForDisplay => Mathf.RoundToInt(Value);
+        public override int MaxForDisplay => Mathf.RoundToInt(Max);
 
-
-        public float RegenMod => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen);
-        public float CostMult => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost);
+        public float RegenMod => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen, true, 100);
+        public float CostMult => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost, true, 100);
 
         public override void PostAdd()
         {
@@ -77,45 +89,33 @@ namespace JJK
                 IngestibleProperties ingestible = thing.def.ingestible;
                 if (ingestible != null && ingestible.sourceDef?.race?.Humanlike == true)
                 {
-                    RestoreCursedEnergy(pawn, JJKConstants.HumanConsumeRestoreBaseAmount * thing.GetStatValue(StatDefOf.Nutrition) * (float)numTaken);
+                    RestoreCursedEnergy(JJKConstants.HumanConsumeRestoreBaseAmount * thing.GetStatValue(StatDefOf.Nutrition) * (float)numTaken);
                 }
             }
         }
-
-        public void ConsumeCursedEnergy(Pawn Pawn, float Amount)
+        private void ForceBaseMaxUpdate(float newMax)
+        {
+            // Force the base class to update its max value
+            this.SetMax(newMax);
+        }
+        public void ConsumeCursedEnergy(float Amount)
         {
             if (!ModsConfig.BiotechActive)
             {
                 return;
             }
 
-            Gene_CursedEnergy cursedEnerrgy = Pawn.GetCursedEnergy();
-            if (cursedEnerrgy != null)
-            {
-                cursedEnerrgy.Value -= Amount;
-            }
-            else
-            {
-                //log error
-            }
+            Value -= Amount;
         }
 
-        public void RestoreCursedEnergy(Pawn Pawn, float Amount)
+        public void RestoreCursedEnergy(float Amount)
         {
             if (!ModsConfig.BiotechActive)
             {
                 return;
             }
 
-            Gene_CursedEnergy cursedEnerrgy = Pawn.GetCursedEnergy();
-            if (cursedEnerrgy != null)
-            {
-                cursedEnerrgy.Value += Amount;
-            }
-            else
-            {
-                //log error
-            }
+            Value += Amount;
         }
 
 
@@ -127,7 +127,7 @@ namespace JJK
 
             if (CurrentTick % JJKConstants.CursedEnergyRegenTicks == 0)
             {
-                RestoreCursedEnergy(pawn, pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen));
+                RestoreCursedEnergy(pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen));
                 CurrentTick = 0;
             }
         }
@@ -157,7 +157,7 @@ namespace JJK
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref CursedEnergy, "hemogenPacksAllowed", defaultValue: true);
+            Scribe_Values.Look(ref CursedEnergy, "cursedEnergy", defaultValue: true);
         }
     }
 }

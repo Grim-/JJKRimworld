@@ -39,7 +39,10 @@ namespace JJK
 
         private void GrantPossessionAbility()
         {
-            pawn.abilities.GainAbility(JJKDefOf.JJK_KenjakuPosess);
+            if (pawn.abilities.GetAbility(JJKDefOf.JJK_KenjakuPosess) == null)
+            {
+                pawn.abilities.GainAbility(JJKDefOf.JJK_KenjakuPosess);
+            } 
         }
 
         public bool PossessPawn(Pawn CurrentPawn, Pawn targetPawn)
@@ -63,6 +66,8 @@ namespace JJK
         private void ApplyPossession(Pawn CurrentPawn, Pawn TargetPawn)
         {
             TargetPawn.SetFaction(entityFaction);
+            TargetPawn.ideo.SetIdeo(CurrentPawn.ideo.Ideo);
+
             foreach (TraitDef traitDef in entityTraitDefs)
             {
                 if (!TargetPawn.story.traits.HasTrait(traitDef))
@@ -71,12 +76,15 @@ namespace JJK
                 }
             }
 
-
             RemoveViolenceIncapability(TargetPawn);
 
             TargetPawn.genes.AddGene(JJKDefOf.Gene_JJKCursedEnergy, true);
             TargetPawn.genes.AddGene(JJKDefOf.Gene_Kenjaku, true);
             TargetPawn.health.AddHediff(def.possessionHediff);
+            //pawn extension, in JJKUtility
+
+            JJKUtility.TransferAbilities(CurrentPawn, TargetPawn);
+            JJKUtility.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
         }
 
         private void RemovePossession(Pawn pawn)

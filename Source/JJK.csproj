@@ -71,39 +71,46 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CEResourceDrainUtility.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="CompProperties_DraftableSummon.cs" />
-    <Compile Include="Comps\Abilities\CompAbilityAbsorbingWeapon.cs" />
+    <Compile Include="Comps\Abilities\Cursed Tools\CompAbilityAbsorbingWeapon.cs" />
     <Compile Include="Comps\Abilities\CompAbilityEffect_CECost.cs" />
-    <Compile Include="Comps\Abilities\CompAbilityEffect_RestorePawnFromDoll.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_BoundBeast.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_Cleave.cs" />
+    <Compile Include="Comps\Abilities\Kenjaku\CompProperties_AbsorbCreature.cs" />
+    <Compile Include="Comps\Abilities\Kenjaku\CompProperties_SummonCreature.cs" />
+    <Compile Include="Comps\World\AbsorbedCreatureManager.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompAbilityEffect_RestorePawnFromDoll.cs" />
+    <Compile Include="Comps\Abilities\Gojo\CompProperties_BlueSelfTeleport.cs" />
+    <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundBeast.cs" />
+    <Compile Include="Comps\Abilities\Sukuna\CompProperties_Cleave.cs" />
     <Compile Include="Comps\Abilities\CompProperties_CursedAbilityLaunchProjectile.cs" />
     <Compile Include="Comps\Abilities\CompProperties_CursedAbilityProps.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_IdleTransfiguration.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_IdleTransfigurationDoll.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_IdleTransfigurationRespawn.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_IdleTransfigurationShape.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_IdleTransfigurationShapeSelf.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_KenjakuPossess.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_RCT.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_RCTBase.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_ReverseIdleTransfigurationDoll.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_TargetedRCT.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfiguration.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfigurationDoll.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfigurationRespawn.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfigurationShape.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfigurationShapeSelf.cs" />
+    <Compile Include="Comps\Abilities\Kenjaku\CompProperties_KenjakuPossess.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_RCT.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_RCTBase.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_ReverseIdleTransfigurationDoll.cs" />
+    <Compile Include="Comps\Abilities\Shoko\CompProperties_TargetedRCT.cs" />
     <Compile Include="Comps\Abilities\CursedCompAbilityEffect_LaunchProjectile.cs" />
-    <Compile Include="Comps\Abilities\JobDriver_DefendMaster.cs" />
-    <Compile Include="Comps\Abilities\SummonedCreatureManager.cs" />
-    <Compile Include="Comps\Abilities\SummonUtility.cs" />
+    <Compile Include="Comps\Misc\JobDriver_DefendMaster.cs" />
+    <Compile Include="Comps\Misc\SummonedCreatureManager.cs" />
+    <Compile Include="Comps\Misc\SummonUtility.cs" />
     <Compile Include="Comps\Abilities\ThingCompExt.cs" />
-    <Compile Include="Comps\Abilities\TransfigurationOption.cs" />
-    <Compile Include="Comps\BaseCursedEnergyAbility.cs" />
-    <Compile Include="Comps\CompEffect_RCTBlue.cs" />
+    <Compile Include="Comps\Misc\TransfigurationOption.cs" />
+    <Compile Include="Comps\Abilities\BaseCursedEnergyAbility.cs" />
+    <Compile Include="Comps\Abilities\CompEffect_PawnPuller.cs" />
+    <Compile Include="Comps\Abilities\CompProperties_AbilityZombifyWorkSlave.cs" />
+    <Compile Include="Comps\CompProperties_BodyTintComp.cs" />
+    <Compile Include="Comps\CompProperties_DraftableSummon.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_ZombieWorkSlaveEffect.cs" />
+    <Compile Include="Comps\Hediff\Hediff_ZombieWorkSlave.cs" />
     <Compile Include="Comps\Misc\CompStoredPawn.cs" />
     <Compile Include="Comps\World\DollTransformationWorldComponent.cs" />
     <Compile Include="CursedAbilityClass.cs" />
     <Compile Include="CursedAbilityDef.cs" />
     <Compile Include="Custom Damage Workers\DamageWorker_Dismantle.cs" />
-    <Compile Include="GeneGizmo_CursedEnergyResource.cs" />
+    <Compile Include="Genes\GeneGizmo_CursedEnergyResource.cs" />
     <Compile Include="Genes\Gene_CursedEnergy.cs" />
     <Compile Include="Genes\Gene_Kenjaku.cs" />
     <Compile Include="JJKConstants.cs" />
@@ -119,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

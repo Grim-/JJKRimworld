@@ -4,28 +4,31 @@ using Verse;
 namespace JJK
 {
 
+
+    /// <summary>
+    /// Allows you to store a reference to a pawn in the Thing, this is saved.
+    /// </summary>
     public class CompStoredPawn : ThingComp
     {
         private Pawn StoredPawn;
         public Pawn Pawn => StoredPawn;
 
-        private DollTransformationWorldComponent _DollManager;
-        private DollTransformationWorldComponent DollManager
-        {
-            get
-            {
-                if (_DollManager == null)
-                {
-                    _DollManager = Find.World.GetComponent<DollTransformationWorldComponent>();
-                }
-                return _DollManager;
-            }
-        }
+        //private DollTransformationWorldComponent _DollManager;
+        //private DollTransformationWorldComponent DollManager
+        //{
+        //    get
+        //    {
+        //        if (_DollManager == null)
+        //        {
+        //            _DollManager = Find.World.GetComponent<DollTransformationWorldComponent>();
+        //        }
+        //        return _DollManager;
+        //    }
+        //}
 
         public void StorePawn(Pawn pawn)
         {
             StoredPawn = pawn;
-            DollManager.StorePawn(pawn);
         }
 
         public Pawn ReleasePawn()

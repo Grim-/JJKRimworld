@@ -52,7 +52,7 @@ namespace JJK
 
             float pawnMass = storedPawn.GetStatValue(StatDefOf.Mass);
             float cost = pawnMass * Props.CostPerMass;
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, cost);
+            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(cost);
 
             GenSpawn.Spawn(storedPawn, target.Cell, parent.pawn.Map);
 

@@ -13,6 +13,14 @@ namespace JJK
                 return (CompProperties_CursedAbilityProps)this.props;
             }
         }
+
+
+        protected bool IsOnCooldown;
+
+
+        protected int CurrentCDTick = 0;
+
+
         public override bool GizmoDisabled(out string reason)
         {
             Gene_CursedEnergy gene_Hemogen = parent.pawn.GetCursedEnergy();
@@ -29,6 +37,11 @@ namespace JJK
                 return true;
             }
 
+            if (IsOnCooldown)
+            {
+                reason = "AbilityOnCooldown".Translate();
+                return true;
+            }
 
             if (gene_Hemogen.Value < GetCost())
             {
@@ -86,13 +99,40 @@ namespace JJK
         public virtual void PostApply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             ApplyAbilityCost(parent.pawn);
+
+            StartCooldown();
         }
 
 
+        public override void CompTick()
+        {
+            base.CompTick();
+
+            if (IsOnCooldown)
+            {
+                CurrentCDTick++;
+
+                if (CurrentCDTick >= Props.cooldownTicks)
+                {
+                    IsOnCooldown = false;
+                    CurrentCDTick = 0;
+                }
+            }
+
+        }
+
+        public virtual void StartCooldown()
+        {
+            if (Props.cooldownTicks > 0)
+            {
+                IsOnCooldown = true;
+                CurrentCDTick = 0;
+            }
+        }
+
         public virtual void ApplyAbilityCost(Pawn Pawn)
         {
-
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, GetCost());
+            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(GetCost() * parent.pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost));
         }
     }
 }

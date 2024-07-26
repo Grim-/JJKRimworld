@@ -59,7 +59,7 @@ namespace JJK
         {
             for (int i = 0; i < totalTicks; i++)
             {
-                pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, damagePerTick));
+                pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, damagePerTick * pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyDamageBonus)));
                 await Task.Delay(1); // Adjust delay according to your desired time frame
             }
         }
