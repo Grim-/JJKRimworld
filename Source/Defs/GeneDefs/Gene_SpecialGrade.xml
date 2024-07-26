@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKSpecialGrade</defName>
+    <label>Special Grade Sorcerer</label>
+    <description>Special grades cannot be accurately ranked as they tend to have a combination of larger cursed energy reserves and a bizare or extreme set of techniques. </description>
+    <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>0</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedEnergyGeneExtension">
+      <priority>18</priority>
+    </li>
+  </modExtensions>
+    <statFactors>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
+      <JJK_CursedEnergy>3</JJK_CursedEnergy>
+    </statFactors>
+    <exclusionTags>
+      <li>CursedEnergyMultiplierGene</li>
+    </exclusionTags>
+  </GeneDef>
+</Defs>

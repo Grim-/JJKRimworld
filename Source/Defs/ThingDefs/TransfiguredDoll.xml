@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="ResourceBase">
+  <defName>JJK_idleTransfigurationDoll</defName>
+  <label>Transfigured Pawn</label>
+  <thingClass>ThingWithComps</thingClass>
+  <description>An oddly humanoid shaped doll.</description>
+  <graphicData>
+    <texPath>Things/Item/Resource/ComponentIndustrial</texPath>
+    <graphicClass>Graphic_StackCount</graphicClass>
+  </graphicData>
+  <soundInteract>Metal_Drop</soundInteract>
+  <soundDrop>Standard_Drop</soundDrop>
+  <stackLimit>1</stackLimit>
+  <healthAffectsPrice>false</healthAffectsPrice>
+  <drawGUIOverlay>True</drawGUIOverlay>
+  <possessionCount>10</possessionCount>
+  <statBases>
+    <MaxHitPoints>70</MaxHitPoints>
+    <MarketValue>32</MarketValue>
+    <Mass>5</Mass>
+    <Flammability>1</Flammability>
+    <DeteriorationRate>0</DeteriorationRate>
+  </statBases>
+  <intricate>false</intricate>
+  <thingCategories>
+    <li>Items</li>
+  </thingCategories>
+  <orderedTakeGroup>Medicine</orderedTakeGroup>
+  <comps>
+    <li Class="JJK.CompProperties_StoredPawn">
+    </li>
+  </comps>
+  <rotatable>false</rotatable>
+  <selectable>true</selectable>
+  <pathCost>14</pathCost>
+  <alwaysHaulable>true</alwaysHaulable>
+  </ThingDef>
+</Defs>

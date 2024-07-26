@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_IdleTransfigurationBeastStatBoost</defName>
+    <label>Idle Transfiguration Beast</label>
+    <hediffClass>HediffWithComps</hediffClass>
+    <description>This pawn has had the shape of its soul changed into a mindless killer, it has become much stronger than it ever was in life, but is inherently unstable and will die soon.</description>
+    <tendable>false</tendable>
+    <initialSeverity>0.001</initialSeverity>
+    <isBad>False</isBad>
+    <stages>
+      <li>
+        <statFactors>
+          <MeleeDPS>1.2</MeleeDPS>
+          <MaxHitPoints>1.2</MaxHitPoints>
+          <MoveSpeed>1.5</MoveSpeed>
+          <MeleeHitChance>3</MeleeHitChance>
+          <MeleeArmorPenetration>1.1</MeleeArmorPenetration>
+          <MeleeDodgeChance>0.6</MeleeDodgeChance>
+          <CarryingCapacity>0.1</CarryingCapacity>
+          <PainShockThreshold>0.7</PainShockThreshold>
+        </statFactors>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>1.0</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>
+          <min>7500</min>  <!-- 3 hours * 2500 ticks/hour -->
+          <max>15000</max> <!-- 6 hours * 2500 ticks/hour -->
+        </disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+</Defs>

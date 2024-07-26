@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="BaseBullet">
+  <defName>Dismantle</defName>
+  <label>dismantle</label>
+  <graphicData>
+    <texPath>Things/Projectile/Sukuna/Dismantle</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <shaderType>TransparentPostLight</shaderType>
+    <drawSize>2</drawSize>
+  </graphicData>
+  <projectile>
+    <damageDef>Dismantle</damageDef>
+    <damageAmountBase>1</damageAmountBase>
+    <speed>50</speed>
+  </projectile>
+</ThingDef>
+</Defs>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="BaseBullet">
+  <defName>Hollow_Purple</defName>
+  <label>hollow purple</label>
+  <thingClass>JJK.Projectile_HollowPurple</thingClass>
+  <graphicData>
+    <texPath>Things/Projectile/Gojo/HollowPurple</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <shaderType>MoteGlowDistorted</shaderType>
+    <drawSize>6</drawSize>
+    <shaderParameters>
+      <_DistortionTex>/Other/Ripples</_DistortionTex>
+      <_distortionIntensity>0.1</_distortionIntensity>
+      <_DistortionScale>0.4</_DistortionScale>
+      <_distortionScrollSpeed>(0.2, 0.2, 0.0)</_distortionScrollSpeed>
+    </shaderParameters>
+  </graphicData>
+  <projectile>
+    <damageDef>Blunt</damageDef>
+    <damageAmountBase>100</damageAmountBase>
+    <speed>15</speed>
+  </projectile>
+</ThingDef>
+</Defs>

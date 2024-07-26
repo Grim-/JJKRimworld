@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKGrade1</defName>
+    <label>Grade 1 Sorcerer</label>
+    <description>The highest grade of Jujutsu Sorcerer</description>
+    <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedEnergyGeneExtension">
+      <priority>17</priority>
+    </li>
+  </modExtensions>
+    <statFactors>
+      <JJK_CursedEnergyCost>1.1</JJK_CursedEnergyCost>
+      <JJK_CursedEnergy>2</JJK_CursedEnergy>
+    </statFactors>
+    <exclusionTags>
+      <li>CursedEnergyMultiplierGene</li>
+    </exclusionTags>
+  </GeneDef>
+</Defs>

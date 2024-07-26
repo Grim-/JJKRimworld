@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="BaseBullet">
+    <defName>ReversedCursedTechnique_RedProjecitle</defName>
+    <label>Red</label>
+    <thingClass>JJK.Projectile_Red</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Gojo/Red</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>0.5</drawSize>
+    </graphicData>
+    <projectile>
+      <damageDef>Blunt</damageDef>
+      <damageAmountBase>15</damageAmountBase>
+      <armorPenetrationBase>1</armorPenetrationBase>
+      <stoppingPower>1</stoppingPower>
+      <speed>25</speed>
+    </projectile>
+  </ThingDef>
+</Defs>

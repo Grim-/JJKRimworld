@@ -50,10 +50,7 @@ namespace JJK
             Summoner summonerData = GetOrCreateSummoner(summoner);
             if (summonerData != null && summonerData.UnsummonCreature(creature))
             {
-                if (creature.Spawned)
-                {
-                    creature.DeSpawn(DestroyMode.Vanish);
-                }
+                creature.DeSpawn(DestroyMode.Vanish);
                 return true;
             }
             return false;

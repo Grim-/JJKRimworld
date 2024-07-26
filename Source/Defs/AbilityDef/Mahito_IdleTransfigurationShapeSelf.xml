@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<AbilityDef ParentName="AbilityTouchBase">
+  <defName>JJK_IdleTransfigurationShapeSelf</defName>
+  <label>Idle Transfiguration : Shape Self</label>
+  <description>Change your body parts at will, transforming them into various forms.</description>
+  <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+  <displayOrder>100</displayOrder>
+  <cooldownTicksRange>
+    <min>300</min>
+    <max>300</max>
+  </cooldownTicksRange>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <drawAimPie>false</drawAimPie>
+    <range>-1</range>
+    <warmupTime>0</warmupTime>
+    <targetable>False</targetable>
+    <targetParams>
+      <canTargetSelf>true</canTargetSelf>
+      <canTargetLocations>false</canTargetLocations>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="JJK.CompProperties_IdleTransfigurationShapeSelf">
+      <compClass>JJK.CompAbilityEffect_IdleTransfigurationShapeSelf</compClass>
+      <ShapeShiftOptions>
+        <li>
+          <OptionLabel>Power Claw</OptionLabel>
+          <HediffDefName>PowerClaw</HediffDefName>
+          <BodyPartDefName>Hand</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Tentacle</OptionLabel>
+          <HediffDefName>Tentacle</HediffDefName>
+          <BodyPartDefName>Arm</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Flesh Whip</OptionLabel>
+          <HediffDefName>FleshWhip</HediffDefName>
+          <BodyPartDefName>Arm</BodyPartDefName>
+        </li>
+      </ShapeShiftOptions>
+    </li>
+    <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>10</cursedEnergyCost>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

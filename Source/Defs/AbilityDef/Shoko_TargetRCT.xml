@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJKTargetedReversedCurseTechnique</defName>
+    <label>Targeted Reversed Curse Technique</label>
+    <description>Channel cursed energy to heal a nearby pawn. The target will be immobilized during the healing process.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <category>Cursed_Energy</category>
+    <displayOrder>201</displayOrder>
+    <warmupEffecter>WaterMist</warmupEffecter>
+    <warmupStartSound>FireSpew_Resolve</warmupStartSound>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <stunTargetWhileCasting>true</stunTargetWhileCasting>
+    <hostile>false</hostile>
+    <cooldownTicksRange>
+      <min>300</min>
+      <max>300</max>
+    </cooldownTicksRange>
+    <verbProperties>
+      <verbClass>Verb_CastAbilityTouch</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <range>-1</range>
+      <warmupTime>0</warmupTime>
+      <targetParams>
+        <canTargetPawns>True</canTargetPawns>
+        <canTargetLocations>false</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_TargetedRCT">
+        <compClass>JJK.CompAbilityEffect_TargetedRCT</compClass>
+        <PartRegenTickCount>100</PartRegenTickCount>
+        <CECostPerTick>1</CECostPerTick>
+        <CEPartRegenCost>7</CEPartRegenCost>
+        <CEHediffCost>3</CEHediffCost>
+        <CanCureAddiction>False</CanCureAddiction>
+        <ShouldRemoveImplants>False</ShouldRemoveImplants>
+        <MaxRange>30</MaxRange>
+      </li>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>5</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>
