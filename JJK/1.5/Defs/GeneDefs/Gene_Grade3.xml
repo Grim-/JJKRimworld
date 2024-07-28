@@ -4,25 +4,27 @@
     <defName>Gene_JJKGrade3</defName>
     <label>Grade 3 Sorcerer</label>
     <description>The lowest grade of Jujutsu Sorcerer</description>
-    <iconPath>Abilities/Gojo/Red</iconPath>
+    <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
     <displayCategory>Hemogen</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
-    <statFactors>
-      <JJK_CursedEnergyCost>0.9</JJK_CursedEnergyCost>
-      <JJK_CursedEnergy>1.1</JJK_CursedEnergy>
-    </statFactors>
+    <modExtensions>
+    <li Class="JJK.CursedEnergyGeneExtension">
+      <priority>13</priority>
+    </li>
+  </modExtensions>
+  <statFactors>
+    <JJK_CursedEnergy>1</JJK_CursedEnergy><!-- 100 * 1 -->
+    <JJK_CursedEnergyRegen>5</JJK_CursedEnergyRegen> <!-- 30 Cursed Energy every half an hour -->
+    <JJK_CursedEnergyRegenSpeed>1</JJK_CursedEnergyRegenSpeed> <!-- Multiplier on CursedEnergyRegenTicks (1250) -->
+    <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
+    <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost> <!-- cost multiplier, lower number less an ability costs -->
+    <JJK_RCTSpeedBonus>1</JJK_RCTSpeedBonus>
+    <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus> <!-- How quickly severity is reduced multiplier -->
+  </statFactors>
     <exclusionTags>
-      <li>
-        Gene_JJKGrade2
-      </li>
-      <li>
-        Gene_JJKGrade1
-      </li>
-      <li>
-        Gene_JJKSpecialGrade_Large
-      </li>
+      <li>CursedEnergyMultiplierGene</li>
     </exclusionTags>
   </GeneDef>
 </Defs>

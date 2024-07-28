@@ -3,7 +3,7 @@
 <AbilityDef ParentName="AbilityTouchBase">
   <defName>JJK_IdleTransfigurationShape</defName>
   <label>Idle Transfiguration : Shape</label>
-  <description>Change the shape of the target you touch, giving them random appendages. 'Hey you want to know something about digusting humans? There is so many of them!'</description>
+  <description>Change the shape of the target you touch, allowing you to change an appendage.</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
   <category>Sanguophage</category>
   <displayOrder>100</displayOrder>
@@ -12,6 +12,10 @@
   <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
   <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
   <hostile>true</hostile>
+  <cooldownTicksRange>
+    <min>300</min>
+    <max>300</max>
+  </cooldownTicksRange>
   <verbProperties>
     <verbClass>Verb_CastAbilityTouch</verbClass>
     <drawAimPie>false</drawAimPie>
@@ -49,7 +53,7 @@
         </transfigurationOptions>
     </li>
     <li Class="JJK.CompProperties_AbilityCECost">
-          <cursedEnergyCost>0.15</cursedEnergyCost>
+          <cursedEnergyCost>10</cursedEnergyCost>
     </li>
   </comps>
 </AbilityDef>

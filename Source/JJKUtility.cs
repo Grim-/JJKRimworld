@@ -2,6 +2,7 @@
 using LudeonTK;
 using RimWorld;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Verse;
@@ -14,6 +15,51 @@ namespace JJK
     }
     public static class JJKUtility
     {
+
+        private static DollTransformationWorldComponent _DollTransformationWorldComponent;
+        public static DollTransformationWorldComponent DollTransformationWorldComponent
+        {
+            get
+            {
+                if (_DollTransformationWorldComponent == null)
+                {
+                    _DollTransformationWorldComponent = Find.World.GetComponent<DollTransformationWorldComponent>();
+                }
+
+                return _DollTransformationWorldComponent;
+            }
+        }
+
+        private static SummonedCreatureManager _SummonedCreatureManager;
+        public static SummonedCreatureManager SummonedCreatureManager
+        {
+            get
+            {
+                if (_SummonedCreatureManager == null)
+                {
+                    _SummonedCreatureManager = Find.World.GetComponent<SummonedCreatureManager>();
+                }
+
+                return _SummonedCreatureManager;
+            }
+        }
+
+
+        private static AbsorbedCreatureManager _AbsorbedCreatureManager;
+        public static AbsorbedCreatureManager AbsorbedCreatureManager
+        {
+            get
+            {
+                if (_AbsorbedCreatureManager == null)
+                {
+                    _AbsorbedCreatureManager = Find.World.GetComponent<AbsorbedCreatureManager>();
+                }
+
+                return _AbsorbedCreatureManager;
+            }
+        }
+
+
         [DebugAction("JJK", "Restore Pawn CE", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void MyDebugAction(Pawn p)
         {
@@ -51,6 +97,69 @@ namespace JJK
             }
         }
 
+        public static void GiveCursedEnergy(Pawn targetPawn)
+        {
+            if ( targetPawn == null) return;
+            targetPawn.genes?.AddGene(JJKDefOf.Gene_JJKCursedEnergy, true);
+        }
+        public static void TransferGenes(Pawn sourcePawn, Pawn targetPawn, GeneDef GeneDefToTransfer, bool IsXenogerm = true)
+        {
+            if (sourcePawn == null || targetPawn == null) return;
+
+            if (sourcePawn.genes.HasActiveGene(GeneDefToTransfer))
+            {
+                if (!targetPawn.genes.HasActiveGene(GeneDefToTransfer))
+                {
+                    Gene SourceGene = sourcePawn.genes.GetGene(GeneDefToTransfer);
+                    sourcePawn.genes.RemoveGene(SourceGene);
+                    targetPawn.genes.AddGene(GeneDefToTransfer, IsXenogerm);
+
+                }
+            }
+        }
+
+        public static void RemoveViolenceIncapability(Pawn pawn)
+        {
+            // Remove traits that disable violent work
+            List<Trait> traitsToRemove = new List<Trait>();
+            foreach (Trait trait in pawn.story.traits.allTraits)
+            {
+                if ((trait.def.disabledWorkTags & WorkTags.Violent) != 0)
+                {
+                    traitsToRemove.Add(trait);
+                }
+            }
+
+            foreach (Trait trait in traitsToRemove)
+            {
+                pawn.story.traits.allTraits.Remove(trait);
+            }
+
+            // Remove any genes that might be disabling violent work
+            if (pawn.genes != null)
+            {
+                List<Gene> genesToRemove = new List<Gene>();
+                foreach (Gene gene in pawn.genes.GenesListForReading)
+                {
+                    if ((gene.def.disabledWorkTags & WorkTags.Violent) != 0)
+                    {
+                        genesToRemove.Add(gene);
+                    }
+                }
+
+                foreach (Gene gene in genesToRemove)
+                {
+                    pawn.genes.RemoveGene(gene);
+                }
+            }
+
+            // Recache the pawn's work settings
+            pawn.workSettings?.Notify_DisabledWorkTypesChanged();
+
+            // Reset the cache for the story's work tags
+            typeof(Pawn_StoryTracker).GetField("cachedDisabledWorkTagsBackstoryAndTraits", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pawn.story, null);
+            typeof(Pawn_StoryTracker).GetField("cachedDisabledWorkTagsBackstoryTraitsAndGenes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pawn.story, null);
+        }
         public static void TransferAbilities(Pawn sourcePawn, Pawn targetPawn)
         {
             if (sourcePawn.abilities == null || targetPawn.abilities == null)

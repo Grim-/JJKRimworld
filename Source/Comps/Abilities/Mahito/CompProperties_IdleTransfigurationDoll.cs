@@ -42,23 +42,16 @@ namespace JJK
             Pawn TargetPawn = target.Pawn;
             float PawnMass = target.Pawn.GetStatValue(StatDefOf.Mass);
             float Cost = PawnMass * Props.CostPerMass;
-            Thing NewItem = ThingMaker.MakeThing(JJKDefOf.JJK_idleTransfigurationDoll);
+            Thing NewItem = JJKUtility.CreateDollFromPawn(TargetPawn);
 
-            this.parent.pawn.inventory.TryAddAndUnforbid(NewItem);
-
-            CompStoredPawn compStoredPawn = NewItem.TryGetComp<CompStoredPawn>();
-            if (compStoredPawn != null)
-            {
-                compStoredPawn.StorePawn(TargetPawn);
-            }
-            else
+            if (NewItem == null)
             {
                 Log.Error("CompStoredPawn not found on JJK_idleTransfigurationDoll. Make sure it's defined in the ThingDef.");
                 return;
             }
-
-
-            Find.World.GetComponent<DollTransformationWorldComponent>().StorePawn(TargetPawn);
+    
+            this.parent.pawn.inventory.TryAddAndUnforbid(NewItem);
+            JJKUtility.DollTransformationWorldComponent?.StorePawn(TargetPawn);
             RemovePawnFromMap(TargetPawn);
 
             parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);

@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <GeneDef>
-    <defName>Gene_JJKGrade1</defName>
-    <label>Grade 1 Sorcerer</label>
-    <description>The highest grade of Jujutsu Sorcerer</description>
+    <defName>Gene_JJKSpecialGrade</defName>
+    <label>Special Grade Sorcerer</label>
+    <description>Special grades cannot be accurately ranked as they tend to have a combination of larger cursed energy reserves and a bizare or extreme set of techniques. </description>
     <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
     <displayCategory>Hemogen</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
-    <biostatMet>-1</biostatMet>
+    <biostatMet>0</biostatMet>
     <modExtensions>
     <li Class="JJK.CursedEnergyGeneExtension">
-      <priority>17</priority>
+      <priority>18</priority>
     </li>
   </modExtensions>
     <statFactors>
-      <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
       <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
-      <JJK_CursedEnergy>2</JJK_CursedEnergy>
-      <JJK_RCTSpeedBonus>1</JJK_RCTSpeedBonus>
-      <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus>
+      <JJK_CursedEnergy>3</JJK_CursedEnergy>
     </statFactors>
     <exclusionTags>
       <li>CursedEnergyMultiplierGene</li>

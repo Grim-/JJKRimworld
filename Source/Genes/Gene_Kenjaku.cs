@@ -25,7 +25,7 @@ namespace JJK
 
         private void InitializeEntity()
         {
-            entityFaction = FactionUtility.DefaultFactionFrom(FactionDefOf.PlayerColony);
+           // entityFaction = FactionUtility.DefaultFactionFrom(FactionDefOf.PlayerColony);
             entityTraitDefs = new List<TraitDef>(def.guaranteedTraits);
 
             foreach (TraitDef randomTrait in def.randomTraits)
@@ -53,6 +53,13 @@ namespace JJK
                 return false;
             }
 
+            if (targetPawn == null)
+            {
+                Log.Warning("Attempted to use Kenjaku possession ability with a null target. This is not allowed.");
+                return false;
+            }
+
+
             if (possessedPawn != null)
             {
                 RemovePossession(possessedPawn);
@@ -62,30 +69,115 @@ namespace JJK
 
             return true;
         }
-
         private void ApplyPossession(Pawn CurrentPawn, Pawn TargetPawn)
         {
-            TargetPawn.SetFaction(entityFaction);
-            TargetPawn.ideo.SetIdeo(CurrentPawn.ideo.Ideo);
+            Log.Message("JJK: Entering ApplyPossession");
 
-            foreach (TraitDef traitDef in entityTraitDefs)
+            if (CurrentPawn == null)
             {
-                if (!TargetPawn.story.traits.HasTrait(traitDef))
+                Log.Warning("ApplyPossession current pawn null");
+                return;
+            }
+            if (TargetPawn == null)
+            {
+                Log.Warning("ApplyPossession target pawn null");
+                return;
+            }
+
+            TargetPawn.SetFaction(Faction.OfPlayer);
+
+            if (CurrentPawn.ideo?.Ideo != null)
+            {
+                if (TargetPawn.ideo != null)
                 {
-                    TargetPawn.story.traits.GainTrait(new Trait(traitDef, 0));
+                    TargetPawn.ideo.SetIdeo(CurrentPawn.ideo.Ideo);
+                }
+                else
+                {
+                    Log.Warning($"JJK: TargetPawn {TargetPawn.LabelShort} ideo is null");
+                }
+            }
+            if (entityTraitDefs != null)
+            {
+                foreach (TraitDef traitDef in entityTraitDefs)
+                {
+                    if (TargetPawn.story != null && TargetPawn.story.traits != null)
+                    {
+                        if (!TargetPawn.story.traits.HasTrait(traitDef))
+                        {
+                            TargetPawn.story.traits.GainTrait(new Trait(traitDef, 0));
+                        }
+                    }
+                    else
+                    {
+                        Log.Warning($"JJK: TargetPawn {TargetPawn.LabelShort} story or traits is null");
+                        break;
+                    }
                 }
             }
 
-            RemoveViolenceIncapability(TargetPawn);
+            //Log.Message("JJK: Removing violence incapability");
+            JJKUtility.RemoveViolenceIncapability(TargetPawn);
 
-            TargetPawn.genes.AddGene(JJKDefOf.Gene_JJKCursedEnergy, true);
-            TargetPawn.genes.AddGene(JJKDefOf.Gene_Kenjaku, true);
-            TargetPawn.health.AddHediff(def.possessionHediff);
-            //pawn extension, in JJKUtility
+           // Log.Message("JJK: Adding Kenjaku possession hediff");
+            if (JJKDefOf.JJK_KenjakuPossesion != null)
+            {
+                if (TargetPawn.health != null)
+                {
+                    TargetPawn.health.AddHediff(JJKDefOf.JJK_KenjakuPossesion);
+                }
+                else
+                {
+                   // Log.Warning($"JJK: TargetPawn {TargetPawn.LabelShort} health is null");
+                }
+            }
+            else
+            {
+               // Log.Warning("JJK: JJK_KenjakuPossesion is null");
+            }
 
+            // Log.Message("JJK: Transferring genes and abilities");
+            JJKUtility.GiveCursedEnergy(TargetPawn);
+            JJKUtility.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);
             JJKUtility.TransferAbilities(CurrentPawn, TargetPawn);
             JJKUtility.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
+
+            //Log.Message("JJK: Exiting ApplyPossession");
         }
+        //private void ApplyPossession(Pawn CurrentPawn, Pawn TargetPawn)
+        //{
+        //    if (CurrentPawn == null)
+        //    {
+        //        Log.Warning("ApplyPossession current pawn null");
+        //        return;
+        //    }
+        //    if (CurrentPawn == null)
+        //    {
+        //        Log.Warning("ApplyPossession target pawn null");
+        //        return;
+        //    }
+
+        //    TargetPawn.SetFaction(Faction.OfPlayer);
+        //    if (CurrentPawn.ideo?.Ideo != null)
+        //    {
+        //        TargetPawn.ideo.SetIdeo(CurrentPawn.ideo.Ideo);
+        //    }
+
+        //    foreach (TraitDef traitDef in entityTraitDefs)
+        //    {
+        //        if (!TargetPawn.story.traits.HasTrait(traitDef))
+        //        {
+        //            TargetPawn.story.traits.GainTrait(new Trait(traitDef, 0));
+        //        }
+        //    }
+
+        //    JJKUtility.RemoveViolenceIncapability(TargetPawn);
+        //    TargetPawn.health.AddHediff(JJKDefOf.JJK_KenjakuPossesion);
+
+        //    JJKUtility.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);
+        //    JJKUtility.TransferAbilities(CurrentPawn, TargetPawn);
+        //    JJKUtility.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
+        //}
 
         private void RemovePossession(Pawn pawn)
         {
@@ -101,48 +193,7 @@ namespace JJK
             }
         }
 
-        private void RemoveViolenceIncapability(Pawn pawn)
-        {
-            // Remove traits that disable violent work
-            List<Trait> traitsToRemove = new List<Trait>();
-            foreach (Trait trait in pawn.story.traits.allTraits)
-            {
-                if ((trait.def.disabledWorkTags & WorkTags.Violent) != 0)
-                {
-                    traitsToRemove.Add(trait);
-                }
-            }
-
-            foreach (Trait trait in traitsToRemove)
-            {
-                pawn.story.traits.allTraits.Remove(trait);
-            }
-
-            // Remove any genes that might be disabling violent work
-            if (pawn.genes != null)
-            {
-                List<Gene> genesToRemove = new List<Gene>();
-                foreach (Gene gene in pawn.genes.GenesListForReading)
-                {
-                    if ((gene.def.disabledWorkTags & WorkTags.Violent) != 0)
-                    {
-                        genesToRemove.Add(gene);
-                    }
-                }
-
-                foreach (Gene gene in genesToRemove)
-                {
-                    pawn.genes.RemoveGene(gene);
-                }
-            }
-
-            // Recache the pawn's work settings
-            pawn.workSettings?.Notify_DisabledWorkTypesChanged();
-
-            // Reset the cache for the story's work tags
-            typeof(Pawn_StoryTracker).GetField("cachedDisabledWorkTagsBackstoryAndTraits", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pawn.story, null);
-            typeof(Pawn_StoryTracker).GetField("cachedDisabledWorkTagsBackstoryTraitsAndGenes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pawn.story, null);
-        }
+   
     }
 
 

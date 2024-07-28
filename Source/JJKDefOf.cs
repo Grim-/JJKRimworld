@@ -56,7 +56,7 @@ namespace JJK
         public static JobDef JJK_DefendMaster;
         public static JobDef ChannelRCT;
 
-
+        public static HediffDef JJK_KenjakuPossesion;
         public static HediffDef JJ_SummonedCreatureTag;
         public static HediffDef JJK_ThinkTreeOverrideSummonBehaviour;
         public static HediffDef RCTRegenHediff;

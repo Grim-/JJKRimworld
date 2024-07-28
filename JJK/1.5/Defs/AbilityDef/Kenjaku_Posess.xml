@@ -7,6 +7,10 @@
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
   <category>Sanguophage</category>
   <displayOrder>100</displayOrder>
+  <cooldownTicksRange>
+    <min>600</min>
+    <max>600</max>
+  </cooldownTicksRange>
   <warmupEffecter>Bloodfeed_Warmup</warmupEffecter>
   <warmupStartSound>Bloodfeed_Cast</warmupStartSound>
   <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
@@ -18,6 +22,7 @@
     <range>-1</range>
     <warmupTime>0.5</warmupTime>
     <targetParams>
+      <canTargetCorpses>True</canTargetCorpses>
       <canTargetPawns>True</canTargetPawns>
       <canTargetLocations>false</canTargetLocations>
     </targetParams>
@@ -27,7 +32,7 @@
         <compClass>JJK.CompAbilityEffect_KenjakuPossess</compClass>
     </li>
     <li Class="JJK.CompProperties_AbilityCECost">
-          <cursedEnergyCost>0.15</cursedEnergyCost>
+          <cursedEnergyCost>50</cursedEnergyCost>
     </li>
   </comps>
 </AbilityDef>

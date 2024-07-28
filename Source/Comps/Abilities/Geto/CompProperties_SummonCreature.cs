@@ -87,6 +87,7 @@ namespace JJK
                 {
                     if (Summoner.SummonCreature(creature))
                     {
+                        caster.GetCursedEnergy()?.ConsumeCursedEnergy(Props.cursedEnergyCost);
                         Messages.Message($"{caster.LabelShort} has summoned {creature.label}.", MessageTypeDefOf.PositiveEvent);
                     }                   
                 }                  

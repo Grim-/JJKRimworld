@@ -36,7 +36,6 @@ namespace JJK
 
                 if (addedHeDiff != null)
                 {
-                    // The hediff needs to be added to the pawn before we can access its comps
                     HediffComp_ZombieWorkSlaveEffect zombieWorkSlaveEffect = addedHeDiff.TryGetComp<HediffComp_ZombieWorkSlaveEffect>();
                     if (zombieWorkSlaveEffect != null)
                     {

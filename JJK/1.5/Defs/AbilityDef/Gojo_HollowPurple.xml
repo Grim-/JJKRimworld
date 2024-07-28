@@ -27,7 +27,7 @@
           <projectileDef>Hollow_Purple</projectileDef>
         </li>
         <li Class="JJK.CompProperties_AbilityCECost">
-              <cursedEnergyCost>0.15</cursedEnergyCost>
+          <cursedEnergyCost>60</cursedEnergyCost>
         </li>
       </comps>
     </AbilityDef>

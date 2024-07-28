@@ -26,9 +26,10 @@ namespace JJK
 
         public void Notify_SummonDeath(Pawn pawnThatDied)
         {
-            if (summonPairs.RemoveAll(pair => pair.Summoned == pawnThatDied) > 0)
+            if (IsSummonedCreature(pawnThatDied))
             {
                 OnSummonDied?.Invoke(pawnThatDied);
+                UnregisterSummon(pawnThatDied);
             }
         }
 

@@ -6,6 +6,10 @@
   <description>Change your body parts at will, transforming them into various forms.</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
   <displayOrder>100</displayOrder>
+  <cooldownTicksRange>
+    <min>300</min>
+    <max>300</max>
+  </cooldownTicksRange>
   <verbProperties>
     <verbClass>Verb_CastAbility</verbClass>
     <drawAimPie>false</drawAimPie>
@@ -37,6 +41,9 @@
           <BodyPartDefName>Arm</BodyPartDefName>
         </li>
       </ShapeShiftOptions>
+    </li>
+    <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>10</cursedEnergyCost>
     </li>
   </comps>
 </AbilityDef>

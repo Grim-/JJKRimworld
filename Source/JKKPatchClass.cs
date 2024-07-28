@@ -84,7 +84,7 @@ namespace JJK
     {
         public static void Postfix(Pawn __instance)
         {
-            Find.World.GetComponent<SummonedCreatureManager>()?.Notify_SummonDeath(__instance);
+            JJKUtility.SummonedCreatureManager?.Notify_SummonDeath(__instance);
         }
     }
 
@@ -186,8 +186,16 @@ namespace JJK
             Pawn pawn = __instance.pawn;
             if (pawn == null) return true;
 
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.ZombieWorkSlaveHediff) != null ||
-                pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJ_SummonedCreatureTag) != null ||
+
+            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.ZombieWorkSlaveHediff) != null)
+            {
+                __result = JJKDefOf.ZombieWorkSlave;
+                //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
+                return false;
+            }
+
+
+            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJ_SummonedCreatureTag) != null ||
                 IsSummonedCreature(pawn) || IsAbsorbedCreature(pawn))
             {
                 __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;

@@ -27,7 +27,7 @@
         <compClass>JJK.CompAbilityEffect_IdleTransfigurationRespawn</compClass>
     </li>
     <li Class="JJK.CompProperties_AbilityCECost">
-          <cursedEnergyCost>0.15</cursedEnergyCost>
+          <cursedEnergyCost>5</cursedEnergyCost>
     </li>
   </comps>
 </AbilityDef>

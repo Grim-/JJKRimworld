@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 <AbilityDef ParentName="AbilityTouchBase">
-  <defName>JJK_IdleTransfigurationMakeDoll</defName>
-  <label>Idle Transfiguration : Doll</label>
-  <description>Transfigure the target pawn into a doll, you can use use Idle Transfiguration : Doll To Beast, or Idle Transfiguration : Soul Multiplicity</description>
+  <defName>JJK_GetoAbsorbCreature</defName>
+  <label>Absorb</label>
+  <description>Absorb any creature that has been downed, this enables you to summon it again later. You can store up-to 5 creature kinds.</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
   <category>Sanguophage</category>
   <displayOrder>100</displayOrder>
+  <cooldownTicksRange>
+    <min>100</min>
+    <max>100</max>
+  </cooldownTicksRange>
   <warmupEffecter>Bloodfeed_Warmup</warmupEffecter>
   <warmupStartSound>Bloodfeed_Cast</warmupStartSound>
   <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
   <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
-  <cooldownTicksRange>
-    <min>300</min>
-    <max>300</max>
-  </cooldownTicksRange>
   <hostile>true</hostile>
   <verbProperties>
     <verbClass>Verb_CastAbilityTouch</verbClass>
     <drawAimPie>false</drawAimPie>
     <range>-1</range>
-    <warmupTime>0.5</warmupTime>
+    <warmupTime>1</warmupTime>
     <targetParams>
       <canTargetPawns>True</canTargetPawns>
       <canTargetLocations>false</canTargetLocations>
     </targetParams>
   </verbProperties>
   <comps>
-    <li Class="JJK.CompProperties_IdleTransfigurationDoll">
-        <compClass>JJK.CompAbilityEffect_IdleTransfigurationDoll</compClass>
+    <li Class="JJK.CompProperties_AbsorbCreature">
+        <compClass>JJK.CompAbilityEffect_AbsorbCreature</compClass>
     </li>
     <li Class="JJK.CompProperties_AbilityCECost">
-          <cursedEnergyCost>15</cursedEnergyCost>
+          <cursedEnergyCost>50</cursedEnergyCost>
     </li>
   </comps>
 </AbilityDef>
-
-
 </Defs>

@@ -12,7 +12,7 @@
     <verbProperties>
       <verbClass>Verb_CastAbility</verbClass>
       <drawAimPie>false</drawAimPie>
-      <range>0</range>
+      <range>-1</range>
       <warmupTime>1</warmupTime>
       <targetParams>
         <canTargetLocations>False</canTargetLocations>

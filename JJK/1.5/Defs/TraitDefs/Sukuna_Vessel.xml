@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <TraitDef>
+    <defName>JJK_SukunaVessel</defName>
+    <commonality>0.1</commonality>
+    <degreeDatas>
+      <li>
+        <label>Sukuna's Vessel</label>
+        <description>This person bears the cursed energy of Sukuna, the King of Curses. They possess immense potential for both destruction and power, manifesting in unique abilities. Their body, infused with Sukuna's essence, is completely immune to toxins.</description>
+        <degree>0</degree>
+        <statOffsets>
+          <MeleeHitChance>0.6</MeleeHitChance>
+          <MeleeDodgeChance>0.3</MeleeDodgeChance>
+          <ToxicResistance>-1.0</ToxicResistance>
+        </statOffsets>
+        <abilities>
+          <li>Sukuna_Cleave</li>
+          <li>Sukuna_Dismantle</li>
+          <li>Sukuna_Fire_Arrow</li>
+        </abilities>
+      </li>
+    </degreeDatas>
+  </TraitDef>
+</Defs>

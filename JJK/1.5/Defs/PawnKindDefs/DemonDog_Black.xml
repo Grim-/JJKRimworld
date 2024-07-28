@@ -1,51 +1,145 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<PawnKindDef ParentName="AnimalKindBaseWolf">
-  <defName>DemonDog_Black</defName>
-  <label>Demon Dog (Black)</label>
-  <labelPlural>timber wolves</labelPlural>
-  <race>Wolf_Timber</race>
-  <lifeStages>
+  
+  <PawnKindDef ParentName="AnimalKindBaseWolf">
+    <defName>DemonDog_Black</defName>
+    <label>Demon Dog (Black)</label>
+    <labelPlural>demon dogs</labelPlural>
+    <race>DemonDog</race>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
+          <drawSize>1.05</drawSize>
+          <color>(0.2,0.2,0.2)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1.05</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
+          <drawSize>1.5</drawSize>
+          <color>(0.2,0.2,0.2)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1.5</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
+          <drawSize>1.95</drawSize>
+          <color>(0.2,0.2,0.2)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1.95</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+
+
+<ThingDef ParentName="ThingBaseWolf">
+  <defName>DemonDog</defName>
+  <label>demon dog</label>
+  <description>A fearsome canine creature with demonic attributes.</description>
+  <statBases>
+    <MoveSpeed>7.0</MoveSpeed>
+    <MarketValue>350</MarketValue>
+    <ComfyTemperatureMin>-60</ComfyTemperatureMin>
+    <FilthRate>0</FilthRate>
+  </statBases>
+  <race>
+    <meatLabel>demon dog meat</meatLabel>
+    <baseHungerRate>0</baseHungerRate>
+    <baseHealthScale>1.8</baseHealthScale>
+    <wildness>0</wildness>
+    <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+    <manhunterOnDamageChance>0</manhunterOnDamageChance>
+  </race>
+  <tools>
     <li>
-      <label>timber wolf puppy</label>
-      <labelPlural>timber wolf puppies</labelPlural>
-      <bodyGraphicData>
-        <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
-        <drawSize>1.05</drawSize>
-      </bodyGraphicData>
-      <dessicatedBodyGraphicData>
-        <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
-        <drawSize>1.05</drawSize>
-      </dessicatedBodyGraphicData>
+      <label>left claw</label>
+      <labelNoLocation>claw</labelNoLocation>
+      <capacities>
+        <li>Scratch</li>
+      </capacities>
+      <power>10.9</power>
+      <armorPenetration>0.3</armorPenetration>
+      <cooldownTime>2</cooldownTime>
+      <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+      <surpriseAttack>
+        <extraMeleeDamages>
+          <li>
+            <def>Stun</def>
+            <amount>14</amount>
+          </li>
+        </extraMeleeDamages>
+      </surpriseAttack>
+      <chanceFactor>0.5</chanceFactor>
     </li>
     <li>
-      <bodyGraphicData>
-        <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
-        <drawSize>1.5</drawSize>
-        <shadowData>
-          <volume>(0.25, 0.3, 0.25)</volume>
-          <offset>(0,0,-0.15)</offset>
-        </shadowData>
-      </bodyGraphicData>
-      <dessicatedBodyGraphicData>
-        <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
-        <drawSize>1.5</drawSize>
-      </dessicatedBodyGraphicData>
+      <label>right claw</label>
+      <labelNoLocation>claw</labelNoLocation>
+      <capacities>
+        <li>Scratch</li>
+      </capacities>
+      <power>10.9</power>
+      <armorPenetration>0.3</armorPenetration>
+      <cooldownTime>2</cooldownTime>
+      <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+      <surpriseAttack>
+        <extraMeleeDamages>
+          <li>
+            <def>Stun</def>
+            <amount>14</amount>
+          </li>
+        </extraMeleeDamages>
+      </surpriseAttack>
+      <chanceFactor>0.5</chanceFactor>
     </li>
     <li>
-      <bodyGraphicData>
-        <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
-        <drawSize>1.95</drawSize>
-        <shadowData>
-          <volume>(0.3, 0.4, 0.3)</volume>
-          <offset>(0,0,-0.15)</offset>
-        </shadowData>
-      </bodyGraphicData>
-      <dessicatedBodyGraphicData>
-        <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
-        <drawSize>1.95</drawSize>
-      </dessicatedBodyGraphicData>
+      <capacities>
+        <li>Bite</li>
+      </capacities>
+      <power>12</power>
+      <armorPenetration>0.7</armorPenetration>
+      <cooldownTime>2</cooldownTime>
+      <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+      <chanceFactor>0.9</chanceFactor>
+      <surpriseAttack>
+        <extraMeleeDamages>
+          <li>
+            <def>Stun</def>
+            <amount>14</amount>
+          </li>
+        </extraMeleeDamages>
+      </surpriseAttack>
     </li>
-  </lifeStages>
-</PawnKindDef>
+    <li>
+      <label>head</label>
+      <capacities>
+        <li>Blunt</li>
+      </capacities>
+      <power>6</power>
+      <cooldownTime>2</cooldownTime>
+      <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+      <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+      <chanceFactor>0.2</chanceFactor>
+    </li>
+  </tools>
+</ThingDef>
 </Defs>

@@ -7,7 +7,7 @@ namespace JJK
 {
     public class CompProperties_AbsorbCreature : CompProperties_CursedAbilityProps
     {
-        public float BaseBodySizeCost = 50;
+        public float BaseBodySizeCost = 25;
 
         public CompProperties_AbsorbCreature()
         {

@@ -13,6 +13,10 @@
     <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
     <stunTargetWhileCasting>true</stunTargetWhileCasting>
     <hostile>false</hostile>
+    <cooldownTicksRange>
+      <min>300</min>
+      <max>300</max>
+    </cooldownTicksRange>
     <verbProperties>
       <verbClass>Verb_CastAbilityTouch</verbClass>
       <drawAimPie>false</drawAimPie>
@@ -27,22 +31,16 @@
       <li Class="JJK.CompProperties_TargetedRCT">
         <compClass>JJK.CompAbilityEffect_TargetedRCT</compClass>
         <PartRegenTickCount>100</PartRegenTickCount>
-        <CECostPerTick>0.06</CECostPerTick>
-        <CEPartRegenCost>0.1</CEPartRegenCost>
-        <CEHediffCost>0.05</CEHediffCost>
+        <CECostPerTick>1</CECostPerTick>
+        <CEPartRegenCost>7</CEPartRegenCost>
+        <CEHediffCost>3</CEHediffCost>
         <CanCureAddiction>False</CanCureAddiction>
         <ShouldRemoveImplants>False</ShouldRemoveImplants>
         <MaxRange>30</MaxRange>
       </li>
       <li Class="JJK.CompProperties_AbilityCECost">
-        <cursedEnergyCost>0.15</cursedEnergyCost>
+        <cursedEnergyCost>5</cursedEnergyCost>
       </li>
     </comps>
   </AbilityDef>
-
-  <JobDef>
-  <defName>ChannelRCT</defName>
-  <driverClass>JJK.JobDriver_ChannelRCT</driverClass>
-  <reportString>Channeling RCT on TargetA.</reportString>
-</JobDef>
 </Defs>

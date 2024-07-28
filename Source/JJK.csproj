@@ -79,6 +79,7 @@
     <Compile Include="Comps\Abilities\Cursed Tools\CompAbilityAbsorbingWeapon.cs" />
     <Compile Include="Comps\Abilities\CompAbilityEffect_CECost.cs" />
     <Compile Include="AI\JobDriver_ChannelRCT.cs" />
+    <Compile Include="Comps\Abilities\Mahito\BodyPartChange.cs" />
     <Compile Include="Comps\Abilities\Shoko\Stance_Busy_RCT.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_AbsorbCreature.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_SummonCreature.cs" />

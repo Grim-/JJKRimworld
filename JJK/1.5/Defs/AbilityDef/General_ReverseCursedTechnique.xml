@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <AbilityDef>
+  <JJK.AbilityDef_Toggleable>
     <defName>ReversedCurseTechnique</defName>
     <label>Reversed Curse Technique</label>
     <description>Toggle to consume cursed energy in order to heal.</description>
@@ -22,14 +22,14 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_RCT">
-        <cursedEnergyCost>0</cursedEnergyCost>
-        <PartRegenTickCount>100</PartRegenTickCount>
-        <CECostPerTick>0.006</CECostPerTick>
-        <CEPartRegenCost>0.1</CEPartRegenCost>
-        <CEHediffCost>0.05</CEHediffCost>
-        <CanCureAddiction>False</CanCureAddiction>
-        <ShouldRemoveImplants>False</ShouldRemoveImplants>
+        <cursedEnergyCost>0</cursedEnergyCost> <!-- inital cast cost zero -->
+        <PartRegenTickCount>100</PartRegenTickCount> <!-- how often it can attempt to regen a part -->
+        <CECostPerTick>1</CECostPerTick> <!-- how much it costs per tick while active -->
+        <CEPartRegenCost>10</CEPartRegenCost> <!-- how much it costs to restore a lost limb part -->
+        <CEHediffCost>4</CEHediffCost><!-- how much it costs to heal a bad hediff -->
+        <CanCureAddiction>False</CanCureAddiction> <!-- should addiction be counted? -->
+        <ShouldRemoveImplants>False</ShouldRemoveImplants><!-- should it regenerated and remove implants? -->
       </li>
     </comps>
-  </AbilityDef>
+  </JJK.AbilityDef_Toggleable>
 </Defs>
