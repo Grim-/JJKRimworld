@@ -2,11 +2,9 @@
 using LudeonTK;
 using RimWorld;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Verse;
-using Verse.AI.Group;
 
 namespace JJK
 {
@@ -124,158 +122,72 @@ namespace JJK
         {
             return pawn.genes?.GetFirstGeneOfType<Gene_Kenjaku>();
         }
-    }
 
-    public static class ZombieUtility
-    {
-        public static List<WorkTypeDef> WantedWorkTypes = new List<WorkTypeDef>()
+        public static void ApplyRCTHediffTo(this Pawn pawn)
         {
-            WorkTypeDefOf.Mining,
-            WorkTypeDefOf.Growing,
-            WorkTypeDefOf.Construction,
-            WorkTypeDefOf.Hunting,
-            WorkTypeDefOf.Hauling,
-            WorkTypeDefOf.Cleaning,
-            WorkTypeDefOf.PlantCutting,
-            WorkTypeDefOf.Smithing
+            Hediff NewRCT = HediffMaker.MakeHediff(JJK.JJKDefOf.RCTRegenHediff, pawn);
 
-        };
+            // Get the brain part
+            BodyPartRecord brainPart = pawn.health.hediffSet.GetBrain();
 
-
-        public static void ForceIntoZombieSlave(Pawn Pawn, Pawn Slaver, int SkillLevels = 5, BackstoryDef ChildHoodBackStoryOverWrite = null, BackstoryDef AdultHoodBackStoryOverwrite = null)
-        {
-            if (Pawn == null)
+            // If brain is not found, try to get the head
+            if (brainPart == null)
             {
-                return;
+                brainPart = pawn.health.hediffSet.GetNotMissingParts()
+                    .FirstOrDefault(x => x.def == BodyPartDefOf.Head);
             }
 
-            if (Slaver == null)
+            // Add the hediff to the brain or head
+            if (brainPart != null)
             {
-                return;
+                pawn.health.AddHediff(NewRCT, brainPart);
             }
-
-            Pawn.story.Childhood = ChildHoodBackStoryOverWrite == null ? JJKDefOf.ZombieChildhoodStory : ChildHoodBackStoryOverWrite;
-            Pawn.story.Adulthood = AdultHoodBackStoryOverwrite == null ? JJKDefOf.ZombieAdulthoodStory : AdultHoodBackStoryOverwrite;
-
-
-            Pawn.jobs.ClearQueuedJobs(false);
-            Pawn.guest.SetGuestStatus(Slaver.Faction, GuestStatus.Slave);
-
-            SetSkillLevels(Pawn, SkillLevels);
-
-            foreach (var item in Pawn.story.traits.allTraits.ToList())
+            else
             {
-                Pawn.story.traits.RemoveTrait(item);
-            }
-
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Mining, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Growing, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Construction, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Handling, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Crafting, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Hauling, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Cleaning, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.PlantCutting, Pawn_WorkSettings.DefaultPriority);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Smithing, Pawn_WorkSettings.DefaultPriority);
-
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Childcare, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Warden, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Research, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.DarkStudy, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Firefighter, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Handling, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.DarkStudy, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Doctor, 0);
-            SetWorkTypePriority(Pawn, WorkTypeDefOf.Hunting, 0);
-
-
-
-            if (Slaver.GetLord() != null)
-            {
-                Slaver.GetLord().AddPawn(Pawn);
-            }
-
-            if (Pawn.playerSettings != null)
-            {
-                // Disable health care
-                Pawn.playerSettings.medCare = MedicalCareCategory.NoCare;
-            }
-
-
-            if (Pawn.mindState != null)
-            {
-                // Modify behavior to focus on work
-                Pawn.mindState.mentalStateHandler.Reset();
+                Messages.Message("RCT cannot be applied to " + pawn.LabelShort + ". RCT stems from the brain, which is missing.",
+                      pawn, MessageTypeDefOf.NegativeEvent);
             }
         }
 
-        public static void SetSkillLevels(Pawn pawn, int Level)
+        public static bool HasRCTActive(this Pawn pawn)
         {
-            foreach (SkillRecord skill in pawn.skills.skills)
+            Hediff CurrentRCTHediff = pawn.health.hediffSet.GetFirstHediffOfDef(JJK.JJKDefOf.RCTRegenHediff);
+            return CurrentRCTHediff != null;
+        }
+
+        public static void RemoveRCTHediff(this Pawn pawn)
+        {
+            Hediff CurrentRCTHediff = pawn.health.hediffSet.GetFirstHediffOfDef(JJK.JJKDefOf.RCTRegenHediff);
+            if (CurrentRCTHediff != null)
             {
-                skill.Level = Level; // Set to a moderate skill level
-                skill.passion = Passion.None;
+                pawn.health.RemoveHediff(CurrentRCTHediff);
             }
         }
 
-        public static void SetWorkTypePriority(Pawn pawn, WorkTypeDef workType, int prio = 1)
+
+
+        public static Thing CreateDollFromPawn(Pawn TargetPawn)
         {
-            if (workType != null)
+            if (TargetPawn == null)
             {
-                int CurrentPrio = pawn.workSettings.GetPriority(workType);
-                if (CurrentPrio > 0)
-                {
-                    pawn.workSettings.SetPriority(workType, prio);
-                }
+                Log.Error("Can't create doll from Pawn : TargetPawn is null.");
+                return null;
             }
-        }
-    }
 
-    public static class PawnHealingUtility
-    {
-        public static bool RestoreMissingPart(Pawn target)
-        {
-            List<Hediff_MissingPart> missingParts = GetMissingPartsPrioritized(target);
-            if (missingParts.Count > 0)
+            Thing NewItem = ThingMaker.MakeThing(JJKDefOf.JJK_idleTransfigurationDoll);        
+            CompStoredPawn compStoredPawn = NewItem.TryGetComp<CompStoredPawn>();
+            if (compStoredPawn != null)
             {
-                Hediff_MissingPart highestPrio = missingParts.First();
-                HealthUtility.Cure(highestPrio);
-                return true;
+                compStoredPawn.StorePawn(TargetPawn);
             }
-            return false;
-        }
-
-        public static void HealHealthProblem(Pawn target)
-        {
-            Hediff problem = GetMostSevereHealthProblem(target);
-            if (problem != null)
+            else
             {
-                Hediff problemToHeal = target.health.hediffSet.hediffs
-                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.ZombieWorkSlaveHediff)
-                  .OrderByDescending(x => x.Severity)
-                  .FirstOrDefault();
-
-                if (problemToHeal != null)
-                {
-                    HealthUtility.Cure(problemToHeal);
-                }
+                Log.Error("CompStoredPawn not found on JJK_idleTransfigurationDoll. Make sure it's defined in the ThingDef.");
+                return null;
             }
-        }
-        public static Hediff GetMostSevereHealthProblem(Pawn pawn)
-        {
-            return pawn.health.hediffSet.hediffs
-                .Where(x => !(x is Hediff_MissingPart) && x.Visible)
-                .OrderByDescending(x => x.Severity)
-                .FirstOrDefault();
-        }
 
-        public static List<Hediff_MissingPart> GetMissingPartsPrioritized(Pawn pawn)
-        {
-            return pawn.health.hediffSet.hediffs
-                .OfType<Hediff_MissingPart>()
-                .OrderByDescending(x => x.Part.def.hitPoints)
-                .ThenByDescending(x => x.Part.def.GetMaxHealth(pawn))
-                .ToList();
+
+            return NewItem;
         }
     }
 

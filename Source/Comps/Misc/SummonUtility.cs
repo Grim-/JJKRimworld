@@ -7,13 +7,13 @@ namespace JJK
         public static bool IsSummoned(this Pawn pawn)
         {
             SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
-            return summonManager.GetMaster(pawn) != null;
+            return summonManager.GetMasterFor(pawn) != null;
         }
 
         public static Pawn GetMaster(this Pawn pawn)
         {
             SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
-            return summonManager.GetMaster(pawn);
+            return summonManager.GetMasterFor(pawn);
         }
 
         public static void MakeDraftable(this Pawn pawn)

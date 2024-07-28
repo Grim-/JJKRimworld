@@ -127,17 +127,17 @@ namespace JJK
 
         private void ApplyZombieColor(Pawn pawn)
         {
-            originalColor = pawn.Drawer.renderer.BodyGraphic.color;
-            pawn.Drawer.renderer.BodyGraphic.color = Props.Color;
-            pawn.Drawer.renderer.SetAllGraphicsDirty();
-            colorChanged = true;
+            //originalColor = pawn.Drawer.renderer.BodyGraphic.color;
+            //pawn.Drawer.renderer.BodyGraphic.color = Props.Color;
+            //pawn.Drawer.renderer.SetAllGraphicsDirty();
+            //colorChanged = true;
         }
 
         private void RestoreOriginalColor(Pawn pawn)
         {
-            pawn.Drawer.renderer.BodyGraphic.color = originalColor;
-            pawn.Drawer.renderer.SetAllGraphicsDirty();
-            colorChanged = false;
+            //pawn.Drawer.renderer.BodyGraphic.color = originalColor;
+            //pawn.Drawer.renderer.SetAllGraphicsDirty();
+            //colorChanged = false;
         }
 
 
@@ -154,7 +154,7 @@ namespace JJK
             Scribe_References.Look(ref Master, "pawnSlaveMaster");
             Scribe_Values.Look(ref CurrentTick, "slaveCurrentRegenTick");
             Scribe_Values.Look(ref TicksWithoutMaster, "slaveTickWithoutMaster");
-            Scribe_Values.Look(ref OriginalFaction, "slaveOriginalFaction");
+            Scribe_References.Look(ref OriginalFaction, "slaveOriginalFaction");
         }
     }
 

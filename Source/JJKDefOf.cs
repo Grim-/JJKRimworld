@@ -48,7 +48,7 @@ namespace JJK
         public static AbilityDef Gojo_HollowPurple;
         public static ThingDef JJK_idleTransfigurationDoll;
 
-
+        public static ThinkTreeDef JJK_EmptyConstantThinkTree;
         public static ThinkTreeDef JJK_SummonedCreature;
         public static ThinkTreeDef ZombieWorkSlave;
 
@@ -56,6 +56,9 @@ namespace JJK
         public static JobDef JJK_DefendMaster;
         public static JobDef ChannelRCT;
 
+
+        public static HediffDef JJ_SummonedCreatureTag;
+        public static HediffDef JJK_ThinkTreeOverrideSummonBehaviour;
         public static HediffDef RCTRegenHediff;
         public static HediffDef ZombieWorkSlaveHediff;
         public static HediffDef JJK_IdleTransfigurationCooldown;

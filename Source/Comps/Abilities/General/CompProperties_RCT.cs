@@ -1,7 +1,7 @@
 ﻿using JJK;
 using RimWorld;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -21,26 +21,33 @@ namespace JJK
     {
         new CompProperties_RCT Props => (CompProperties_RCT)props;
 
-        private int CurrentTick = 0;
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            Hediff CurrentRCTHediff = parent.pawn.health.hediffSet.GetFirstHediffOfDef(JJK.JJKDefOf.RCTRegenHediff);
-            bool HasRCTActive = CurrentRCTHediff != null;
-            IsCurrentlyCasting = !IsCurrentlyCasting;
-            CurrentTick = 0;
-            if (IsCurrentlyCasting)
-            {
-                if (!HasRCTActive)
-                {
-                    AddRCTHediff(parent.pawn);
-                }
+            ToggleRCT();
+        }
 
+        private void ToggleRCT()
+        {
+            IsCurrentlyCasting = !IsCurrentlyCasting;
+
+            Ability_Toggleable toggleable = (Ability_Toggleable)parent;
+            toggleable.Toggle();
+
+            accumulatedTicks = 0;
+            if (IsCurrentlyCasting)
+            {  
+                if (!JJKUtility.HasRCTActive(parent.pawn))
+                {
+                    JJKUtility.ApplyRCTHediffTo(parent.pawn);
+                }
             }
             else
             {
-                parent.pawn.health.RemoveHediff(CurrentRCTHediff);
+                StopCasting();
+                JJKUtility.RemoveRCTHediff(parent.pawn);
             }
         }
+
         private float accumulatedTicks = 0f;
 
         public override void CompTick()
@@ -77,7 +84,7 @@ namespace JJK
         protected override void StopCasting()
         {
             base.StopCasting();
-            CurrentTick = 0;
+            accumulatedTicks = 0;
         }
 
         private void OnTick(Gene_CursedEnergy CursedEnergy)
@@ -91,7 +98,7 @@ namespace JJK
             }
             else
             {
-                RemoveRCTHediff(parent.pawn);
+                JJKUtility.RemoveRCTHediff(parent.pawn);
             }
 
             parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(GetTickCost());
@@ -112,6 +119,4 @@ namespace JJK
         }
 
     }
-
-
 }

@@ -47,12 +47,14 @@ namespace JJK
             PawnKindDef pawnKindDef = Props.summonedCreatureKind;
             Pawn pawn = PawnGenerator.GeneratePawn(pawnKindDef, parent.pawn.Faction);
             GenSpawn.Spawn(pawn, parent.pawn.Position, map);
+            pawn.health.AddHediff(JJKDefOf.JJ_SummonedCreatureTag);
+
 
             SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
             summonManager.RegisterSummon(pawn, parent.pawn);
-            summonedCreature = pawn;
 
-            //pawn.jobs.StartJob(JobMaker.MakeJob(JJKDefOf.JJK_DefendMaster), JobCondition.InterruptForced);
+
+            summonedCreature = pawn;
             Messages.Message($"{parent.pawn.LabelShort} has summoned a {pawn.KindLabel}.", MessageTypeDefOf.PositiveEvent);
         }
 

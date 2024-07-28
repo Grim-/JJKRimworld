@@ -52,40 +52,7 @@ namespace JJK
             }
         }
 
-        public virtual void AddRCTHediff(Pawn Pawn)
-        {
-            Hediff NewRCT = HediffMaker.MakeHediff(JJK.JJKDefOf.RCTRegenHediff, Pawn);
 
-            // Get the brain part
-            BodyPartRecord brainPart = Pawn.health.hediffSet.GetBrain();
-
-            // If brain is not found, try to get the head
-            if (brainPart == null)
-            {
-                brainPart = Pawn.health.hediffSet.GetNotMissingParts()
-                    .FirstOrDefault(x => x.def == BodyPartDefOf.Head);
-            }
-
-            // Add the hediff to the brain or head
-            if (brainPart != null)
-            {
-                Pawn.health.AddHediff(NewRCT, brainPart);
-            }
-            else
-            {
-                Messages.Message("RCT cannot be applied to " + Pawn.LabelShort + ". RCT stems from the brain, which is missing.",
-                      Pawn, MessageTypeDefOf.NegativeEvent);
-            }
-        }
-
-        public virtual void RemoveRCTHediff(Pawn Pawn)
-        {
-            Hediff CurrentRCTHediff = Pawn.health.hediffSet.GetFirstHediffOfDef(JJK.JJKDefOf.RCTRegenHediff);
-            if (CurrentRCTHediff != null)
-            {
-                Pawn.health.RemoveHediff(CurrentRCTHediff);
-            }
-        }
         protected virtual bool RestoreMissingParts(Gene_CursedEnergy CursedEnergy, Pawn Target)
         {
             List<Hediff_MissingPart> MissingParts = GetMissingPartsPrioritized(Target);
@@ -148,45 +115,8 @@ namespace JJK
             }
         }
 
-        //protected virtual bool RestoreMissingParts(Gene_CursedEnergy CursedEnergy, Pawn Target)
-        //{
-        //    List<Hediff_MissingPart> MissingParts = GetMissingPartsPrioritized(Target);
 
-        //    if (MissingParts != null && MissingParts.Count > 0)
-        //    {
-        //        Hediff_MissingPart HighestPrio = MissingParts.FirstOrDefault();
 
-        //        if (HighestPrio != null)
-        //        {
-        //            float CostForPart = GetPartCost();
-        //            if (CursedEnergy.Value >= CostForPart)
-        //            {
-        //                HealthUtility.Cure(HighestPrio);
-        //                parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, CostForPart);
-        //            }
-        //        }
-
-        //        return true;
-        //    }
-
-        //    return false;
-        //}
-
-        //protected virtual void HealOtherProblems(Gene_CursedEnergy CasterCursedEnergy, Pawn Target)
-        //{
-        //    Hediff problem = GetOtherProblems(Target);
-
-        //    if (problem != null)
-        //    {
-        //        float CostForProblem = GetProblemCost(problem);
-
-        //        if (CasterCursedEnergy.Value >= CostForProblem)
-        //        {
-        //            HealthUtility.Cure(problem);
-        //            CasterCursedEnergy.ConsumeCursedEnergy(parent.pawn, CostForProblem);
-        //        }
-        //    }
-        //}
 
 
         protected List<Hediff_MissingPart> GetMissingPartsPrioritized(Pawn pawn)

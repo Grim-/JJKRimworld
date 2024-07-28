@@ -26,43 +26,41 @@ namespace JJK
             if (target.Pawn == null) return;
         }
 
- 
+
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
             if (Props.ShapeShiftOptions != null && Props.ShapeShiftOptions.Any())
             {
-                yield return new Gizmo_MultiOptions(GetAllOptions());
+                yield return new Gizmo_MultiLabelButton(GetAllOptions());
             }
         }
 
-        private List<Gizmo_MultiOptions.Option> GetAllOptions()
+        private List<Gizmo_MultiOption> GetAllOptions()
         {
-            var options = new List<Gizmo_MultiOptions.Option>();
+            var options = new List<Gizmo_MultiOption>();
             var groupedOptions = Props.ShapeShiftOptions.GroupBy(o => o.BodyPartDef);
 
             foreach (var group in groupedOptions)
             {
-                options.Add(new Gizmo_MultiOptions.Option(
+                options.Add(new Gizmo_MultiOption(
                     group.Key.label,
-                    null, // or appropriate icon if available
-                    () => { } // Empty action as this option just shows sub-options
+                    null, 
+                    () => { } 
                 ));
 
                 foreach (var option in group)
                 {
-                    options.Add(new Gizmo_MultiOptions.Option(
-                        "  " + option.OptionLabel, // Indented to show it's a sub-option
-                        null, // or appropriate icon if available
-                        () => ApplyShapeShift(parent.pawn, option)
-                    ));
-                }
-
-                if (changedParts.Any(c => c.BodyPartDef == group.Key))
-                {
-                    options.Add(new Gizmo_MultiOptions.Option(
-                        $"  Revert {group.Key.label}",
-                        null, // or appropriate icon if available
-                        () => RevertChange(parent.pawn, group.Key)
+                    options.Add(new Gizmo_MultiOption(
+                        "  " + option.OptionLabel, 
+                        null,
+                        () =>
+                        {
+                            if (IsPartChanged(parent.pawn, option.BodyPartDef))
+                            {
+                                RevertChange(parent.pawn, group.Key);
+                            }
+                            else ApplyShapeShift(parent.pawn, option); 
+                        }
                     ));
                 }
             }
@@ -99,6 +97,11 @@ namespace JJK
             }
         }
 
+        private bool IsPartChanged(Pawn target, BodyPartDef BodyPart)
+        {
+            return changedParts.Find(x => x.BodyPartDef == BodyPart) != null;
+        }
+
         private void RevertChange(Pawn target, BodyPartDef bodyPartDef)
         {
             BodyPartChange change = changedParts.FirstOrDefault(c => c.BodyPartDef == bodyPartDef);
@@ -112,7 +115,6 @@ namespace JJK
                     target.health.RemoveHediff(transformedPart);
                 }
 
-                // Fully heal the body part
                 IEnumerable<Hediff> injuries = target.health.hediffSet.hediffs
                     .Where(h => h.Part == change.BodyPart && h.def.injuryProps != null);
                 foreach (Hediff injury in injuries.ToList())
@@ -120,19 +122,24 @@ namespace JJK
                     target.health.RemoveHediff(injury);
                 }
 
-                // Restore any missing parts
+    
                 target.health.RestorePart(change.BodyPart);
 
-                // If there was an original hediff (like a bionic), restore it
+    
                 if (change.OriginalHediffDef != null)
                 {
-                    Hediff originalHediff = HediffMaker.MakeHediff(change.OriginalHediffDef, target, change.BodyPart);
-                    target.health.AddHediff(originalHediff);
+                    RestoreOriginalHediffs(target, change);
                 }
 
                 changedParts.Remove(change);
                 Messages.Message($"{target.LabelShort} has reverted the changes to their {bodyPartDef.label}!", MessageTypeDefOf.PositiveEvent);
             }
+        }
+
+        private void RestoreOriginalHediffs(Pawn target, BodyPartChange change)
+        {
+            Hediff originalHediff = HediffMaker.MakeHediff(change.OriginalHediffDef, target, change.BodyPart);
+            target.health.AddHediff(originalHediff);
         }
 
         private void RestoreBodyParts(Pawn pawn)
@@ -174,7 +181,6 @@ namespace JJK
             Scribe_Defs.Look(ref OriginalPartDef, "originalPartDef");
             Scribe_Defs.Look(ref OriginalHediffDef, "originalHediffDef");
             Scribe_Defs.Look(ref NewHediffDef, "newHediffDef");
-            // Note: BodyPart is not saved, it's restored in RestoreBodyParts
         }
     }
 }

@@ -37,11 +37,11 @@ namespace JJK
                 return true;
             }
 
-            if (IsOnCooldown)
-            {
-                reason = "AbilityOnCooldown".Translate();
-                return true;
-            }
+            //if (IsOnCooldown)
+            //{
+            //    reason = "AbilityOnCooldown".Translate();
+            //    return true;
+            //}
 
             if (gene_Hemogen.Value < GetCost())
             {
@@ -100,7 +100,7 @@ namespace JJK
         {
             ApplyAbilityCost(parent.pawn);
 
-            StartCooldown();
+            //StartCooldown();
         }
 
 
@@ -108,26 +108,26 @@ namespace JJK
         {
             base.CompTick();
 
-            if (IsOnCooldown)
-            {
-                CurrentCDTick++;
+            //if (IsOnCooldown)
+            //{
+            //    CurrentCDTick++;
 
-                if (CurrentCDTick >= Props.cooldownTicks)
-                {
-                    IsOnCooldown = false;
-                    CurrentCDTick = 0;
-                }
-            }
+            //    if (CurrentCDTick >= Props.cooldownTicks)
+            //    {
+            //        IsOnCooldown = false;
+            //        CurrentCDTick = 0;
+            //    }
+            //}
 
         }
 
         public virtual void StartCooldown()
         {
-            if (Props.cooldownTicks > 0)
-            {
-                IsOnCooldown = true;
-                CurrentCDTick = 0;
-            }
+            //if (Props.cooldownTicks > 0)
+            //{
+            //    IsOnCooldown = true;
+            //    CurrentCDTick = 0;
+            //}
         }
 
         public virtual void ApplyAbilityCost(Pawn Pawn)

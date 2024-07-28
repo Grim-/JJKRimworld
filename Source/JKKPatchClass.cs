@@ -161,34 +161,63 @@ namespace JJK
         }
     }
 
-
-    [HarmonyPatch(typeof(Pawn_Thinker))]
-    [HarmonyPatch("MainThinkTree", MethodType.Getter)]
-    public static class Patch_Pawn_Thinker_MainThinkTree
+    public static class Patch_Pawn_Thinker_ThinkTrees
     {
-        public static bool Prefix(Pawn_Thinker __instance, ref ThinkTreeDef __result)
+        [HarmonyPatch(typeof(Pawn_Thinker), "MainThinkTree", MethodType.Getter)]
+        public static class Patch_MainThinkTree
         {
-            Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-            if (__instance.pawn.health.hediffSet.HasHediff(JJKDefOf.ZombieWorkSlaveHediff))
+            public static bool Prefix(Pawn_Thinker __instance, ref ThinkTreeDef __result)
             {
-                __result = JJKDefOf.ZombieWorkSlave;
-                return false;
+                return HandleThinkTreePatch(__instance, ref __result, isConstant: false);
             }
+        }
 
-            if (pawn != null && IsSummonedCreature(pawn))
+        [HarmonyPatch(typeof(Pawn_Thinker), "ConstantThinkTree", MethodType.Getter)]
+        public static class Patch_ConstantThinkTree
+        {
+            public static bool Prefix(Pawn_Thinker __instance, ref ThinkTreeDef __result)
             {
-                __result = JJKDefOf.JJK_SummonedCreature;
-                return false; // Skip the original method
+                return HandleThinkTreePatch(__instance, ref __result, isConstant: true);
+            }
+        }
+
+        private static bool HandleThinkTreePatch(Pawn_Thinker __instance, ref ThinkTreeDef __result, bool isConstant)
+        {
+            Pawn pawn = __instance.pawn;
+            if (pawn == null) return true;
+
+            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.ZombieWorkSlaveHediff) != null ||
+                pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJ_SummonedCreatureTag) != null ||
+                IsSummonedCreature(pawn) || IsAbsorbedCreature(pawn))
+            {
+                __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
+                //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
+                return false;
             }
 
             return true; // Run the original method
         }
 
+        private static bool IsAbsorbedCreature(Pawn pawn)
+        {
+            AbsorbedCreatureManager manager = JJKUtility.AbsorbedCreatureManager;
+            if (manager == null)
+            {
+                Log.Message("IsAbsorbedCreature: Absorbed Creature Manager is null");
+                return false;
+            }
+            return manager.GetSummonerFor(pawn) != null;
+        }
+
         private static bool IsSummonedCreature(Pawn pawn)
         {
-            // Implement your logic to determine if this pawn is a summoned creature
-            // For example:
-            return Find.World.GetComponent<SummonedCreatureManager>().IsSummonedCreature(pawn);
+            SummonedCreatureManager manager = JJKUtility.SummonedCreatureManager;
+            if (manager == null)
+            {
+                Log.Message("IsSummonedCreature: Summoned Creature Manager is null");
+                return false;
+            }
+            return manager.IsSummonedCreature(pawn);
         }
     }
 }
