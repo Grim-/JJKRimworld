@@ -72,38 +72,82 @@ namespace JJK
 
         private void ApplyShapeShift(Pawn target, TransfigurationOption option)
         {
-            BodyPartRecord targetPart = target.RaceProps.body.GetPartsWithDef(option.BodyPartDef).RandomElementWithFallback();
-            if (targetPart != null)
+            List<BodyPartRecord> targetParts = GetMirroredBodyParts(target, option.BodyPartDef);
+            if (targetParts.Any())
             {
-                // Check if parent part is transformed and revert if necessary
-                RevertParentPartIfTransformed(target, targetPart);
-
-                BodyPartChange change = new BodyPartChange
+                foreach (var targetPart in targetParts)
                 {
-                    BodyPartDef = option.BodyPartDef,
-                    BodyPartIndex = targetPart.Index,
-                    OriginalPartDef = targetPart.def,
-                    NewHediffDef = option.HediffDef,
-                    BodyPart = targetPart
-                };
+                    RevertParentPartIfTransformed(target, targetPart);
 
-                changedParts.RemoveAll(c => c.BodyPartDef == option.BodyPartDef);
-                changedParts.Add(change);
+                    BodyPartChange change = new BodyPartChange
+                    {
+                        BodyPartDef = option.BodyPartDef,
+                        BodyPartIndex = targetPart.Index,
+                        OriginalPartDef = targetPart.def,
+                        NewHediffDef = option.HediffDef,
+                        BodyPart = targetPart
+                    };
 
-                Hediff newPart = HediffMaker.MakeHediff(option.HediffDef, target, targetPart);
-                target.health.AddHediff(newPart, targetPart);
+                    changedParts.RemoveAll(c => c.BodyPart == targetPart);
+                    changedParts.Add(change);
 
-                if (targetPart.)
-                {
-
+                    Hediff newPart = HediffMaker.MakeHediff(option.HediffDef, target, targetPart);
+                    target.health.AddHediff(newPart, targetPart);
                 }
 
                 parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Props.cursedEnergyCost);
-                Messages.Message($"{target.LabelShort} has shape-shifted their {targetPart.Label} into a {option.HediffDef.label}!", MessageTypeDefOf.PositiveEvent);
+                string partLabel = targetParts.Count > 1 ? targetParts[0].LabelShort : targetParts[0].LabelShort;
+                Messages.Message($"{target.LabelShort} has shape-shifted their {partLabel} into {option.HediffDef.label}!", MessageTypeDefOf.PositiveEvent);
             }
             else
             {
-                Messages.Message($"Failed to find a suitable body part on {target.LabelShort} for shape-shifting.", MessageTypeDefOf.RejectInput);
+                Messages.Message($"Failed to find suitable body parts on {target.LabelShort} for shape-shifting.", MessageTypeDefOf.RejectInput);
+            }
+        }
+
+        private void RevertChange(Pawn target, BodyPartDef bodyPartDef)
+        {
+            List<BodyPartChange> changesToRevert = changedParts.Where(c => c.BodyPartDef == bodyPartDef).ToList();
+            foreach (var change in changesToRevert)
+            {
+                if (change.BodyPart != null)
+                {
+                    // Remove the transformed part
+                    Hediff transformedPart = target.health.hediffSet.hediffs
+                        .FirstOrDefault(h => h.Part == change.BodyPart && h.def == change.NewHediffDef);
+                    if (transformedPart != null)
+                    {
+                        target.health.RemoveHediff(transformedPart);
+                    }
+
+                    // Remove any injuries on the part
+                    IEnumerable<Hediff> injuries = target.health.hediffSet.hediffs
+                        .Where(h => h.Part == change.BodyPart && h.def.injuryProps != null);
+                    foreach (Hediff injury in injuries.ToList())
+                    {
+                        target.health.RemoveHediff(injury);
+                    }
+
+                    // Restore the original part
+                    target.health.RestorePart(change.BodyPart);
+
+                    // Restore original hediffs if any
+                    if (change.OriginalHediffDef != null)
+                    {
+                        RestoreOriginalHediffs(target, change);
+                    }
+
+                    // Recursively revert child parts
+                    RevertChildParts(target, change.BodyPart);
+                }
+            }
+
+            changedParts.RemoveAll(c => changesToRevert.Contains(c));
+
+            if (changesToRevert.Any())
+            {
+                string partLabel = changesToRevert.Count > 1 ? bodyPartDef.label : bodyPartDef.label;
+                Messages.Message($"{target.LabelShort} has reverted the changes to their {partLabel}!", MessageTypeDefOf.PositiveEvent);
             }
         }
 
@@ -118,44 +162,68 @@ namespace JJK
                 }
             }
         }
-
-        private void RevertChange(Pawn target, BodyPartDef bodyPartDef)
+        private List<BodyPartRecord> GetMirroredBodyParts(Pawn pawn, BodyPartDef bodyPartDef)
         {
-            BodyPartChange change = changedParts.FirstOrDefault(c => c.BodyPartDef == bodyPartDef);
-            if (change != null && change.BodyPart != null)
+            List<BodyPartRecord> parts = pawn.RaceProps.body.GetPartsWithDef(bodyPartDef).ToList();
+
+            if (!bodyPartDef.IsMirroredPart || parts.Count <= 1)
             {
-                // Remove the transformed part
-                Hediff transformedPart = target.health.hediffSet.hediffs
-                    .FirstOrDefault(h => h.Part == change.BodyPart && h.def == change.NewHediffDef);
-                if (transformedPart != null)
-                {
-                    target.health.RemoveHediff(transformedPart);
-                }
-
-                // Remove any injuries on the part
-                IEnumerable<Hediff> injuries = target.health.hediffSet.hediffs
-                    .Where(h => h.Part == change.BodyPart && h.def.injuryProps != null);
-                foreach (Hediff injury in injuries.ToList())
-                {
-                    target.health.RemoveHediff(injury);
-                }
-
-                // Restore the original part
-                target.health.RestorePart(change.BodyPart);
-
-                // Restore original hediffs if any
-                if (change.OriginalHediffDef != null)
-                {
-                    RestoreOriginalHediffs(target, change);
-                }
-
-                changedParts.Remove(change);
-                Messages.Message($"{target.LabelShort} has reverted the changes to their {bodyPartDef.label}!", MessageTypeDefOf.PositiveEvent);
-
-                // Recursively revert child parts
-                RevertChildParts(target, change.BodyPart);
+                return parts;
             }
+
+            // For mirrored parts, we need to find the counterpart
+            List<BodyPartRecord> mirroredParts = new List<BodyPartRecord>();
+            foreach (var part in parts)
+            {
+                mirroredParts.Add(part);
+
+                // Find the counterpart (if not already added)
+                var counterpart = parts.FirstOrDefault(p => p != part && p.height == part.height&& p.depth== part.depth);
+                if (counterpart != null && !mirroredParts.Contains(counterpart))
+                {
+                    mirroredParts.Add(counterpart);
+                }
+            }
+
+            return mirroredParts;
         }
+        //private void RevertChange(Pawn target, BodyPartDef bodyPartDef)
+        //{
+        //    BodyPartChange change = changedParts.FirstOrDefault(c => c.BodyPartDef == bodyPartDef);
+        //    if (change != null && change.BodyPart != null)
+        //    {
+        //        // Remove the transformed part
+        //        Hediff transformedPart = target.health.hediffSet.hediffs
+        //            .FirstOrDefault(h => h.Part == change.BodyPart && h.def == change.NewHediffDef);
+        //        if (transformedPart != null)
+        //        {
+        //            target.health.RemoveHediff(transformedPart);
+        //        }
+
+        //        // Remove any injuries on the part
+        //        IEnumerable<Hediff> injuries = target.health.hediffSet.hediffs
+        //            .Where(h => h.Part == change.BodyPart && h.def.injuryProps != null);
+        //        foreach (Hediff injury in injuries.ToList())
+        //        {
+        //            target.health.RemoveHediff(injury);
+        //        }
+
+        //        // Restore the original part
+        //        target.health.RestorePart(change.BodyPart);
+
+        //        // Restore original hediffs if any
+        //        if (change.OriginalHediffDef != null)
+        //        {
+        //            RestoreOriginalHediffs(target, change);
+        //        }
+
+        //        changedParts.Remove(change);
+        //        Messages.Message($"{target.LabelShort} has reverted the changes to their {bodyPartDef.label}!", MessageTypeDefOf.PositiveEvent);
+
+        //        // Recursively revert child parts
+        //        RevertChildParts(target, change.BodyPart);
+        //    }
+        //}
 
         private void RevertChildParts(Pawn target, BodyPartRecord part)
         {
