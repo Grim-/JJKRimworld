@@ -194,23 +194,15 @@ namespace JJK
                 return false;
             }
 
-            //if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJ_SummonedCreatureTag) != null)
-            //{
-            //    __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-            //    return false;
-            //}
-
             if (JJKUtility.IsSummonedCreature(pawn))
             {
                 __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-                //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
                 return false;
             }
 
             if (JJKUtility.IsAbsorbedCreature(pawn))
             {
                 __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-                //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
                 return false;
             }
 

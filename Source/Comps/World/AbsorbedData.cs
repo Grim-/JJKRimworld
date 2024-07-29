@@ -7,7 +7,7 @@ namespace JJK
     public class AbsorbedData : IExposable
     {
         public string PawnID;
-        public Pawn Master;
+        public Pawn Master => JJKUtility.FindPawnById(PawnID);
         public List<PawnKindDef> AbsorbedCreatures = new List<PawnKindDef>();
         public List<ActiveSummonData> ActiveSummons = new List<ActiveSummonData>();
         public int SummonLimit = 5;
@@ -32,7 +32,6 @@ namespace JJK
 
         public void SetPawnReference(Pawn pawn)
         {
-            Master = pawn;
             PawnID = pawn.ThingID;
         }
 
@@ -50,7 +49,7 @@ namespace JJK
                      Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == PawnID);
             Log.Message($"JJK: AResolveCrossReferences Master {Master}");
 
-            SetPawnReference(pawn);
+            //SetPawnReference(pawn);
 
             foreach (var summon in ActiveSummons)
             {
@@ -92,7 +91,7 @@ namespace JJK
             {
                 foreach (var item in ActiveSummons.ToList())
                 {
-                    if (item.SummonID == creature.ThingID)
+                    if (item.Summon.ThingID == creature.ThingID)
                     {
                         Log.Message($"JJK: {creature.Label} {creature.ThingID} FOUND DESTROYING AND REMOVING FROM ACTIVE SUMMONS.");
                         
@@ -109,9 +108,9 @@ namespace JJK
         {
             ActiveSummons.Add(new ActiveSummonData
             {
-                MasterID = Master.ThingID,
-                SummonID = summonedCreature.ThingID,
-                DefName = summonedCreature.kindDef.defName
+                Summon = summonedCreature,
+                Master = Master,
+                Def = summonedCreature.kindDef
             });
             Log.Message($"JJK: Added {summonedCreature.LabelShort} (ThingID: {summonedCreature.ThingID}, KindDef: {summonedCreature.kindDef}) to active summons of {Master.LabelShort}");
             Log.Message($"JJK: Current active summons count: {ActiveSummons.Count}");
@@ -177,52 +176,32 @@ namespace JJK
 
     public class ActiveSummonData : IExposable
     {
-        public string MasterID;
-        public string SummonID;
-        public string DefName;
+        public Pawn Master;
+        public Pawn Summon;
 
-        public Pawn Master
-        {
-            get
-            {
-                return FindPawnById(MasterID);
-            }
-        }
-        public Pawn Summon
-        {
-            get
-            {
-                return FindPawnById(SummonID);
-            }
-        }
-
-        public Def Def
-        {
-            get
-            {
-                return DefDatabase<PawnKindDef>.GetNamed(DefName);
-            }
-        }
-
-        private Pawn FindPawnById(string thingId)
-        {
-            return Find.WorldPawns.AllPawnsAlive.FirstOrDefault(p => p.ThingID == thingId) ??
-                   Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == thingId);
-        }
+        public Def Def;
 
         public void ExposeData()
         {
-            Scribe_Values.Look(ref MasterID, "MasterID");
-            Scribe_Values.Look(ref SummonID, "SummonID");
-            Scribe_Values.Look(ref DefName, "Def");
+            Scribe_References.Look(ref Master, "MasterID");
+            Scribe_References.Look(ref Summon, "SummonID");
+            Scribe_Defs.Look(ref Def, "Def");
         }
 
         public void ResolveCrossReferences()
         {
             Log.Message($"JJK: Resolving cross-references for ActiveSummonData. " +
-                        $"MasterID: {MasterID}, Master found: {Master != null}, " +
-                        $"SummonID: {SummonID}, Summon found: {Summon != null}, " +
+                        $"Master found: {Master != null}, " +
+                        $"Summon found: {Summon != null}, " +
                         $"Def: {Def?.defName ?? "null"}");
         }
+
+
+        //private Pawn FindPawnById(string thingId)
+        //{
+        //    return Find.WorldPawns.AllPawnsAlive.FirstOrDefault(p => p.ThingID == thingId) ??
+        //           Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == thingId);
+        //}
+
     }
 }

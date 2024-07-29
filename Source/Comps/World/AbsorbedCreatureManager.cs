@@ -25,7 +25,7 @@ namespace JJK
             else
             {
                 AbsorbedData NewData = new AbsorbedData();
-                NewData.SetPawnReference(pawn);
+                NewData.PawnID = pawn.ThingID;
                 AbsorbData[pawn.ThingID] = NewData;
                 return NewData;
             }
@@ -34,46 +34,12 @@ namespace JJK
         public override void ExposeData()
         {
             base.ExposeData();
-            if (Scribe.mode == LoadSaveMode.Saving)
-            {
-                List<string> keys = AbsorbData.Keys.ToList();
-                List<AbsorbedData> values = AbsorbData.Values.ToList();
-                Scribe_Collections.Look(ref keys, "absorbedCreatureManagerKeys", LookMode.Value);
-                Scribe_Collections.Look(ref values, "absorbedCreatureManagerValues", LookMode.Deep);
-                Log.Message($"JJK: Saving AbsorbedCreatureManager data. Keys: {keys.Count}, Values: {values.Count}");
-            }
-            else if (Scribe.mode == LoadSaveMode.LoadingVars)
-            {
-                List<string> keys = new List<string>();
-                List<AbsorbedData> values = new List<AbsorbedData>();
-                Scribe_Collections.Look(ref keys, "absorbedCreatureManagerKeys", LookMode.Value);
-                Scribe_Collections.Look(ref values, "absorbedCreatureManagerValues", LookMode.Deep);
-                AbsorbData = new Dictionary<string, AbsorbedData>();
-                if (keys != null && values != null && keys.Count == values.Count)
-                {
-                    for (int i = 0; i < keys.Count; i++)
-                    {
-                        if (!string.IsNullOrEmpty(keys[i]))
-                        {
-                            AbsorbData[keys[i]] = values[i];
-                        }
-                    }
-                }
-                else
-                {
-                    Log.Error("JJK: Failed to load AbsorbedCreatureManager data. Keys or values are null or mismatched.");
-                }
-            }     
-            else if(Scribe.mode == LoadSaveMode.PostLoadInit)
+
+            Scribe_Collections.Look(ref AbsorbData, "absorbedCreatureManagerData", LookMode.Value, LookMode.Deep);
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 ResolveCrossReferences();
             }
-        }
-
-        public override void FinalizeInit()
-        {
-            base.FinalizeInit();
-        
         }
 
         private void ResolveCrossReferences()
@@ -82,7 +48,7 @@ namespace JJK
             foreach (var item in AbsorbData)
             {
                 item.Value.ResolveCrossReferences();
-            }    
+            }
         }
 
         public Pawn GetMasterForAbsorbedCreature(Pawn summon)
