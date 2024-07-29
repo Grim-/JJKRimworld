@@ -45,9 +45,12 @@ namespace JJK
 
             float PawnMass = target.Pawn.GetStatValue(StatDefOf.Mass);
             float Cost = PawnMass * Props.CostPerMass;
+
+            JJKUtility.SummonedCreatureManager.RegisterSummon(FleshBeast, parent.pawn);
+
             FleshBeast.health.AddHediff(JJKDefOf.JJK_IdleTransfigurationBeastStatBoost);
             FleshBeast.SetFaction(this.parent.pawn.Faction, this.parent.pawn);
-            CompAbilityEffect_GiveMentalState.TryGiveMentalState(JJKDefOf.TransfiguredState_Murderous, FleshBeast, this.parent.def, null, this.parent.pawn, true);
+            //CompAbilityEffect_GiveMentalState.TryGiveMentalState(JJKDefOf.TransfiguredState_Murderous, FleshBeast, this.parent.def, null, this.parent.pawn, true);
             parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);
             
         }

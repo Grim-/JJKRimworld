@@ -20,32 +20,31 @@ namespace JJK
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            Pawn targetPawn = null;
+            Corpse targetCorpse = null;
 
-            if (target.Thing is Corpse corpse)
+            if (target.Thing.GetType() != typeof(Corpse))
             {
-                targetPawn = corpse.InnerPawn;
-            }
-            else if (target.Thing is Pawn pawn)
-            {
-                targetPawn = pawn;
+                Log.Error("JJK: Target is not a corpse.");
+                return;
             }
 
-            if (targetPawn == null)
+            if (targetCorpse == null)
             {
                 Log.Error("JJK: Target pawn is null");
                 return;
             }
 
-            if (targetPawn == parent.pawn)
+            if (targetCorpse.GetRotStage() != RotStage.Fresh)
             {
-                Messages.Message("Cannot possess yourself", MessageTypeDefOf.NegativeEvent);
+                Log.Error("JJK: Target corpse must be fresh.");
                 return;
             }
 
-            if (!targetPawn.Dead)
+            Pawn targetPawn = targetCorpse.InnerPawn;
+
+            if (targetPawn == parent.pawn)
             {
-                Messages.Message("Cannot posses pawns that are not dead.", MessageTypeDefOf.NegativeEvent);
+                Messages.Message("Cannot possess yourself", MessageTypeDefOf.NegativeEvent);
                 return;
             }
 
@@ -72,26 +71,26 @@ namespace JJK
                 //Pawn targetPawn = target.Pawn;
 
                 // Detailed debug logging
-                Log.Message($"JJK: Attempting possession. Caster: {caster.LabelShort}, Target: {targetPawn.LabelShort}");
-                Log.Message($"JJK: Caster genes: {string.Join(", ", caster.genes.GenesListForReading.Select(g => g.def.defName))}");
+                //Log.Message($"JJK: Attempting possession. Caster: {caster.LabelShort}, Target: {targetPawn.LabelShort}");
+                //Log.Message($"JJK: Caster genes: {string.Join(", ", caster.genes.GenesListForReading.Select(g => g.def.defName))}");
 
                 // Check for Cursed Energy gene (as a comparison)
                 var cursedEnergyGene = caster.GetCursedEnergy();
-                Log.Message($"JJK: Cursed Energy Gene found: {cursedEnergyGene != null}");
+               // Log.Message($"JJK: Cursed Energy Gene found: {cursedEnergyGene != null}");
 
                 // Check if the caster has the Gene_Kenjaku
                 Gene_Kenjaku kenjakuGene = caster.GetKenjakuGene();
-                Log.Message($"JJK: Kenjaku Gene found: {kenjakuGene != null}");
+                //Log.Message($"JJK: Kenjaku Gene found: {kenjakuGene != null}");
 
                 // Additional checks
                 var allGenes = caster.genes.GenesListForReading;
-                Log.Message($"JJK: Total genes on caster: {allGenes.Count}");
+                //Log.Message($"JJK: Total genes on caster: {allGenes.Count}");
                 var kenjakuGeneFromList = allGenes.FirstOrDefault(g => g is Gene_Kenjaku);
-                Log.Message($"JJK: Kenjaku Gene found in list: {kenjakuGeneFromList != null}");
+               // Log.Message($"JJK: Kenjaku Gene found in list: {kenjakuGeneFromList != null}");
 
                 if (kenjakuGene == null)
                 {
-                    Log.Error($"JJK: Kenjaku Gene not found on caster {caster.LabelShort}");
+                  //  Log.Error($"JJK: Kenjaku Gene not found on caster {caster.LabelShort}");
                     Messages.Message("JJK_KenjakuPossessionFailed_NoGene".Translate(caster.LabelShort), MessageTypeDefOf.RejectInput);
                     return;
                 }

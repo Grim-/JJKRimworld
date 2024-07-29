@@ -1,7 +1,6 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Verse;
 
 namespace JJK
@@ -46,97 +45,6 @@ namespace JJK
         {
             IsActive = !IsActive;
             OnToggle?.Invoke();
-        }
-    }
-
-    public class ButtonSummonAbility : Ability
-    {
-        public ButtonSummonAbility(Pawn pawn) : base(pawn)
-        {
-        }
-
-        public ButtonSummonAbility(Pawn pawn, AbilityDef def) : base(pawn, def)
-        {
-        }
-
-        public override IEnumerable<Gizmo> GetGizmosExtra()
-        {
-            foreach (Gizmo g in base.GetGizmosExtra())
-            {
-                yield return g;
-            }
-
-            var manager = Find.World.GetComponent<AbsorbedCreatureManager>();
-            if (manager != null)
-            {
-                PawnAbsorbption Summoner = manager.GetOrCreateSummoner(pawn);
-
-                if (Summoner != null)
-                {
-                    List<PawnKindDef> absorbedCreatures = Summoner.AbsorbedCreatures.ToList();
-                    if (absorbedCreatures.Count > 0)
-                    {
-                        yield return new Gizmo_MultiImageButton(
-                            absorbedCreatures.Select(creature => new Gizmo_MultiOption(
-                                creature.defName,
-                                creature.race.uiIcon,
-                                () =>
-                                {
-                                    if (Summoner.SummonIsActiveOfKind(creature))
-                                    {
-                                        UnSummonCreature(pawn, creature);
-                                    }
-                                    else
-                                    {
-                                        SummonCreature(pawn, creature);
-                                    }
-                                },
-                                () =>
-                                {
-                                    if (Summoner.HasSummonType(creature))
-                                    {
-                                        Summoner.DeleteAbsorbedCreature(creature);
-                                    }
-                                }
-                            )).ToList()
-                        );
-                    }
-                }
-            }
-        }
-
-        private void SummonCreature(Pawn caster, PawnKindDef creature)
-        {
-            var manager = Find.World.GetComponent<AbsorbedCreatureManager>();
-
-            if (manager != null)
-            {
-                PawnAbsorbption Summoner = manager.GetOrCreateSummoner(caster);
-
-                if (Summoner != null)
-                {
-                    if (Summoner.SummonCreature(creature))
-                    {
-                        Messages.Message($"{caster.LabelShort} has summoned {creature.label}.", MessageTypeDefOf.PositiveEvent);
-                    }
-                }
-            }
-        }
-
-        private void UnSummonCreature(Pawn caster, PawnKindDef creature)
-        {
-            var manager = Find.World.GetComponent<AbsorbedCreatureManager>();
-
-            if (manager != null)
-            {
-                PawnAbsorbption Summoner = manager.GetOrCreateSummoner(caster);
-
-                if (Summoner != null)
-                {
-                    Summoner.UnsummonCreature(creature);
-                    Messages.Message($"{caster.LabelShort} has unsummoned {creature.label}.", MessageTypeDefOf.PositiveEvent);
-                }
-            }
         }
     }
 }

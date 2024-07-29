@@ -9,19 +9,27 @@ namespace JJK
     public class SummonedCreatureManager : WorldComponent
     {
         private List<SummonPair> summonPairs = new List<SummonPair>();
+        public Action<Pawn> OnSummonDied;
 
         public SummonedCreatureManager(World world) : base(world) { }
 
-        public Action<Pawn> OnSummonDied;
-
         public void RegisterSummon(Pawn summoned, Pawn master)
         {
-            summonPairs.Add(new SummonPair(summoned, master));
+            SummonPair existingPair = summonPairs.FirstOrDefault(x => x.Summoned == summoned);
+            if (existingPair == null)
+            {
+                summonPairs.Add(new SummonPair(summoned, master));
+            }
+            else existingPair.Master = master;
         }
 
         public void UnregisterSummon(Pawn summoned)
         {
-            summonPairs.RemoveAll(pair => pair.Summoned == summoned);
+            SummonPair summonPair = summonPairs.Find(x => x.Summoned == summoned);
+            if (summonPair != null)
+            {
+                summonPairs.Remove(summonPair);
+            }
         }
 
         public void Notify_SummonDeath(Pawn pawnThatDied)
@@ -48,6 +56,11 @@ namespace JJK
         {
             return summonPairs.Any(pair => pair.Summoned == pawn);
         }
+
+        public List<Pawn> GetSummonsFor(Pawn master)
+        {
+            return summonPairs.Where(pair => pair.Master == master).Select(pair => pair.Summoned).ToList();
+        }
     }
 
     public class SummonPair : IExposable
@@ -55,10 +68,8 @@ namespace JJK
         public Pawn Summoned;
         public Pawn Master;
 
-        public SummonPair() 
-        {
+        public SummonPair() { }
 
-        } 
         public SummonPair(Pawn summoned, Pawn master)
         {
             Summoned = summoned;

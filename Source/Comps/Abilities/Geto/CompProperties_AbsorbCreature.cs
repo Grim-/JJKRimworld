@@ -41,7 +41,7 @@ namespace JJK
                 return;
             }
 
-            PawnAbsorbption summoner = AbsorbedCreatureManager.GetOrCreateSummoner(parent.pawn);
+            AbsorbedData summoner = AbsorbedCreatureManager.GetAbsorbDataForPawn(parent.pawn);
 
             if (!summoner.CanAbsorbNewSummon())
             {
@@ -57,7 +57,7 @@ namespace JJK
                 return;
             }
 
-            if (!summoner.HasSummonType(targetPawn.kindDef))
+            if (!summoner.HasAbsorbedCreatureKind(targetPawn.kindDef))
             {
                 Gene_CursedEnergy cursedEnergy = caster.GetCursedEnergy();
                 float bodySizeFactor = targetPawn.BodySize;
@@ -65,9 +65,7 @@ namespace JJK
 
                 if (cursedEnergy.Value >= ceCost)
                 {
-                    // Use the global manager to absorb the creature
                     summoner.AbsorbCreature(targetPawn.kindDef);
-                    // Remove the absorbed creature from the map
                     targetPawn.Destroy();
                     parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(ceCost);
                     Messages.Message($"{caster.LabelShort} has absorbed {targetPawn.LabelShort}.", MessageTypeDefOf.PositiveEvent);

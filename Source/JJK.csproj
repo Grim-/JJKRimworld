@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ability\ButtonSummonAbility.cs" />
     <Compile Include="CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Comps\Abilities\CompAbilityEffect_CECost.cs" />
     <Compile Include="AI\JobDriver_ChannelRCT.cs" />
     <Compile Include="Comps\Abilities\Mahito\BodyPartChange.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityJump.cs" />
     <Compile Include="Comps\Abilities\Shoko\Stance_Busy_RCT.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_AbsorbCreature.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_SummonCreature.cs" />
@@ -120,7 +122,7 @@
     <Compile Include="Comps\Hediff\Hediff_ZombieWorkSlave.cs" />
     <Compile Include="Comps\Misc\CompStoredPawn.cs" />
     <Compile Include="Comps\World\DollTransformationWorldComponent.cs" />
-    <Compile Include="Comps\World\PawnAbsorbption.cs" />
+    <Compile Include="Comps\World\AbsorbedData.cs" />
     <Compile Include="CursedAbilityClass.cs" />
     <Compile Include="CursedAbilityDef.cs" />
     <Compile Include="Custom Damage Workers\DamageWorker_Dismantle.cs" />

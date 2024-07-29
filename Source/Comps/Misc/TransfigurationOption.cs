@@ -13,10 +13,14 @@ namespace JJK
         [XmlElement("bodyPartDef")]
         public string BodyPartDefName;
 
-        [XmlIgnore]
-        public HediffDef HediffDef => DefDatabase<HediffDef>.GetNamed(HediffDefName);
+        [XmlElement("cursedEnergyMaintainCost")]
+        public float CursedEnergyMaintainCost = 5f;
+
 
         [XmlIgnore]
-        public BodyPartDef BodyPartDef => DefDatabase<BodyPartDef>.GetNamed(BodyPartDefName);
+        public HediffDef HediffDef => !string.IsNullOrEmpty(HediffDefName) ? DefDatabase<HediffDef>.GetNamed(HediffDefName) : null;
+
+        [XmlIgnore]
+        public BodyPartDef BodyPartDef => !string.IsNullOrEmpty(BodyPartDefName) ? DefDatabase<BodyPartDef>.GetNamed(BodyPartDefName) : null;
     }
 }

@@ -50,7 +50,7 @@ namespace JJK
             pawn.health.AddHediff(JJKDefOf.JJ_SummonedCreatureTag);
 
 
-            SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
+            SummonedCreatureManager summonManager = JJKUtility.SummonedCreatureManager;
             summonManager.RegisterSummon(pawn, parent.pawn);
 
 
@@ -62,7 +62,7 @@ namespace JJK
         {
             if (summonedCreature != null && summonedCreature.Spawned)
             {
-                SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
+                SummonedCreatureManager summonManager = JJKUtility.SummonedCreatureManager;
                 summonManager.UnregisterSummon(summonedCreature);
                 Messages.Message($"{parent.pawn.LabelShort} has unsummoned the {summonedCreature.KindLabel}.", MessageTypeDefOf.PositiveEvent);
                 summonedCreature.Destroy(DestroyMode.Vanish);

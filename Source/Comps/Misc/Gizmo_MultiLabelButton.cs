@@ -6,8 +6,8 @@ namespace JJK
 {
     public class Gizmo_MultiLabelButton : Gizmo_MultiOptions
     {
-        protected override int ButtonWidth => 60; 
-        protected override int ButtonHeight => 24; 
+        protected override int ButtonWidth => 80; 
+        protected override int ButtonHeight => 36; 
         protected override int MaxButtonsPerRow => 4; 
         protected override float Padding => 5f;
 

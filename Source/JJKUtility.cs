@@ -96,7 +96,33 @@ namespace JJK
                 }
             }
         }
+        public static bool IsAbsorbedCreature(Pawn pawn)
+        {
+            AbsorbedCreatureManager manager = JJKUtility.AbsorbedCreatureManager;
+            if (manager == null)
+            {
+                Log.Message("IsAbsorbedCreature: Absorbed Creature Manager is null");
+                return false;
+            }
+            return manager.GetMasterForAbsorbedCreature(pawn) != null;
+        }
 
+        public static Pawn FindPawnById(string thingId)
+        {
+            return Find.WorldPawns.AllPawnsAlive.FirstOrDefault(p => p.ThingID == thingId) ??
+                   Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == thingId);
+        }
+
+        public static bool IsSummonedCreature(Pawn pawn)
+        {
+            SummonedCreatureManager manager = JJKUtility.SummonedCreatureManager;
+            if (manager == null)
+            {
+                Log.Message("IsSummonedCreature: Summoned Creature Manager is null");
+                return false;
+            }
+            return manager.IsSummonedCreature(pawn);
+        }
         public static void GiveCursedEnergy(Pawn targetPawn)
         {
             if ( targetPawn == null) return;

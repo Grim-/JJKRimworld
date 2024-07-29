@@ -194,38 +194,29 @@ namespace JJK
                 return false;
             }
 
+            //if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJ_SummonedCreatureTag) != null)
+            //{
+            //    __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
+            //    return false;
+            //}
 
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJ_SummonedCreatureTag) != null ||
-                IsSummonedCreature(pawn) || IsAbsorbedCreature(pawn))
+            if (JJKUtility.IsSummonedCreature(pawn))
             {
                 __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
                 //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
                 return false;
             }
 
+            if (JJKUtility.IsAbsorbedCreature(pawn))
+            {
+                __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
+                //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
+                return false;
+            }
+
+            //Log.Message($"JJK: Using default {(isConstant ? "Constant" : "Main")} ThinkTree for {pawn.LabelShort} (ThingID: {pawn.ThingID})");
+
             return true; // Run the original method
-        }
-
-        private static bool IsAbsorbedCreature(Pawn pawn)
-        {
-            AbsorbedCreatureManager manager = JJKUtility.AbsorbedCreatureManager;
-            if (manager == null)
-            {
-                Log.Message("IsAbsorbedCreature: Absorbed Creature Manager is null");
-                return false;
-            }
-            return manager.GetSummonerFor(pawn) != null;
-        }
-
-        private static bool IsSummonedCreature(Pawn pawn)
-        {
-            SummonedCreatureManager manager = JJKUtility.SummonedCreatureManager;
-            if (manager == null)
-            {
-                Log.Message("IsSummonedCreature: Summoned Creature Manager is null");
-                return false;
-            }
-            return manager.IsSummonedCreature(pawn);
         }
     }
 }

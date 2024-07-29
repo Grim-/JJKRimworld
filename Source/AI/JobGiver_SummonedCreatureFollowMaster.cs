@@ -10,24 +10,16 @@ namespace JJK
 
         protected override Pawn GetFollowee(Pawn pawn)
         {
-           // Log.Message($"GetFollowee called for {pawn.LabelShort}");
-
-            if (Master != null)
+            if (JJKUtility.IsSummonedCreature(pawn))
             {
-               // Log.Message($"Returning cached Master: {Master.LabelShort}");
-                return Master;
+                return JJKUtility.SummonedCreatureManager.GetMasterFor(pawn);
+            }
+            else if(JJKUtility.IsAbsorbedCreature(pawn))
+            {
+                return JJKUtility.AbsorbedCreatureManager.GetMasterForAbsorbedCreature(pawn);
             }
 
-            Master = Find.World.GetComponent<SummonedCreatureManager>().GetMasterFor(pawn);
-            Log.Message($"Master from SummonedCreatureManager: {Master?.LabelShort ?? "null"}");
-
-            if (Master == null || !Master.Spawned)
-            {
-                Master = Find.World.GetComponent<AbsorbedCreatureManager>().GetSummonerFor(pawn);
-               // Log.Message($"Master from AbsorbedCreatureManager: {Master?.LabelShort ?? "null"}");
-            }
-
-            return Master;
+            return null;
         }
 
         protected override float GetRadius(Pawn pawn)

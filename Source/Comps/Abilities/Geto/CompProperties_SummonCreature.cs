@@ -26,7 +26,7 @@ namespace JJK
             var manager = JJKUtility.AbsorbedCreatureManager;
             if (manager != null)
             {
-                PawnAbsorbption Summoner = manager.GetOrCreateSummoner(parent.pawn);
+                AbsorbedData Summoner = manager.GetAbsorbDataForPawn(parent.pawn);
 
                 if (Summoner != null)
                 {
@@ -41,16 +41,38 @@ namespace JJK
                                 creature.race.uiIcon,
                                 () =>
                                 {
+                                    Log.Message($"JJK: CLICKED SUMMON BUTTON");
+
+
+
                                     if (Summoner.SummonIsActiveOfKind(creature))
                                     {
-                                        UnSummonCreature(parent.pawn, creature);
+                                        Log.Message($"JJK: ALREADY HAVE A CREATURE SUMMONED OF KIND {creature.label}");
+
+                                        Pawn ActiveSummon = Summoner.GetActiveSummonOfKind(creature);
+
+                                      
+                                        if (ActiveSummon != null)
+                                        {
+                                            Log.Message($"JJK: {ActiveSummon.Label} {ActiveSummon.ThingID} IS THAT ACTIVE CREATURE.");
+
+                                            if (Summoner.UnsummonCreature(ActiveSummon))
+                                            {
+                                                Messages.Message($"{parent.pawn.LabelShort} has unsummoned {ActiveSummon.LabelShort}.", MessageTypeDefOf.PositiveEvent);
+                                            }
+                                        }                                  
                                     }
                                     else
-                                        SummonCreature(parent.pawn, creature);
+                                    {
+                                        if (Summoner.CreateCreatureOfKind(creature))
+                                        {
+                                            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Props.cursedEnergyCost);
+                                        }
+                                    }
                                 },
                                 () =>
                                 {
-                                    if (Summoner.HasSummonType(creature))
+                                    if (Summoner.HasAbsorbedCreatureKind(creature))
                                     {
                                         Summoner.DeleteAbsorbedCreature(creature);
                                     }
@@ -72,41 +94,6 @@ namespace JJK
             else
             {
                 //cant find manager
-            }
-        }
-
-        public void SummonCreature(Pawn caster, PawnKindDef creature)
-        {
-            var manager = Find.World.GetComponent<AbsorbedCreatureManager>();
-
-            if (manager != null)
-            {
-                PawnAbsorbption Summoner = manager.GetOrCreateSummoner(caster);
-
-                if (Summoner != null)
-                {
-                    if (Summoner.SummonCreature(creature))
-                    {
-                        caster.GetCursedEnergy()?.ConsumeCursedEnergy(Props.cursedEnergyCost);
-                        Messages.Message($"{caster.LabelShort} has summoned {creature.label}.", MessageTypeDefOf.PositiveEvent);
-                    }                   
-                }                  
-            }          
-        }
-
-        public void UnSummonCreature(Pawn caster, PawnKindDef creature)
-        {
-            var manager = Find.World.GetComponent<AbsorbedCreatureManager>();
-
-            if (manager != null)
-            {
-                PawnAbsorbption Summoner = manager.GetOrCreateSummoner(caster);
-
-                if (Summoner != null)
-                {
-                    Summoner.UnsummonCreature(creature);
-                    Messages.Message($"{caster.LabelShort} has unsummoned {creature.label}.", MessageTypeDefOf.PositiveEvent);
-                }
             }
         }
     }

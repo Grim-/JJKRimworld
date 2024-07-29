@@ -34,7 +34,7 @@ namespace JJK
                     Pawn master = Find.World.GetComponent<SummonedCreatureManager>().GetMasterFor(pawn);
                     if (master == null || !master.Spawned)
                     {
-                        master = Find.World.GetComponent<AbsorbedCreatureManager>().GetSummonerFor(pawn);
+                        master = Find.World.GetComponent<AbsorbedCreatureManager>().GetMasterForAbsorbedCreature(pawn);
                         if (master == null || !master.Spawned)
                         {
                             Log.Message($"Ending defend master job for {pawn.LabelShort}: master null or not spawned");

@@ -23,7 +23,7 @@ namespace JJK
 
             if (Master == null || !Master.Spawned)
             {
-                Master = Find.World.GetComponent<AbsorbedCreatureManager>().GetSummonerFor(pawn);
+                Master = Find.World.GetComponent<AbsorbedCreatureManager>().GetMasterForAbsorbedCreature(pawn);
                 Log.Message($"Master from AbsorbedCreatureManager: {Master?.LabelShort ?? "null"}");
             }
 
