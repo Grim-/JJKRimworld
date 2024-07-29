@@ -27,7 +27,6 @@ namespace JJK
             if (manager != null)
             {
                 AbsorbedData Summoner = manager.GetAbsorbDataForPawn(parent.pawn);
-
                 if (Summoner != null)
                 {
                     List<PawnKindDef> absorbedCreatures = Summoner.AbsorbedCreatures.ToList();

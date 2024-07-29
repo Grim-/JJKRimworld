@@ -6,8 +6,7 @@ namespace JJK
 {
     public class AbsorbedData : IExposable
     {
-        public string PawnID;
-        public Pawn Master => JJKUtility.FindPawnById(PawnID);
+        public Pawn Master;
         public List<PawnKindDef> AbsorbedCreatures = new List<PawnKindDef>();
         public List<ActiveSummonData> ActiveSummons = new List<ActiveSummonData>();
         public int SummonLimit = 5;
@@ -30,32 +29,14 @@ namespace JJK
             return false;
         }
 
-        public void SetPawnReference(Pawn pawn)
+         public void ExposeData()
         {
-            PawnID = pawn.ThingID;
-        }
-
-        public void ExposeData()
-        {
-            Scribe_Values.Look(ref PawnID, "PawnID");
-           // Scribe_References.Look(ref Master, "Master");
+            Scribe_References.Look(ref Master, "Master");
             Scribe_Collections.Look(ref AbsorbedCreatures, "AbsorbedCreatures", LookMode.Def);
             Scribe_Collections.Look(ref ActiveSummons, "ActiveSummons", LookMode.Deep);
             Scribe_Values.Look(ref SummonLimit, "SummonLimit", 5);
         }
-        public void ResolveCrossReferences()
-        {
-            var pawn = Find.WorldPawns.AllPawnsAlive.FirstOrDefault(p => p.ThingID == PawnID) ??
-                     Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == PawnID);
-            Log.Message($"JJK: AResolveCrossReferences Master {Master}");
 
-            //SetPawnReference(pawn);
-
-            foreach (var summon in ActiveSummons)
-            {
-                summon.ResolveCrossReferences();
-            }
-        }
         public void AbsorbCreature(PawnKindDef creatureKind)
         {
             if (!AbsorbedCreatures.Contains(creatureKind))
@@ -179,7 +160,7 @@ namespace JJK
         public Pawn Master;
         public Pawn Summon;
 
-        public Def Def;
+        public PawnKindDef Def;
 
         public void ExposeData()
         {
@@ -195,13 +176,5 @@ namespace JJK
                         $"Summon found: {Summon != null}, " +
                         $"Def: {Def?.defName ?? "null"}");
         }
-
-
-        //private Pawn FindPawnById(string thingId)
-        //{
-        //    return Find.WorldPawns.AllPawnsAlive.FirstOrDefault(p => p.ThingID == thingId) ??
-        //           Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == thingId);
-        //}
-
     }
 }

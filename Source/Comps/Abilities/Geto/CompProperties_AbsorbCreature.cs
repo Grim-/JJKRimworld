@@ -41,7 +41,14 @@ namespace JJK
                 return;
             }
 
-            AbsorbedData summoner = AbsorbedCreatureManager.GetAbsorbDataForPawn(parent.pawn);
+            AbsorbedData summoner = null;
+
+
+            if (!AbsorbedCreatureManager.HasAbsorbDataForPawn(parent.pawn))
+            {
+                summoner = AbsorbedCreatureManager.CreateAbsorbDataForPawn(parent.pawn);
+            }
+            else summoner = AbsorbedCreatureManager.GetAbsorbDataForPawn(parent.pawn);
 
             if (!summoner.CanAbsorbNewSummon())
             {
