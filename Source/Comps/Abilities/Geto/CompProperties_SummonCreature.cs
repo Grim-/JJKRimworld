@@ -21,79 +21,80 @@ namespace JJK
             //does not need to do anything handled by button gizmos
         }
 
-        public override IEnumerable<Gizmo> CompGetGizmosExtra()
-        {
-            var manager = JJKUtility.AbsorbedCreatureManager;
-            if (manager != null)
-            {
-                AbsorbedData Summoner = manager.GetAbsorbDataForPawn(parent.pawn);
-                if (Summoner != null)
-                {
-                    List<PawnKindDef> absorbedCreatures = Summoner.AbsorbedCreatures.ToList();
-                    if (absorbedCreatures.Count > 0)
-                    {
-                        var options = new List<Gizmo_MultiOption>();
-                        foreach (var creature in absorbedCreatures)
-                        {
-                            options.Add(new Gizmo_MultiOption(
-                                creature.defName,
-                                creature.race.uiIcon,
-                                () =>
-                                {
-                                    Log.Message($"JJK: CLICKED SUMMON BUTTON");
+        //public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        //{
+        //    var manager = JJKUtility.AbsorbedCreatureManager;
+        //    if (manager != null)
+        //    {
+        //        AbsorbedData Summoner = manager.GetAbsorbDataForPawn(parent.pawn);
+        //        if (Summoner != null)
+        //        {
+        //            List<PawnKindDef> absorbedCreatures = Summoner.AbsorbedCreatures;
+        //            if (absorbedCreatures.Count > 0)
+        //            {
+        //                var options = new List<Gizmo_MultiOption>();
+        //                foreach (var creature in absorbedCreatures)
+        //                {
+        //                    options.Add(new Gizmo_MultiOption(
+        //                        creature.defName,
+        //                        creature.race.uiIcon,
+        //                        () =>
+        //                        {
+        //                            Log.Message($"JJK: CLICKED SUMMON BUTTON");
 
 
 
-                                    if (Summoner.SummonIsActiveOfKind(creature))
-                                    {
-                                        Log.Message($"JJK: ALREADY HAVE A CREATURE SUMMONED OF KIND {creature.label}");
+        //                            if (Summoner.SummonIsActiveOfKind(creature))
+        //                            {
+        //                                Log.Message($"JJK: ALREADY HAVE A CREATURE SUMMONED OF KIND {creature.label}");
 
-                                        Pawn ActiveSummon = Summoner.GetActiveSummonOfKind(creature);
+        //                                Pawn ActiveSummon = Summoner.GetActiveSummonOfKind(creature);
 
                                       
-                                        if (ActiveSummon != null)
-                                        {
-                                            Log.Message($"JJK: {ActiveSummon.Label} {ActiveSummon.ThingID} IS THAT ACTIVE CREATURE.");
+        //                                if (ActiveSummon != null)
+        //                                {
+        //                                    Log.Message($"JJK: {ActiveSummon.Label} {ActiveSummon.ThingID} IS THAT ACTIVE CREATURE.");
 
-                                            if (Summoner.UnsummonCreature(ActiveSummon))
-                                            {
-                                                Messages.Message($"{parent.pawn.LabelShort} has unsummoned {ActiveSummon.LabelShort}.", MessageTypeDefOf.PositiveEvent);
-                                            }
-                                        }                                  
-                                    }
-                                    else
-                                    {
-                                        if (Summoner.CreateCreatureOfKind(creature))
-                                        {
-                                            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Props.cursedEnergyCost);
-                                        }
-                                    }
-                                },
-                                () =>
-                                {
-                                    if (Summoner.HasAbsorbedCreatureKind(creature))
-                                    {
-                                        Summoner.DeleteAbsorbedCreature(creature);
-                                    }
-                                }
-                            ));
-                        }
-                        yield return new Gizmo_MultiImageButton(options);
-                    }
-                    else
-                    {
-                        //no creatures
-                    }
-                }
-                else
-                {
-                    //no summoner
-                }
-            }
-            else
-            {
-                //cant find manager
-            }
-        }
+        //                                    if (Summoner.UnsummonCreature(ActiveSummon))
+        //                                    {
+        //                                        Messages.Message($"{parent.pawn.LabelShort} has unsummoned {ActiveSummon.LabelShort}.", MessageTypeDefOf.PositiveEvent);
+        //                                    }
+        //                                }                                  
+        //                            }
+        //                            else
+        //                            {
+        //                                if (Summoner.CreateCreatureOfKind(creature))
+        //                                {
+        //                                    parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Props.cursedEnergyCost);
+        //                                }
+        //                            }
+        //                        },
+        //                        () =>
+        //                        {
+        //                            if (Summoner.HasAbsorbedCreatureKind(creature))
+        //                            {
+        //                                Summoner.DeleteAbsorbedCreature(creature);
+        //                            }
+        //                        }
+        //                    ));
+        //                }
+        //                yield return new Gizmo_MultiImageButton(options);
+        //            }
+        //            else
+        //            {
+        //                //no creatures
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //no summoner
+        //            Log.Message($"JJK: CSUMMONCREATE NO AbsorbedData FOR {parent.pawn} {parent.pawn.ThingID}");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        //cant find manager
+        //    }
+        //}
     }
 }

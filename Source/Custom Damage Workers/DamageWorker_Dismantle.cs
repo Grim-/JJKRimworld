@@ -12,7 +12,6 @@ namespace JJK
     {
         protected override BodyPartRecord ChooseHitPart(DamageInfo dinfo, Pawn pawn)
         {
-            // Select a random body part for dismemberment
             return pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, BodyPartDepth.Outside);
         }
 

@@ -52,10 +52,9 @@ namespace JJK
             {
                 IntVec3 spawnPosition = CellFinder.RandomClosewalkCellNear(Master.Position, Master.Map, 2);
                 Pawn spawnedCreature = PawnGenerator.GeneratePawn(creatureKind, RimWorld.Faction.OfPlayer);
-                spawnedCreature.health.AddHediff(JJKDefOf.JJ_SummonedCreatureTag);
                 GenSpawn.Spawn(spawnedCreature, spawnPosition, Master.Map);
                 AddToActiveSummons(spawnedCreature);
-                Log.Message($"{Master.LabelShort} summoned {spawnedCreature.LabelShort} (ThingID: {spawnedCreature.ThingID})");
+                Log.Message($"JJK: {Master.LabelShort} summoned {spawnedCreature.LabelShort} (ThingID: {spawnedCreature.ThingID})");
                 return true;
             }
             return false;
@@ -76,8 +75,8 @@ namespace JJK
                     {
                         Log.Message($"JJK: {creature.Label} {creature.ThingID} FOUND DESTROYING AND REMOVING FROM ACTIVE SUMMONS.");
                         
-                        item.Summon.DeSpawn(DestroyMode.Vanish);
-                        ActiveSummons.Remove(item);
+                        item.Summon.Destroy(DestroyMode.Vanish);
+                        //ActiveSummons.Remove(item);
                         return true;
                     }
                 }
@@ -94,7 +93,6 @@ namespace JJK
                 Def = summonedCreature.kindDef
             });
             Log.Message($"JJK: Added {summonedCreature.LabelShort} (ThingID: {summonedCreature.ThingID}, KindDef: {summonedCreature.kindDef}) to active summons of {Master.LabelShort}");
-            Log.Message($"JJK: Current active summons count: {ActiveSummons.Count}");
         }
 
         public bool SummonIsActiveOfKind(PawnKindDef creature)

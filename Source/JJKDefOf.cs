@@ -34,9 +34,7 @@ namespace JJK
         public static GeneDef Gene_Kenjaku;
         public static GeneDef Gene_JJKLimitless;
         public static GeneDef Gene_JJKMahito;
-
-
-        public static GeneDef Gene_JJKGeto;
+        //public static GeneDef Gene_JJKGeto;
 
 
         public static ThingDef JJK_Flyer;
@@ -52,6 +50,8 @@ namespace JJK
         public static ThinkTreeDef JJK_SummonedCreature;
         public static ThinkTreeDef ZombieWorkSlave;
 
+
+        public static TraitDef JJK_SukunaTrait;
 
         public static JobDef JJK_DefendMaster;
         public static JobDef ChannelRCT;

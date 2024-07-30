@@ -45,19 +45,20 @@ namespace JJK
         }
 
 
-        private static AbsorbedCreatureManager _AbsorbedCreatureManager;
-        public static AbsorbedCreatureManager AbsorbedCreatureManager
-        {
-            get
-            {
-                if (_AbsorbedCreatureManager == null)
-                {
-                    _AbsorbedCreatureManager = Find.World.GetComponent<AbsorbedCreatureManager>();
-                }
+        //maybe the lazy init is causing the save/load issues? I dont fuckin know at this point.
+      //  private static AbsorbedCreatureManager _AbsorbedCreatureManager;
+      //  public static AbsorbedCreatureManager AbsorbedCreatureManager = Current.Game.GetComponent<AbsorbedCreatureManager>();
+        //{
+        //    get
+        //    {
+        //        if (_AbsorbedCreatureManager == null)
+        //        {
+        //            _AbsorbedCreatureManager = Current.Game.GetComponent<AbsorbedCreatureManager>();
+        //        }
 
-                return _AbsorbedCreatureManager;
-            }
-        }
+        //        return _AbsorbedCreatureManager;
+        //    }
+        //}
 
 
         [DebugAction("JJK", "Restore Pawn CE", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -96,16 +97,53 @@ namespace JJK
                 }
             }
         }
-        public static bool IsAbsorbedCreature(Pawn pawn)
+
+
+
+        public static void ForceSorcererGradeGene(Pawn targetPawn, GeneDef GeneToForce)
         {
-            AbsorbedCreatureManager manager = JJKUtility.AbsorbedCreatureManager;
-            if (manager == null)
+            CursedEnergyGeneExtension geneToForceExtension = GeneToForce.GetModExtension<CursedEnergyGeneExtension>();
+            if (geneToForceExtension == null)
             {
-                Log.Message("IsAbsorbedCreature: Absorbed Creature Manager is null");
-                return false;
+                Log.Message($"{GeneToForce} has no CursedEnergyGeneExtension.");
+                return;
             }
-            return manager.GetMasterForAbsorbedCreature(pawn) != null;
+
+            var allSorcererGenes = targetPawn.genes.GenesListForReading
+                .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
+                .ToList();
+
+            foreach (Gene sourceGene in allSorcererGenes)
+            {
+                targetPawn.genes.RemoveGene(sourceGene);
+            }
+
+            targetPawn.genes.AddGene(GeneToForce, true);
         }
+
+
+        public static void AddTraitIfNotExist(Pawn Pawn, TraitDef TraitDef, int degree = 0, bool force = false)
+        { 
+            if (TraitDef != null && !Pawn.story.traits.HasTrait(TraitDef))
+            {
+                Pawn.story.traits.GainTrait(new Trait(TraitDef, degree, force));
+            }
+        }
+
+
+        //TODO REIMPLMENT THIS WHOLE ASS THING :/
+        //public static bool IsAbsorbedCreature(Pawn pawn)
+        //{
+        //    AbsorbedCreatureManager manager = JJKUtility.AbsorbedCreatureManager;
+        //    if (manager == null)
+        //    {
+        //        Log.Message("IsAbsorbedCreature: Absorbed Creature Manager is null");
+        //        return false;
+        //    }
+        //    Pawn master = manager.GetMasterForAbsorbedCreature(pawn);
+        //    //Log.Message($"JJK: IsAbsorbedCreature for {pawn.LabelShort} (ThingID: {pawn.ThingID}). Master found: {master != null}");
+        //    return master != null;
+        //}
 
         public static Pawn FindPawnById(string thingId)
         {
@@ -125,12 +163,18 @@ namespace JJK
         }
         public static void GiveCursedEnergy(Pawn targetPawn)
         {
-            if ( targetPawn == null) return;
-            targetPawn.genes?.AddGene(JJKDefOf.Gene_JJKCursedEnergy, true);
+            if (targetPawn == null || targetPawn.genes == null) return;
+
+            if (!targetPawn.genes.HasActiveGene(JJKDefOf.Gene_JJKCursedEnergy))
+            {
+                targetPawn.genes?.AddGene(JJKDefOf.Gene_JJKCursedEnergy, true);
+            }       
         }
+
+
         public static void TransferGenes(Pawn sourcePawn, Pawn targetPawn, GeneDef GeneDefToTransfer, bool IsXenogerm = true)
         {
-            if (sourcePawn == null || targetPawn == null) return;
+            if (sourcePawn == null || targetPawn == null || sourcePawn.genes == null || targetPawn.genes == null) return;
 
             if (sourcePawn.genes.HasActiveGene(GeneDefToTransfer))
             {
@@ -146,7 +190,7 @@ namespace JJK
 
         public static void RemoveViolenceIncapability(Pawn pawn)
         {
-            // Remove traits that disable violent work
+            //hopefully remove all traits that stop a being violent.
             List<Trait> traitsToRemove = new List<Trait>();
             foreach (Trait trait in pawn.story.traits.allTraits)
             {
@@ -161,7 +205,7 @@ namespace JJK
                 pawn.story.traits.allTraits.Remove(trait);
             }
 
-            // Remove any genes that might be disabling violent work
+            // same for genes.
             if (pawn.genes != null)
             {
                 List<Gene> genesToRemove = new List<Gene>();
@@ -179,10 +223,10 @@ namespace JJK
                 }
             }
 
-            // Recache the pawn's work settings
+            
             pawn.workSettings?.Notify_DisabledWorkTypesChanged();
 
-            // Reset the cache for the story's work tags
+            // ooooh yeah reflection baby, forces the cache clear after the chicanery above.
             typeof(Pawn_StoryTracker).GetField("cachedDisabledWorkTagsBackstoryAndTraits", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pawn.story, null);
             typeof(Pawn_StoryTracker).GetField("cachedDisabledWorkTagsBackstoryTraitsAndGenes", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pawn.story, null);
         }
@@ -222,7 +266,6 @@ namespace JJK
         {
             if (pawn?.genes == null)
             {
-                // If pawn or its genes are null, it cannot be a blue user
                 return false;
             }
 
@@ -233,7 +276,6 @@ namespace JJK
         {
             if (pawn?.genes == null)
             {
-                // If pawn or its genes are null, it cannot be a blue user
                 return false;
             }
 

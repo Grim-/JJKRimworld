@@ -2,4 +2,6 @@
 <LanguagData>
 	<AbilitycursedEnergyCost>Cursed Energy Cost</AbilitycursedEnergyCost>
 	<AbilityDisabledNoCursedEnergy>No Cursed Energy</AbilityDisabledNoCursedEnergy>
+	<JJK_KenjakuPossessionSuccessful>Successfully Possessed target pawn.</JJK_KenjakuPossessionSuccessful>
+	<JJK_KenjakuPossessionFailed_NoGene>No Kenjaku Gene found on caster.</JJK_KenjakuPossessionFailed_NoGene>
 </LanguagData>

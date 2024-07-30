@@ -15,36 +15,36 @@ namespace JJK
         {
         }
 
-        public override IEnumerable<Gizmo> GetGizmosExtra()
-        {
-            foreach (Gizmo g in base.GetGizmosExtra())
-            {
-                yield return g;
-            }
+        //public override IEnumerable<Gizmo> GetGizmosExtra()
+        //{
+        //    foreach (Gizmo g in base.GetGizmosExtra())
+        //    {
+        //        yield return g;
+        //    }
 
-            var manager = JJKUtility.AbsorbedCreatureManager;
-            if (manager != null)
-            {
-                AbsorbedData Summoner = manager.GetAbsorbDataForPawn(pawn);
+        //    var manager = JJKUtility.AbsorbedCreatureManager;
+        //    if (manager != null)
+        //    {
+        //        AbsorbedData Summoner = manager.GetAbsorbDataForPawn(pawn);
 
-                if (Summoner != null)
-                {
-                    List<PawnKindDef> absorbedCreatures = Summoner.AbsorbedCreatures.ToList();
-                    if (absorbedCreatures.Count > 0)
-                    {
-                        //create a button gizmo for each summon type
-                        yield return new Gizmo_MultiImageButton(
-                            absorbedCreatures.Select(creature => new Gizmo_MultiOption(
-                                creature.defName,
-                                creature.race.uiIcon,
-                                () => HandleSummonInput(Summoner, creature),
-                                () => HandleDeletingAbsorbedKind(Summoner, creature)
-                            )).ToList()
-                        );
-                    }
-                }
-            }
-        }
+        //        if (Summoner != null)
+        //        {
+        //            List<PawnKindDef> absorbedCreatures = Summoner.AbsorbedCreatures.ToList();
+        //            if (absorbedCreatures.Count > 0)
+        //            {
+        //                //create a button gizmo for each summon type
+        //                yield return new Gizmo_MultiImageButton(
+        //                    absorbedCreatures.Select(creature => new Gizmo_MultiOption(
+        //                        creature.defName,
+        //                        creature.race.uiIcon,
+        //                        () => HandleSummonInput(Summoner, creature),
+        //                        () => HandleDeletingAbsorbedKind(Summoner, creature)
+        //                    )).ToList()
+        //                );
+        //            }
+        //        }
+        //    }
+        //}
 
         //left click
         private void HandleSummonInput(AbsorbedData Summoner, PawnKindDef CreatureKind)

@@ -15,7 +15,7 @@
     <capMods>
       <li>
         <capacity>Sight</capacity>
-        <postFactor>3</postFactor>
+        <postFactor>6</postFactor>
       </li>
     </capMods>
     <statFactors>

@@ -1,0 +1,64 @@
+﻿# Rimworld Mod Release Notes: Jujutsu Kaisen Expansion
+
+## New Core Mechanic: Cursed Energy System
+- Cursed Energy is now a gene required for sorcerers to fuel their abilities
+- RCT Affinity Gene: Grants the ability to use Reversed Cursed Technique (RCT)
+
+## New Sorcerer Grade Genes
+Progression: Grade 3 -> Grade 2 -> Grade 1 -> Special Grade -> Special Grade Large -> Special Grade Monstrous
+
+Each grade increases Cursed Energy capacity and offers faster regeneration:
+- Grade 3: Base level sorcerer
+- Grade 2: Increased Cursed Energy and damage
+- Grade 1: Highest standard grade, doubled Cursed Energy capacity
+- Special Grade: Significantly higher Cursed Energy and abilities
+- Special Grade Large: Even greater Cursed Energy reserves
+- Special Grade Monstrous: Extreme Cursed Energy levels
+
+Special grades have unique bonuses to RCT speed and healing.
+
+## Character-Specific Genes and Abilities
+
+### Limitless
+- CT Blue: Create a space distortion, pulling non-Limitless users towards it
+- RCT Red: Fire a projectile dealing damage and significant knockback
+- Blue Application: Teleport Self - Instantly move to a chosen destination
+- Blue Application: Teleport Others - Instantly move another pawn to a chosen destination
+
+### Limitless + Six Eyes
+- Hollow Purple: Fire a large, destructive projectile annihilating everything in its path
+
+### Six Eyes
+- Massively reduced Cursed Energy costs for abilities
+
+### Mahito
+- Idle Transfiguration: Transform a pawn into a powerful but unstable monstrous form
+- Idle Transfiguration Shape Self: Transform limbs for additional stats and abilities
+  - Arms: Bone Claws, Drills, Scythe Arms, Flesh Whips (increased melee damage, mining)
+  - Legs: Jackal Legs (jumping), Beetle Legs (increased movement and caravan speed)
+
+### Kenjaku
+- Possess: Take over a dead pawn's body (pre-decay), gaining their skills while keeping Kenjaku gene, Cursed Energy gene, and the best Sorcerer grade
+
+### Shoko
+- Innate RCT: Use Reversed Cursed Technique on self and others
+- RCT Healing Bonus: 3x healing effectiveness with RCT
+
+### Sukuna
+- Cleave: Adaptive slashing attack based on target's toughness and Cursed Energy
+- Dismantle: Ranged slash effective against objects, cursed spirits, and sorcerers
+- Fire Arrow: Long-range flame attack causing large explosions and high damage
+
+### Heavenly Pact
+- Seals Cursed Energy, preventing use of Cursed Energy abilities
+- Grants godlike physical capabilities:
+  - Increased: Melee DPS (10x), Max Hit Points (10x), Move Speed (3x), Melee Hit Chance (3x), Melee Dodge Chance (4x), Carrying Capacity (10x)
+  - Improved: Melee Armor Penetration (0.4x), Pain Shock Threshold (0.5x, doubled pain resistance)
+  - Enhanced Capacities (3x): Sight, Hearing, Blood Filtration, Blood Pumping, Breathing, Moving, Manipulation, Consciousness
+- Cannot be combined with other Cursed Energy multiplier genes
+
+## New Item
+### Yuta's Katana
+- Uses longsword stats and image
+- Cursed energy users can steal abilities from other CE users on hit
+- Stolen abilities usable while katana is equipped

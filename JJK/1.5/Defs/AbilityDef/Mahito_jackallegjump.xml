@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<AbilityDef>
+  <defName>JJK_Jump</defName>
+  <label>jump</label>
+  <description>Perform a powerful leap to a nearby location.</description>
+  <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+  <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <drawAimPie>true</drawAimPie>
+    <range>10</range>
+    <warmupTime>0.5</warmupTime>
+    <targetParams>
+      <canTargetLocations>true</canTargetLocations>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="JJK.CompProperties_AbilityJumper">
+    </li>
+    <li Class="JJK.CompProperties_AbilityCECost">
+      <cursedEnergyCost>20</cursedEnergyCost>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

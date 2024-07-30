@@ -25,6 +25,7 @@
       <canTargetCorpses>True</canTargetCorpses>
       <canTargetPawns>True</canTargetPawns>
       <canTargetLocations>false</canTargetLocations>
+      <onlyTargetCorpses>True</onlyTargetCorpses>
     </targetParams>
   </verbProperties>
   <comps>

@@ -24,26 +24,40 @@
   <comps>
     <li Class="JJK.CompProperties_IdleTransfigurationShapeSelf">
       <compClass>JJK.CompAbilityEffect_IdleTransfigurationShapeSelf</compClass>
+      <MaintainCostTicks>2500</MaintainCostTicks>
       <ShapeShiftOptions>
         <li>
-          <OptionLabel>Power Claw</OptionLabel>
-          <HediffDefName>PowerClaw</HediffDefName>
+          <OptionLabel>Bone Claws</OptionLabel>
+          <HediffDefName>JJKBoneClaw</HediffDefName>
           <BodyPartDefName>Hand</BodyPartDefName>
         </li>
         <li>
-          <OptionLabel>Tentacle</OptionLabel>
-          <HediffDefName>Tentacle</HediffDefName>
+          <OptionLabel>Drills</OptionLabel>
+          <HediffDefName>DrillArm</HediffDefName>
           <BodyPartDefName>Arm</BodyPartDefName>
         </li>
         <li>
-          <OptionLabel>Flesh Whip</OptionLabel>
+          <OptionLabel>Scythe arms</OptionLabel>
+          <HediffDefName>JJKScytheArms</HediffDefName>
+          <BodyPartDefName>Arm</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Flesh Whips</OptionLabel>
           <HediffDefName>FleshWhip</HediffDefName>
           <BodyPartDefName>Arm</BodyPartDefName>
         </li>
+        <li>
+          <OptionLabel>Jackal Legs</OptionLabel>
+          <HediffDefName>JJKJumpingLegs</HediffDefName>
+          <BodyPartDefName>Leg</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Beetle Legs</OptionLabel>
+          <HediffDefName>JJKChitinousLegs</HediffDefName>
+          <BodyPartDefName>Leg</BodyPartDefName>
+        </li>
       </ShapeShiftOptions>
-    </li>
-    <li Class="JJK.CompProperties_AbilityCECost">
-        <cursedEnergyCost>10</cursedEnergyCost>
+      <cursedEnergyCost>10</cursedEnergyCost>
     </li>
   </comps>
 </AbilityDef>

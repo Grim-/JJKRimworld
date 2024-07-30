@@ -75,18 +75,27 @@ namespace JJK
                 }
 
             }
+        }
+    }
 
-            //Log.Message($"Gene {geneDef.defName} added to pawn {pawn.Name}");
-        }
-    }
-    [HarmonyPatch(typeof(Pawn), nameof(Pawn.Kill))]
-    public static class Patch_Pawn_Kill
+    [HarmonyPatch(typeof(TraitSet), nameof(TraitSet.GainTrait), new System.Type[] { typeof(Trait), typeof(bool) })]
+    public static class Patch_AddTrait
     {
-        public static void Postfix(Pawn __instance)
+        static void Postfix(TraitSet __instance, Trait trait, bool suppressConflicts = false)
         {
-            JJKUtility.SummonedCreatureManager?.Notify_SummonDeath(__instance);
+            Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
+            if (pawn != null && trait != null)
+            {
+                if (trait.def == JJKDefOf.JJK_SukunaTrait)
+                {
+                    JJKUtility.GiveCursedEnergy(pawn);
+                    JJKUtility.ForceSorcererGradeGene(pawn, JJKDefOf.Gene_JJKSpecialGrade_Monstrous);
+                    JJKUtility.AddTraitIfNotExist(pawn, TraitDef.Named("Cannibal"));
+                }
+            }
         }
     }
+
 
     [HarmonyPatch(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.WouldBeDownedAfterAddingHediff), new Type[] { typeof(HediffDef), typeof(BodyPartRecord), typeof(float) })]
     public static class Patch_WouldBeDownedAfterAddingHediff
@@ -194,17 +203,18 @@ namespace JJK
                 return false;
             }
 
-            if (JJKUtility.IsSummonedCreature(pawn))
-            {
-                __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-                return false;
-            }
+            //if (JJKUtility.IsSummonedCreature(pawn))
+            //{
+            //    __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
+            //    return false;
+            //}
 
-            if (JJKUtility.IsAbsorbedCreature(pawn))
-            {
-                __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-                return false;
-            }
+            //if (JJKUtility.IsAbsorbedCreature(pawn))
+            //{
+            //    __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
+            //    //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
+            //    return false;
+            //}
 
             //Log.Message($"JJK: Using default {(isConstant ? "Constant" : "Main")} ThinkTree for {pawn.LabelShort} (ThingID: {pawn.ThingID})");
 

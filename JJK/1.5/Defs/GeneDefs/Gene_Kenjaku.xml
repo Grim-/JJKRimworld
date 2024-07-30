@@ -12,8 +12,6 @@
     <biostatMet>0</biostatMet>
     <abilities>
       <li>JJK_KenjakuPosess</li>
-      <li>ZombifyWorkSlave</li>
-      <li>ReversedCurseTechnique</li>
     </abilities>
     <customEffectDescriptions>
       <li>Allows the carrier to possess other pawns, transferring their consciousness and traits.</li>

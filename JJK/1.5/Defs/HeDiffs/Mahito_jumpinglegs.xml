@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef ParentName="JJKTransformedBodyPartBase">
+  <defName>JJKJumpingLegs</defName>
+  <label>jackal legs</label>
+  <labelNoun>jackal legs</labelNoun>
+  <description>Transformed Jackal legs that have developed powerful muscles and a spring-like structure. These modifications grant the ability to perform extraordinary jumps, enhancing both mobility and combat capabilities. The altered leg structure also increases overall movement speed.</description>
+  <addedPartProps>
+    <solid>true</solid>
+    <betterThanNatural>true</betterThanNatural>
+  </addedPartProps>
+  <stages>
+    <li>
+      <statOffsets>
+        <MoveSpeed>0.25</MoveSpeed>
+      </statOffsets>
+      <capMods>
+        <li>
+          <capacity>Moving</capacity>
+          <offset>0.20</offset>
+        </li>
+      </capMods>
+    </li>
+  </stages>
+  <comps>
+    <li Class="HediffCompProperties_VerbGiver">
+      <tools>
+        <li>
+          <label>foot</label>
+          <capacities>
+            <li>Blunt</li>
+          </capacities>
+          <power>12</power>
+          <cooldownTime>1.8</cooldownTime>
+        </li>
+      </tools>
+    </li>
+    <li Class="HediffCompProperties_GiveAbility">
+      <abilityDef>JJK_Jump</abilityDef>
+    </li>
+  </comps>
+</HediffDef>
+
+<HediffDef ParentName="JJKTransformedBodyPartBase">
+    <defName>JJKChitinousLegs</defName>
+    <label>chitinous legs</label>
+    <labelNoun>chitinous legs</labelNoun>
+    <description>A disturbing transformation where the legs have morphed into insect-like appendages. The skin has hardened into a chitinous exoskeleton, and the feet have split into multiple clawed digits. Despite their unnerving appearance, these legs grant exceptional speed and agility. They also increase caravan speed.</description>
+    <stages>
+      <li>
+        <statOffsets>
+          <MoveSpeed>0.25</MoveSpeed>
+          <CaravanRidingSpeedFactor>0.5</CaravanRidingSpeedFactor>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.20</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

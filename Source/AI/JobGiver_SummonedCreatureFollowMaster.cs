@@ -14,10 +14,10 @@ namespace JJK
             {
                 return JJKUtility.SummonedCreatureManager.GetMasterFor(pawn);
             }
-            else if(JJKUtility.IsAbsorbedCreature(pawn))
-            {
-                return JJKUtility.AbsorbedCreatureManager.GetMasterForAbsorbedCreature(pawn);
-            }
+            //else if(JJKUtility.IsAbsorbedCreature(pawn))
+            //{
+            //    return JJKUtility.AbsorbedCreatureManager.GetMasterForAbsorbedCreature(pawn);
+            //}
 
             return null;
         }
@@ -53,7 +53,7 @@ namespace JJK
             float radius = GetRadius(pawn);
             if (!JobDriver_FollowClose.FarEnoughAndPossibleToStartJob(pawn, followee, radius))
             {
-               // Log.Message($"{pawn.LabelShort} is not far enough from {followee.LabelShort} to start follow job");
+               Log.Message($"{pawn.LabelShort} is not far enough from {followee.LabelShort} to start follow job");
                 return null;
             }
 
