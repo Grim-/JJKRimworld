@@ -20,13 +20,14 @@ namespace JJK
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            Corpse targetCorpse = null;
-
             if (target.Thing.GetType() != typeof(Corpse))
             {
                 Log.Error("JJK: Target is not a corpse.");
                 return;
             }
+
+            Corpse targetCorpse = (Corpse)target.Thing;
+
 
             if (targetCorpse == null)
             {

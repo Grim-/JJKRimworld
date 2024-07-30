@@ -73,7 +73,10 @@ namespace JJK
                 {
                     pawn.abilities.GainAbility(JJKDefOf.Gojo_HollowPurple);
                 }
-
+            }
+            else if(geneDef == JJKDefOf.Gene_JJKCursedEnergy)
+            {
+                JJKUtility.GiveRandomSorcererGrade(pawn);
             }
         }
     }

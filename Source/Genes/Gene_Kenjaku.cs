@@ -19,22 +19,7 @@ namespace JJK
         public override void PostAdd()
         {
             base.PostAdd();
-            InitializeEntity();
             GrantPossessionAbility();
-        }
-
-        private void InitializeEntity()
-        {
-           // entityFaction = FactionUtility.DefaultFactionFrom(FactionDefOf.PlayerColony);
-            entityTraitDefs = new List<TraitDef>(def.guaranteedTraits);
-
-            foreach (TraitDef randomTrait in def.randomTraits)
-            {
-                if (Rand.Chance(def.randomTraitChance))
-                {
-                    entityTraitDefs.Add(randomTrait);
-                }
-            }
         }
 
         private void GrantPossessionAbility()
@@ -58,7 +43,6 @@ namespace JJK
                 Log.Warning("Attempted to use Kenjaku possession ability with a null target. This is not allowed.");
                 return false;
             }
-
 
             if (possessedPawn != null)
             {
@@ -97,8 +81,12 @@ namespace JJK
                     Log.Warning($"JJK: TargetPawn {TargetPawn.LabelShort} ideo is null");
                 }
             }
-            if (entityTraitDefs != null)
+
+
+            if (def != null && def.guaranteedTraits != null)
             {
+                entityTraitDefs = new List<TraitDef>(def.guaranteedTraits);
+
                 foreach (TraitDef traitDef in entityTraitDefs)
                 {
                     if (TargetPawn.story != null && TargetPawn.story.traits != null)
@@ -115,6 +103,8 @@ namespace JJK
                     }
                 }
             }
+
+
 
             //Log.Message("JJK: Removing violence incapability");
             JJKUtility.RemoveViolenceIncapability(TargetPawn);
