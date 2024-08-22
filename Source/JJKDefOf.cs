@@ -12,15 +12,19 @@ namespace JJK
     internal class JJKDefOf
     {
 
+        //stats
         public static StatDef JJK_CursedEnergy;
         public static StatDef JJK_CursedEnergyCost;
         public static StatDef JJK_CursedEnergyRegen;
         public static StatDef JJK_CursedEnergyRegenSpeed;
         public static StatDef JJK_CursedEnergyDamageBonus;
-
+        public static StatDef JJK_DomainStrength;
         public static StatDef JJK_RCTHealingBonus;
         public static StatDef JJK_RCTSpeedBonus;
 
+        /// <summary>
+        /// genes
+        /// </summary>
         public static GeneDef Gene_JJKCursedEnergy;
         public static GeneDef Gene_JJKGrade1;
         public static GeneDef Gene_JJKGrade2;
@@ -37,25 +41,28 @@ namespace JJK
         //public static GeneDef Gene_JJKGeto;
 
 
+        public static ThingDef JJK_DismantleProjectile;
+        public static ThingDef JJK_idleTransfigurationDoll;
         public static ThingDef JJK_Flyer;
-
 
         public static MentalStateDef TransfiguredState_Murderous;
 
         public static AbilityDef JJK_KenjakuPosess;
         public static AbilityDef Gojo_HollowPurple;
-        public static ThingDef JJK_idleTransfigurationDoll;
 
         public static ThinkTreeDef JJK_EmptyConstantThinkTree;
         public static ThinkTreeDef JJK_SummonedCreature;
         public static ThinkTreeDef ZombieWorkSlave;
-
 
         public static TraitDef JJK_SukunaTrait;
 
         public static JobDef JJK_DefendMaster;
         public static JobDef ChannelRCT;
 
+
+        public static HediffDef JJK_InfiniteDomainComa;
+        public static HediffDef JJK_SimpleShadowDomain;
+        public static HediffDef JJK_HollowWickerBasket;
         public static HediffDef JJK_KenjakuPossesion;
         public static HediffDef JJ_SummonedCreatureTag;
         public static HediffDef JJK_ThinkTreeOverrideSummonBehaviour;

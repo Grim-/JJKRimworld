@@ -52,6 +52,10 @@
       <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -62,6 +66,7 @@
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.UI.dll</HintPath>
@@ -74,21 +79,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ability\ButtonSummonAbility.cs" />
+    <Compile Include="Ability\IToggleableComp.cs" />
     <Compile Include="CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
+    <Compile Include="Comps\Abilities\Command_ToggleAbility.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompAbilityAbsorbingWeapon.cs" />
     <Compile Include="Comps\Abilities\CompAbilityEffect_CECost.cs" />
     <Compile Include="AI\JobDriver_ChannelRCT.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_ToggleableEffect.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_ToggleHediff.cs" />
+    <Compile Include="Comps\Abilities\HediffCompProperties_GiveRandomGene.cs" />
     <Compile Include="Comps\Abilities\Mahito\BodyPartChange.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityJump.cs" />
     <Compile Include="Comps\Abilities\Shoko\Stance_Busy_RCT.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_AbsorbCreature.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_SummonCreature.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_ThinkTreeOverride.cs" />
+    <Compile Include="Comps\Abilities\Domains\AbilityExtension_Domain.cs" />
+    <Compile Include="Comps\Abilities\Domains\Ability_ExpandDomain.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_CursedSpeechEffect.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_DomainComp.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_ForestDomainComp.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_GrantAbilityOnEquip.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_InfiniteVoidDomain.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_MalevolentShrineDomain.cs" />
+    <Compile Include="Comps\Misc\DomainClashManager.cs" />
+    <Compile Include="Comps\Misc\DomainExpansionDef.cs" />
     <Compile Include="Comps\Misc\Gizmo_MultiImageButton.cs" />
     <Compile Include="Comps\Misc\Gizmo_MultiLabelButton.cs" />
     <Compile Include="Comps\Misc\Gizmo_MultiOptions.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_AddGeneOnRemoved.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_CursedSpeechEffect.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_RandomDisappear.cs" />
+    <Compile Include="Comps\Hediff\Hediff_InfiniteDomainComa.cs" />
+    <Compile Include="Comps\Misc\JobDriver_ChannelDomain.cs" />
     <Compile Include="Comps\World\AbsorbedCreatureManager.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompAbilityEffect_RestorePawnFromDoll.cs" />
     <Compile Include="Comps\Abilities\Gojo\CompProperties_BlueSelfTeleport.cs" />
@@ -107,6 +132,7 @@
     <Compile Include="Comps\Abilities\Mahito\CompProperties_ReverseIdleTransfigurationDoll.cs" />
     <Compile Include="Comps\Abilities\Shoko\CompProperties_TargetedRCT.cs" />
     <Compile Include="Comps\Abilities\CursedCompAbilityEffect_LaunchProjectile.cs" />
+    <Compile Include="JJKMod.cs" />
     <Compile Include="PawnHealingUtility.cs" />
     <Compile Include="AI\JobDriver_DefendMaster.cs" />
     <Compile Include="Comps\World\SummonedCreatureManager.cs" />
@@ -148,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Shaders\DomainEffect.shader" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />

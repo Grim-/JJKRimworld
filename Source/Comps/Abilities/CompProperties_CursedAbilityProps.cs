@@ -10,11 +10,12 @@ namespace JJK
         public float cursedEnergyCost = 0.1f;
         public int cooldownTicks = 2500;
 
-        public override IEnumerable<string> ExtraStatSummary()
-        {
-            yield return (string)("AbilitycursedEnergyCost".Translate() + ": ") + Mathf.RoundToInt(cursedEnergyCost);
-        }
+        //public override IEnumerable<string> ExtraStatSummary()
+        //{
+        //    yield return (string)("AbilitycursedEnergyCost".Translate() + ": ") + Mathf.RoundToInt(cursedEnergyCost);
+        //}
     }
-}
 
+
+}
 

@@ -13,6 +13,11 @@ namespace JJK
     {
         public int priority = 0;
     }
+
+    public class CursedTechniqueGeneExtension : DefModExtension
+    {
+        public int priority = 0;
+    }
     public static class JJKUtility
     {
 
@@ -149,7 +154,35 @@ namespace JJK
             // Add the randomly selected gene to the pawn
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
         }
+        public static void GiveRandomSorcererGene(Pawn targetPawn, bool RemoveExisting = false)
+        {
+            // Find all GeneDefs with CursedEnergyGeneExtension
+            List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
+                .Where(geneDef => geneDef.HasModExtension<CursedTechniqueGeneExtension>())
+                .ToList();
 
+            if (sorcererGeneDefs.Count == 0)
+            {
+                Log.Warning("No GeneDefs found with CursedTechniqueGeneExtension.");
+                return;
+            }
+            if (RemoveExisting)
+            {
+                // Remove existing sorcerer genes
+                var existingSorcererGenes = targetPawn.genes.GenesListForReading
+                    .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
+                    .ToList();
+                foreach (Gene sourceGene in existingSorcererGenes)
+                {
+                    targetPawn.genes.RemoveGene(sourceGene);
+                }
+            }
+
+            // Select a random sorcerer GeneDef
+            GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
+            // Add the randomly selected gene to the pawn
+            targetPawn.genes.AddGene(randomSorcererGeneDef, true);
+        }
 
         public static void AddTraitIfNotExist(Pawn Pawn, TraitDef TraitDef, int degree = 0, bool force = false)
         { 
@@ -299,7 +332,10 @@ namespace JJK
 
             return pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKLimitless);
         }
-
+        public static bool IsImmuneToDomainSureHit(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_HollowWickerBasket) || pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_SimpleShadowDomain);
+        }
         public static bool HasSixEyes(this Pawn pawn)
         {
             if (pawn?.genes == null)

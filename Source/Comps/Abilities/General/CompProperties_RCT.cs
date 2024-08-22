@@ -10,113 +10,94 @@ using static HarmonyLib.Code;
 
 namespace JJK
 {
-    public class CompProperties_RCT : CompProperties_RCTBase
+    public class CompProperties_RCT : CompProperties_ToggleableEffect
     {
+        public int PartRegenTickCount = 250;
+        public float CECostPerTick = 0.005f;
+        public float CEPartRegenCost = 0.1f;
+        public float CEHediffCost = 0.05f;
+
+        public float CEPartRegenSeverityBase = 0.1f;
+        public float CEProblemRegenSeverityBase = 0.05f;
+
+        public bool CanCureAddiction = false;
+        public bool ShouldRemoveImplants = false;
+
         public CompProperties_RCT()
         {
             compClass = typeof(CompAbilityEffect_RCT);
         }
     }
-    public class CompAbilityEffect_RCT : CompAbilityEffect_RCTBase
+    public class CompAbilityEffect_RCT : ToggleableCompAbilityEffect
     {
         new CompProperties_RCT Props => (CompProperties_RCT)props;
+        private float accumulatedTicks = 0f;
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            ToggleRCT();
+            Toggle();
         }
 
-        private void ToggleRCT()
+        public override void OnTickInterval()
         {
-            IsCurrentlyCasting = !IsCurrentlyCasting;
-
-            Ability_Toggleable toggleable = (Ability_Toggleable)parent;
-            toggleable.Toggle();
-
-            accumulatedTicks = 0;
-            if (IsCurrentlyCasting)
-            {  
-                if (!JJKUtility.HasRCTActive(parent.pawn))
-                {
-                    JJKUtility.ApplyRCTHediffTo(parent.pawn);
-                }
-            }
-            else
-            {
-                StopCasting();
-                JJKUtility.RemoveRCTHediff(parent.pawn);
-            }
-        }
-
-        private float accumulatedTicks = 0f;
-
-        public override void CompTick()
-        {
-            base.CompTick();
+            base.OnTickInterval();
 
             Gene_CursedEnergy cursedEnergyGene = parent.pawn.genes?.GetFirstGeneOfType<Gene_CursedEnergy>();
-            if (!IsCurrentlyCasting || cursedEnergyGene == null)
+            if (!IsActive || cursedEnergyGene == null)
                 return;
 
-            Hediff currentRCTHediff = parent.pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.RCTRegenHediff);
-
-            if (currentRCTHediff == null)
+            if (cursedEnergyGene.Value >= Props.CECostPerTick)
             {
-                IsCurrentlyCasting = false;
-                accumulatedTicks = 0f;
-                return;
-            }
+                ConsumeCursedEnergy(Props.CECostPerTick);
 
-            float rctSpeedBonus = parent.pawn.GetStatValue(JJKDefOf.JJK_RCTSpeedBonus);
-            accumulatedTicks += 1f * rctSpeedBonus;
-
-            while (accumulatedTicks >= Props.PartRegenTickCount)
-            {
-                OnTick(cursedEnergyGene);
-                EffecterDefOf.ShamblerRaise.SpawnAttached(parent.pawn, parent.pawn.Map);
-                accumulatedTicks -= Props.PartRegenTickCount;
-            }
-
-            // Clamp accumulatedTicks to ensure it doesn't go below 0
-            accumulatedTicks = Mathf.Max(accumulatedTicks, 0f);
-        }
-
-        protected override void StopCasting()
-        {
-            base.StopCasting();
-            accumulatedTicks = 0;
-        }
-
-        private void OnTick(Gene_CursedEnergy CursedEnergy)
-        {
-            if (CursedEnergy.Value >= GetTickCost())
-            {
-                if (CursedEnergy.Value >= GetPartCost())
+                if (PawnHealingUtility.HasMissingBodyParts(parent.pawn) && cursedEnergyGene.Value >= Props.CEPartRegenCost)
                 {
-                    HealTargetPawn(CursedEnergy, parent.pawn);
+                    if (PawnHealingUtility.RestoreMissingPart(parent.pawn))
+                    {
+                        ConsumeCursedEnergy(Props.CEPartRegenCost);
+                    }
+                }
+                else
+                {
+                    if (cursedEnergyGene.Value >= Props.CEHediffCost)
+                    {
+                        PawnHealingUtility.HealHealthProblem(parent.pawn);
+                        ConsumeCursedEnergy(Props.CEHediffCost);
+                    }
                 }
             }
             else
             {
                 JJKUtility.RemoveRCTHediff(parent.pawn);
             }
-
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(GetTickCost());
         }
-
-        public override float GetCost()
-        {
-            return Props.cursedEnergyCost;
-        }
-
 
         public override string CompInspectStringExtra()
         {
             string String = base.CompInspectStringExtra();
 
-            if (IsCurrentlyCasting) String = String + "RCT Active";
+            if (IsActive) String = String + "RCT Active";
             return String;
         }
 
+        public override void Activate()
+        {
+            base.Activate();
+
+            if (!JJKUtility.HasRCTActive(parent.pawn))
+            {
+                JJKUtility.ApplyRCTHediffTo(parent.pawn);
+            }
+        }
+
+        public override void DeActivate()
+        {
+            base.DeActivate();
+            if (JJKUtility.HasRCTActive(parent.pawn))
+            {
+                JJKUtility.RemoveRCTHediff(parent.pawn);
+            }
+        }
     }
+
 }

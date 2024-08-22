@@ -25,9 +25,6 @@ namespace JJK
 
             // Remove the doll item
             dollItem.Destroy();
-
-            // Consume cursed energy (if needed)
-            // parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(parent.pawn, Cost);
         }
     }
 }

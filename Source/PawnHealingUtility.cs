@@ -6,6 +6,20 @@ namespace JJK
 {
     public static class PawnHealingUtility
     {
+        public static void HealTargetPawn(Gene_CursedEnergy CursedEnergy, Pawn Target)
+        {
+            if (!RestoreMissingPart(Target))
+            {
+                HealHealthProblem(Target);
+            }
+        }
+
+        public static bool HasMissingBodyParts(Pawn Target)
+        {
+            return Target.health.hediffSet.hediffs
+                .OfType<Hediff_MissingPart>() != null;
+        }
+
         public static bool RestoreMissingPart(Pawn target)
         {
             List<Hediff_MissingPart> missingParts = GetMissingPartsPrioritized(target);
@@ -24,7 +38,7 @@ namespace JJK
             if (problem != null)
             {
                 Hediff problemToHeal = target.health.hediffSet.hediffs
-                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.ZombieWorkSlaveHediff)
+                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.ZombieWorkSlaveHediff && x.def.isBad)
                   .OrderByDescending(x => x.Severity)
                   .FirstOrDefault();
 

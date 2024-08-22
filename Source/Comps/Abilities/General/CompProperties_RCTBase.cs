@@ -155,11 +155,6 @@ namespace JJK
             .FirstOrDefault();
         }
 
-        public override float GetCost()
-        {
-            return Props.cursedEnergyCost;
-        }
-
         public abstract override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest);
     }
 }

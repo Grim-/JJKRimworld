@@ -1,4 +1,6 @@
-﻿namespace JJK
+﻿using System.IO;
+
+namespace JJK
 {
     public static class JJKConstants
     {
