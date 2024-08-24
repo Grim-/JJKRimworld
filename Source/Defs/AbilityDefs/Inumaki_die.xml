@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef ParentName="InumakiCursedSpeechBase">
+    <defName>InumakiCursedSpeech_Die</defName>
+    <label>Cursed Speech: DIE</label>
+    <description>Command the target to die as long as you have atleast 20% more cursed energy than the target, if you have less than the target you will instead take damage.</description>
+    <cooldownTicksRange>60000</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <comps>
+      <li Class="JJK.CompProperties_Die">
+        <killThreshold>1.2</killThreshold>
+      </li>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>25</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

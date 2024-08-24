@@ -78,9 +78,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ability\ButtonSummonAbility.cs" />
+    <Compile Include="Ability\AbilityDef_MultiButtonSummon.cs" />
+    <Compile Include="Ability\Ability_MultiButton.cs" />
     <Compile Include="Ability\IToggleableComp.cs" />
-    <Compile Include="CEResourceDrainUtility.cs" />
+    <Compile Include="AI\JobDriver_DemondogAttackAndVanish.cs" />
+    <Compile Include="AI\JobDriver_LuredMove.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_AbilityDemondogSummon.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechLure.cs" />
+    <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
     <Compile Include="Comps\Abilities\Command_ToggleAbility.cs" />
@@ -89,16 +94,20 @@
     <Compile Include="AI\JobDriver_ChannelRCT.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_ToggleableEffect.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_ToggleHediff.cs" />
-    <Compile Include="Comps\Abilities\HediffCompProperties_GiveRandomGene.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechAreaLure.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_Die.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_TwistEffect.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_BlackFlash.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_GiveRandomGene.cs" />
     <Compile Include="Comps\Abilities\Mahito\BodyPartChange.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityJump.cs" />
     <Compile Include="Comps\Abilities\Shoko\Stance_Busy_RCT.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_AbsorbCreature.cs" />
     <Compile Include="Comps\Abilities\Geto\CompProperties_SummonCreature.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_ThinkTreeOverride.cs" />
-    <Compile Include="Comps\Abilities\Domains\AbilityExtension_Domain.cs" />
-    <Compile Include="Comps\Abilities\Domains\Ability_ExpandDomain.cs" />
-    <Compile Include="Comps\Abilities\Domains\CompProperties_CursedSpeechEffect.cs" />
+    <Compile Include="Ability\AbilityExtension_Domain.cs" />
+    <Compile Include="Ability\Ability_ExpandDomain.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechEffect.cs" />
     <Compile Include="Comps\Abilities\Domains\CompProperties_DomainComp.cs" />
     <Compile Include="Comps\Abilities\Domains\CompProperties_ForestDomainComp.cs" />
     <Compile Include="Comps\Abilities\Domains\CompProperties_GrantAbilityOnEquip.cs" />
@@ -106,9 +115,9 @@
     <Compile Include="Comps\Abilities\Domains\CompProperties_MalevolentShrineDomain.cs" />
     <Compile Include="Comps\Misc\DomainClashManager.cs" />
     <Compile Include="Comps\Misc\DomainExpansionDef.cs" />
-    <Compile Include="Comps\Misc\Gizmo_MultiImageButton.cs" />
-    <Compile Include="Comps\Misc\Gizmo_MultiLabelButton.cs" />
-    <Compile Include="Comps\Misc\Gizmo_MultiOptions.cs" />
+    <Compile Include="Gizmo\Gizmo_MultiImageButton.cs" />
+    <Compile Include="Gizmo\Gizmo_MultiLabelButton.cs" />
+    <Compile Include="Gizmo\Gizmo_MultiOptions.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_AddGeneOnRemoved.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_CursedSpeechEffect.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_RandomDisappear.cs" />
@@ -120,7 +129,7 @@
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundBeast.cs" />
     <Compile Include="Comps\Abilities\Sukuna\CompProperties_Cleave.cs" />
     <Compile Include="Comps\Abilities\CompProperties_CursedAbilityLaunchProjectile.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_CursedAbilityProps.cs" />
+    <Compile Include="Comps\Abilities\Base\CompProperties_CursedAbilityProps.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfiguration.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfigurationDoll.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_IdleTransfigurationRespawn.cs" />
@@ -133,15 +142,15 @@
     <Compile Include="Comps\Abilities\Shoko\CompProperties_TargetedRCT.cs" />
     <Compile Include="Comps\Abilities\CursedCompAbilityEffect_LaunchProjectile.cs" />
     <Compile Include="JJKMod.cs" />
-    <Compile Include="PawnHealingUtility.cs" />
+    <Compile Include="Utils\PawnHealingUtility.cs" />
     <Compile Include="AI\JobDriver_DefendMaster.cs" />
     <Compile Include="Comps\World\SummonedCreatureManager.cs" />
     <Compile Include="Comps\Misc\SummonUtility.cs" />
     <Compile Include="Comps\Misc\ThingCompExt.cs" />
     <Compile Include="Comps\Misc\TransfigurationOption.cs" />
-    <Compile Include="Comps\Abilities\BaseCursedEnergyAbility.cs" />
+    <Compile Include="Comps\Abilities\Base\BaseCursedEnergyAbility.cs" />
     <Compile Include="Comps\Abilities\CompEffect_PawnPuller.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_AbilityZombifyWorkSlave.cs" />
+    <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityZombifyWorkSlave.cs" />
     <Compile Include="Comps\CompProperties_BodyTintComp.cs" />
     <Compile Include="Comps\CompProperties_DraftableSummon.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_ZombieWorkSlaveEffect.cs" />
@@ -149,21 +158,21 @@
     <Compile Include="Comps\Misc\CompStoredPawn.cs" />
     <Compile Include="Comps\World\DollTransformationWorldComponent.cs" />
     <Compile Include="Comps\World\AbsorbedData.cs" />
-    <Compile Include="CursedAbilityClass.cs" />
-    <Compile Include="CursedAbilityDef.cs" />
+    <Compile Include="Ability\CursedAbilityClass.cs" />
+    <Compile Include="Ability\CursedAbilityDef.cs" />
     <Compile Include="Custom Damage Workers\DamageWorker_Dismantle.cs" />
     <Compile Include="Genes\GeneGizmo_CursedEnergyResource.cs" />
     <Compile Include="Genes\Gene_CursedEnergy.cs" />
     <Compile Include="Genes\Gene_Kenjaku.cs" />
     <Compile Include="JJKConstants.cs" />
     <Compile Include="JJKDefOf.cs" />
-    <Compile Include="JJKUtility.cs" />
+    <Compile Include="Utils\JJKUtility.cs" />
     <Compile Include="JKKPatchClass.cs" />
     <Compile Include="Projectiles\Projectile_HollowPurple.cs" />
     <Compile Include="Projectiles\Projectile_Red.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipePatchClass.cs" />
-    <Compile Include="Sukuna_Trait.cs" />
+    <Compile Include="Traits\Sukuna_Trait.cs" />
     <Compile Include="Comps\Misc\SummonDraftManager.cs" />
     <Compile Include="AI\JobGiver_AICastOffensiveAbility.cs" />
     <Compile Include="AI\JobGiver_SummonedCreatureFightEnemy.cs" />
@@ -176,9 +185,7 @@
     <None Include="packages.config" />
     <None Include="Shaders\DomainEffect.shader" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
   </ItemGroup>

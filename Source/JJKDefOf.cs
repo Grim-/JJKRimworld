@@ -20,7 +20,8 @@ namespace JJK
         public static StatDef JJK_CursedEnergyDamageBonus;
         public static StatDef JJK_DomainStrength;
         public static StatDef JJK_RCTHealingBonus;
-        public static StatDef JJK_RCTSpeedBonus;
+        public static StatDef JJK_RCTSpeed;
+        public static StatDef JJK_BlackFlashTriggerChance;
 
         /// <summary>
         /// genes
@@ -58,18 +59,32 @@ namespace JJK
 
         public static JobDef JJK_DefendMaster;
         public static JobDef ChannelRCT;
+        public static JobDef JJK_CursedSpeechLure;
+        public static JobDef JJK_DemondogAttackAndVanish;
 
 
+        public static HediffDef JJK_BlackFlash;
+        public static HediffDef JJK_CursedEnergySurge;
+        public static HediffDef JJK_CursedReinforcementHediff;
         public static HediffDef JJK_InfiniteDomainComa;
         public static HediffDef JJK_SimpleShadowDomain;
         public static HediffDef JJK_HollowWickerBasket;
         public static HediffDef JJK_KenjakuPossesion;
         public static HediffDef JJ_SummonedCreatureTag;
         public static HediffDef JJK_ThinkTreeOverrideSummonBehaviour;
-        public static HediffDef RCTRegenHediff;
-        public static HediffDef ZombieWorkSlaveHediff;
+        public static HediffDef JJK_RCTRegenHediff;
+        public static HediffDef JJK_ZombieWorkSlaveHediff;
         public static HediffDef JJK_IdleTransfigurationCooldown;
         public static HediffDef JJK_IdleTransfigurationBeastStatBoost;
+
+        public static PawnKindDef JJK_DemonDogWhite;
+        public static PawnKindDef JJK_DemonDogBlack;
+        
+
+
+
+        public static DamageDef JJK_TwistDamage;
+
 
 
         public static BackstoryDef ZombieChildhoodStory;

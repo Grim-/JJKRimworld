@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JobDef>
+     <defName>ChannelDomain</defName>
+     <driverClass>JJK.JobDriver_ChannelDomain</driverClass>
+     <reportString>Channeling domain.</reportString>
+   </JobDef>
+</Defs>

@@ -1,14 +1,13 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace JJK
 {
     public class CompProperties_ToggleHediff : CompProperties_ToggleableEffect
     {
-        public HediffDef hediffDef;
+        public List<HediffDef> hediffDefs;
         public float cursedEnergyCostPerTick = 1f;
-        public int ticksBetweenCost = 2500;
-
         
         public CompProperties_ToggleHediff()
         {
@@ -20,12 +19,27 @@ namespace JJK
     {
         public new CompProperties_ToggleHediff Props => (CompProperties_ToggleHediff)props;
 
+
+        private Gene_CursedEnergy _CursedEnergy;
+        private Gene_CursedEnergy CursedEnergy
+        {
+            get
+            {
+                if (_CursedEnergy == null)
+                {
+                    _CursedEnergy = parent.pawn.GetCursedEnergy();
+                }
+
+                return _CursedEnergy;
+            }
+        }
+
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            if (target.Pawn != null)
-            {
-                Toggle();
-            }
+            //if (target.Pawn != null)
+            //{
+            //    Toggle();
+            //}
         }
 
         public override void CompTick()
@@ -34,15 +48,16 @@ namespace JJK
 
             if (parent.pawn != null)
             {
-                if (parent.pawn.IsHashIntervalTick(Props.ticksBetweenCost))
+                if (IsActive && parent.pawn.IsHashIntervalTick(Props.Ticks))
                 {                
-                    if (!HasCursedEnergy(parent.pawn, Props.cursedEnergyCostPerTick))
+                    if (!CursedEnergy.HasCursedEnergy(Props.cursedEnergyCostPerTick))
                     {
                         RemoveHediff(parent.pawn);
+                        DeactiveOnParentAbility();
                     }
                     else
                     {
-                        ConsumeCursedEnergy(Props.cursedEnergyCostPerTick);
+                        CursedEnergy.ConsumeCursedEnergy(Props.cursedEnergyCostPerTick);
                     }
                 }
             }
@@ -63,19 +78,26 @@ namespace JJK
 
         private void AddHediff(Pawn pawn)
         {
-            Hediff hediff = HediffMaker.MakeHediff(Props.hediffDef, pawn);
-            pawn.health.AddHediff(hediff);
-            Messages.Message($"Added {Props.hediffDef.label} to {pawn.LabelShort}", MessageTypeDefOf.NeutralEvent);
+            foreach (var item in Props.hediffDefs)
+            {
+                Hediff hediff = HediffMaker.MakeHediff(item, pawn);
+                pawn.health.AddHediff(hediff);
+                //Messages.Message($"Added {item.label} to {pawn.LabelShort}", MessageTypeDefOf.NeutralEvent);
+            }
         }
 
         private void RemoveHediff(Pawn pawn)
         {
-            Hediff existingHediff = pawn.health.hediffSet.GetFirstHediffOfDef(Props.hediffDef);
-            if (existingHediff != null)
+            foreach (var item in Props.hediffDefs)
             {
-                pawn.health.RemoveHediff(existingHediff);
-                Messages.Message($"Removed {Props.hediffDef.label} from {pawn.LabelShort}", MessageTypeDefOf.NeutralEvent);
+                Hediff existingHediff = pawn.health.hediffSet.GetFirstHediffOfDef(item);
+                if (existingHediff != null)
+                {
+                    pawn.health.RemoveHediff(existingHediff);
+                    //Messages.Message($"Removed {item.label} from {pawn.LabelShort}", MessageTypeDefOf.NeutralEvent);
+                }
             }
+
         }
 
 

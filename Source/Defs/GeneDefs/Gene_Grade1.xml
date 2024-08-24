@@ -15,8 +15,12 @@
     </li>
   </modExtensions>
     <statFactors>
-      <JJK_CursedEnergyCost>1.1</JJK_CursedEnergyCost>
-      <JJK_CursedEnergy>2</JJK_CursedEnergy>
+      <JJK_CursedEnergy>5</JJK_CursedEnergy><!-- 100 * 5  = 500-->
+      <JJK_CursedEnergyRegen>1</JJK_CursedEnergyRegen> <!-- 1 Cursed Energy every hour -->
+      <JJK_CursedEnergyRegenSpeed>1</JJK_CursedEnergyRegenSpeed> <!--  Multiplier on CursedEnergyRegenTicks (1250) -->
+      <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost> <!-- cost multiplier, 1 = 100%  -->
+      <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus>
     </statFactors>
     <exclusionTags>
       <li>CursedEnergyMultiplierGene</li>

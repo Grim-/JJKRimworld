@@ -12,7 +12,7 @@
     </graphicData>
     <projectile>
       <damageDef>Blunt</damageDef>
-      <damageAmountBase>15</damageAmountBase>
+      <damageAmountBase>30</damageAmountBase>
       <armorPenetrationBase>1</armorPenetrationBase>
       <stoppingPower>1</stoppingPower>
       <speed>25</speed>

@@ -1,10 +1,11 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace JJK
 {
     public class CompProperties_ToggleableEffect : CompProperties_CursedAbilityProps
     {
-        public int Ticks = 2500;
+        public int Ticks = 500;
     }
 
 
@@ -13,6 +14,8 @@ namespace JJK
         public new CompProperties_ToggleableEffect Props => (CompProperties_ToggleableEffect)props;
 
         public bool IsActive = false;
+
+        public virtual int Ticks => Props.Ticks;
 
 
         public virtual void Activate()
@@ -29,9 +32,13 @@ namespace JJK
         {
             base.CompTick();
 
-            if (parent.pawn.IsHashIntervalTick(Props.Ticks))
+            if (parent.pawn.IsHashIntervalTick(Ticks))
             {
-                OnTickInterval();
+                if (IsActive)
+                {
+                    OnTickInterval();
+                }
+              
             }
         }
 
@@ -47,6 +54,16 @@ namespace JJK
                 DeActivate();
             }
             else Activate();
+        }
+
+        public void DeactiveOnParentAbility()
+        {
+            // Notify the ability that it should deactivate
+            if (parent is Ability_Toggleable ability)
+            {
+                ability.ForceDeactivate();
+               // Messages.Message($"Reversed Curse Technique disabled due to lack of curse energy", MessageTypeDefOf.NegativeEvent);
+            }
         }
     }
 }

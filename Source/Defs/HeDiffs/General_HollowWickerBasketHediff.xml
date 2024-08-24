@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_HollowWickerBasket</defName>
+    <label>Hollow Wicker Basket</label>
+    <labelNoun>Hollow Wicker Basket</labelNoun>
+    <description>You are currently channeling the Hollow Wicker Basket making you immune to the sure hit effects of a domain.</description>
+  </HediffDef>
+</Defs>

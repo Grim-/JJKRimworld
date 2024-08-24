@@ -19,7 +19,7 @@
       <MeleeArmorPenetration>0.4</MeleeArmorPenetration>
       <MeleeDodgeChance>4</MeleeDodgeChance>
       <CarryingCapacity>10</CarryingCapacity>
-      <PainShockThreshold>1.1</PainShockThreshold>
+      <PainShockThreshold>0.5</PainShockThreshold>
     </statFactors>
     <exclusionTags>
       <li>CursedEnergyMultiplierGene</li>

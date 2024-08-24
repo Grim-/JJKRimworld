@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<StatDef>
+  <defName>JJK_RCTSpeed</defName>
+  <label>Reverse Curse Technique Speed</label>
+  <category>PawnMisc</category>
+  <description>How many ticks until Reversed Cursed Technique can heal again.</description>
+  <defaultBaseValue>250</defaultBaseValue>
+  <minValue>100</minValue>
+  <maxValue>10000</maxValue>
+  <toStringStyle>Integer</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+</Defs>

@@ -10,13 +10,17 @@
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <modExtensions>
-    <li Class="JJK.CursedEnergyGeneExtension">
-      <priority>13</priority>
-    </li>
-  </modExtensions>
+      <li Class="JJK.CursedEnergyGeneExtension">
+        <priority>13</priority>
+      </li>
+    </modExtensions>
     <statFactors>
-      <JJK_CursedEnergyCost>0.9</JJK_CursedEnergyCost>
-      <JJK_CursedEnergy>1.1</JJK_CursedEnergy>
+      <JJK_CursedEnergy>2.5</JJK_CursedEnergy><!-- 100 * 1 -->
+      <JJK_CursedEnergyRegen>1</JJK_CursedEnergyRegen> <!-- 5 Cursed Energy every half an hour -->
+      <JJK_CursedEnergyRegenSpeed>1</JJK_CursedEnergyRegenSpeed> <!-- Multiplier on CursedEnergyRegenTicks (1250) -->
+      <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost> <!-- cost multiplier, lower number less an ability costs -->
+      <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus> <!-- How quickly severity is reduced multiplier -->
     </statFactors>
     <exclusionTags>
       <li>CursedEnergyMultiplierGene</li>

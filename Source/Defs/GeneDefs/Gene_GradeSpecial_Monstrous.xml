@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKSpecialGrade_Monstrous</defName>
+    <label>Special Grade Sorcerer (Monstrous)</label>
+    <description>Special grades cannot be accurately ranked as they tend to have a combination of larger cursed energy reserves and a bizare or extreme set of techniques. But this one has a disturbing amount of cursed energy. </description>
+    <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
+    <modExtensions>
+    <li Class="JJK.CursedEnergyGeneExtension">
+      <priority>20</priority>
+    </li>
+  </modExtensions>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>0</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergy>10</JJK_CursedEnergy><!-- 100 * 1.6 -->
+      <JJK_CursedEnergyRegen>1</JJK_CursedEnergyRegen> <!-- 5 Cursed Energy every half an hour -->
+      <JJK_CursedEnergyRegenSpeed>1</JJK_CursedEnergyRegenSpeed> <!-- Multiplier on CursedEnergyRegenTicks (1250) -->
+      <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost> <!-- cost multiplier, lower number less an ability costs -->
+      <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus> <!-- How quickly severity is reduced multiplier -->
+    </statFactors>
+    <exclusionTags>
+      <li>CursedEnergyMultiplierGene</li>
+    </exclusionTags>
+  </GeneDef>
+</Defs>

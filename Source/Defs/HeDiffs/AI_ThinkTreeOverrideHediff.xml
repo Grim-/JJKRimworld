@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_ThinkTreeOverrideSummonBehaviour</defName>
+    <label>Think Tree Override</label>
+    <hediffClass>HediffWithComps</hediffClass>
+    <description>Hidden hediff to override pawn's think tree.</description>
+    <defaultLabelColor>(0.5, 0.5, 0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="JJK.HediffCompProperties_ThinkTreeOverride">
+        <overrideThinkTreeDef>JJK_SummonedCreature</overrideThinkTreeDef>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <blocksMentalBreaks>true</blocksMentalBreaks>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>JJ_SummonedCreatureTag</defName>
+    <label>Summoned Creature</label>
+    <hediffClass>HediffWithComps</hediffClass>
+    <description>This is a summoned creature.</description>
+    <defaultLabelColor>(0.5, 0.5, 0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <stages>
+      <li>
+        <blocksMentalBreaks>true</blocksMentalBreaks>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

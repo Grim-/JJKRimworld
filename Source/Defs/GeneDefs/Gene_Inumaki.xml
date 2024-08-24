@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKInumaki</defName>
+    <label>Cursed Technique : Cursed Speech</label>
+    <description>You can compel your targets to do whatever you say, due to this you have to be very careful what you say as the words can have unintended consequences, dramatically reducing social skills.</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>InumakiCursedSpeech_Stop</li>
+      <li>InumakiCursedSpeech_Twist</li>
+      <li>InumakiCursedSpeech_Die</li>
+      <li>InumakiCursedSpeech_AreaLure</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+</Defs>

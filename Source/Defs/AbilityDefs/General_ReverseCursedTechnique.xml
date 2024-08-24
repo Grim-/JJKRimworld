@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.AbilityDef_Toggleable>
+    <defName>JJK_ReversedCurseTechnique</defName>
+    <label>Reversed Curse Technique</label>
+    <description>Toggle Reversed Curse Technique in order to increase your natural regeneration in addition to also regenerating lost limbs and curing health aliments.
+      Having Reversed Curse Technique active can prevent you from dying aslong as the brain is not destroyed and you have the energy to regenerate.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <aiCanUse>true</aiCanUse>
+    <warmupEffecter>WaterMist</warmupEffecter>
+    <emittedFleck>ShockwaveFast</emittedFleck>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>True</disableGizmoWhileUndrafted>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>0</range>
+      <warmupTime>0</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetable>False</targetable>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_RCT">
+        <TicksBetweenCost>1250</TicksBetweenCost>
+        <PartHealCoefficient>0.7</PartHealCoefficient><!-- multiplier on RCT Heal Bonus -->
+        <HediffHealCoefficient>1.1</HediffHealCoefficient>
+        <cursedEnergyCost>0</cursedEnergyCost> <!-- inital cast cost zero -->
+        <CECostPerTick>15</CECostPerTick> <!-- how much it costs per tick while active -->
+        <CEPartRegenCost>2</CEPartRegenCost> <!-- multiplier for part heal, used to calculate costs to restore a lost limb part [part HP * CEPartRegenCost] -->
+        <CEHediffCost>7</CEHediffCost><!-- multiplier for severity heal, used to calculate costs to restore a lost limb part part [Severity * CEHediffCost] -->
+        <CanCureAddiction>False</CanCureAddiction> <!-- should addiction be counted? -->
+        <ShouldRemoveImplants>False</ShouldRemoveImplants><!-- should it regenerate and remove implants? -->
+      </li>
+    </comps>
+  </JJK.AbilityDef_Toggleable>
+</Defs>

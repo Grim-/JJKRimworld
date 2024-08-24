@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 <ThingDef ParentName="BaseBullet">
-  <defName>Dismantle</defName>
+  <defName>JJK_DismantleProjectile</defName>
   <label>dismantle</label>
   <graphicData>
     <texPath>Things/Projectile/Sukuna/Dismantle</texPath>
@@ -11,7 +11,7 @@
   </graphicData>
   <projectile>
     <damageDef>Dismantle</damageDef>
-    <damageAmountBase>1</damageAmountBase>
+    <damageAmountBase>3</damageAmountBase>
     <speed>50</speed>
   </projectile>
 </ThingDef>

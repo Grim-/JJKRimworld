@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<StatDef>
+  <defName>JJK_CursedEnergyRegen</defName>
+  <label>Cursed Energy Regen</label>
+  <category>PawnMisc</category>
+  <description>How much cursed energy you regenerate each hour.</description>
+  <defaultBaseValue>5</defaultBaseValue>
+  <minValue>0</minValue>
+  <maxValue>100</maxValue>
+  <toStringStyle>Integer</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+</Defs>

@@ -55,7 +55,7 @@ namespace JJK
                 CurrentTick++;
                 JJKUtility.ApplyRCTHediffTo(targetPawn);
 
-                if (CurrentTick >= AbilityComp.Props.PartRegenTickCount * pawn.GetStatValue(JJKDefOf.JJK_RCTSpeedBonus))
+                if (CurrentTick >= AbilityComp.Props.PartRegenTickCount * pawn.GetStatValue(JJKDefOf.JJK_RCTSpeed))
                 {
                     if (AbilityComp != null)
                     {
@@ -155,9 +155,9 @@ namespace JJK
                 return true;
             }
 
-            if (CursedEnergy.Value < AbilityComp.GetPartCost())
+            if (CursedEnergy.ValueCostMultiplied < AbilityComp.GetPartCost())
             {
-                Messages.Message($"Target does not need healing", MessageTypeDefOf.RejectInput);
+                Messages.Message($"Not enough cursed energy to continue healing. Have {CursedEnergy.ValueCostMultiplied} need {AbilityComp.GetPartCost()}", MessageTypeDefOf.RejectInput);
                 return true;
             }
 
@@ -169,5 +169,4 @@ namespace JJK
             return pawn.health.hediffSet.GetMissingPartsCommonAncestors().Any();
         }
     }
-
 }

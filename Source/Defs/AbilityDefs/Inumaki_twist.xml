@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef ParentName="InumakiCursedSpeechBase">
+    <defName>InumakiCursedSpeech_Twist</defName>
+    <label>Cursed Speech: Twist</label>
+    <description>Command a random limb on the target to twist into a bloody mess. This effect scales depending on the cursed energy of the caster and the target, pawns without cursed energy always take the full force of the effect.</description>
+        <category>Cursed_Energy</category>
+    <comps>
+      <li Class="JJK.CompProperties_TwistEffect">
+        <baseDamage>10</baseDamage>
+      </li>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>25</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

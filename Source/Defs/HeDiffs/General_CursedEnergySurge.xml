@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef>
+  <defName>JJK_CursedEnergySurge</defName>
+  <label>Black Flash Surge</label>
+  <description>This pawn is benefitting from a Black Flash cursed energy surge.</description>
+  <hediffClass>HediffWithComps</hediffClass>
+  <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+  <initialSeverity>1</initialSeverity>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>false</isBad>
+  <stages>
+    <li>
+      <statFactors>
+        <JJK_CursedEnergyDamageBonus>2</JJK_CursedEnergyDamageBonus>
+        <JJK_CursedEnergy>1.5</JJK_CursedEnergy>
+        <JJK_CursedEnergyRegenSpeed>0.5</JJK_CursedEnergyRegenSpeed>
+        <JJK_RCTHealingBonus>2</JJK_RCTHealingBonus>
+      </statFactors>
+      <statOffsets>
+        <JJK_CursedEnergyRegen>50</JJK_CursedEnergyRegen>
+        <MeleeHitChance>0.25</MeleeHitChance>
+        <MeleeDodgeChance>0.15</MeleeDodgeChance>
+      </statOffsets>
+      <blocksMentalBreaks>true</blocksMentalBreaks>
+    </li>
+  </stages>
+  <comps>
+    <li Class="JJK.HediffCompProperties_RandomDisappear">
+      <minDurationTicks>1250</minDurationTicks>
+      <maxDurationTicks>5000</maxDurationTicks>
+    </li>
+    </comps>
+</HediffDef>
+</Defs>

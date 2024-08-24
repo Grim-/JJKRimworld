@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_RCTRegenHediff</defName>
+    <label>Reversed Cursed Technique</label>
+    <hediffClass>Hediff</hediffClass>
+    <description>You are Regenerating.</description>
+    <initialSeverity>0.001</initialSeverity>
+    <isBad>False</isBad>
+    <stages>
+      <li>
+        <statFactors>
+          <InjuryHealingFactor>100</InjuryHealingFactor>
+        </statFactors>
+      </li>
+    </stages>
+    <preventsDeath>True</preventsDeath>
+  </HediffDef>
+</Defs>

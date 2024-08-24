@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKSukuna</defName>
+    <label>Sukunas Vessel</label>
+    <description>The calamity of the Jujutsu world.</description>
+    <iconPath>UI/Icons/Gene_Cleave</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>10</marketValueFactor>
+    <abilities>
+      <li>Sukuna_Cleave</li>
+      <li>Sukuna_Dismantle</li>
+      <li>Sukuna_Fire_Arrow</li>
+      <li>JJK_ReversedCurseTechnique</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+</Defs>

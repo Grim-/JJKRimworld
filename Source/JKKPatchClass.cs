@@ -30,7 +30,7 @@ namespace JJK
         [HarmonyPostfix]
         public static void Postfix(Pawn __instance, ref List<WorkTypeDef> __result, bool permanentOnly)
         {
-            if (__instance.health.hediffSet.HasHediff(JJKDefOf.ZombieWorkSlaveHediff))
+            if (__instance.health.hediffSet.HasHediff(JJKDefOf.JJK_ZombieWorkSlaveHediff))
             {
                 if (cachedDisabledTypes == null)
                 {
@@ -127,7 +127,7 @@ namespace JJK
 
         private static bool HasActiveRCT(Pawn pawn)
         {
-            return pawn.health.hediffSet.HasHediff(JJKDefOf.RCTRegenHediff);
+            return pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_RCTRegenHediff);
         }
     }
 
@@ -199,7 +199,7 @@ namespace JJK
             if (pawn == null) return true;
 
 
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.ZombieWorkSlaveHediff) != null)
+            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_ZombieWorkSlaveHediff) != null)
             {
                 __result = JJKDefOf.ZombieWorkSlave;
                 //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");

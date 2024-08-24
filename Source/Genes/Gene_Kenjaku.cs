@@ -131,43 +131,7 @@ namespace JJK
             JJKUtility.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);
             JJKUtility.TransferAbilities(CurrentPawn, TargetPawn);
             JJKUtility.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
-
-            //Log.Message("JJK: Exiting ApplyPossession");
         }
-        //private void ApplyPossession(Pawn CurrentPawn, Pawn TargetPawn)
-        //{
-        //    if (CurrentPawn == null)
-        //    {
-        //        Log.Warning("ApplyPossession current pawn null");
-        //        return;
-        //    }
-        //    if (CurrentPawn == null)
-        //    {
-        //        Log.Warning("ApplyPossession target pawn null");
-        //        return;
-        //    }
-
-        //    TargetPawn.SetFaction(Faction.OfPlayer);
-        //    if (CurrentPawn.ideo?.Ideo != null)
-        //    {
-        //        TargetPawn.ideo.SetIdeo(CurrentPawn.ideo.Ideo);
-        //    }
-
-        //    foreach (TraitDef traitDef in entityTraitDefs)
-        //    {
-        //        if (!TargetPawn.story.traits.HasTrait(traitDef))
-        //        {
-        //            TargetPawn.story.traits.GainTrait(new Trait(traitDef, 0));
-        //        }
-        //    }
-
-        //    JJKUtility.RemoveViolenceIncapability(TargetPawn);
-        //    TargetPawn.health.AddHediff(JJKDefOf.JJK_KenjakuPossesion);
-
-        //    JJKUtility.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);
-        //    JJKUtility.TransferAbilities(CurrentPawn, TargetPawn);
-        //    JJKUtility.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
-        //}
 
         private void RemovePossession(Pawn pawn)
         {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ThingDef>
+      <defName>JJK_MalevolentShrineDomain</defName>
+      <label>MalevolentShrine</label>
+      <description>Malevolent Shrine.</description>
+      <thingClass>ThingWithComps</thingClass>
+      <comps>
+        <li Class="JJK.CompProperties_MalevolentShrineDomain">
+          <DomainCastCost>50</DomainCastCost>
+          <DomainCostPerTick>2</DomainCostPerTick>
+          <TicksBetweenApplication>60</TicksBetweenApplication>
+          <AreaRadius>10</AreaRadius>
+        </li>
+      </comps>
+      <tickerType>Normal</tickerType>
+    </ThingDef>
+  </Defs>

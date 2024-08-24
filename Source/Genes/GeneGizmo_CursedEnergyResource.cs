@@ -103,15 +103,15 @@ namespace JJK
                     num += drainGene.ResourceLossPerDay;
                 }
             }
-            if (num != 0f)
-            {
-                string text2 = ((num < 0f) ? "RegenerationRate".Translate() : "DrainRate".Translate());
-                text = text + "\n\n" + text2 + ": " + "PerDay".Translate(Mathf.Abs(gene.PostProcessValue(num))).Resolve();
-                foreach (Pair<IGeneResourceDrain, float> tmpDrainGene in tmpDrainGenes)
-                {
-                    text = text + "\n  - " + tmpDrainGene.First.DisplayLabel.CapitalizeFirst() + ": " + "PerDay".Translate(gene.PostProcessValue(0f - tmpDrainGene.Second).ToStringWithSign()).Resolve();
-                }
-            }
+            //if (num != 0f)
+            //{
+            //    string text2 = ((num < 0f) ? "RegenerationRate".Translate() : "DrainRate".Translate());
+            //    text = text + "\n\n" + text2 + ": " + "PerDay".Translate(Mathf.Abs(gene.PostProcessValue(num))).Resolve();
+            //    foreach (Pair<IGeneResourceDrain, float> tmpDrainGene in tmpDrainGenes)
+            //    {
+            //        text = text + "\n  - " + tmpDrainGene.First.DisplayLabel.CapitalizeFirst() + ": " + "PerDay".Translate(gene.PostProcessValue(0f - tmpDrainGene.Second).ToStringWithSign()).Resolve();
+            //    }
+            //}
         }
         if (!gene.def.resourceDescription.NullOrEmpty())
         {

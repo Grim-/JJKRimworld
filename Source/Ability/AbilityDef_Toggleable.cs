@@ -9,12 +9,4 @@ namespace JJK
             this.abilityClass = typeof(Ability_Toggleable);
         }
     }
-
-    public class AbilityDef_MultiButtonSummon : AbilityDef
-    {
-        public AbilityDef_MultiButtonSummon()
-        {
-            this.abilityClass = typeof(ButtonSummonAbility);
-        }
-    }
 }

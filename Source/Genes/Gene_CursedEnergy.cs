@@ -41,6 +41,8 @@ namespace JJK
             set => base.Value = Mathf.Clamp(value, 0f, Max);
         }
 
+        public float ValueCostMultiplied => Value * CostMult;
+
         public string DisplayLabel => Label + " (" + "Gene".Translate() + ")";
         public float ResourceLossPerDay => def.resourceLossPerDay;
         public override float InitialResourceMax => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergy);
@@ -71,6 +73,7 @@ namespace JJK
         public override int MaxForDisplay => Mathf.RoundToInt(Max);
 
         public float RegenMod => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen, true, 100);
+        public int RegenTicks => Mathf.RoundToInt(Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegenSpeed, true, 100));
         public float CostMult => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost, true, 100);
 
         public override void PostAdd()
@@ -80,6 +83,7 @@ namespace JJK
                 base.PostAdd();
                 Reset();
             }
+
         }
 
         public override void Notify_IngestedThing(Thing thing, int numTaken)
@@ -98,6 +102,8 @@ namespace JJK
             // Force the base class to update its max value
             this.SetMax(newMax);
         }
+
+
         public void ConsumeCursedEnergy(float Amount)
         {
             if (!ModsConfig.BiotechActive)
@@ -105,7 +111,7 @@ namespace JJK
                 return;
             }
 
-            Value -= Amount;
+            Value -= Amount * CostMult;
         }
 
         public void RestoreCursedEnergy(float Amount)
@@ -118,18 +124,28 @@ namespace JJK
             Value += Amount;
         }
 
+        public bool HasCursedEnergy(float Amount)
+        {
+            if (!ModsConfig.BiotechActive)
+            {
+                return false;
+            }
+
+
+            return Value >= Amount * CostMult;
+        }
+
 
         public override void Tick()
         {
             base.Tick();
 
-            CurrentTick++;
-
-            if (CurrentTick % JJKConstants.CursedEnergyRegenTicks == 0)
+            if (Pawn.IsHashIntervalTick(RegenTicks))
             {
-                RestoreCursedEnergy(pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen));
-                CurrentTick = 0;
+                Log.Message($"Regenerating {RegenMod} after {RegenTicks} ticks.");
+                RestoreCursedEnergy(RegenMod);
             }
+
         }
 
         public override void SetTargetValuePct(float val)

@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+  
   <ThinkTreeDef>
     <defName>JJK_SummonedCreature</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
-        <li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
+        <li Class="JJK.ThinkNode_ConditionalSelfOrMasterHasTarget">
           <subNodes>
-            <li Class="JJK.JobGiver_DefendMaster" />
+            <li Class="JJK.JobGiver_SummonedCreatureFightEnemy" />
           </subNodes>
+        </li>
+        <li Class="JJK.JobGiver_SummonedCreatureFollowMaster">
         </li>
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef>
+
+<ThinkTreeDef>
+  <defName>JJK_EmptyConstantThinkTree</defName>
+  <thinkRoot Class="ThinkNode_Priority">
+    <subNodes>
+      <li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
+        <subNodes>
+          <!-- This think node does absolutely nothing -->
+          <li Class="ThinkNode_Tagger">
+            <tagToGive>Idle</tagToGive>
+          </li>
+        </subNodes>
+      </li>
+    </subNodes>
+  </thinkRoot>
+</ThinkTreeDef>
 
 </Defs>

@@ -4,41 +4,27 @@
   <defName>ZombieAdulthoodStory</defName>
   <identifier>ZomebieAdult</identifier>
   <slot>Adulthood</slot>
-  <title>mad scientist</title>
-  <titleShort>scientist</titleShort>
-  <description>Stripped of [PAWN_possessive] life's work and exiled after [PAWN_possessive] unethical experiments on the survivors of the Callos IX incident were published, [PAWN_nameDef] learned the skills necessary to survive in the outer rim.\n\nContinuing [PAWN_possessive] research with nothing left to lose, [PAWN_pronoun] made minions to carry out the tasks that bored him.</description>
-  <skillGains>
-    <Shooting>5</Shooting>
-    <Melee>10</Melee>
-  </skillGains>
+  <title>zombified</title>
+  <titleShort>zombie</titleShort>
+  <description>Stripped of everything that made them an individual, this pawn now lives only to serve it's master until it degrades into nothing.</description>
   <requiredWorkTags>None</requiredWorkTags>
   <bodyTypeGlobal>Thin</bodyTypeGlobal>
   <bodyTypeFemale>Thin</bodyTypeFemale>
   <bodyTypeMale>Thin</bodyTypeMale>
   <shuffleable>False</shuffleable>
-  <possessions>
-    <Apparel_PackTurret MayRequire="Ludeon.RimWorld.Anomaly">1</Apparel_PackTurret>
-  </possessions>
 </BackstoryDef>
 
 <BackstoryDef>
   <defName>ZombieChildhoodStory</defName>
   <identifier>ZomebieChild</identifier>
   <slot>Childhood</slot>
-  <title>mad scientist</title>
-  <titleShort>scientist</titleShort>
-  <description>Stripped of [PAWN_possessive] life's work and exiled after [PAWN_possessive] unethical experiments on the survivors of the Callos IX incident were published, [PAWN_nameDef] learned the skills necessary to survive in the outer rim.\n\nContinuing [PAWN_possessive] research with nothing left to lose, [PAWN_pronoun] made minions to carry out the tasks that bored him.</description>
-  <skillGains>
-    <Shooting>5</Shooting>
-    <Melee>10</Melee>
-  </skillGains>
+  <title>zombified</title>
+  <titleShort>zombie</titleShort>
+  <description>Stripped of everything that made them an individual, this pawn now lives only to serve it's master until it degrades into nothing.</description>
   <requiredWorkTags>None</requiredWorkTags>
   <bodyTypeGlobal>Thin</bodyTypeGlobal>
   <bodyTypeFemale>Thin</bodyTypeFemale>
   <bodyTypeMale>Thin</bodyTypeMale>
   <shuffleable>False</shuffleable>
-  <possessions>
-    <Apparel_PackTurret MayRequire="Ludeon.RimWorld.Anomaly">1</Apparel_PackTurret>
-  </possessions>
 </BackstoryDef>
 </Defs>

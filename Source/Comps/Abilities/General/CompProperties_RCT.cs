@@ -12,14 +12,12 @@ namespace JJK
 {
     public class CompProperties_RCT : CompProperties_ToggleableEffect
     {
-        public int PartRegenTickCount = 250;
-        public float CECostPerTick = 0.005f;
-        public float CEPartRegenCost = 0.1f;
-        public float CEHediffCost = 0.05f;
-
-        public float CEPartRegenSeverityBase = 0.1f;
-        public float CEProblemRegenSeverityBase = 0.05f;
-
+        public int TicksBetweenCost = 2500;
+        public float PartHealCoefficient = 0.3f;
+        public float HediffHealCoefficient = 1f;
+        public float CECostPerTick = 5f;
+        public float CEPartRegenCost = 100f;
+        public float CEHediffCost = 30f;
         public bool CanCureAddiction = false;
         public bool ShouldRemoveImplants = false;
 
@@ -31,52 +29,143 @@ namespace JJK
     public class CompAbilityEffect_RCT : ToggleableCompAbilityEffect
     {
         new CompProperties_RCT Props => (CompProperties_RCT)props;
-        private float accumulatedTicks = 0f;
+
+        public override int Ticks => Mathf.RoundToInt(parent.pawn.GetStatValue(JJKDefOf.JJK_RCTSpeed));
+
+        private Gene_CursedEnergy _CursedEnergy;
+        private Gene_CursedEnergy CursedEnergy
+        {
+            get
+            {
+                if (_CursedEnergy == null)
+                {
+                    _CursedEnergy = parent.pawn.genes?.GetFirstGeneOfType<Gene_CursedEnergy>();
+                }
+
+
+                return _CursedEnergy;
+            }
+        }
+
+
+
+        private float RCTHealAmount => parent.pawn.GetStatValue(JJKDefOf.JJK_RCTHealingBonus, true, 100);
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            Toggle();
+            //do nothing the toggleable ability handles it, in order to udpate gizmo.
+            // Toggle();
         }
 
+        public override void CompTick()
+        {
+            base.CompTick();
+
+            HandleMaintenanceCostTick();
+        }
+
+        private void HandleMaintenanceCostTick()
+        {
+            if (parent.pawn != null && IsActive && parent.pawn.IsHashIntervalTick(Props.TicksBetweenCost))
+            {
+                if (CursedEnergy.ValueCostMultiplied < Props.CECostPerTick)
+                {
+                    DeactiveOnParentAbility();
+                }
+                else
+                {
+                    CursedEnergy.ConsumeCursedEnergy(Props.CECostPerTick);
+                }
+
+            }
+        }
+
+        //still needs to actually 
         public override void OnTickInterval()
         {
             base.OnTickInterval();
+            if (!IsActive || CursedEnergy == null) return;
 
-            Gene_CursedEnergy cursedEnergyGene = parent.pawn.genes?.GetFirstGeneOfType<Gene_CursedEnergy>();
-            if (!IsActive || cursedEnergyGene == null)
-                return;
-
-            if (cursedEnergyGene.Value >= Props.CECostPerTick)
+            List<Hediff_MissingPart> MissingParts = PawnHealingUtility.GetMissingPartsPrioritized(parent.pawn);
+            if (MissingParts.Count > 0)
             {
-                ConsumeCursedEnergy(Props.CECostPerTick);
+                RegenerateMissingParts();
+            }
+            else
+            {
+                HealHediffs();
+            }
+        }
 
-                if (PawnHealingUtility.HasMissingBodyParts(parent.pawn) && cursedEnergyGene.Value >= Props.CEPartRegenCost)
+
+        private void RegenerateMissingParts()
+        {
+            Hediff_MissingPart currentlyHealingPart = PawnHealingUtility.GetMostPrioritizedMissingPart(parent.pawn);
+
+            float SeverityHealAmount = RCTHealAmount * Props.PartHealCoefficient;
+
+            while (currentlyHealingPart != null && SeverityHealAmount > 0)
+            {
+                float PartMaxHP = currentlyHealingPart.Part.def.GetMaxHealth(parent.pawn);
+                float CostToRegenPart = (PartMaxHP * Props.CEPartRegenCost) * Props.PartHealCoefficient;
+
+                if (CursedEnergy.HasCursedEnergy(CostToRegenPart) && SeverityHealAmount > 0)
                 {
-                    if (PawnHealingUtility.RestoreMissingPart(parent.pawn))
+                    float actualHeal = Math.Min(SeverityHealAmount, currentlyHealingPart.Severity);
+                    currentlyHealingPart.Severity -= actualHeal;
+                    SeverityHealAmount -= actualHeal;
+
+                    if (currentlyHealingPart.Severity <= 0)
                     {
-                        ConsumeCursedEnergy(Props.CEPartRegenCost);
+                        MoteMaker.ThrowText(parent.pawn.DrawPos, parent.pawn.Map, $"{currentlyHealingPart.def.label} restored on {parent.pawn.Name}", Color.green, 4f);
+                        HealthUtility.Cure(currentlyHealingPart);
+                        currentlyHealingPart = PawnHealingUtility.GetMostPrioritizedMissingPart(parent.pawn);
+                    }
+
+                    CursedEnergy.ConsumeCursedEnergy(CostToRegenPart);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+
+        private void HealHediffs()
+        {
+            Hediff currentlyHealing = PawnHealingUtility.GetMostSevereHealthProblem(parent.pawn);
+            float HealingAmount = RCTHealAmount * Props.HediffHealCoefficient;
+
+            while (currentlyHealing != null && HealingAmount > 0)
+            {
+                float PartCost = currentlyHealing.Severity * Props.CEHediffCost;
+
+                if (CursedEnergy.HasCursedEnergy(PartCost) && HealingAmount > 0)
+                {
+                    float actualHeal = Math.Min(HealingAmount, currentlyHealing.Severity);
+                    currentlyHealing.Severity -= actualHeal;
+                    HealingAmount -= actualHeal;
+
+                    if (currentlyHealing.Severity <= 0)
+                    {
+                        HealthUtility.Cure(currentlyHealing);
+                        currentlyHealing = PawnHealingUtility.GetMostSevereHealthProblem(parent.pawn);
                     }
                 }
                 else
                 {
-                    if (cursedEnergyGene.Value >= Props.CEHediffCost)
-                    {
-                        PawnHealingUtility.HealHealthProblem(parent.pawn);
-                        ConsumeCursedEnergy(Props.CEHediffCost);
-                    }
+                    break; // Stop healing if there's not enough CursedEnergy or HealingAmount
                 }
             }
-            else
-            {
-                JJKUtility.RemoveRCTHediff(parent.pawn);
-            }
         }
+
 
         public override string CompInspectStringExtra()
         {
             string String = base.CompInspectStringExtra();
 
-            if (IsActive) String = String + "RCT Active";
+            if (IsActive) String = String + "Channeling Reverse Curse Technique";
             return String;
         }
 
@@ -99,5 +188,4 @@ namespace JJK
             }
         }
     }
-
 }

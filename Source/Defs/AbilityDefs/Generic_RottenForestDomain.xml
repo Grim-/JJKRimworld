@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <JJK.DomainExpansionDef>
+      <defName>JJK_ExpandForestDomain</defName>
+      <label>Expand Rotten Forest Domain</label>
+      <description>Expands and maintains a Rotten Forest Domain, continuously channeling cursed energy to create and control a magical forest. The user cannot perform other actions while maintaining the domain.</description>
+      <category>Cursed_Energy</category>
+      <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+      <verbProperties>
+        <verbClass>Verb_CastAbility</verbClass>
+        <range>0</range>
+        <warmupTime>0</warmupTime>
+        <soundCast>FireSpew_Resolve</soundCast>
+        <targetable>False</targetable>
+      </verbProperties>
+      <statBases>
+        <Ability_Duration>-1</Ability_Duration>
+      </statBases>
+      <DomainThingDefName>JJK_ForestDomain</DomainThingDefName>
+    </JJK.DomainExpansionDef>
+</Defs>
