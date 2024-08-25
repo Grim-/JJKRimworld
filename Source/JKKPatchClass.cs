@@ -3,6 +3,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -20,6 +21,33 @@ namespace JJK
         }
     }
 
+    //[HarmonyPatch(typeof(MentalStateHandler), "TryStartMentalState")]
+    //public static class Patch_MentalStateHandler_TryStartMentalState
+    //{
+    //    private static FieldInfo pawnField = AccessTools.Field(typeof(MentalStateHandler), "pawn");
+
+    //    public static bool Prefix(
+    //        MentalStateHandler __instance,
+    //        MentalStateDef stateDef,
+    //        string reason,
+    //        bool forced,
+    //        bool forceWake,
+    //        bool causedByMood,
+    //        Pawn otherPawn,
+    //        bool transitionSilently,
+    //        bool causedByDamage,
+    //        bool causedByPsycast,
+    //        ref bool __result)
+    //    {
+    //        Pawn pawn = (Pawn)pawnField.GetValue(__instance);
+    //        if (pawn.def.defName == "JJK_DemonDogBlack" || pawn.def.defName == "JJK_DemonDogWhite")
+    //        {
+    //            __result = false;
+    //            return false; // Skip the original method
+    //        }
+    //        return true;
+    //    }
+    //}
 
     [HarmonyPatch(typeof(Pawn))]
     [HarmonyPatch("GetDisabledWorkTypes")]

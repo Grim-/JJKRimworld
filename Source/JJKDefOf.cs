@@ -63,6 +63,8 @@ namespace JJK
         public static JobDef JJK_DemondogAttackAndVanish;
 
 
+
+        public static HediffDef JJK_Shikigami;
         public static HediffDef JJK_BlackFlash;
         public static HediffDef JJK_CursedEnergySurge;
         public static HediffDef JJK_CursedReinforcementHediff;
@@ -79,8 +81,8 @@ namespace JJK
 
         public static PawnKindDef JJK_DemonDogWhite;
         public static PawnKindDef JJK_DemonDogBlack;
-        
 
+        public static FleckDef JJK_BlackSmoke;
 
 
         public static DamageDef JJK_TwistDamage;

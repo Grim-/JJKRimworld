@@ -58,6 +58,11 @@ namespace JJK
         {
             Pawn demondog = PawnGenerator.GeneratePawn(KindDef, parent.pawn.Faction);
             GenSpawn.Spawn(demondog, spawnPosition, Map);
+
+            demondog.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
+            FleckMaker.ThrowSmoke(spawnPosition.ToVector3(), Map, 1.5f);
+            FleckMaker.Static(spawnPosition, Map, JJKDefOf.JJK_BlackSmoke, 1.5f);
+
             Job job = JobMaker.MakeJob(JJKDefOf.JJK_DemondogAttackAndVanish);
             job.SetTarget(TargetIndex.A, TargetPawn);
             job.SetTarget(TargetIndex.B, parent.pawn);

@@ -31,6 +31,11 @@ namespace JJK
             StoredPawn = pawn;
         }
 
+        public bool HasStoredPawn()
+        {
+            return StoredPawn != null;
+        }
+
         public Pawn ReleasePawn()
         {
             var pawn = StoredPawn;

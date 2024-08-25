@@ -8,6 +8,11 @@ namespace JJK
 {
     public class JobDriver_DemondogAttackAndVanish : JobDriver
     {
+
+        private Pawn AttackTarget => TargetPawnA;
+        private Pawn Summoner => TargetPawnB;
+
+
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
             return true; // No need to reserve anything
@@ -21,52 +26,58 @@ namespace JJK
             {
                 if (ShouldDespawn())
                 {
-                    DespawnDemondog("Despawn condition met during movement");
+                    DespawnDemondog();
+                    EndJobWith(JobCondition.Incompletable);
+                    return;
                 }
             });
             yield return gotoToil;
 
 
-            Toil AttackToil = new Toil
-            {
-                initAction = () =>
-                {
-                    if (ShouldDespawn())
-                    {
-                        DespawnDemondog("Despawn condition met before attack");
-                        return;
-                    }
-
-                    Pawn target = TargetA.Pawn;
-                    if (target != null && !target.Dead && !target.Downed)
-                    {
-                        DamageInfo dinfo = new DamageInfo(DamageDefOf.Bite, 10f, 0f, -1f, pawn, null, null, DamageInfo.SourceCategory.ThingOrUnknown);
-                        target.TakeDamage(dinfo);
-                        if (Rand.Chance(0.5f))
-                        {
-                            Hediff hediff = HediffMaker.MakeHediff(HediffDefOf.BloodLoss, target, null);
-                            hediff.Severity = 0.2f;
-                            target.health.AddHediff(hediff, null, null);
-                        }
-
-                        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "Demonic bite!", Color.red, 3.65f);
-                    }
-
-                    DespawnDemondog("Attack completed");
-                }
-            };
+            Toil AttackToil = new Toil();
 
             AttackToil.AddPreTickAction(() =>
             {
-                Pawn target = TargetA.Pawn;
+                pawn.MentalState.RecoverFromState();
 
                 if (ShouldDespawn())
                 {
-                    DespawnDemondog("Demon dog attack target null or dead or downed.");
+                    DespawnDemondog();
+                    EndJobWith(JobCondition.Incompletable);
                     return;
                 }
 
             });
+
+            AttackToil.initAction = () =>
+            {
+                if (ShouldDespawn())
+                {
+                    DespawnDemondog();
+                    EndJobWith(JobCondition.Incompletable);
+                    return;
+                }
+
+                if (AttackTarget != null && !AttackTarget.Dead && !AttackTarget.Downed)
+                {
+                    DamageInfo dinfo = new DamageInfo(DamageDefOf.Bite, 10f, 0f, -1f, pawn, null, null, DamageInfo.SourceCategory.ThingOrUnknown);
+                    AttackTarget.TakeDamage(dinfo);
+                    if (Rand.Chance(0.5f))
+                    {
+                        Hediff hediff = HediffMaker.MakeHediff(HediffDefOf.BloodLoss, AttackTarget, null);
+                        hediff.Severity = 0.2f;
+                        AttackTarget.health.AddHediff(hediff, null, null);
+                    }
+
+                    MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "Demonic bite!", Color.red, 3.65f);
+                }
+
+                DespawnDemondog();
+                EndJobWith(JobCondition.Succeeded);
+            };
+
+
+
 
             // Attack
             yield return AttackToil;
@@ -74,29 +85,43 @@ namespace JJK
 
         private bool ShouldDespawn()
         {
-            return SummonerIncapacitated() ||
-                   TargetA.Thing == null ||
-                   !TargetA.Thing.HostileTo(pawn) ||
-                   TargetA.Pawn.DeadOrDowned ||
-                   TargetB.Pawn.DeadOrDowned ||
-                   !pawn.CanReach(TargetA, PathEndMode.Touch, Danger.Deadly);
+            if (SummonerIncapacitated())
+            {
+                Messages.Message($"Demondog despawning: summoner incapacitated.", MessageTypeDefOf.NegativeEvent, false);
+                return true;
+            }
+
+            if (AttackTarget == null || AttackTarget.Destroyed || AttackTarget.DeadOrDowned)
+            {
+                Messages.Message($"Demondog despawning: target thing null or destroyed", MessageTypeDefOf.NegativeEvent, false);
+                return true;
+            }
+
+            if (!AttackTarget.HostileTo(pawn))
+            {
+                Messages.Message($"Demondog despawning: target not hostile", MessageTypeDefOf.NegativeEvent, false);
+                return true;
+            }
+
+            if (!pawn.CanReach(AttackTarget, PathEndMode.Touch, Danger.Deadly))
+            {
+                Messages.Message($"Demondog despawning: cannot reach target", MessageTypeDefOf.NegativeEvent, false);
+                return true;
+            }
+
+            return false;
         }
 
         private bool SummonerIncapacitated()
         {
-            Pawn summoner = TargetB.Pawn;
-            return summoner == null || summoner.Dead || summoner.Downed;
+            return Summoner == null || Summoner.Dead || Summoner.Downed;
         }
 
-        private void DespawnDemondog(string reason)
+        private void DespawnDemondog()
         {
-            Log.Message($"Demondog despawning: {reason}"); // Uncommented for debugging
-            if (pawn.Map != null) // Check if pawn's map is not null
-            {
-                MoteMaker.MakeStaticMote(pawn.Position, pawn.MapHeld, ThingDefOf.Mote_Leaf, 2);
-            }
+            FleckMaker.ThrowSmoke(pawn.Position.ToVector3(), Map, 1.5f);
+            FleckMaker.Static(pawn.Position, Map, JJKDefOf.JJK_BlackSmoke, 1.5f);
             pawn.Destroy();
-            EndJobWith(JobCondition.Succeeded);
         }
 
     }
@@ -105,7 +130,7 @@ namespace JJK
     {
         protected override Job TryGiveJob(Pawn pawn)
         {
-            if (pawn.jobs.curJob?.def != JJKDefOf.JJK_DemondogAttackAndVanish)
+            if (pawn.jobs.curJob == null ||  pawn.jobs.curJob?.def != JJKDefOf.JJK_DemondogAttackAndVanish)
             {
                 DespawnDemondog(pawn, "Invalid job");
                 return null;
@@ -125,7 +150,7 @@ namespace JJK
         {
             if (!pawn.Destroyed)
             {
-                // Log.Message($"Demondog despawning: {reason}"); // Uncomment for debugging
+                Log.Message($"JobGiver_DemondogAttackTarget Demondog despawning: {reason}");
                 pawn.Destroy();
             }
      

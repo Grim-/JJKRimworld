@@ -83,6 +83,7 @@
     <Compile Include="Ability\IToggleableComp.cs" />
     <Compile Include="AI\JobDriver_DemondogAttackAndVanish.cs" />
     <Compile Include="AI\JobDriver_LuredMove.cs" />
+    <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_AbilityDemondogSummon.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechLure.cs" />
     <Compile Include="Utils\CEResourceDrainUtility.cs" />
