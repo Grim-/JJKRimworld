@@ -78,13 +78,16 @@ namespace JJK
         public static HediffDef JJK_ZombieWorkSlaveHediff;
         public static HediffDef JJK_IdleTransfigurationCooldown;
         public static HediffDef JJK_IdleTransfigurationBeastStatBoost;
+        public static HediffDef JJK_CursedTechniqueBurnout;
+        public static HediffDef JJK_CursedTechniqueStrain;
+        
+        public static HediffDef JJK_PlayfulCloudConcussion;
 
         public static PawnKindDef JJK_DemonDogWhite;
         public static PawnKindDef JJK_DemonDogBlack;
 
         public static FleckDef JJK_BlackSmoke;
-
-
+        public static ThingDef JJK_PlayfulCloudKnockbackFlyer;
         public static DamageDef JJK_TwistDamage;
 
 

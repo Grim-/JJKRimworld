@@ -30,6 +30,8 @@ namespace JJK
     {
         new CompProperties_RCT Props => (CompProperties_RCT)props;
 
+        protected override bool IgnoreBurnout => true;
+
         public override int Ticks => Mathf.RoundToInt(parent.pawn.GetStatValue(JJKDefOf.JJK_RCTSpeed));
 
         private Gene_CursedEnergy _CursedEnergy;

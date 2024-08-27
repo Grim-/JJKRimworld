@@ -38,6 +38,8 @@ namespace JJK
         protected virtual float CastCost => BaseCost * CursedEnergyCostMult;
 
 
+        protected virtual bool IgnoreBurnout => false;
+
 
         public override bool GizmoDisabled(out string reason)
         {
@@ -59,6 +61,11 @@ namespace JJK
                 return true;
             }
 
+            if (parent.pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_CursedTechniqueBurnout) && !IgnoreBurnout)
+            {
+                reason = "AbilityDisabledCursedTechniqueBurnout".Translate(parent.pawn);
+                return true;
+            }
             reason = null;
             return false;
         }
@@ -75,13 +82,18 @@ namespace JJK
         public virtual void PostApply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             ApplyAbilityCost(parent.pawn);
+            ApplyCursedTechniqueStrain(parent.pawn);
         }
 
         public virtual void ApplyAbilityCost(Pawn Pawn)
         {
             CursedEnergy?.ConsumeCursedEnergy(CastCost);
         }
-
+        protected virtual void ApplyCursedTechniqueStrain(Pawn pawn)
+        {
+            Hediff strain = pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedTechniqueStrain);
+            strain.Severity += Props.burnoutStrain;
+        }
     }
 }
 

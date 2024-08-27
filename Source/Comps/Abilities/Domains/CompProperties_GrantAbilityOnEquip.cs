@@ -13,6 +13,7 @@ namespace JJK
         }
     }
 
+
     public class CompGrantAbilityOnEquip : ThingComp
     {
         new CompProperties_GrantAbilityOnEquip Props => (CompProperties_GrantAbilityOnEquip)props;

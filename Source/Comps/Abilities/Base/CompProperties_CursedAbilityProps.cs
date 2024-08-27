@@ -9,6 +9,7 @@ namespace JJK
     {
         public float cursedEnergyCost = 0.1f;
         public int cooldownTicks = 2500;
+        public float burnoutStrain = 0f;
 
         //public override IEnumerable<string> ExtraStatSummary()
         //{

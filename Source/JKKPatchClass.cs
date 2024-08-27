@@ -160,6 +160,33 @@ namespace JJK
     }
 
 
+    //[HarmonyPatch(typeof(Verb_MeleeAttack), "DamageInfosToApply")]
+    //public static class Patch_Verb_MeleeAttack_DamageInfosToApply
+    //{
+    //    [HarmonyPostfix]
+    //    public static void Postfix(Verb_MeleeAttack __instance, ref IEnumerable<DamageInfo> __result)
+    //    {
+    //        if (__instance.EquipmentSource != null)
+    //        {
+    //            var comps = __instance.EquipmentSource.GetComps<ThingCompExt>();
+    //            if (comps != null && comps.Any())
+    //            {
+    //                List<DamageInfo> modifiedDamageInfos = new List<DamageInfo>();
+    //                foreach (var dinfo in __result)
+    //                {
+    //                    DamageInfo modifiedDinfo = dinfo;
+    //                    foreach (var comp in comps)
+    //                    {
+    //                        comp.ModifyDamageInfo(ref modifiedDinfo);
+    //                    }
+    //                    modifiedDamageInfos.Add(modifiedDinfo);
+    //                }
+    //                __result = modifiedDamageInfos;
+    //            }
+    //        }
+    //    }
+    //}
+
     [HarmonyPatch(typeof(Verb_MeleeAttackDamage))]
     [HarmonyPatch("ApplyMeleeDamageToTarget")]
     public static class Patch_Verb_MeleeAttack_ApplyMeleeDamageToTarget
@@ -187,14 +214,11 @@ namespace JJK
         {
             if (pawn != null && pawn.equipment != null && pawn.equipment.Primary != null)
             {
-                foreach (var equipment in pawn.equipment.AllEquipmentListForReading)
+                if (pawn.equipment.Primary.TryGetComp<ThingCompExt>( out ThingCompExt thingCompExt))
                 {
-                    foreach (var item in equipment.GetComps<ThingCompExt>())
+                    if (thingCompExt != null)
                     {
-                        if (item != null)
-                        {
-                            item.Notify_EquipOwnerUsedVerb(pawn, verb);
-                        }
+                        thingCompExt.Notify_EquipOwnerUsedVerb(pawn, verb);
                     }
                 }
             }    
