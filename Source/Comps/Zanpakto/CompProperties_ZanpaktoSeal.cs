@@ -3,30 +3,35 @@ using Verse;
 
 namespace JJK
 {
-    public class CompProperties_ZanpaktoBankai : CompProperties_AbilityEffect
+    public class CompProperties_ZanpaktoSeal : CompProperties_AbilityEffect
     {
-        public CompProperties_ZanpaktoBankai()
+        public CompProperties_ZanpaktoSeal()
         {
-            compClass = typeof(CompAbilityEffect_ZanpaktoBankai);
+            compClass = typeof(Zanpakto_SealAbility);
         }
     }
 
-    public class CompAbilityEffect_ZanpaktoBankai : CompAbilityEffect
+    public class Zanpakto_SealAbility : CompAbilityEffect
     {
         private ZanpaktoWeapon Zanpakto => parent.pawn.equipment.Primary as ZanpaktoWeapon;
 
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             base.Apply(target, dest);
-
             if (Zanpakto == null)
             {
                 Log.Error("CompAbilityEffect_ZanpaktoRelease: Primary weapon is not a ZanpaktoWeapon");
                 return;
             }
 
+
+            if (Zanpakto.CurrentState == ZanpaktoState.Sealed)
+            {
+                return;
+            }
+
             Log.Message($"CompAbilityEffect_ZanpaktoRelease applying to {Zanpakto}");
-            Zanpakto.SetState(ZanpaktoState.Bankai);
+            Zanpakto.SetState(ZanpaktoState.Sealed);
         }
     }
 }

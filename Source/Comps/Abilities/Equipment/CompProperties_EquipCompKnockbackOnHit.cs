@@ -60,6 +60,18 @@ namespace JJK
             }
             return base.Notify_ApplyMeleeDamageToTarget(target, DamageWorkerResult);
         }
+
+        public override string CompInspectStringExtra()
+        {
+            return base.CompInspectStringExtra() + 
+                $"\r\n This equipment has a chance ({Mathf.RoundToInt(Props.knockbackChance * 100)} to knock back upto {Props.knockbackRange.max} tiles away, the target of a melee attack made with it.";
+        }
+
+        public override string GetDescriptionPart()
+        {
+            return base.GetDescriptionPart() +
+                $"\r\n This equipment has a chance ({Mathf.RoundToInt(Props.knockbackChance * 100)} to knock back upto {Props.knockbackRange.max} tiles away, the target of a melee attack made with it.";
+        }
     }
 
     public class PlayfulCloudKnockbackFlyer : PawnFlyer

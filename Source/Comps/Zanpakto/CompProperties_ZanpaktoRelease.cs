@@ -26,6 +26,12 @@ namespace JJK
                 return;
             }
 
+
+            if (Zanpakto.CurrentState == ZanpaktoState.Shikai)
+            {
+                return;
+            }
+
             Log.Message($"CompAbilityEffect_ZanpaktoRelease applying to {Zanpakto}");
             Zanpakto.SetState(ZanpaktoState.Shikai);
         }

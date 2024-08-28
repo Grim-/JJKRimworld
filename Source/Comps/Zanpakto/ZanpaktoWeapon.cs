@@ -61,24 +61,15 @@ namespace JJK
                 case ZanpaktoState.Bankai:
                     return Def.bankaiForm;
             }
+
             return null;
         }
 
         public void SetState(ZanpaktoState state)
         {
             currentState = state;
-            EffecterDefOf.ApocrionAoeResolve.SpawnAttached(this, this.MapHeld, 3f);
+            //EffecterDefOf.ApocrionAoeResolve.SpawnAttached(this, this.MapHeld, 1f);
             StateChanged?.Invoke(state);
-        }
-        public override IEnumerable<StatDrawEntry> SpecialDisplayStats()
-        {
-            foreach (StatDrawEntry entry in base.SpecialDisplayStats())
-            {
-                yield return entry;
-            }
-
-            yield return new StatDrawEntry(StatCategoryDefOf.Weapon,
-                StatDefOf.MeleeDamageFactor, GetSwordFormForState(currentState).MeleeDamage, StatRequest.For(this));
         }
 
         public override string GetInspectString()
@@ -92,6 +83,11 @@ namespace JJK
             base.ExposeData();
 
             Scribe_Values.Look(ref currentState, "currentState", ZanpaktoState.Sealed);
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                SetState(currentState);
+            }
         }
     }
     public class ZanpaktoWeaponDef : ThingDef
@@ -105,12 +101,11 @@ namespace JJK
             thingClass = typeof(ZanpaktoWeapon);
         }
     }
-
-
     public class SwordFormDef
     {
         public GraphicData graphicData;
         public float MeleeDamage = 1f;
-        public float Cooldown = 2f;
+        public float CooldownMulti = 1f;
+        public float ArmourPenMulti = 1f;
     }
 }
