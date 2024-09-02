@@ -7,7 +7,12 @@ namespace JJK
     {
         protected override bool Satisfied(Pawn pawn)
         {
-            return pawn.GetMaster() != null;
+            Hediff_Summon summon = (Hediff_Summon)pawn.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
+            if (summon != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

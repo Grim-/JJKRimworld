@@ -6,6 +6,9 @@ namespace JJK
     public class CompProperties_BlueSelfTeleport : CompProperties_CursedAbilityProps
     {
         public float MaxRange = 20f;
+        public float DistanceCostMult = 0.1f;
+        public EffecterDef TeleportOutEffecter;
+        public EffecterDef TeleportInEffecter;
 
         public CompProperties_BlueSelfTeleport()
         {
@@ -42,14 +45,20 @@ namespace JJK
             // Perform the teleportation
             caster.Position = target.Cell;
             caster.Notify_Teleported();
+            if (Props.TeleportOutEffecter != null)
+            {
+                Props.TeleportOutEffecter.Spawn(caster.Position, caster.MapHeld);
+            }
 
-            // Visual effects (you can customize these)
-            FleckMaker.ThrowDustPuff(originalPosition, map, 1.0f);
-            FleckMaker.ThrowDustPuff(target.Cell, map, 1.0f);
+            
 
-            // Consume Cursed Energy
+            if (Props.TeleportInEffecter != null)
+            {
+                Props.TeleportInEffecter.Spawn(target.Cell, caster.MapHeld);
+            }
+
             float distanceTraveled = (target.Cell - originalPosition).LengthHorizontal;
-            float energyCost = distanceTraveled * 0.01f; // Adjust this multiplier as needed
+            float energyCost = distanceTraveled * Props.DistanceCostMult;
             caster.GetCursedEnergy()?.ConsumeCursedEnergy(energyCost);
         }
 

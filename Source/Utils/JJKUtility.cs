@@ -191,6 +191,53 @@ namespace JJK
             }
         }
 
+
+        public static void CreateLightningStrike(Map Map, IntVec3 Position, Thing Instigator, DamageDef DamageDef, int DamageAmount = 10, float Arp = -1, float radius = 1f)
+        {
+            WeatherEvent_LightningStrike lightningStrike = new WeatherEvent_LightningStrike(Map, Position);
+            lightningStrike.FireEvent();
+
+            // Apply additional effects
+            if (radius > 0f)
+            {
+                GenExplosion.DoExplosion(
+                    Position,
+                    Map,
+                    radius,
+                    DamageDefOf.Bomb,
+                    Instigator,
+                    DamageAmount,
+                    Arp
+                );
+            }
+        }
+
+
+
+        public static Pawn SpawnShikigami(PawnKindDef pawnKindDef, Pawn Master, Map Map, IntVec3 Position)
+        {
+            if (pawnKindDef == null || Map == null)
+            {
+                return null;
+            }
+
+            Pawn shikigami = PawnGenerator.GeneratePawn(pawnKindDef, Master.Faction);
+            GenSpawn.Spawn(shikigami, Position, Map);
+            Hediff_Summon summon = (Hediff_Summon)shikigami.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
+
+            if (summon != null)
+            {
+                summon.SetMaster(Master);
+            }
+
+            return shikigami;
+        }
+
+        public static bool IsSummon(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_Shikigami);
+        }
+
         //TODO REIMPLMENT THIS WHOLE ASS THING :/
         //public static bool IsAbsorbedCreature(Pawn pawn)
         //{

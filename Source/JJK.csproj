@@ -83,7 +83,24 @@
     <Compile Include="Ability\IToggleableComp.cs" />
     <Compile Include="AI\JobDriver_DemondogAttackAndVanish.cs" />
     <Compile Include="AI\JobDriver_LuredMove.cs" />
+    <Compile Include="AI\JobDriver_SummonBase.cs" />
+    <Compile Include="AI\ThinkNode_ConditionalDoAlways.cs" />
+    <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundPawn.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
+    <Compile Include="Comps\Abilities\Equipment\BaseTraitComp.cs" />
+    <Compile Include="Comps\Abilities\Equipment\CompProperties_DeathHandler.cs" />
+    <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompRemoveHediffOnHit.cs" />
+    <Compile Include="Comps\Abilities\Equipment\PlayfulCloudKnockbackFlyer.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_AbilityFleeingHareSummon.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_DamageInRect.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_DeflectProjectiles.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_TeleportMeleeAttack.cs" />
+    <Compile Include="Comps\Abilities\General\ProjectileUtility.cs" />
+    <Compile Include="Comps\Abilities\General\TargetFinderUtil.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechCrush.cs" />
+    <Compile Include="Comps\Abilities\Inumaki\CompProperties_TwistAreaEffect.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_Infinity.cs" />
+    <Compile Include="Comps\Hediff\Hediff_Summon.cs" />
     <Compile Include="Comps\Zanpakto\BaseZankpaktoComp.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompApplyHediffOnHit.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompScaleableDamage.cs" />
@@ -104,6 +121,7 @@
     <Compile Include="Comps\Abilities\General\CompProperties_AbilityLightningStrike.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechLure.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_SeverityPerInterval.cs" />
+    <Compile Include="Genes\Graphic_Animated.cs" />
     <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
@@ -198,7 +216,7 @@
     <Compile Include="AI\JobGiver_SummonedCreatureFollowMaster.cs" />
     <Compile Include="AI\ThinkNode_ConditionalSelfOrMasterHasTarget.cs" />
     <Compile Include="AI\ThinkNode_ConditionalSummonedDefender.cs" />
-    <Compile Include="ZombieUtility.cs" />
+    <Compile Include="Utils\ZombieUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

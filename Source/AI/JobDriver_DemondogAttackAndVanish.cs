@@ -9,8 +9,8 @@ namespace JJK
     public class JobDriver_DemondogAttackAndVanish : JobDriver
     {
 
-        private Pawn AttackTarget => TargetPawnA;
-        private Pawn Summoner => TargetPawnB;
+        private Pawn Summoner => TargetPawnA;
+        private Pawn AttackTarget => TargetPawnB;
 
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
@@ -21,7 +21,7 @@ namespace JJK
         protected override IEnumerable<Toil> MakeNewToils()
         {
             // Move to target
-            Toil gotoToil = Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            Toil gotoToil = Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.Touch);
             gotoToil.AddPreTickAction(() =>
             {
                 if (ShouldDespawn())
@@ -136,7 +136,7 @@ namespace JJK
                 return null;
             }
 
-            LocalTargetInfo target = pawn.CurJob.GetTarget(TargetIndex.A);
+            LocalTargetInfo target = pawn.CurJob.GetTarget(TargetIndex.B);
             if (!target.IsValid || !(target.Thing is Pawn) || !target.Thing.HostileTo(pawn) || !pawn.CanReach(target, PathEndMode.Touch, Danger.Deadly))
             {
                 DespawnDemondog(pawn, "Target invalid or unreachable");

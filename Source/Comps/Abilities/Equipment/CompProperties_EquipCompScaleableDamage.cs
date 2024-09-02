@@ -17,8 +17,12 @@ namespace JJK
         public int highSkillThreshold = 18;
     }
 
-    public class EquipComp_ScaleableDamage : ThingCompExt
+    public class EquipComp_ScaleableDamage : BaseTraitComp
     {
+        public override string TraitName => "Scaling:Melee";
+
+        public override string Description => "This equipment's damage will hit harder the better the pawns melee skill.";
+
         private CompProperties_EquipCompScaleableDamage Props => (CompProperties_EquipCompScaleableDamage)props;
 
         public override DamageWorker.DamageResult Notify_ApplyMeleeDamageToTarget(LocalTargetInfo target, DamageWorker.DamageResult DamageWorkerResult)

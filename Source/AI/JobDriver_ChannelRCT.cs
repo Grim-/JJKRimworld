@@ -20,7 +20,7 @@ namespace JJK
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            Log.Message($"[JJK] MakeNewToils started for {pawn} targeting {job.targetA.Thing}");
+            //Log.Message($"[JJK] MakeNewToils started for {pawn} targeting {job.targetA.Thing}");
 
             this.FailOnDespawnedOrNull(TargetPawnIndex);
             this.FailOnAggroMentalState(TargetPawnIndex);
@@ -28,7 +28,7 @@ namespace JJK
             yield return Toils_Goto.GotoThing(TargetPawnIndex, PathEndMode.Touch)
                 .FailOnDespawnedNullOrForbidden(TargetPawnIndex);
 
-            Log.Message($"[JJK] GotoThing toil added");
+            //Log.Message($"[JJK] GotoThing toil added");
 
             Toil channelToil = new Toil();
             
@@ -59,9 +59,7 @@ namespace JJK
                 {
                     if (AbilityComp != null)
                     {
-                        EffecterDefOf.ShamblerRaise.SpawnAttached(targetPawn, targetPawn.Map);
                         AbilityComp.HealTargetPawn(pawn.GetCursedEnergy(), targetPawn);
-                        //Log.Message($"[JJK] Ability effects applied to {targetPawn}");
                     }
                     CurrentTick = 0;
                 }

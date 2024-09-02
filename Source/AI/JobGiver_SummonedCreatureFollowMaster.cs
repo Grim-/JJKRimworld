@@ -10,15 +10,10 @@ namespace JJK
 
         protected override Pawn GetFollowee(Pawn pawn)
         {
-            if (JJKUtility.IsSummonedCreature(pawn))
+            if (pawn.IsSummon())
             {
-                return JJKUtility.SummonedCreatureManager.GetMasterFor(pawn);
+                return pawn.GetMaster();
             }
-            //else if(JJKUtility.IsAbsorbedCreature(pawn))
-            //{
-            //    return JJKUtility.AbsorbedCreatureManager.GetMasterForAbsorbedCreature(pawn);
-            //}
-
             return null;
         }
 
@@ -50,19 +45,13 @@ namespace JJK
                 return null;
             }
 
-            float radius = GetRadius(pawn);
-            if (!JobDriver_FollowClose.FarEnoughAndPossibleToStartJob(pawn, followee, radius))
-            {
-               Log.Message($"{pawn.LabelShort} is not far enough from {followee.LabelShort} to start follow job");
-                return null;
-            }
-
+ 
             Job job = JobMaker.MakeJob(JobDefOf.FollowClose, followee);
             job.expiryInterval = 200;
             job.checkOverrideOnExpire = true;
-            job.followRadius = radius;
-
+            job.followRadius = GetRadius(pawn);
             pawn.mindState.canFleeIndividual = false;
+
 
             job.reportStringOverride = "Following Summoner";
             Log.Message($"Created follow job for {pawn.LabelShort} to follow {followee.LabelShort}");

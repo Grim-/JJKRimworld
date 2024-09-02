@@ -88,10 +88,14 @@ namespace JJK
 
         public static FleckDef JJK_BlackSmoke;
         public static ThingDef JJK_PlayfulCloudKnockbackFlyer;
+
+
         public static DamageDef JJK_TwistDamage;
+        public static DamageDef JJK_CrushDamage;
+        public static DamageDef JJK_Dismantle;
 
-
-
+        public static EffecterDef JJK_Deflect;
+        public static EffecterDef JJK_aura;
         public static BackstoryDef ZombieChildhoodStory;
         public static BackstoryDef ZombieAdulthoodStory;
 

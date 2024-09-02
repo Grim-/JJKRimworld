@@ -82,6 +82,7 @@ namespace JJK
             Scribe_References.Look(ref summonedCreature, "summonedCreature");
         }
     }
+
 }
 
     

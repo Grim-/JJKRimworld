@@ -25,12 +25,17 @@ namespace JJK
             {
                 MoteMaker.ThrowText(parent.pawn.DrawPos, parent.pawn.Map, $"APPROACH!", Color.green);
 
-                Job luredJob = JobMaker.MakeJob(JJKDefOf.JJK_CursedSpeechLure, parent.pawn);
-                luredJob.expiryInterval = Props.lureDurationTicks;
-                target.Pawn.jobs.StartJob(luredJob, JobCondition.InterruptForced);
-
-                Log.Message($"Assigned lure job to {target.Pawn.LabelShort}. Current job: {target.Pawn.CurJob?.def.defName}");
+                LureTarget(target.Pawn, parent.pawn, Props.lureDurationTicks);
             }
+        }
+
+
+        public static void LureTarget(Pawn Target, Pawn Lure, int DurationTicks)
+        {
+            Job luredJob = JobMaker.MakeJob(JJKDefOf.JJK_CursedSpeechLure, Lure);
+            luredJob.expiryInterval = DurationTicks;
+            Target.jobs.StartJob(luredJob, JobCondition.InterruptForced);
+            //Log.Message($"Assigned lure job to {Target.LabelShort}. Current job: {Target.CurJob?.def.defName}");
         }
     }
 }

@@ -5,50 +5,45 @@ using Verse.AI;
 
 namespace JJK
 {
-    public class JobGiver_SummonedCreatureFightEnemy : JobGiver_AIDefendMaster
+    public class JobGiver_SummonedCreatureFightEnemy : JobGiver_AIDefendPawn
     {
         protected Pawn Master = null;
-        protected override Pawn GetDefendee(Pawn pawn)
-        {
-            Log.Message($"GetDefendee called for {pawn.LabelShort}");
-
-            if (Master != null)
-            {
-                Log.Message($"Returning cached Master: {Master.LabelShort}");
-                return Master;
-            }
-
-            Master = Find.World.GetComponent<SummonedCreatureManager>().GetMasterFor(pawn);
-            Log.Message($"Master from SummonedCreatureManager: {Master?.LabelShort ?? "null"}");
-
-            if (Master == null || !Master.Spawned)
-            {
-                //Master = Current.Game.GetComponent<AbsorbedCreatureManager>().GetMasterForAbsorbedCreature(pawn);
-                Log.Message($"Master from AbsorbedCreatureManager: {Master?.LabelShort ?? "null"}");
-            }
-
-            return Master;
-        }
 
         protected override Job TryGiveJob(Pawn pawn)
         {
+            this.chaseTarget = true;
+            this.allowTurrets = true;
+            this.ignoreNonCombatants = true;
+            this.humanlikesOnly = false;
             Job job = base.TryGiveJob(pawn);
             job.reportStringOverride = "Defending Summoner";
+            pawn.mindState.canFleeIndividual = false;
             return job;
         }
 
+        protected override Pawn GetDefendee(Pawn pawn)
+        {
+            if (pawn.IsSummon())
+            {
+                return pawn.GetMaster();
+            }
+            return null;
+        }
+
+        //protected override Thing FindAttackTarget(Pawn pawn)
+        //{
+
+        //    if (GenAI.EnemyIsNear(pawn.GetMaster(), 5f, out Thing threat))
+        //    {
+        //        return threat;
+        //    }
+
+        //    return base.FindAttackTarget(pawn);
+        //}
+
         protected override float GetFlagRadius(Pawn pawn)
         {
-            return 15;
-        }
-    }
-
-
-    public class ThinkNode_ConditionalDoAlways : ThinkNode_Conditional
-    {
-        protected override bool Satisfied(Pawn pawn)
-        {
-            return true;
+            return 50f;
         }
     }
 }

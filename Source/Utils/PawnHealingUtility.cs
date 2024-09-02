@@ -31,7 +31,13 @@ namespace JJK
             }
             return false;
         }
-
+        public static Hediff_MissingPart GetMostPrioritizedMissingPartFromList(Pawn pawn, List<Hediff_MissingPart> List)
+        {
+            return List
+               .OrderByDescending(x => x.Part.def.hitPoints)
+               .ThenByDescending(x => x.Part.def.GetMaxHealth(pawn))
+               .FirstOrDefault();
+        }
         public static Hediff_MissingPart GetMostPrioritizedMissingPart(Pawn pawn)
         {
             return pawn.health.hediffSet.hediffs
@@ -47,7 +53,7 @@ namespace JJK
             if (problem != null)
             {
                 Hediff problemToHeal = target.health.hediffSet.hediffs
-                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.JJK_ZombieWorkSlaveHediff && x.def.isBad)
+                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.JJK_ZombieWorkSlaveHediff && x.def.isBad && !x.def.chronic)
                   .OrderByDescending(x => x.Severity)
                   .FirstOrDefault();
 
@@ -64,7 +70,7 @@ namespace JJK
         public static Hediff GetMostSevereHealthProblem(Pawn pawn)
         {
             return pawn.health.hediffSet.hediffs
-                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.JJK_ZombieWorkSlaveHediff && x.def != JJKDefOf.JJK_InfiniteDomainComa && x.def.isBad)
+                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.JJK_ZombieWorkSlaveHediff && x.def != JJKDefOf.JJK_InfiniteDomainComa && x.def.isBad && !x.def.chronic)
                 .OrderByDescending(x => x.Severity)
                 .FirstOrDefault();
         }

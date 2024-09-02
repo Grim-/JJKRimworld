@@ -19,8 +19,6 @@ namespace JJK
         }
     }
 
-
-
     public class CompAbilityEffect_CursedSpeechAreaLure : BaseCursedEnergyAbility
     {
         public new CompProperties_CursedSpeechAreaLure Props => (CompProperties_CursedSpeechAreaLure)props;
@@ -51,15 +49,9 @@ namespace JJK
             IEnumerable<Pawn> pawnsToLure = GetEnemyPawnsInRange(center, map, Props.radius)
                 .Take(Props.maxTargets);
 
-            Log.Message($"Attempting to lure pawns. Found {pawnsToLure.Count()} potential targets.");
-
             foreach (Pawn enemyPawn in pawnsToLure)
             {
-                Job luredJob = JobMaker.MakeJob(JJKDefOf.JJK_CursedSpeechLure, parent.pawn);
-                luredJob.expiryInterval = Props.lureDurationTicks;
-                enemyPawn.jobs.StartJob(luredJob, JobCondition.InterruptForced);
-
-                Log.Message($"Assigned lure job to {enemyPawn.LabelShort}. Current job: {enemyPawn.CurJob?.def.defName}");
+                CompAbilityEffect_CursedSpeechLure.LureTarget(enemyPawn, parent.pawn, Props.lureDurationTicks);
             }
         }
 

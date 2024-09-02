@@ -104,7 +104,15 @@ namespace JJK
             }
             else if(geneDef == JJKDefOf.Gene_JJKCursedEnergy)
             {
-                JJKUtility.GiveRandomSorcererGrade(pawn);
+                if (Rand.Range(0, 100) < 10)
+                {
+                    pawn.genes.AddGene(JJKDefOf.Gene_JJKHeavenlyPact, false);
+                }
+                else
+                {
+                    JJKUtility.GiveRandomSorcererGrade(pawn);
+                }
+              
             }
         }
     }
@@ -143,9 +151,14 @@ namespace JJK
                     return true;
                 }
 
-                // Prevent downing for any other part
-                __result = false;
-                Messages.Message($"{pawn.LabelShort} resisted being downed due to Reversed Curse Technique!", MessageTypeDefOf.PositiveEvent);
+                Gene_CursedEnergy _CursedEnergy = pawn.GetCursedEnergy();
+                if (_CursedEnergy != null && _CursedEnergy.HasCursedEnergy(20f))
+                {
+                    pawn.GetCursedEnergy()?.ConsumeCursedEnergy(20f);
+                    Messages.Message($"{pawn.LabelShort} resisted being downed due to Reversed Curse Technique!", MessageTypeDefOf.PositiveEvent);
+                    __result = false;
+                }
+
                 return false;
             }
 
@@ -257,24 +270,79 @@ namespace JJK
                 //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
                 return false;
             }
-
-            //if (JJKUtility.IsSummonedCreature(pawn))
-            //{
-            //    __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-            //    return false;
-            //}
-
-            //if (JJKUtility.IsAbsorbedCreature(pawn))
-            //{
-            //    __result = isConstant ? JJKDefOf.JJK_EmptyConstantThinkTree : JJKDefOf.JJK_SummonedCreature;
-            //    //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
-            //    return false;
-            //}
-
-            //Log.Message($"JJK: Using default {(isConstant ? "Constant" : "Main")} ThinkTree for {pawn.LabelShort} (ThingID: {pawn.ThingID})");
-
             return true; // Run the original method
         }
+
+
+        [HarmonyPatch(typeof(Pawn), nameof(Pawn.Kill))]
+        public static class Patch_Pawn_Kill
+        {
+            public static bool Prefix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
+            {
+                if (__instance.IsSummon())
+                {
+                    // Prevent corpse creation
+                    if (__instance.Corpse != null)
+                    {
+                        __instance.Corpse.Destroy(DestroyMode.Vanish);
+                    }
+
+                    // Remove from map
+                    if (__instance.Spawned)
+                        __instance.DeSpawn();
+
+                    // Destroy the pawn
+                    __instance.Destroy(DestroyMode.Vanish);
+
+                    // Skip the original method
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        #region Summon Fleeing
+        /// <summary>
+        /// patches to stop summons fleeing, because they are mostly animals and lots of damagedefs have the flag to cause animalkinds to flee.
+        /// </summary>
+        [HarmonyPatch(typeof(MentalStateHandler), "TryStartMentalState")]
+        public static class Patch_MentalStateHandler_TryStartMentalState
+        {
+            public static bool Prefix(Pawn ___pawn, ref bool __result)
+            {
+                if (___pawn.IsSummon())
+                {
+                    __result = false;
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Pawn_MindState), "StartFleeingBecauseOfPawnAction")]
+        public static class Patch_Pawn_MindState_StartFleeingBecauseOfPawnAction
+        {
+            public static bool Prefix(Pawn ___pawn)
+            {
+                return !___pawn.IsSummon();
+            }
+        }
+
+        [HarmonyPatch(typeof(JobGiver_ConfigurableHostilityResponse), "TryGetFleeJob")]
+        public static class Patch_JobGiver_ConfigurableHostilityResponse_TryGetFleeJob
+        {
+            public static bool Prefix(Pawn pawn, ref Job __result)
+            {
+                if (pawn.IsSummon())
+                {
+                    __result = null;
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        #endregion
     }
 }
     

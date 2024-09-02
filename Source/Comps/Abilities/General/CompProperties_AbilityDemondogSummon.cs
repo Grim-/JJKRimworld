@@ -14,6 +14,7 @@ namespace JJK
         }
     }
 
+
     public class CompAbilityEffect_DemondogSummon : CompAbilityEffect
     {
         public new CompProperties_AbilityDemondogSummon Props => (CompProperties_AbilityDemondogSummon)props;
@@ -22,51 +23,41 @@ namespace JJK
         {
             base.Apply(target, dest);
 
+            if (target.Pawn == null)
+            {
+                //error here
+                return;
+            }
+
             Map map = parent.pawn.Map;
-            IntVec3 spawnPosition = target.Cell;
-            Pawn NearestValidEnemy = FindNearestEnemy(spawnPosition, map, parent.pawn.Faction);
+            IntVec3 spawnPosition = parent.pawn.Position;
 
-            if (NearestValidEnemy != null)
+            if (spawnPosition.Walkable(map))
             {
-                if (spawnPosition.Walkable(map))
-                {
-                    SpawnDemonDog(JJKDefOf.JJK_DemonDogBlack, spawnPosition, NearestValidEnemy, map);
-                    SpawnDemonDog(JJKDefOf.JJK_DemonDogWhite, spawnPosition, NearestValidEnemy, map);
-                }
-            }
-            else
-            {
-                //no target found
-
+                SpawnDemonDog(JJKDefOf.JJK_DemonDogBlack, spawnPosition + new IntVec3(-1, 0, 0), target.Pawn, map);
+                SpawnDemonDog(JJKDefOf.JJK_DemonDogWhite, spawnPosition + new IntVec3(1, 0, 0), target.Pawn, map);
             }
         }
 
-        private Pawn FindNearestEnemy(IntVec3 center, Map map, Faction faction)
+        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            return (Pawn)GenClosest.ClosestThingReachable(
-                center, map,
-                ThingRequest.ForGroup(ThingRequestGroup.Pawn),
-                PathEndMode.OnCell,
-                TraverseParms.For(TraverseMode.NoPassClosedDoors),
-                9999f,
-                (Thing x) => x is Pawn p && p.Faction != faction && !p.Downed && !p.Dead && parent.pawn.CanReach(p, PathEndMode.Touch, Danger.Deadly)
-            );
+            return base.CanApplyOn(target, dest) && target.Pawn.Faction != parent.pawn.Faction;
         }
-
 
         private void SpawnDemonDog(PawnKindDef KindDef, IntVec3 spawnPosition, Pawn TargetPawn, Map Map)
         {
-            Pawn demondog = PawnGenerator.GeneratePawn(KindDef, parent.pawn.Faction);
-            GenSpawn.Spawn(demondog, spawnPosition, Map);
+            Pawn demondog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, spawnPosition);
 
-            demondog.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
-            FleckMaker.ThrowSmoke(spawnPosition.ToVector3(), Map, 1.5f);
-            FleckMaker.Static(spawnPosition, Map, JJKDefOf.JJK_BlackSmoke, 1.5f);
+            if (demondog != null)
+            {
+                FleckMaker.ThrowSmoke(spawnPosition.ToVector3(), Map, 1.5f);
+                FleckMaker.Static(spawnPosition, Map, JJKDefOf.JJK_BlackSmoke, 1.5f);
 
-            Job job = JobMaker.MakeJob(JJKDefOf.JJK_DemondogAttackAndVanish);
-            job.SetTarget(TargetIndex.A, TargetPawn);
-            job.SetTarget(TargetIndex.B, parent.pawn);
-            demondog.jobs.StartJob(job, JobCondition.None);
+                Job job = JobMaker.MakeJob(JJKDefOf.JJK_DemondogAttackAndVanish);
+                job.SetTarget(TargetIndex.A, parent.pawn);
+                job.SetTarget(TargetIndex.B, TargetPawn);
+                demondog.jobs.StartJob(job, JobCondition.None);
+            }
         }
     }
 }
