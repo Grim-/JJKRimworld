@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="BaseBullet">
+    <defName>ReversedCursedTechnique_RedProjecitle</defName>
+    <label>Red</label>
+    <thingClass>JJK.Projectile_Red</thingClass>
+    <graphicData>
+      <texPath>Animations/StarburstImpact</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>0.7</drawSize>
+      <shaderParameters>
+        <_Color>(255, 0, 0, 1)</_Color>
+        <_brightnessMultiplier>1</_brightnessMultiplier>
+      </shaderParameters>
+    </graphicData>
+    <projectile>
+      <damageDef>Blunt</damageDef>
+      <damageAmountBase>30</damageAmountBase>
+      <armorPenetrationBase>1</armorPenetrationBase>
+      <stoppingPower>1</stoppingPower>
+      <speed>25</speed>
+    </projectile>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>15</glowRadius>
+        <glowColor>(255,0,0,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

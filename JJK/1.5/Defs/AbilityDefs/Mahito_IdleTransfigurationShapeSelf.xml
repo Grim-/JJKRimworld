@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<AbilityDef ParentName="AbilityTouchBase">
+  <defName>JJK_IdleTransfigurationShapeSelf</defName>
+  <label>Idle Transfiguration : Shape Self</label>
+  <description>Change your body parts at will, transforming them into various forms. It takes cursed energy to maintain them.</description>
+  <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+  <displayOrder>100</displayOrder>
+  <category>Cursed_Energy</category>
+  <cooldownTicksRange>
+    <min>300</min>
+    <max>300</max>
+  </cooldownTicksRange>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <drawAimPie>false</drawAimPie>
+    <range>-1</range>
+    <warmupTime>0</warmupTime>
+    <targetable>False</targetable>
+    <targetParams>
+      <canTargetSelf>true</canTargetSelf>
+      <canTargetLocations>false</canTargetLocations>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="JJK.CompProperties_IdleTransfigurationShapeSelf">
+      <compClass>JJK.CompAbilityEffect_IdleTransfigurationShapeSelf</compClass>
+      <MaintainCostTicks>2500</MaintainCostTicks>
+      <ShapeShiftOptions>
+        <li>
+          <OptionLabel>Bone Claws</OptionLabel>
+          <HediffDefName>JJKBoneClaw</HediffDefName>
+          <BodyPartDefName>Hand</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Drills</OptionLabel>
+          <HediffDefName>DrillArm</HediffDefName>
+          <BodyPartDefName>Arm</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Scythe arms</OptionLabel>
+          <HediffDefName>JJKScytheArms</HediffDefName>
+          <BodyPartDefName>Arm</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Flesh Whips</OptionLabel>
+          <HediffDefName>FleshWhip</HediffDefName>
+          <BodyPartDefName>Arm</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Jackal Legs</OptionLabel>
+          <HediffDefName>JJKJumpingLegs</HediffDefName>
+          <BodyPartDefName>Leg</BodyPartDefName>
+        </li>
+        <li>
+          <OptionLabel>Beetle Legs</OptionLabel>
+          <HediffDefName>JJKChitinousLegs</HediffDefName>
+          <BodyPartDefName>Leg</BodyPartDefName>
+        </li>
+      </ShapeShiftOptions>
+      <cursedEnergyCost>10</cursedEnergyCost>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

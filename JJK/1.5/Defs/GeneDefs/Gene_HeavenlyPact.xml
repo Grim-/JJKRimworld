@@ -12,14 +12,14 @@
     <statFactors>
       <JJK_CursedEnergyCost>10</JJK_CursedEnergyCost>
       <JJK_CursedEnergy>0</JJK_CursedEnergy>
-      <MeleeDPS>10</MeleeDPS>
+      <MeleeDPS>6</MeleeDPS>
       <MaxHitPoints>10</MaxHitPoints>
       <MoveSpeed>3</MoveSpeed>
       <MeleeHitChance>3</MeleeHitChance>
       <MeleeArmorPenetration>0.4</MeleeArmorPenetration>
       <MeleeDodgeChance>4</MeleeDodgeChance>
       <CarryingCapacity>10</CarryingCapacity>
-      <PainShockThreshold>1.1</PainShockThreshold>
+      <PainShockThreshold>0.5</PainShockThreshold>
     </statFactors>
     <exclusionTags>
       <li>CursedEnergyMultiplierGene</li>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef>
+  <defName>JJK_Shikigami</defName>
+  <label>Shikigami</label>
+  <description>A true shikigami, made of shadow.</description>
+  <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+  <hediffClass>JJK.Hediff_Summon</hediffClass>
+  <isBad>false</isBad>
+  <stages>
+    <li>
+        <blocksMentalBreaks>true</blocksMentalBreaks>
+    </li>
+  </stages>
+</HediffDef>
+</Defs>

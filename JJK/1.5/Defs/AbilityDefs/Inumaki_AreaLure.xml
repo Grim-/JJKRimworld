@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>InumakiCursedSpeech_AreaLure</defName>
+    <label>Area Lure</label>
+    <description>Lures enemy pawns in an area towards the caster.</description>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <displayOrder>10</displayOrder>
+    <warmupSound>Ability_PsychicPulse</warmupSound>
+        <category>Cursed_Energy</category>
+    <cooldownTicksRange>
+      <min>1800</min>
+      <max>1800</max>
+    </cooldownTicksRange>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>True</drawAimPie>
+      <range>20</range>
+      <warmupTime>1</warmupTime>
+      <targetParams>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_CursedSpeechAreaLure">
+        <radius>10</radius>
+        <maxTargets>10</maxTargets>
+        <lureDurationTicks>600</lureDurationTicks>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<StatDef>
+  <defName>JJK_CursedEnergyRegenSpeed</defName>
+  <label>Cursed Energy Regen Speed</label>
+  <category>PawnMisc</category>
+  <description>How often you regenerate cursed energy (ticks).</description>
+  <defaultBaseValue>2500</defaultBaseValue>
+  <minValue>100</minValue>
+  <maxValue>10000</maxValue>
+  <toStringStyle>Integer</toStringStyle>
+  <showOnPawns>true</showOnPawns>
+</StatDef>
+</Defs>

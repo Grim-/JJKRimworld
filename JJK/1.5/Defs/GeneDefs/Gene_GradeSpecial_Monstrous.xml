@@ -16,12 +16,11 @@
     <biostatMet>0</biostatMet>
     <statFactors>
       <JJK_CursedEnergy>10</JJK_CursedEnergy><!-- 100 * 1.6 -->
-      <JJK_CursedEnergyRegen>120</JJK_CursedEnergyRegen> <!-- 30 Cursed Energy every half an hour -->
-      <JJK_CursedEnergyRegenSpeed>3</JJK_CursedEnergyRegenSpeed> <!-- Multiplier on CursedEnergyRegenTicks (1250) -->
-      <JJK_CursedEnergyDamageBonus>2</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergyRegen>1</JJK_CursedEnergyRegen> <!-- 5 Cursed Energy every half an hour -->
+      <JJK_CursedEnergyRegenSpeed>1</JJK_CursedEnergyRegenSpeed> <!-- Multiplier on CursedEnergyRegenTicks (1250) -->
+      <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
       <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost> <!-- cost multiplier, lower number less an ability costs -->
-      <JJK_RCTSpeedBonus>2</JJK_RCTSpeedBonus>
-      <JJK_RCTHealingBonus>2</JJK_RCTHealingBonus> <!-- How quickly severity is reduced multiplier -->
+      <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus> <!-- How quickly severity is reduced multiplier -->
     </statFactors>
     <exclusionTags>
       <li>CursedEnergyMultiplierGene</li>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThinkTreeDef>
+  <defName>JJK_EmptyThinkTree</defName>
+  <thinkRoot Class="ThinkNode_Priority">
+    <subNodes>
+    </subNodes>
+  </thinkRoot>
+</ThinkTreeDef>
+</Defs>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_CursedReinforcementHediff</defName>
+    <label>cursed energy reinforcement</label>
+    <description>Reinforced by cursed energy, this pawn has vastly increased capacities and tougher limbs.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <duplicationAllowed>false</duplicationAllowed>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeCooldownFactor>-0.2</MeleeCooldownFactor>
+          <MeleeHitChance>1</MeleeHitChance>
+          <IncomingDamageFactor>-0.3</IncomingDamageFactor>
+          <MeleeDodgeChance>0.15</MeleeDodgeChance>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+        </statOffsets>
+        <statFactors>
+          <MoveSpeed>1.25</MoveSpeed>
+          <MeleeDamageFactor>1.3</MeleeDamageFactor>
+          <PainShockThreshold>0.7</PainShockThreshold>
+        </statFactors>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <postFactor>1.2</postFactor>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <postFactor>1.5</postFactor>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <postFactor>1.1</postFactor>
+          </li>
+        </capMods>
+        <partEfficiencyOffset>0.2</partEfficiencyOffset>
+        <blocksMentalBreaks>true</blocksMentalBreaks>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

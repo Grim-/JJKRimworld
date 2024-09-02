@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKMegumi</defName>
+    <label>Cursed Technique : Ten Shadows</label>
+    <description>wwww</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>2.5</marketValueFactor>
+    <abilities>
+      <li>JJK_SummonDemondogBlack</li>
+      <li>JJK_SummonFleeingHares</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+  </GeneDef>
+</Defs>

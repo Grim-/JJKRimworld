@@ -3,7 +3,7 @@
 <GeneDef>
   <defName>Gene_JJKCursedEnergy</defName>
   <label>Curse Energy</label>
-  <description>Carriers of this gene have a reserve of biological strength powered by a resource called hemogen. The resource can be gained and spent in various ways, all of which are unlocked by other genes.\n\nCarriers lose 2 hemogen per day from biological entropy.</description>
+  <description>Carriers of this gene have a reserve of biological strength powered by a resource called Cursed Energy.</description>
   <geneClass>JJK.Gene_CursedEnergy</geneClass>
   <resourceGizmoType>JJK.GeneGizmo_ResourceCursedEnergy</resourceGizmoType>
   <resourceLabel>Cursed Energy</resourceLabel>
@@ -14,13 +14,13 @@
   </resourceGizmoThresholds>
   <showGizmoOnWorldView>true</showGizmoOnWorldView>
   <showGizmoWhenDrafted>true</showGizmoWhenDrafted>
-  <resourceDescription> A sinister and potent force originating from malevolent spirits, utilized by sorcerers for combat and exorcism but posing grave danger to both wielders and targets alike</resourceDescription>
-  <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
+  <resourceDescription> A sinister and potent force originating from a pawns fears and other negative emotions, utilized by Jujutsu sorcerers for combat.</resourceDescription>
+  <iconPath>UI/Icons/CursedEnergyIcon</iconPath>
   <selectionWeight>0</selectionWeight>
   <displayCategory>Hemogen</displayCategory>
   <displayOrderInCategory>-2</displayOrderInCategory>
   <customEffectDescriptions>
-    <li>Gives cursed energy supply.</li>
+    <li>Gives pawn a cursed energy supply.</li>
   </customEffectDescriptions>
   <symbolPack>
     <prefixSymbols>
@@ -28,8 +28,12 @@
     </prefixSymbols>
   </symbolPack>
   <minAgeActive>3</minAgeActive>
-  <resourceLossPerDay>-0.20</resourceLossPerDay>
+  <resourceLossPerDay>0</resourceLossPerDay>
   <biostatCpx>1</biostatCpx>
   <biostatMet>1</biostatMet>
+  <abilities>
+    <li>JJK_CursedEnergyReinforcement</li>
+    <li>JJK_RectangleDamageAbility</li>
+  </abilities>
 </GeneDef>
 </Defs>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <JJK.AbilityDef_Toggleable>
+    <defName>JJK_DeflectProjectiles</defName>
+    <label>deflection</label>
+    <description>Activate this ability causes the pawn to destroy any hostile projectile that enter its 10 tile radius while active.</description>
+    <cooldownTicksRange>6000</cooldownTicksRange>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>0</range>
+      <warmupTime>0</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetable>False</targetable>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_DeflectProjectiles">
+        <Radius>2</Radius>
+      </li>
+    </comps>
+  </JJK.AbilityDef_Toggleable>
+  </Defs>

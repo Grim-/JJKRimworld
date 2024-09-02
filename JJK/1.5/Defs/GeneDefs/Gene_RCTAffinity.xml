@@ -11,7 +11,7 @@
   <selectionWeight>0.01</selectionWeight>
   <biostatMet>0</biostatMet>
   <abilities>
-    <li>ReversedCurseTechnique</li>
+    <li>JJK_ReversedCurseTechnique</li>
   </abilities>
 </GeneDef>
 </Defs>

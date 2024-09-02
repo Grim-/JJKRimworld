@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef ParentName="JJKTransformedBodyPartBase">
+    <defName>JJKChitinousLegs</defName>
+    <label>chitinous legs</label>
+    <labelNoun>chitinous legs</labelNoun>
+    <description>A disturbing transformation where the legs have morphed into insect-like appendages. The skin has hardened into a chitinous exoskeleton, and the feet have split into multiple clawed digits. Despite their unnerving appearance, these legs grant exceptional speed and agility. They also increase caravan speed by 20%.</description>
+    <stages>
+      <li>
+        <statOffsets>
+          <MoveSpeed>0.25</MoveSpeed>
+          <CaravanRidingSpeedFactor>1.2</CaravanRidingSpeedFactor>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.20</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

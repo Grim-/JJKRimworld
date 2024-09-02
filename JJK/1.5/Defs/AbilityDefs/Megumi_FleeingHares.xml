@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_SummonFleeingHares</defName>
+    <label>Summon Fleeing Hares</label>
+    <description>Summons a demonic canine to attack enemies, it will find the nearest enemy in range from its inital spawn point, attempt to move towards this target and bite them, it has a 30% chance to cause a bleed.</description>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>true</drawAimPie>
+      <range>20</range>
+      <warmupTime>1</warmupTime>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityFleeingHareSummon">
+        <fleeingHareKindDef>JJK_FleeingHare</fleeingHareKindDef>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

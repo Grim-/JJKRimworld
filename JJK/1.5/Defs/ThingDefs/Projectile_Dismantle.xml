@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="BaseBullet">
+  <defName>JJK_DismantleProjectile</defName>
+  <label>dismantle</label>
+  <graphicData>
+    <texPath>Things/Projectile/Sukuna/Dismantle</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <shaderType>Transparent</shaderType>
+    <drawSize>2</drawSize>
+  </graphicData>
+  <projectile>
+    <damageDef>JJK_Dismantle</damageDef>
+    <damageAmountBase>15</damageAmountBase>
+    <armorPenetrationBase>1</armorPenetrationBase>
+    <stoppingPower>0.6</stoppingPower>
+    <speed>50</speed>
+  </projectile>
+</ThingDef>
+</Defs>

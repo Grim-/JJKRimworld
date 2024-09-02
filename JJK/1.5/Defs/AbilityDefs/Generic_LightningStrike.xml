@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <AbilityDef>
+  <defName>JJK_CastLightningStrike</defName>
+  <label>Cast Lightning Strike</label>
+  <description>Summons a powerful lightning strike at the target location.</description>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <drawAimPie>true</drawAimPie>
+    <warmupTime>1</warmupTime>
+    <range>40</range>
+    <targetParams>
+      <canTargetSelf>false</canTargetSelf>
+      <canTargetPawns>True</canTargetPawns>
+      <canTargetLocations>True</canTargetLocations>
+    </targetParams>
+  </verbProperties>
+  <cooldownTicksRange>
+    <min>30000</min>
+    <max>30000</max>
+  </cooldownTicksRange>
+  <comps>
+    <li Class="JJK.CompProperties_AbilityLightningStrike">
+      <compClass>JJK.CompAbilityEffect_LightningStrike</compClass>
+      <lightning>True</lightning>
+      <explosionRadius>3</explosionRadius>
+      <explosionDamage>50</explosionDamage>
+      <soundOnImpact>Thunder_OnMap</soundOnImpact>
+      <burnoutStrain>0.5</burnoutStrain>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

@@ -5,4 +5,10 @@
 <driverClass>JJK.JobDriver_DefendMaster</driverClass>
 <reportString>defending master</reportString>
 </JobDef>
+
+<JobDef>
+  <defName>JJK_CursedSpeechLure</defName>
+  <driverClass>JJK.JobDriver_LuredMove</driverClass>
+  <reportString>Being lured.</reportString>
+</JobDef>
 </Defs>

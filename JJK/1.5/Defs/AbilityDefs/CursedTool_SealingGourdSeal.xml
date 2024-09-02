@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_CursedToolSealingGourdSeal</defName>
+    <label>Lure</label>
+    <description>Seal the target pawn inside the gourd.</description>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <displayOrder>10</displayOrder>
+    <warmupSound>Ability_PsychicPulse</warmupSound>
+    <category>Cursed_Energy</category>
+    <cooldownTicksRange>
+      <min>600</min>
+      <max>600</max>
+    </cooldownTicksRange>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <range>20</range>
+      <warmupTime>1</warmupTime>
+      <targetParams>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_SealingGourdSeal">
+      </li>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>100</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

@@ -10,7 +10,7 @@
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <abilities>
-      <li>ReversedCurseTechnique</li>
+      <li>JJK_ReversedCurseTechnique</li>
       <li>JJKTargetedReversedCurseTechnique</li>
     </abilities>
     <statFactors>

@@ -20,10 +20,8 @@
     <possessionHediff>JJK_KenjakuPossesion</possessionHediff>
     <guaranteedTraits>
       <li>Psychopath</li>
+      <li>FastLearner</li>
     </guaranteedTraits>
-    <randomTraits>
-      <li>Bloodlust</li>
-    </randomTraits>
-    <randomTraitChance>0.5</randomTraitChance>
+    <randomTraitChance>0</randomTraitChance>
   </JJK.KenjakuGeneDef>
 </Defs>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <TraitDef>
-    <defName>JJK_SukunaVessel</defName>
+    <defName>JJK_SukunaTrait</defName>
     <commonality>0.1</commonality>
     <degreeDatas>
       <li>
@@ -11,12 +11,15 @@
         <statOffsets>
           <MeleeHitChance>0.6</MeleeHitChance>
           <MeleeDodgeChance>0.3</MeleeDodgeChance>
-          <ToxicResistance>-1.0</ToxicResistance>
+          <ToxicResistance>10.0</ToxicResistance>
+          <ToxicEnvironmentResistance>10</ToxicEnvironmentResistance>
         </statOffsets>
         <abilities>
           <li>Sukuna_Cleave</li>
           <li>Sukuna_Dismantle</li>
           <li>Sukuna_Fire_Arrow</li>
+          <li>JJK_ReversedCurseTechnique</li>
+          <li>JJKTargetedReversedCurseTechnique</li>
         </abilities>
       </li>
     </degreeDatas>

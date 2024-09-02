@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="BaseMeleeWeapon_Sharp_Quality">
+    <defName>JJK_CursedToolSealingGourd</defName>
+    <label>Sealing Gourd</label>
+    <description>A mystical gourd imbued with cursed energy. It can seal beings within its confines, trapping them in a pocket dimension.</description>
+    <possessionCount>1</possessionCount>
+    <graphicData>
+      <texPath>Gourd</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <techLevel>Medieval</techLevel>
+    <weaponTags>
+      <li>CursedTool</li>
+      <li>SealingGourd</li>
+    </weaponTags>
+    <costStuffCount>250</costStuffCount>
+    <thingSetMakerTags>
+      <li>RewardStandardQualitySuper</li>
+    </thingSetMakerTags>
+    <statBases>
+      <WorkToMake>18000</WorkToMake>
+      <Mass>3</Mass>
+    </statBases>
+    <relicChance>2</relicChance>
+    <equippedAngleOffset>-65</equippedAngleOffset>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <tools>
+      <li>
+        <label>gourd</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>15</power>
+        <cooldownTime>3</cooldownTime>
+      </li>
+    </tools>
+    <comps>
+      <li Class="JJK.CompProperties_GrantAbilityOnEquip">
+        <AbilityToGrant>JJK_CursedToolSealingGourdSeal</AbilityToGrant>
+      </li>
+      <li Class="JJK.CompProperties_StoredPawn">
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
