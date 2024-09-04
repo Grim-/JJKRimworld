@@ -223,7 +223,7 @@ namespace JJK
 
             Pawn shikigami = PawnGenerator.GeneratePawn(pawnKindDef, Master.Faction);
             GenSpawn.Spawn(shikigami, Position, Map);
-            Hediff_Summon summon = (Hediff_Summon)shikigami.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
+            Hediff_Shikigami summon = (Hediff_Shikigami)shikigami.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
 
             if (summon != null)
             {

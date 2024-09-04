@@ -7,7 +7,7 @@ namespace JJK
     {
         protected override bool Satisfied(Pawn pawn)
         {
-            Hediff_Summon summon = (Hediff_Summon)pawn.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
+            Hediff_Shikigami summon = (Hediff_Shikigami)pawn.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
             if (summon != null)
             {
                 return true;

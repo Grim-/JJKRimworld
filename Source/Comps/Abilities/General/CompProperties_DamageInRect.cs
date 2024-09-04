@@ -28,7 +28,8 @@ namespace JJK
             Pawn pawn = parent.pawn;
             Vector3 origin = Props.useMouseAsOrigin ? target.CenterVector3 : pawn.DrawPos;
             float angle = GetAngleToTarget(origin, target.Cell.ToVector3());
-            List<Thing> targets = TargetFinderUtil.GetTargetsInCone(pawn.Map, origin, 15, 90f, angle, 0, 5);
+            List<Thing> targets = RotatedRectTargetFinder.GetTargetsInRotatedRect(pawn.Map, origin, Props.rectWidth, Props.rectLength, angle);
+
             foreach (Thing thing in targets)
             {
                 Pawn targetPawn = thing as Pawn;
@@ -46,7 +47,7 @@ namespace JJK
             Pawn pawn = parent.pawn;
             Vector3 origin = Props.useMouseAsOrigin ? target.CenterVector3 : pawn.DrawPos;
             float angle = GetAngleToTarget(origin, target.Cell.ToVector3());
-            List<IntVec3> cells = TargetFinderUtil.GetCellsInCone(pawn.Map, origin, 15, 90f, angle, 0, 5);
+            List<IntVec3> cells = RotatedRectTargetFinder.GetCellsInRotatedRect(pawn.Map, origin, Props.rectWidth, Props.rectLength, angle);
 
             GenDraw.DrawFieldEdges(cells, Color.red);
         }
@@ -58,4 +59,7 @@ namespace JJK
             return angle;
         }
     }
+
+
+
 }

@@ -4,16 +4,15 @@ namespace JJK
 {
     public static class SummonUtility
     {
-        public static bool IsSummoned(this Pawn pawn)
-        {
-            SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
-            return summonManager.GetMasterFor(pawn) != null;
-        }
-
         public static Pawn GetMaster(this Pawn pawn)
         {
-            SummonedCreatureManager summonManager = Find.World.GetComponent<SummonedCreatureManager>();
-            return summonManager.GetMasterFor(pawn);
+            Hediff_Shikigami shikigami = (Hediff_Shikigami)pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_Shikigami);
+            if (shikigami != null)
+            {
+                return shikigami.Master;
+            }
+
+            return null;
         }
 
         public static void MakeDraftable(this Pawn pawn)

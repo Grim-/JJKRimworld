@@ -96,11 +96,12 @@
     <Compile Include="Comps\Abilities\General\CompProperties_DeflectProjectiles.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_TeleportMeleeAttack.cs" />
     <Compile Include="Comps\Abilities\General\ProjectileUtility.cs" />
-    <Compile Include="Comps\Abilities\General\TargetFinderUtil.cs" />
+    <Compile Include="Comps\Abilities\General\RotatedRectTargetFinder.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechCrush.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_TwistAreaEffect.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_Infinity.cs" />
-    <Compile Include="Comps\Hediff\Hediff_Summon.cs" />
+    <Compile Include="Comps\Hediff\Hediff_Shikigami.cs" />
+    <Compile Include="Comps\Hediff\Hediff_CursedSpiritManipulator.cs" />
     <Compile Include="Comps\Zanpakto\BaseZankpaktoComp.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompApplyHediffOnHit.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompScaleableDamage.cs" />

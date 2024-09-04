@@ -12,6 +12,7 @@ namespace JJK
         {
             if (pawn.IsSummon())
             {
+                //Log.Error($"pawn is summon master is {pawn.GetMaster()}");
                 return pawn.GetMaster();
             }
             return null;
@@ -29,28 +30,28 @@ namespace JJK
             Pawn followee = GetFollowee(pawn);
             if (followee == null)
             {
-                //Log.Error($"Followee is null for {pawn.LabelShort}");
+                Log.Error($"Followee is null for {pawn.LabelShort}");
                 return null;
             }
 
             if (!followee.Spawned)
             {
-                //Log.Message($"Followee {followee.LabelShort} is not spawned");
+                Log.Message($"Followee {followee.LabelShort} is not spawned");
                 return null;
             }
 
             if (!pawn.CanReach(followee, PathEndMode.OnCell, Danger.Deadly, false, false, TraverseMode.ByPawn))
             {
-                //Log.Message($"{pawn.LabelShort} cannot reach {followee.LabelShort}");
+                Log.Message($"{pawn.LabelShort} cannot reach {followee.LabelShort}");
                 return null;
             }
 
- 
+            //Log.Message($"creating follow close job.");
             Job job = JobMaker.MakeJob(JobDefOf.FollowClose, followee);
             job.expiryInterval = 200;
-            job.checkOverrideOnExpire = true;
             job.followRadius = GetRadius(pawn);
-            pawn.mindState.canFleeIndividual = false;
+            //pawn.mindState.canFleeIndividual = false;
+            job.SetTarget(TargetIndex.A, GetFollowee(pawn));
 
 
             job.reportStringOverride = "Following Summoner";

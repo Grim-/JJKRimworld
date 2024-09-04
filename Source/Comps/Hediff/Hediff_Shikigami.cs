@@ -2,7 +2,7 @@
 
 namespace JJK
 {
-    public class Hediff_Summon : HediffWithComps
+    public class Hediff_Shikigami : HediffWithComps
     {
         private Pawn referencedPawn;
         public Pawn Master => referencedPawn;
@@ -20,7 +20,7 @@ namespace JJK
 
             if (pawn.IsHashIntervalTick(600))
             {
-                if (Master.Dead || Master.Destroyed)
+                if (Master != null && Master.Dead || Master.Destroyed)
                 {
                     if (!pawn.Destroyed)
                     {
@@ -50,7 +50,6 @@ namespace JJK
             referencedPawn = pawn;
         }
     }
-
 }
 
 

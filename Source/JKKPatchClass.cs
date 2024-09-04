@@ -173,33 +173,6 @@ namespace JJK
     }
 
 
-    //[HarmonyPatch(typeof(Verb_MeleeAttack), "DamageInfosToApply")]
-    //public static class Patch_Verb_MeleeAttack_DamageInfosToApply
-    //{
-    //    [HarmonyPostfix]
-    //    public static void Postfix(Verb_MeleeAttack __instance, ref IEnumerable<DamageInfo> __result)
-    //    {
-    //        if (__instance.EquipmentSource != null)
-    //        {
-    //            var comps = __instance.EquipmentSource.GetComps<ThingCompExt>();
-    //            if (comps != null && comps.Any())
-    //            {
-    //                List<DamageInfo> modifiedDamageInfos = new List<DamageInfo>();
-    //                foreach (var dinfo in __result)
-    //                {
-    //                    DamageInfo modifiedDinfo = dinfo;
-    //                    foreach (var comp in comps)
-    //                    {
-    //                        comp.ModifyDamageInfo(ref modifiedDinfo);
-    //                    }
-    //                    modifiedDamageInfos.Add(modifiedDinfo);
-    //                }
-    //                __result = modifiedDamageInfos;
-    //            }
-    //        }
-    //    }
-    //}
-
     [HarmonyPatch(typeof(Verb_MeleeAttackDamage))]
     [HarmonyPatch("ApplyMeleeDamageToTarget")]
     public static class Patch_Verb_MeleeAttack_ApplyMeleeDamageToTarget
@@ -258,18 +231,36 @@ namespace JJK
             }
         }
 
+        public static Dictionary<HediffDef, ThinkTreeDef> ThinkTreeMap = new Dictionary<HediffDef, ThinkTreeDef>()
+        {
+            { JJKDefOf.JJK_ZombieWorkSlaveHediff , JJKDefOf.ZombieWorkSlave},
+            { JJKDefOf.JJK_Shikigami , JJKDefOf.JJK_SummonedCreature }
+        };
+
         private static bool HandleThinkTreePatch(Pawn_Thinker __instance, ref ThinkTreeDef __result, bool isConstant)
         {
             Pawn pawn = __instance.pawn;
-            if (pawn == null) return true;
+            if (pawn == null || ThinkTreeMap == null) return true;
 
-
-            if (pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_ZombieWorkSlaveHediff) != null)
+            if (!isConstant)
             {
-                __result = JJKDefOf.ZombieWorkSlave;
-                //Log.Message($"Overriding {(isConstant ? "Constant" : " ")} ThinkTree {pawn.LabelShort} {pawn.ThingID}");
-                return false;
+                foreach (var item in ThinkTreeMap)
+                {
+                    if (pawn == null || item.Key == null || item.Value == null)
+                    {
+                        continue;
+                    }
+
+                    if (pawn.health.hediffSet.GetFirstHediffOfDef(item.Key) != null)
+                    {
+                        //Log.Message($"overring {pawn.Label} ThinkTree with {item.Value.defName}");
+                        __result = item.Value;
+                        return false;
+                    }
+                }
             }
+
+
             return true; // Run the original method
         }
 

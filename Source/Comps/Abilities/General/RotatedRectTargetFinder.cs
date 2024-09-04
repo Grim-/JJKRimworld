@@ -5,7 +5,7 @@ using Verse;
 
 namespace JJK
 {
-    public static class TargetFinderUtil
+    public static class RotatedRectTargetFinder
     {
         public static List<Thing> GetTargetsInRotatedRect(Map map, Vector3 origin, float width, float height, float angle)
         {

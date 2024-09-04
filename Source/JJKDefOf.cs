@@ -50,6 +50,7 @@ namespace JJK
 
         public static AbilityDef JJK_KenjakuPosess;
         public static AbilityDef Gojo_HollowPurple;
+        public static AbilityDef JJK_CastLightningStrike;
 
         public static ThinkTreeDef JJK_EmptyConstantThinkTree;
         public static ThinkTreeDef JJK_SummonedCreature;
@@ -83,6 +84,8 @@ namespace JJK
         
         public static HediffDef JJK_PlayfulCloudConcussion;
 
+        public static HediffDef JJK_CursedSpiritManipulator;
+
         public static PawnKindDef JJK_DemonDogWhite;
         public static PawnKindDef JJK_DemonDogBlack;
 
@@ -96,6 +99,8 @@ namespace JJK
 
         public static EffecterDef JJK_Deflect;
         public static EffecterDef JJK_aura;
+        public static EffecterDef JJK_RedEffecter;
+
         public static BackstoryDef ZombieChildhoodStory;
         public static BackstoryDef ZombieAdulthoodStory;
 

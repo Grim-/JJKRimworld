@@ -30,21 +30,15 @@ namespace JJK
             return null;
         }
 
-        //protected override Thing FindAttackTarget(Pawn pawn)
-        //{
-
-        //    if (GenAI.EnemyIsNear(pawn.GetMaster(), 5f, out Thing threat))
-        //    {
-        //        return threat;
-        //    }
-
-        //    return base.FindAttackTarget(pawn);
-        //}
-
         protected override float GetFlagRadius(Pawn pawn)
         {
-            return 50f;
+            return 10f;
         }
+
+        //protected override IntVec3 GetFlagPosition(Pawn pawn)
+        //{
+        //    return pawn.GetMaster().Position;
+        //}
     }
 }
 
