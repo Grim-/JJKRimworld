@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <QuestScriptDef>
+    <defName>CullingGamesQuest</defName>
+    <rootSelectionWeight>1</rootSelectionWeight>
+    <expireDaysRange>4~8</expireDaysRange>
+    <questNameRules>
+      <rulesStrings>
+        <li>questName->The Culling Games</li>
+        <li>questName->Jujutsu Sorcerer Tournament</li>
+        <li>questName->Cursed Energy Challenge</li>
+      </rulesStrings>
+    </questNameRules>
+    <questDescriptionRules>
+      <rulesStrings>
+        <li>questDescription->The Culling Games have begun. One of your colonists with Cursed Energy can participate in this dangerous event. They will be away for [lendForDays] days. If they survive, they may learn a new ability.\n\nA shuttle will arrive to pick up the participant.</li>
+      </rulesStrings>
+    </questDescriptionRules>
+    <root Class="QuestNode_Sequence">
+      <nodes>
+        <li Class="QuestNode_SubScript">
+          <def>Util_RandomizePointsChallengeRating</def>
+        </li>
+        <li Class="QuestNode_Set">
+          <name>colonistsToLendCount</name>
+          <value>1</value>
+        </li>
+        <li Class="QuestNode_GetMap" />
+        <li Class="QuestNode_RandomNode">
+          <nodes>
+            <li Class="QuestNode_Sequence">
+              <nodes>
+                <li Class="QuestNode_Set">
+                  <name>asker</name>
+                  <value>Nobody</value>
+                </li>
+                <li Class="QuestNode_Set">
+                  <name>asker_factionName</name>
+                  <value>Jujutsu Society</value>
+                </li>
+              </nodes>
+            </li>
+          </nodes>
+        </li>
+        <li Class="QuestNode_GetRandomInRangeForChallengeRating">
+          <storeAs>lendForDays</storeAs>
+          <oneStarRange>10~15</oneStarRange>
+          <twoStarRange>15~25</twoStarRange>
+          <threeStarRange>25~30</threeStarRange>
+          <roundRandom>true</roundRandom>
+        </li>
+        <li Class="QuestNode_ShuttleDelay">
+          <delayTicks>3500</delayTicks>
+            <node Class="QuestNode_Sequence">
+              <nodes>
+                <li Class="QuestNode_SubScript">
+                  <def>Util_TransportShip_Pickup</def>
+                  <parms>
+                    <leaveDelayTicks>60000</leaveDelayTicks>
+                    <leaveImmediatelyWhenSatisfied>true</leaveImmediatelyWhenSatisfied>
+                    <acceptColonists>true</acceptColonists>
+                    <acceptChildren>false</acceptChildren>
+                    <onlyAcceptColonists>true</onlyAcceptColonists>
+                    <onlyAcceptHealthy>true</onlyAcceptHealthy>
+                    <requireColonistCount>1</requireColonistCount>
+                  </parms>
+                </li>
+
+                <li Class="QuestNode_Letter">
+                  <label>Culling Games Shuttle Arrived</label>
+                  <text>The shuttle has arrived to collect one of your colonists with Cursed Energy for the Culling Games.</text>
+                  <lookTargets>$pickupShipThing</lookTargets>
+                </li>
+              </nodes>
+            </node>
+        </li>
+        <li Class="QuestNode_Signal">
+          <inSignal>pickupShipThing.SentSatisfied</inSignal>
+          <node Class="QuestNode_Sequence">
+            <nodes>
+              <li Class="QuestNode_LendColonistsToFaction">
+                <shuttle>$pickupShipThing</shuttle>
+                <lendColonistsToFactionOf>$asker</lendColonistsToFactionOf>
+                <returnLentColonistsInTicks>$($lendForDays*60000)</returnLentColonistsInTicks>
+                <outSignalComplete>ColonistReturned</outSignalComplete>
+                <outSignalColonistsDied>ColonistDied</outSignalColonistsDied>
+              </li>
+            </nodes>
+          </node>
+        </li>
+        <li Class="QuestNode_Signal">
+          <inSignal>ColonistReturned</inSignal>
+          <node Class="QuestNode_Sequence">
+            <nodes>
+              <li Class="QuestNode_RandomNode">
+                <nodes>
+                  <li Class="QuestNode_Sequence">
+                    <nodes>
+                      <li Class="QuestNode_HasAbility">
+                        <pawn>$participant</pawn>
+                        <abilityDef>JJK_ReversedCurseTechnique</abilityDef>
+                        <invert>true</invert>
+                        <node Class="QuestNode_GiveAbility">
+                          <pawn>$participant</pawn>
+                          <abilityDef>JJK_ReversedCurseTechnique</abilityDef>
+                        </node>
+                      </li>
+                    </nodes>
+                    <chance>0.25</chance>
+                  </li>
+                  <li Class="QuestNode_Sequence">
+                    <nodes>
+                      <li Class="QuestNode_HasAbility">
+                        <pawn>$participant</pawn>
+                        <abilityDef>JJK_BlackFlash</abilityDef>
+                        <invert>true</invert>
+                        <node Class="QuestNode_GiveAbility">
+                          <pawn>$participant</pawn>
+                          <abilityDef>JJK_BlackFlash</abilityDef>
+                        </node>
+                      </li>
+                    </nodes>
+                    <chance>0.25</chance>
+                  </li>
+                  <li Class="QuestNode_Sequence">
+                    <nodes>
+                      <li Class="QuestNode_HasAbility">
+                        <pawn>$participant</pawn>
+                        <abilityDef>JJK_HollowWickerBasket</abilityDef>
+                        <invert>true</invert>
+                        <node Class="QuestNode_GiveAbility">
+                          <pawn>$participant</pawn>
+                          <abilityDef>JJK_HollowWickerBasket</abilityDef>
+                        </node>
+                      </li>
+                    </nodes>
+                    <chance>0.25</chance>
+                  </li>
+                  <li Class="QuestNode_Sequence">
+                    <nodes>
+                      <li Class="QuestNode_HasAbility">
+                        <pawn>$participant</pawn>
+                        <abilityDef>JJK_SimpleShadowDomain</abilityDef>
+                        <invert>true</invert>
+                        <node Class="QuestNode_GiveAbility">
+                          <pawn>$participant</pawn>
+                          <abilityDef>JJK_SimpleShadowDomain</abilityDef>
+                        </node>
+                      </li>
+                    </nodes>
+                    <chance>0.25</chance>
+                  </li>
+                </nodes>
+              </li>
+              <li Class="QuestNode_Letter">
+                <label>Culling Games Participant Returned</label>
+                <text>Your colonist has returned from the Culling Games. They may have learned a new ability.</text>
+                <letterDef>PositiveEvent</letterDef>
+              </li>
+              <li Class="QuestNode_End">
+                <outcome>Success</outcome>
+              </li>
+            </nodes>
+          </node>
+        </li>
+        <li Class="QuestNode_Signal">
+          <inSignal>ColonistDied</inSignal>
+          <node Class="QuestNode_Sequence">
+            <nodes>
+              <li Class="QuestNode_Letter">
+                <label>Culling Games Participant Lost</label>
+                <text>Your colonist did not survive the Culling Games.</text>
+                <letterDef>NegativeEvent</letterDef>
+              </li>
+              <li Class="QuestNode_End">
+                <outcome>Fail</outcome>
+              </li>
+            </nodes>
+          </node>
+        </li>
+        <li Class="QuestNode_Signal">
+          <inSignal>pickupShipThing.SentUnsatisfied</inSignal>
+          <node Class="QuestNode_End">
+            <outcome>Fail</outcome>
+          </node>
+        </li>
+      </nodes>
+    </root>
+  </QuestScriptDef>
+
+</Defs>

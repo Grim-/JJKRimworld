@@ -1,0 +1,55 @@
+  <HediffDef>
+    <defName>JJK_CursedSpeech_Sleep</defName>
+    <label>cursed speech: sleep</label>
+    <description>Forced to sleep by Inumaki's cursed speech.</description>
+    <hediffClass>JJK.HediffComp_CursedSpeechEffect</hediffClass>
+    <initialSeverity>0.1</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>true</isBad>
+    <comps>
+      <li Class="JJK.HediffCompProperties_CursedSpeechEffect">
+        <capacityScalings>
+          <li>
+            <capacity>Consciousness</capacity>
+            <minValue>0.1</minValue>
+            <maxValue>1</maxValue>
+          </li>
+        </capacityScalings>
+      </li>
+    </comps>
+  </HediffDef>
+
+
+
+  <AbilityDef ParentName="InumakiCursedSpeechBase">
+    <defName>InumakiCursedSpeech_Sleep</defName>
+    <label>Cursed Speech: Sleep</label>
+    <description>Command the target to sleep.</description>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>25</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+
+  <AbilityDef ParentName="InumakiCursedSpeechBase">
+    <defName>InumakiCursedSpeech_Crash</defName>
+    <label>Cursed Speech: Crash</label>
+    <description>Command the target to go crashing into a nearby surface.</description>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>25</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+
+  <AbilityDef ParentName="InumakiCursedSpeechBase">
+    <defName>InumakiCursedSpeech_Betray</defName>
+    <label>Cursed Speech: Betray</label>
+    <description>Command the target to betray its allies for a time.</description>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityCECost">
+        <cursedEnergyCost>25</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>

@@ -26,7 +26,7 @@
       <explosionRadius>3</explosionRadius>
       <explosionDamage>50</explosionDamage>
       <soundOnImpact>Thunder_OnMap</soundOnImpact>
-      <burnoutStrain>0.5</burnoutStrain>
+
     </li>
   </comps>
 </AbilityDef>

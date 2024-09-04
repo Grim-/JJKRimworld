@@ -5,7 +5,21 @@
   <label>Shikigami</label>
   <description>A true shikigami, made of shadow.</description>
   <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
-  <hediffClass>JJK.Hediff_Summon</hediffClass>
+  <hediffClass>JJK.Hediff_Shikigami</hediffClass>
+  <isBad>false</isBad>
+  <stages>
+    <li>
+        <blocksMentalBreaks>true</blocksMentalBreaks>
+    </li>
+  </stages>
+</HediffDef>
+
+<HediffDef>
+  <defName>JJK_CursedSpiritManipulator</defName>
+  <label>CursedSpiritManipulation</label>
+  <description>A true shikigami, made of shadow.</description>
+  <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+  <hediffClass>JJK.Hediff_CursedSpiritManipulator</hediffClass>
   <isBad>false</isBad>
   <stages>
     <li>

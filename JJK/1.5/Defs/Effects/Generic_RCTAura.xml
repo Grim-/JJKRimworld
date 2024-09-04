@@ -111,4 +111,51 @@
       <drawSize>10.0</drawSize>
     </graphicData>
   </FleckDef>
+
+
+
+  <EffecterDef>
+    <defName>JJK_RedEffecter</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <chancePerTick>1</chancePerTick>
+        <ticksBetweenMotes>10</ticksBetweenMotes>
+        <moteDef>ExpandingAuraMote</moteDef>
+        <spawnLocType>OnTarget</spawnLocType>
+        <burstCount>1</burstCount>
+        <positionRadius>0.2</positionRadius>
+        <positionRadiusMin>0</positionRadiusMin>
+        <maxMoteCount>3</maxMoteCount>
+        <scale>0.5~0.7</scale>
+        <rotation>0~360</rotation>
+        <rotationRate>0</rotationRate>
+        <angle>0~360</angle>
+        <speed>0</speed>
+        <positionOffset>(0, 0, 0)</positionOffset>
+        <color>(0.2, 0.6, 1.0, 0.7)</color>
+        <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+        <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+        <attachToSpawnThing>true</attachToSpawnThing>
+      </li>
+    </children>
+  </EffecterDef>
+
+  <ThingDef ParentName="MoteBase">
+    <defName>ExpandingAuraMote</defName>
+    <graphicData>
+      <texPath>Animations/StarburstImpact</texPath>
+      <graphicClass>Graphic_Mote</graphicClass>
+      <drawSize>1.5</drawSize>
+      <color>(0.2, 0.6, 1.0, 0.7)</color>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.2</fadeInTime>
+      <solidTime>0.8</solidTime>
+      <fadeOutTime>0.3</fadeOutTime>
+      <growthRate>0</growthRate>
+      <speedPerTime>3</speedPerTime>
+    </mote>
+  </ThingDef>
 </Defs>

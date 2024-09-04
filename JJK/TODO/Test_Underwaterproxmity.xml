@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <!-- Ensure comps exists, I keep forgetting this bit! -->
+      <li Class="PatchOperationTest">
+        <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]/comps</xpath>
+        <success>Invert</success>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]</xpath>
+        <value>
+          <comps />
+        </value>
+      </li>
+      <li Class="PatchOperationTest">
+        <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]/tickerType</xpath>
+        <success>Invert</success>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]</xpath>
+        <value>
+          <tickerType>Normal</tickerType>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]/comps</xpath>
+    <value>
+      <li Class="BoUnderwater.CompProperties_Proximity_ShowMote">
+        <EffectorToShow>ToxGasReleasing</EffectorToShow>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/ThingDef[defName="Plant_HealrootWild"]/comps</xpath>
+    <value>
+      <li Class="CompProperties_Glower">
+        <glowRadius>10</glowRadius>
+        <glowColor>(255, 255, 255, 0)</glowColor>
+      </li>
+    </value>
+  </Operation>
+</Patch>
