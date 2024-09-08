@@ -10,7 +10,7 @@ namespace JJK
 
         protected override Pawn GetFollowee(Pawn pawn)
         {
-            if (pawn.IsSummon())
+            if (pawn.IsShikigami())
             {
                 //Log.Error($"pawn is summon master is {pawn.GetMaster()}");
                 return pawn.GetMaster();
@@ -55,7 +55,7 @@ namespace JJK
 
 
             job.reportStringOverride = "Following Summoner";
-            Log.Message($"Created follow job for {pawn.LabelShort} to follow {followee.LabelShort}");
+            //Log.Message($"Created follow job for {pawn.LabelShort} to follow {followee.LabelShort}");
             return job;
         }
     }

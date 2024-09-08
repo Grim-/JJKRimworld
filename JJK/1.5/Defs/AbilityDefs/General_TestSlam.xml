@@ -18,7 +18,7 @@
   <targetParams>
     <canTargetSelf>false</canTargetSelf>
     <canTargetPawns>true</canTargetPawns>
-      <canTargetLocations>true</canTargetLocations>
+    <canTargetLocations>true</canTargetLocations>
     <canTargetBuildings>false</canTargetBuildings>
     <canTargetAnimals>true</canTargetAnimals>
     <canTargetMechs>true</canTargetMechs>
@@ -31,6 +31,12 @@
     <damageType>Cut</damageType>
     <damageAmount>20</damageAmount>
     <useMouseAsOrigin>false</useMouseAsOrigin>
+  </li>
+  <li Class="JJK.CompProperties_ComplexBeam">
+    <BeamStart>JJK_RedBeamStart</BeamStart>
+    <BeamMiddle>JJK_BeamMote</BeamMiddle>
+    <BeamEnd>JJK_RedBeamEnd</BeamEnd>
+    <BeamLifeInTicks>1200</BeamLifeInTicks>
   </li>
 </comps>
 </AbilityDef>

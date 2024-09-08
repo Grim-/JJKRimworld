@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using Verse;
 using Verse.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -80,7 +79,6 @@ namespace JJK
         }
     }
 
-
     [HarmonyPatch(typeof(Pawn_GeneTracker), nameof(Pawn_GeneTracker.AddGene), new System.Type[] { typeof(GeneDef), typeof(bool) })]
     public static class Patch_AddGene
     {
@@ -88,14 +86,7 @@ namespace JJK
         {
             Pawn pawn = __instance.pawn;
 
-            if (geneDef == JJKDefOf.Gene_JJKLimitless && pawn.HasSixEyes())
-            {
-                if (!pawn.HasAbility(JJKDefOf.Gojo_HollowPurple))
-                {
-                    pawn.abilities.GainAbility(JJKDefOf.Gojo_HollowPurple);
-                }
-            }
-            else if (geneDef == JJKDefOf.Gene_JJKSixEyes && pawn.IsLimitlessUser())
+            if (geneDef == JJKDefOf.Gene_JJKLimitless && pawn.HasSixEyes() || geneDef == JJKDefOf.Gene_JJKSixEyes && pawn.IsLimitlessUser())
             {
                 if (!pawn.HasAbility(JJKDefOf.Gojo_HollowPurple))
                 {
@@ -270,7 +261,7 @@ namespace JJK
         {
             public static bool Prefix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
             {
-                if (__instance.IsSummon())
+                if (__instance.IsShikigami())
                 {
                     // Prevent corpse creation
                     if (__instance.Corpse != null)
@@ -301,7 +292,7 @@ namespace JJK
         {
             public static bool Prefix(Pawn ___pawn, ref bool __result)
             {
-                if (___pawn.IsSummon())
+                if (___pawn.IsShikigami())
                 {
                     __result = false;
                     return false;
@@ -315,7 +306,7 @@ namespace JJK
         {
             public static bool Prefix(Pawn ___pawn)
             {
-                return !___pawn.IsSummon();
+                return !___pawn.IsShikigami();
             }
         }
 
@@ -324,7 +315,7 @@ namespace JJK
         {
             public static bool Prefix(Pawn pawn, ref Job __result)
             {
-                if (pawn.IsSummon())
+                if (pawn.IsShikigami())
                 {
                     __result = null;
                     return false;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 <HediffDef>
-  <defName>JJK_Shikigami</defName>
-  <label>Shikigami</label>
-  <description>A true shikigami, made of shadow.</description>
+  <defName>JJK_TenShadowsUser</defName>
+  <label>Ten Shadows User</label>
+  <description>A pawn born with the hereditary Technique Ten Shadows</description>
   <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
-  <hediffClass>JJK.Hediff_Shikigami</hediffClass>
+  <hediffClass>JJK.Hediff_TenShadowsUser</hediffClass>
   <isBad>false</isBad>
   <stages>
     <li>

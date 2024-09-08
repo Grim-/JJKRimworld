@@ -56,9 +56,17 @@ namespace JJK
             }
         }
 
+        private int lastUsedTick = -999999;
+        private const int aiDecisionCooldown = 300;
+
         public override bool AICanTargetNow(LocalTargetInfo target)
         {
-            return base.AICanTargetNow(target);
+            if (Find.TickManager.TicksGame < lastUsedTick + aiDecisionCooldown)
+            {
+                return false;
+            }
+            lastUsedTick = Find.TickManager.TicksGame;
+            return true;
         }
 
         public override bool Valid(LocalTargetInfo target, bool throwMessages = false)

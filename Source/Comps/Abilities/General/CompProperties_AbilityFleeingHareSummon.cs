@@ -24,8 +24,6 @@ namespace JJK
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             base.Apply(target, dest);
-            Map map = parent.pawn.Map;
-            IntVec3 spawnPosition = target.Cell;
 
             if (Summons.Count > 0)
             {
@@ -33,26 +31,22 @@ namespace JJK
             }
             else
             {
-                if (spawnPosition.Walkable(map))
+                for (int i = 0; i < Props.NumberToSpawn; i++)
                 {
-                    for (int i = 0; i < Props.NumberToSpawn; i++)
-                    {
-                        SpawnFleeingHare(Props.fleeingHareKindDef, spawnPosition + new IntVec3(Rand.Range(-2, 2), spawnPosition.y, Rand.Range(-2, 2)), map);
-                    }
+                    IntVec3 RandomSpawnPosition = target.Cell + new IntVec3(Rand.Range(-2, 2), target.Cell.y, Rand.Range(-2, 2));
 
+                    if (RandomSpawnPosition.InBounds(parent.pawn.MapHeld))
+                    {
+                        SpawnFleeingHare(Props.fleeingHareKindDef, RandomSpawnPosition, parent.pawn.MapHeld);
+                    }
                 }
             }
-
 
         }
 
         private void SpawnFleeingHare(PawnKindDef KindDef, IntVec3 spawnPosition, Map Map)
         {
             Pawn demondog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, spawnPosition);
-            Job job = JobMaker.MakeJob(JJKDefOf.JJK_DefendMaster);
-            job.SetTarget(TargetIndex.A, parent.pawn);
-            demondog.jobs.StartJob(job, JobCondition.None);
-
 
             if (!Summons.Contains(demondog))
             {
@@ -65,9 +59,11 @@ namespace JJK
         {
             foreach (var item in Summons)
             {
-                item.Destroy();
+                if (!item.Destroyed)
+                {
+                    item.Destroy();
+                }     
             }
-
             Summons.Clear();
         }
 

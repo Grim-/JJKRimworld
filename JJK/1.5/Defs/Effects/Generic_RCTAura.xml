@@ -106,6 +106,7 @@
       <shaderType>Mote</shaderType>
       <renderInstanced>false</renderInstanced>
       <shaderParameters>
+        <_Color>(1,0,0)</_Color>
         <_brightnessMultiplier>1</_brightnessMultiplier>
       </shaderParameters>
       <drawSize>10.0</drawSize>
@@ -124,16 +125,16 @@
         <moteDef>ExpandingAuraMote</moteDef>
         <spawnLocType>OnTarget</spawnLocType>
         <burstCount>1</burstCount>
-        <positionRadius>0.2</positionRadius>
+        <positionRadius>0</positionRadius>
         <positionRadiusMin>0</positionRadiusMin>
-        <maxMoteCount>3</maxMoteCount>
-        <scale>0.5~0.7</scale>
+        <maxMoteCount>1</maxMoteCount>
+        <scale>1~1.24</scale>
         <rotation>0~360</rotation>
         <rotationRate>0</rotationRate>
         <angle>0~360</angle>
         <speed>0</speed>
         <positionOffset>(0, 0, 0)</positionOffset>
-        <color>(0.2, 0.6, 1.0, 0.7)</color>
+        <color>(1, 0, 0, 0.7)</color>
         <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
         <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
         <attachToSpawnThing>true</attachToSpawnThing>
@@ -141,21 +142,42 @@
     </children>
   </EffecterDef>
 
-  <ThingDef ParentName="MoteBase">
+  <ThingDef Name="AuraTestBase" Abstract="True">
+    <thingClass>AnimatedMotes.Mote_Animation</thingClass>
+    <label>Mote</label>
+    <category>Mote</category>
+    <mote>
+      <solidTime>99999999</solidTime>
+    </mote>
+    <graphicData Class="AnimatedMotes.GraphicDataAnimation">
+      <graphicClass>AnimatedMotes.Graphic_Animated</graphicClass>
+      <shaderType>Mote</shaderType>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <tickerType>Normal</tickerType>
+    <useHitPoints>false</useHitPoints>
+    <isSaveable>true</isSaveable>
+    <rotatable>false</rotatable>
+    <drawOffscreen>true</drawOffscreen>
+  </ThingDef>
+
+  <AnimatedMotes.AnimationDef ParentName="AuraTestBase">
     <defName>ExpandingAuraMote</defName>
-    <graphicData>
-      <texPath>Animations/StarburstImpact</texPath>
-      <graphicClass>Graphic_Mote</graphicClass>
-      <drawSize>1.5</drawSize>
-      <color>(0.2, 0.6, 1.0, 0.7)</color>
+    <graphicData Class="AnimatedMotes.GraphicDataAnimation">
+      <texPath>Animations/Aura</texPath>
+      <drawSize>3</drawSize>
+      <color>(1, 0, 0, 1)</color>
     </graphicData>
     <altitudeLayer>MoteOverhead</altitudeLayer>
     <mote>
-      <fadeInTime>0.2</fadeInTime>
-      <solidTime>0.8</solidTime>
-      <fadeOutTime>0.3</fadeOutTime>
+      <fadeInTime>0</fadeInTime>
+      <solidTime>99999</solidTime>
+      <fadeOutTime>0</fadeOutTime>
       <growthRate>0</growthRate>
-      <speedPerTime>3</speedPerTime>
+      <speedPerTime>0</speedPerTime>
     </mote>
-  </ThingDef>
+    <fpsRate>2</fpsRate>
+    <maxLoopCount>-1</maxLoopCount>
+  </AnimatedMotes.AnimationDef>
 </Defs>

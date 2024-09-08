@@ -8,10 +8,13 @@ namespace JJK
 {
     public class JobDriver_DemondogAttackAndVanish : JobDriver
     {
-
         private Pawn Summoner => TargetPawnA;
         private Pawn AttackTarget => TargetPawnB;
 
+        public DamageDef AttackDamageDef = DamageDefOf.Bite;
+        public float DamageAmount = 20f;
+        public float ArmourPen = 1f;
+        public float ChanceToBleed = 0.5f;
 
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
@@ -26,11 +29,17 @@ namespace JJK
             {
                 if (ShouldDespawn())
                 {
-                    DespawnDemondog();
+                    //DespawnDemondog();
                     EndJobWith(JobCondition.Incompletable);
                     return;
                 }
             });
+
+            //gotoToil.AddFinishAction(() =>
+            //{
+            //    DespawnDemondog();
+            //});
+
             yield return gotoToil;
 
 
@@ -42,7 +51,7 @@ namespace JJK
 
                 if (ShouldDespawn())
                 {
-                    DespawnDemondog();
+                    //DespawnDemondog();
                     EndJobWith(JobCondition.Incompletable);
                     return;
                 }
@@ -52,17 +61,23 @@ namespace JJK
             AttackToil.initAction = () =>
             {
                 if (ShouldDespawn())
-                {
-                    DespawnDemondog();
+                {             
                     EndJobWith(JobCondition.Incompletable);
                     return;
                 }
 
                 if (AttackTarget != null && !AttackTarget.Dead && !AttackTarget.Downed)
                 {
-                    DamageInfo dinfo = new DamageInfo(DamageDefOf.Bite, 10f, 0f, -1f, pawn, null, null, DamageInfo.SourceCategory.ThingOrUnknown);
+                    //Verb ChosenVerb = pawn.meleeVerbs.TryGetMeleeVerb(AttackTarget);
+
+                    //if (ChosenVerb != null)
+                    //{
+
+                    //}
+
+                    DamageInfo dinfo = new DamageInfo(AttackDamageDef, DamageAmount, ArmourPen, -1f, pawn, null, null, DamageInfo.SourceCategory.ThingOrUnknown);
                     AttackTarget.TakeDamage(dinfo);
-                    if (Rand.Chance(0.5f))
+                    if (Rand.Chance(ChanceToBleed))
                     {
                         Hediff hediff = HediffMaker.MakeHediff(HediffDefOf.BloodLoss, AttackTarget, null);
                         hediff.Severity = 0.2f;
@@ -72,12 +87,15 @@ namespace JJK
                     MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "Demonic bite!", Color.red, 3.65f);
                 }
 
-                DespawnDemondog();
+                //DespawnDemondog();
                 EndJobWith(JobCondition.Succeeded);
             };
 
 
-
+            AttackToil.AddFinishAction(() =>
+            {
+                //DespawnDemondog();
+            });
 
             // Attack
             yield return AttackToil;
@@ -119,42 +137,14 @@ namespace JJK
 
         private void DespawnDemondog()
         {
-            FleckMaker.ThrowSmoke(pawn.Position.ToVector3(), Map, 1.5f);
-            FleckMaker.Static(pawn.Position, Map, JJKDefOf.JJK_BlackSmoke, 1.5f);
-            pawn.Destroy();
-        }
-
-    }
-
-    public class JobGiver_DemondogAttackTarget : ThinkNode_JobGiver
-    {
-        protected override Job TryGiveJob(Pawn pawn)
-        {
-            if (pawn.jobs.curJob == null ||  pawn.jobs.curJob?.def != JJKDefOf.JJK_DemondogAttackAndVanish)
-            {
-                DespawnDemondog(pawn, "Invalid job");
-                return null;
-            }
-
-            LocalTargetInfo target = pawn.CurJob.GetTarget(TargetIndex.B);
-            if (!target.IsValid || !(target.Thing is Pawn) || !target.Thing.HostileTo(pawn) || !pawn.CanReach(target, PathEndMode.Touch, Danger.Deadly))
-            {
-                DespawnDemondog(pawn, "Target invalid or unreachable");
-                return null;
-            }
-
-            return pawn.jobs.curJob;
-        }
-
-        private void DespawnDemondog(Pawn pawn, string reason)
-        {
             if (!pawn.Destroyed)
             {
-                Log.Message($"JobGiver_DemondogAttackTarget Demondog despawning: {reason}");
+                FleckMaker.ThrowSmoke(pawn.Position.ToVector3(), Map, 1.5f);
+                FleckMaker.Static(pawn.Position, Map, JJKDefOf.JJK_BlackSmoke, 1.5f);
                 pawn.Destroy();
-            }
-     
+            } 
         }
+
     }
 }
 

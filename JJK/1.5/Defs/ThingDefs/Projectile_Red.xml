@@ -26,6 +26,14 @@
         <glowRadius>15</glowRadius>
         <glowColor>(255,0,0,0)</glowColor>
       </li>
+      <li Class="JJK.CompProperties_PulseAoeDamage">
+        <TicksBetweenPulse>100</TicksBetweenPulse>
+        <ExplosionRadius>4</ExplosionRadius>
+        <DamageType>Bomb</DamageType>
+        <DamageAmount>10</DamageAmount>
+        <ArmorPenetration>0.3</ArmorPenetration>
+        <ExplosionSound>Explosion_Bomb</ExplosionSound>
+      </li>
     </comps>
   </ThingDef>
 </Defs>

@@ -15,6 +15,7 @@
       <canTargetLocations>True</canTargetLocations>
     </targetParams>
   </verbProperties>
+  <aiCanUse>true</aiCanUse>
   <cooldownTicksRange>
     <min>30000</min>
     <max>30000</max>
@@ -26,7 +27,6 @@
       <explosionRadius>3</explosionRadius>
       <explosionDamage>50</explosionDamage>
       <soundOnImpact>Thunder_OnMap</soundOnImpact>
-
     </li>
   </comps>
 </AbilityDef>

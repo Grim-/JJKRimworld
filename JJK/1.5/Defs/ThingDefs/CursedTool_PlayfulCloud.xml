@@ -8,6 +8,7 @@
     <graphicData>
       <texPath>Playfulcloud</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.5</drawSize>
     </graphicData>
     <techLevel>Spacer</techLevel>
     <weaponTags>

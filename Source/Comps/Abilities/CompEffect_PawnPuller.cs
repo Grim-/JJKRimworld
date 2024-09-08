@@ -1,17 +1,29 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace JJK
 {
-    internal class CompEffect_PawnPuller : ThingComp
+    public class CompProperties_PawnPuller : CompProperties
+    {
+        public float PullRadius = 10f;
+        public int PullTicks = 600;
+        public DamageDef Damage = DamageDefOf.Crush;
+        public float DamageAmount = 15f;
+        public float ArmourPen = 1f;
+
+        public CompProperties_PawnPuller()
+        {
+            compClass = typeof(CompEffect_PawnPuller);
+        }
+    }
+    public class CompEffect_PawnPuller : ThingComp
     {
         private CompProperties_PawnPuller Props => (CompProperties_PawnPuller)props;
 
         // Timer for periodic pulling
         private int ticksUntilPull = 0;
-        private const int PullInterval = 600; // Adjust this value as needed for desired frequency
-        private const int PullRadius = 10; // Adjust this value to set the radius of pulling effect
 
         public override void CompTick()
         {
@@ -19,7 +31,7 @@ namespace JJK
             if (ticksUntilPull <= 0)
             {
                 PullPawnsTowardsCenter();
-                ticksUntilPull = PullInterval;
+                ticksUntilPull = Props.PullTicks;
             }
             else
             {
@@ -29,35 +41,20 @@ namespace JJK
 
         private void PullPawnsTowardsCenter()
         {
-            // Retrieve all pawns in the map
-            Map map = parent.Map;
-            List<Pawn> pawns = (List<Pawn>)map.mapPawns.AllPawnsSpawned;
-
-            // Create a list to store pawns to be pulled
-            List<Pawn> pawnsToPull = new List<Pawn>();
-
-            // Iterate through pawns
-            foreach (Pawn pawn in pawns)
+            List<Pawn> pawnsToPull = JJKUtility.GetEnemyPawnsInRange(parent.Position, parent.MapHeld, Props.PullRadius).ToList();
+            foreach (Pawn pawn in pawnsToPull)
             {
-                // Check if the pawn has the specific gene
-                bool isBlueUser = pawn.IsLimitlessUser();
-                // Skip pulling pawns that are "blue users"
+                bool isBlueUser = pawn.IsLimitlessUser() || pawn.Faction == Faction.OfPlayer;
                 if (isBlueUser)
                 {
                     continue;
                 }
 
-                // Check if the pawn is within the pull radius
-                if ((pawn.Position - parent.Position).LengthHorizontalSquared <= PullRadius * PullRadius)
+                if (Props.Damage != null && !pawn.Dead)
                 {
-                    // Add pawn to the list of pawns to be pulled
-                    pawnsToPull.Add(pawn);
+                    pawn.TakeDamage(new DamageInfo(Props.Damage, Props.DamageAmount, Props.ArmourPen, -1, parent));
                 }
-            }
-
-            // Iterate through pawns to be pulled and apply pulling effect
-            foreach (Pawn pawn in pawnsToPull)
-            {
+                
                 // Calculate direction towards the center (position of the thing)
                 IntVec3 direction = parent.Position - pawn.Position;
 
@@ -66,16 +63,12 @@ namespace JJK
 
                 // Spawn the flyer
                 PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(JJKDefOf.JJK_Flyer, pawn, destination, null, null);
-                GenSpawn.Spawn(pawnFlyer, destination, map);
+                GenSpawn.Spawn(pawnFlyer, destination, parent.MapHeld);
             }
+
         }
     }
 
-    public class CompProperties_PawnPuller : CompProperties
-    {
-        public CompProperties_PawnPuller()
-        {
-            compClass = typeof(CompEffect_PawnPuller);
-        }
-    }
+
+
 }

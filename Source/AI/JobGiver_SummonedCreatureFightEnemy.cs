@@ -11,19 +11,35 @@ namespace JJK
 
         protected override Job TryGiveJob(Pawn pawn)
         {
+            if (pawn == null)
+            {
+                Log.Error("TryGiveJob called with null pawn");
+                return null;
+            }
+
             this.chaseTarget = true;
             this.allowTurrets = true;
             this.ignoreNonCombatants = true;
             this.humanlikesOnly = false;
+
             Job job = base.TryGiveJob(pawn);
-            job.reportStringOverride = "Defending Summoner";
-            pawn.mindState.canFleeIndividual = false;
+
+            if (job != null)
+            {
+                job.reportStringOverride = "Defending Summoner";
+            }
+
+            if (pawn.mindState != null)
+            {
+                pawn.mindState.canFleeIndividual = false;
+            }
+
             return job;
         }
 
         protected override Pawn GetDefendee(Pawn pawn)
         {
-            if (pawn.IsSummon())
+            if (pawn.IsShikigami())
             {
                 return pawn.GetMaster();
             }
@@ -35,10 +51,10 @@ namespace JJK
             return 10f;
         }
 
-        //protected override IntVec3 GetFlagPosition(Pawn pawn)
-        //{
-        //    return pawn.GetMaster().Position;
-        //}
+        protected override IntVec3 GetFlagPosition(Pawn pawn)
+        {
+            return pawn.GetMaster().Position;
+        }
     }
 }
 

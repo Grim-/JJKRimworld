@@ -225,32 +225,39 @@ namespace JJK
             GenSpawn.Spawn(shikigami, Position, Map);
             Hediff_Shikigami summon = (Hediff_Shikigami)shikigami.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
 
+            shikigami.ageTracker.DebugSetAge(3444444);
+
             if (summon != null)
             {
                 summon.SetMaster(Master);
             }
 
+            TrainPawn(shikigami, Master);
             return shikigami;
         }
 
-        public static bool IsSummon(this Pawn pawn)
+
+        public static void TrainPawn(Pawn PawnToTrain, Pawn Trainer = null)
+        {
+            if (PawnToTrain.training != null)
+            {
+                foreach (var item in DefDatabase<TrainableDef>.AllDefsListForReading)
+                {
+                    if (PawnToTrain.training.CanAssignToTrain(item).Accepted)
+                    {
+                        PawnToTrain.training.SetWantedRecursive(item, true);
+                        PawnToTrain.training.Train(item, Trainer, true);
+                    }
+
+                }
+            }
+        }
+
+
+        public static bool IsShikigami(this Pawn pawn)
         {
             return pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_Shikigami);
         }
-
-        //TODO REIMPLMENT THIS WHOLE ASS THING :/
-        //public static bool IsAbsorbedCreature(Pawn pawn)
-        //{
-        //    AbsorbedCreatureManager manager = JJKUtility.AbsorbedCreatureManager;
-        //    if (manager == null)
-        //    {
-        //        Log.Message("IsAbsorbedCreature: Absorbed Creature Manager is null");
-        //        return false;
-        //    }
-        //    Pawn master = manager.GetMasterForAbsorbedCreature(pawn);
-        //    //Log.Message($"JJK: IsAbsorbedCreature for {pawn.LabelShort} (ThingID: {pawn.ThingID}). Master found: {master != null}");
-        //    return master != null;
-        //}
 
         public static Pawn FindPawnById(string thingId)
         {
@@ -258,16 +265,6 @@ namespace JJK
                    Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == thingId);
         }
 
-        public static bool IsSummonedCreature(Pawn pawn)
-        {
-            SummonedCreatureManager manager = JJKUtility.SummonedCreatureManager;
-            if (manager == null)
-            {
-                Log.Message("IsSummonedCreature: Summoned Creature Manager is null");
-                return false;
-            }
-            return manager.IsSummonedCreature(pawn);
-        }
         public static void GiveCursedEnergy(Pawn targetPawn)
         {
             if (targetPawn == null || targetPawn.genes == null) return;
@@ -278,6 +275,14 @@ namespace JJK
             }       
         }
 
+
+        public static IEnumerable<Pawn> GetEnemyPawnsInRange(IntVec3 center, Map map, float radius)
+        {
+            return GenRadial.RadialCellsAround(center, radius, true)
+                .SelectMany(c => c.GetThingList(map))
+                .OfType<Pawn>()
+                .Where(p => p.Faction != null && p.Faction != Faction.OfPlayer);
+        }
 
         public static void TransferGenes(Pawn sourcePawn, Pawn targetPawn, GeneDef GeneDefToTransfer, bool IsXenogerm = true)
         {

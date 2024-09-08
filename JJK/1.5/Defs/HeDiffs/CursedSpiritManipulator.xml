@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 <HediffDef>
-  <defName>JJK_Shikigami</defName>
-  <label>Shikigami</label>
+  <defName>JJK_CursedSpiritManipulator</defName>
+  <label>CursedSpiritManipulation</label>
   <description>A true shikigami, made of shadow.</description>
   <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
-  <hediffClass>JJK.Hediff_Shikigami</hediffClass>
+  <hediffClass>JJK.Hediff_CursedSpiritManipulator</hediffClass>
   <isBad>false</isBad>
   <stages>
     <li>

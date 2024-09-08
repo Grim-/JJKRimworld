@@ -13,24 +13,6 @@ namespace JJK
             Scribe_References.Look(ref referencedPawn, "referencedPawn");
         }
 
-        public override void Tick()
-        {
-            base.Tick();
-
-
-            if (pawn.IsHashIntervalTick(600))
-            {
-                if (Master != null && Master.Dead || Master.Destroyed)
-                {
-                    if (!pawn.Destroyed)
-                    {
-                        pawn.Destroy();
-                    }
-                
-                }
-            }
-        }
-
         public override string DebugString()
         {
             string baseString = base.DebugString();

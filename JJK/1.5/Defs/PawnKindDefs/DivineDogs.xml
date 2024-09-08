@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <!-- PawnKindDef for the summoned demondog -->
+  <!-- PawnKindDef for the summoned Divinedog -->
 <ThingDef ParentName="AnimalThingBase">
-    <defName>JJK_DemonDog_Race</defName>
-    <label>summoned demon dog</label>
-    <description>A summoned demon dog. This otherworldly creature serves its summoner without question.</description>
+    <defName>JJK_DivineDog_Race</defName>
+    <label>summoned Divine dog</label>
+    <description>A summoned Divine dog. This otherworldly creature serves its summoner without question.</description>
     <statBases>
       <MoveSpeed>6.0</MoveSpeed>
       <ComfyTemperatureMin>-70</ComfyTemperatureMin>
@@ -84,6 +84,7 @@
     <race>
       <animalType>Canine</animalType>
       <body>QuadrupedAnimalWithPawsAndTail</body>
+      <trainability>Advanced</trainability>
       <predator>false</predator>
       <thinkTreeMain>JJK_EmptyThinkTree</thinkTreeMain>
       <thinkTreeConstant>JJK_EmptyThinkTree</thinkTreeConstant>
@@ -115,9 +116,9 @@
   </ThingDef>
 
   <PawnKindDef>
-    <defName>JJK_DemonDogBlack</defName>
-    <label>summoned demon dog black</label>
-    <race>JJK_DemonDog_Race</race>
+    <defName>JJK_DivineDogBlack</defName>
+    <label>summoned divine dog black</label>
+    <race>JJK_DivineDog_Race</race>
     <combatPower>50</combatPower>
     <canArriveManhunter>false</canArriveManhunter>
     <aiAvoidCover>true</aiAvoidCover>
@@ -134,9 +135,9 @@
   </PawnKindDef>
 
   <PawnKindDef>
-    <defName>JJK_DemonDogWhite</defName>
-    <label>summoned demon dog white</label>
-    <race>JJK_DemonDog_Race</race>
+    <defName>JJK_DivineDogWhite</defName>
+    <label>summoned Divine dog white</label>
+    <race>JJK_DivineDog_Race</race>
     <combatPower>50</combatPower>
     <canArriveManhunter>false</canArriveManhunter>
     <aiAvoidCover>true</aiAvoidCover>

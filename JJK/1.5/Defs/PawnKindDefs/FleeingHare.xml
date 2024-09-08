@@ -17,7 +17,7 @@
             <capacities>
               <li>Bite</li>
             </capacities>
-            <power>3.4</power>
+            <power>0.8</power>
             <cooldownTime>2</cooldownTime>
             <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
           </li>
@@ -26,7 +26,7 @@
             <capacities>
               <li>Blunt</li>
             </capacities>
-            <power>1.5</power>
+            <power>0.6</power>
             <cooldownTime>2</cooldownTime>
             <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
             <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
@@ -102,7 +102,7 @@
             <bodyGraphicData>
               <texPath>Things/Pawn/Animal/Hare/Hare</texPath>
               <drawSize>1</drawSize>
-              <color>(130,127,106)</color>
+              <color>(255,255,255)</color>
             </bodyGraphicData>
             <dessicatedBodyGraphicData>
               <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
@@ -113,7 +113,7 @@
             <bodyGraphicData>
               <texPath>Things/Pawn/Animal/Hare/Hare</texPath>
               <drawSize>1.25</drawSize>
-              <color>(130,127,106)</color>
+              <color>(255,255,255)</color>
             </bodyGraphicData>
             <dessicatedBodyGraphicData>
               <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
@@ -124,7 +124,7 @@
             <bodyGraphicData>
               <texPath>Things/Pawn/Animal/Hare/Hare</texPath>
               <drawSize>1.5</drawSize>
-              <color>(130,127,106)</color>
+              <color>(255,255,255)</color>
               <shadowData>
                 <volume>(0.32, 0.35, 0.32)</volume>
                 <offset>(0,0,0)</offset>

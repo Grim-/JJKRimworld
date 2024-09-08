@@ -10,13 +10,13 @@
     <range>20</range>
     <warmupTime>1</warmupTime>
     <targetParams>
-      <canTargetLocations>false</canTargetLocations>
+      <canTargetLocations>true</canTargetLocations>
       <canTargetPawns>true</canTargetPawns>
     </targetParams>
   </verbProperties>
   <comps>
     <li Class="JJK.CompProperties_AbilityDemondogSummon">
-      <demondogKindDef>JJK_DemonDogBlack</demondogKindDef>
+      <demondogKindDef>JJK_DivineDogBlack</demondogKindDef>
     </li>
   </comps>
 </AbilityDef>

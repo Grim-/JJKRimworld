@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
   <ThinkTreeDef>
     <defName>JJK_SummonedCreature</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+        <li Class="ThinkNode_ConditionalColonist">
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>DraftedOrder</tagToGive>
+              <subNodes>
+                <li Class="JobGiver_MoveToStandable" />
+                <li Class="JobGiver_Orders" />
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
         <li Class="JJK.ThinkNode_ConditionalSelfOrMasterHasTarget">
           <subNodes>
             <li Class="JJK.JobGiver_SummonedCreatureFightEnemy" />
+          </subNodes>
+        </li>
+        <li Class="JJK.ThinkNode_ConditionalNearMaster">
+          <MaxDistanceToMaster>5</MaxDistanceToMaster>
+          <subNodes>
+            <li Class="JobGiver_Idle">
+            </li>
           </subNodes>
         </li>
         <li Class="JJK.JobGiver_SummonedCreatureFollowMaster">
