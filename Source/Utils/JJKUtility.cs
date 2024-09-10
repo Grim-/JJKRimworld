@@ -10,18 +10,8 @@ using Verse;
 
 namespace JJK
 {
-    public class CursedEnergyGeneExtension : DefModExtension
-    {
-        public int priority = 0;
-    }
-
-    public class CursedTechniqueGeneExtension : DefModExtension
-    {
-        public int priority = 0;
-    }
     public static class JJKUtility
     {
-
         private static DollTransformationWorldComponent _DollTransformationWorldComponent;
         public static DollTransformationWorldComponent DollTransformationWorldComponent
         {
@@ -36,35 +26,6 @@ namespace JJK
             }
         }
 
-        private static SummonedCreatureManager _SummonedCreatureManager;
-        public static SummonedCreatureManager SummonedCreatureManager
-        {
-            get
-            {
-                if (_SummonedCreatureManager == null)
-                {
-                    _SummonedCreatureManager = Find.World.GetComponent<SummonedCreatureManager>();
-                }
-
-                return _SummonedCreatureManager;
-            }
-        }
-
-
-        //maybe the lazy init is causing the save/load issues? I dont fuckin know at this point.
-      //  private static AbsorbedCreatureManager _AbsorbedCreatureManager;
-      //  public static AbsorbedCreatureManager AbsorbedCreatureManager = Current.Game.GetComponent<AbsorbedCreatureManager>();
-        //{
-        //    get
-        //    {
-        //        if (_AbsorbedCreatureManager == null)
-        //        {
-        //            _AbsorbedCreatureManager = Current.Game.GetComponent<AbsorbedCreatureManager>();
-        //        }
-
-        //        return _AbsorbedCreatureManager;
-        //    }
-        //}
 
 
         [DebugAction("JJK", "Restore Pawn CE", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -74,9 +35,10 @@ namespace JJK
 
             if (cursedEnergy != null)
             {
-                cursedEnergy.RestoreCursedEnergy(1000);
+                cursedEnergy.RestoreCursedEnergy(10000);
             }
         }
+
         public static void TransferCursedEnergyGenes(Pawn sourcePawn, Pawn targetPawn)
         {
             var sourceGenes = sourcePawn.genes.GenesListForReading
@@ -153,11 +115,13 @@ namespace JJK
             // Add the randomly selected gene to the pawn
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
         }
+
+
         public static void GiveRandomSorcererGene(Pawn targetPawn, bool RemoveExisting = false)
         {
             // Find all GeneDefs with CursedEnergyGeneExtension
             List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
-                .Where(geneDef => geneDef.HasModExtension<CursedTechniqueGeneExtension>())
+                .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
                 .ToList();
 
             if (sorcererGeneDefs.Count == 0)
@@ -183,6 +147,103 @@ namespace JJK
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
         }
 
+
+        public static void TryUpgradeSorcererGrade(Pawn targetPawn)
+        {
+            List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
+                .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
+                .OrderBy(x => x.GetModExtension<CursedEnergyGeneExtension>().priority)
+                .ToList();
+
+            if (sorcererGeneDefs.Count == 0)
+            {
+                Log.Warning("No GeneDefs found with CursedEnergyGeneExtension.");
+                return;
+            }
+
+            // Find the pawn's current sorcerer gene
+            Gene currentSorcererGene = targetPawn.genes.GenesListForReading
+                .FirstOrDefault(g => g.def.HasModExtension<CursedEnergyGeneExtension>());
+
+            if (currentSorcererGene == null)
+            {
+                // If no gene exists, add the lowest grade gene (lowest priority number)
+                GeneDef lowestGradeGene = sorcererGeneDefs.First();
+                targetPawn.genes.AddGene(lowestGradeGene, true);
+                Log.Message($"Added initial sorcerer gene {lowestGradeGene.defName} to {targetPawn.Name}");
+                return;
+            }
+
+            int currentPriority = currentSorcererGene.def.GetModExtension<CursedEnergyGeneExtension>().priority;
+
+            // Find the next higher grade gene (higher priority number)
+            GeneDef upgradedGeneDef = sorcererGeneDefs
+                .FirstOrDefault(geneDef => geneDef.GetModExtension<CursedEnergyGeneExtension>().priority > currentPriority);
+
+            if (upgradedGeneDef != null)
+            {
+                // Remove the current gene
+                targetPawn.genes.RemoveGene(currentSorcererGene);
+
+                // Add the upgraded gene
+                targetPawn.genes.AddGene(upgradedGeneDef, true);
+
+                Log.Message($"Upgraded {targetPawn.Name}'s sorcerer grade from {currentSorcererGene.def.defName} to {upgradedGeneDef.defName}");
+            }
+            else
+            {
+                Log.Message($"{targetPawn.Name} already has the highest sorcerer grade available.");
+            }
+        }
+        public static void CopyCursedEnergyAbilities(Pawn sourcePawn, Pawn targetPawn, bool removeFromSource = false)
+        {
+            if (sourcePawn == null || targetPawn == null)
+            {
+                Log.Error("CopyCursedEnergyAbilities: Source or target pawn is null.");
+                return;
+            }
+
+            // Get the ability user component from both pawns
+            Pawn_AbilityTracker sourceAbilities = sourcePawn.abilities;
+            Pawn_AbilityTracker targetAbilities = targetPawn.abilities;
+
+            if (sourceAbilities == null || targetAbilities == null)
+            {
+                Log.Error("CopyCursedEnergyAbilities: One or both pawns do not have a CompAbilities component.");
+                return;
+            }
+
+            // Get all Cursed_Energy abilities from the source pawn
+            List<Ability> cursedEnergyAbilities = sourceAbilities.abilities
+                .Where(ability => ability.def.category == JJKDefOf.Cursed_Energy)
+                .ToList();
+
+            if (cursedEnergyAbilities.Count == 0)
+            {
+                Log.Message($"{sourcePawn.Name} has no Cursed_Energy abilities to copy.");
+                return;
+            }
+
+            // Copy Cursed_Energy abilities to the target pawn
+            foreach (Ability ability in cursedEnergyAbilities)
+            {
+                targetAbilities.GainAbility(ability.def);
+            }
+
+            Log.Message($"Copied {cursedEnergyAbilities.Count} Cursed_Energy abilities from {sourcePawn.Name} to {targetPawn.Name}.");
+
+
+            if (removeFromSource)
+            {
+                Log.Message($"removed {cursedEnergyAbilities.Count} Cursed_Energy abilities from {sourcePawn.Name}");
+                foreach (var item in cursedEnergyAbilities)
+                {
+                    sourcePawn.abilities.RemoveAbility(item.def);
+                }
+            }
+
+        
+        }
         public static void AddTraitIfNotExist(Pawn Pawn, TraitDef TraitDef, int degree = 0, bool force = false)
         { 
             if (TraitDef != null && !Pawn.story.traits.HasTrait(TraitDef))

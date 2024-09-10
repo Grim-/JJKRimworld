@@ -1,0 +1,115 @@
+<Defs>
+  <ThingDef ParentName="MealBase">
+    <defName>JJK_CursedObjectPiece</defName>
+    <label>cursed object piece</label>
+    <description>A piece of a cursed object. Consuming it may grant supernatural abilities, but at great risk.</description>
+    <graphicData>
+      <texPath>Playfulcloud</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>0.25</DeteriorationRate>
+      <MarketValue>24</MarketValue>
+      <Mass>0.3</Mass>
+      <WorkToMake>450</WorkToMake>
+      <Nutrition>0.9</Nutrition>
+    </statBases>
+    <thingCategories>
+      <li>Items</li>
+    </thingCategories>
+    <comps>
+      <li Class="JJK.CompProperties_CursedObjectPiece">
+        <TransformThreshold>5</TransformThreshold>
+      </li>
+    </comps>
+    <ingestible>
+      <foodType>Meal</foodType>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <defaultNumToIngestAtOnce>1</defaultNumToIngestAtOnce>
+      <optimalityOffsetHumanlikes>16</optimalityOffsetHumanlikes>
+      <preferability>NeverForNutrition</preferability>
+      <ingestEffect>EatMeat</ingestEffect>
+      <ingestSound>RawMeat_Eat</ingestSound>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <nurseable>false</nurseable>
+    </ingestible>
+    <alwaysHaulable>true</alwaysHaulable>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
+    <thingSetMakerTags>
+      <li>RewardSpecial</li>
+    </thingSetMakerTags>
+    <techLevel>Ultra</techLevel>
+    <stackLimit>5</stackLimit>
+  </ThingDef>
+
+  <RecipeDef ParentName="SurgeryFlesh">
+    <defName>JJK_CreateCursedObject</defName>
+    <label>create cursed object</label>
+    <description>Transform a pawn into a cursed object, creating multiple cursed object pieces.</description>
+    <workerClass>JJK.Recipe_CreateCursedObject</workerClass>
+    <jobString>Removing body part.</jobString>
+    <workAmount>2000</workAmount>
+    <surgerySuccessChanceFactor>1.2</surgerySuccessChanceFactor>
+    <developmentalStageFilter>Adult</developmentalStageFilter>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Medicine</li>
+          </categories>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Medicine</li>
+      </categories>
+    </fixedIngredientFilter>
+  </RecipeDef>
+
+
+  <HediffDef>
+  <defName>JJK_CursedObjectConsumer</defName>
+  <label>cursed object consumer</label>
+  <description>This person has consumed a piece of a cursed object. They are in the process of absorbing its power, which may lead to unpredictable changes.</description>
+  <hediffClass>JJK.Hediff_CursedObjectConsumer</hediffClass>
+  <defaultLabelColor>(0.8, 0.4, 0.4)</defaultLabelColor>
+  <initialSeverity>0.1</initialSeverity>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>false</isBad>
+  <comps>
+    <li Class="HediffCompProperties_SeverityPerDay">
+      <severityPerDay>0.1</severityPerDay>
+    </li>
+  </comps>
+  <stages>
+    <li>
+      <label>initial absorption</label>
+      <minSeverity>0.1</minSeverity>
+      <capMods>
+        <li>
+          <capacity>Consciousness</capacity>
+          <offset>0.1</offset>
+        </li>
+      </capMods>
+    </li>
+    <li>
+      <label>growing power</label>
+      <minSeverity>0.5</minSeverity>
+      <capMods>
+        <li>
+          <capacity>Consciousness</capacity>
+          <offset>0.2</offset>
+        </li>
+        <li>
+          <capacity>Moving</capacity>
+          <offset>0.1</offset>
+        </li>
+      </capMods>
+    </li>
+  </stages>
+</HediffDef>
+</Defs>

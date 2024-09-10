@@ -13,9 +13,9 @@ namespace JJK
     {
         private static readonly Texture2D IchorCostTex = SolidColorMaterials.NewSolidColorTexture(new Color(0.78f, 0.72f, 0.66f));
 
-    private const float TotalPulsateTime = 0.85f;
+        private const float TotalPulsateTime = 0.85f;
 
-    private List<Pair<IGeneResourceDrain, float>> tmpDrainGenes = new List<Pair<IGeneResourceDrain, float>>();
+        private List<Pair<IGeneResourceDrain, float>> tmpDrainGenes = new List<Pair<IGeneResourceDrain, float>>();
 
     public GeneGizmo_ResourceCursedEnergy(Gene_Resource gene, List<IGeneResourceDrain> drainGenes, Color barColor, Color barhighlightColor)
         : base(gene, drainGenes, barColor, barhighlightColor)

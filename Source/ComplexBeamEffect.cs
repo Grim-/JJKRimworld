@@ -20,7 +20,7 @@ namespace JJK
         private Mote BeamEffecter;
         private Effecter EndEffecter;
 
-        private MoteBeam MoteBeam;
+        private Mote MoteBeam;
         private static readonly Vector3 BeamOffset = new Vector3(0, 0.2f, 0);
 
         public void Initialize(Map map, LocalTargetInfo source, LocalTargetInfo target, int duration, EffecterDef startEffecterDef, ThingDef beamEffecterDef, EffecterDef endEffecterDef)
@@ -37,25 +37,10 @@ namespace JJK
             DurationTicks = duration;
             CurrentLifeTicks = 0;
 
-            if (!source.IsValid)
-            {
-                Log.Error($"ComplexBeamEffect: Invalid source during initialization. Source: {source}");
-                return;
-            }
-
-            if (!target.IsValid)
-            {
-                Log.Error($"ComplexBeamEffect: Invalid target during initialization. Target: {target}");
-                return;
-            }
-
             Log.Message($"ComplexBeamEffect: Initializing beam from {Origin} to {Target}");
 
             StartEffecter = CreateEffecter(startEffecterDef, Origin);
-            MoteBeam = (MoteBeam)ThingMaker.MakeThing(beamEffecterDef);
-
-            MoteBeam = (MoteBeam)GenSpawn.Spawn(beamEffecterDef, Origin.ToIntVec3(), Map);
-
+            GenerateMiddle(beamEffecterDef);
             EndEffecter = CreateEffecter(endEffecterDef, TargetPosition);
 
             UpdateBeamEffecter();
@@ -71,6 +56,12 @@ namespace JJK
             {
                 return targetInfo.Cell.ToVector3Shifted();
             }
+        }
+
+        private void GenerateMiddle(ThingDef beamEffecterDef)
+        {
+            MoteBeam = MoteMaker.MakeConnectingLine(Origin, TargetPosition, beamEffecterDef, Map);
+           // MoteBeam = (MoteBeam)GenSpawn.Spawn(beamEffecterDef, Origin.ToIntVec3(), Map);
         }
 
         public void Tick()
@@ -110,7 +101,7 @@ namespace JJK
             if (MoteBeam == null || Map == null) return;
             MoteBeam.Tick();
             MoteBeam.Maintain();
-            MoteBeam.UpdateTargets(GetPositionFromTarget(Source), GetPositionFromTarget(Target));
+            //MoteBeam.UpdateTargets(GetPositionFromTarget(Source), GetPositionFromTarget(Target));
         }
 
         public void Destroy(DestroyMode mode = DestroyMode.Vanish)

@@ -32,12 +32,11 @@ namespace JJK
 
             foreach (Thing thing in targets)
             {
-                Pawn targetPawn = thing as Pawn;
-                if (targetPawn != null && targetPawn != pawn)
+                if (thing != pawn && !thing.Destroyed)
                 {
                     DamageInfo dinfo = new DamageInfo(Props.damageType, Props.damageAmount, 0, -1, pawn);
-                    targetPawn.TakeDamage(dinfo);
-                    MoteMaker.ThrowText(targetPawn.DrawPos, targetPawn.Map, "Damaged!", Color.red);
+                    thing.TakeDamage(dinfo);
+                    MoteMaker.ThrowText(thing.DrawPos, thing.Map, "Damaged!", Color.red);
                 }
             }
         }

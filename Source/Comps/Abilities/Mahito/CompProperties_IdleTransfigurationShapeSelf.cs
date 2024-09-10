@@ -49,8 +49,16 @@ namespace JJK
 
         private void RemoveMaintenanceCosts()
         {
+            Gene_CursedEnergy cursedEnergy = parent.pawn.GetCursedEnergy();
+
+            if (cursedEnergy == null)
+            {
+                return;
+            }
+
+
             float TotalRequired = 0;
-            float CurrentCE = parent.pawn.GetCursedEnergy().Value;
+            float CurrentCE = cursedEnergy.Value;
 
             foreach (var Item in changedParts)
             {

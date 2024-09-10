@@ -128,11 +128,16 @@
     <Compile Include="Comps\Abilities\General\CompProperties_AbilityLightningStrike.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechLure.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_SeverityPerInterval.cs" />
+    <Compile Include="CursedObjects\CompProperties_CursedObject.cs" />
+    <Compile Include="CursedObjects\CursedObjectDef.cs" />
+    <Compile Include="CursedObjects\Hediff_CursedObjectConsumer.cs" />
+    <Compile Include="CursedObjects\Recipe_CreateCursedObject.cs" />
     <Compile Include="Genes\Graphic_Animated.cs" />
     <Compile Include="Graphics\AnimationDef.cs" />
     <Compile Include="Graphics\Graphic_Animated.cs" />
     <Compile Include="Graphics\IAnimated.cs" />
     <Compile Include="Graphics\Mote_Animation.cs" />
+    <Compile Include="Graphics\PawnRenderNodeWorker_OverlayRika.cs" />
     <Compile Include="MoteBeam.cs" />
     <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
@@ -191,6 +196,7 @@
     <Compile Include="Comps\Abilities\Shoko\CompProperties_TargetedRCT.cs" />
     <Compile Include="Comps\Abilities\CursedCompAbilityEffect_LaunchProjectile.cs" />
     <Compile Include="JJKMod.cs" />
+    <Compile Include="Utils\CursedEnergyGeneExtension.cs" />
     <Compile Include="Utils\PawnHealingUtility.cs" />
     <Compile Include="AI\JobDriver_DefendMaster.cs" />
     <Compile Include="Comps\World\SummonedCreatureManager.cs" />
@@ -210,7 +216,7 @@
     <Compile Include="Ability\CursedAbilityClass.cs" />
     <Compile Include="Ability\CursedAbilityDef.cs" />
     <Compile Include="Custom Damage Workers\DamageWorker_Dismantle.cs" />
-    <Compile Include="Genes\GeneGizmo_CursedEnergyResource.cs" />
+    <Compile Include="Gizmo\GeneGizmo_CursedEnergyResource.cs" />
     <Compile Include="Genes\Gene_CursedEnergy.cs" />
     <Compile Include="Genes\Gene_Kenjaku.cs" />
     <Compile Include="JJKConstants.cs" />

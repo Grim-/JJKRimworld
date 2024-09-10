@@ -30,15 +30,24 @@
     </Genes>
     </li>
   </comps>
+  <renderNodeProperties>
+  <li Class="JJK.PawnOverlayNodeProperties">
+    <texPath>Animations/Moon1</texPath>
+    <graphicData>
+      <texPath>Things/Pawn/Animal/Warg/Warg</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>1.5</drawSize>
+    </graphicData>
+    <overlayColor>(0, 0, 1)</overlayColor> <!-- Blue color -->
+    <overlayAlpha>0.3</overlayAlpha>
+    <overlayLayer>Body</overlayLayer>
+    <offset>(0, 1, 0)</offset>
+    <layerOffset>10</layerOffset>
+    <workerClass>JJK.PawnOverlayNodeWorker</workerClass>
+    <shaderTypeDef>Transparent</shaderTypeDef>
+  </li>
+  </renderNodeProperties>
   <stages>
-    <li>
-      <capMods>
-        <li>
-          <capacity>Consciousness</capacity>
-          <setMax>0.1</setMax>
-        </li>
-      </capMods>
-    </li>
   </stages>
 </HediffDef>
 </Defs>

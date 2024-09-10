@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_SplitSoul</defName>
+    <label>Split Soul</label>
+    <description>The target's soul has been split, reducing their ability to heal, rest, and regenerate cursed energy.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <makesAlert>true</makesAlert>
+    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>1.0</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.5</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+        <statOffsets>
+          <InjuryHealingFactor>-0.5</InjuryHealingFactor>
+          <ImmunityGainSpeed>-0.5</ImmunityGainSpeed>
+          <RestRateMultiplier>-0.5</RestRateMultiplier>
+          <JJK_CursedEnergyRegen>-0.5</JJK_CursedEnergyRegen>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

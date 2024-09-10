@@ -45,6 +45,7 @@ namespace JJK
         public static ThingDef JJK_DismantleProjectile;
         public static ThingDef JJK_idleTransfigurationDoll;
         public static ThingDef JJK_Flyer;
+        public static ThingDef JJK_CursedObjectPiece;
 
         public static MentalStateDef TransfiguredState_Murderous;
 
@@ -84,6 +85,8 @@ namespace JJK
         
         public static HediffDef JJK_PlayfulCloudConcussion;
 
+        public static HediffDef JJK_CursedObjectConsumer;
+
         public static HediffDef JJK_CursedSpiritManipulator;
         public static HediffDef JJK_TenShadowsUser;
 
@@ -108,6 +111,11 @@ namespace JJK
 
         public static BackstoryDef ZombieChildhoodStory;
         public static BackstoryDef ZombieAdulthoodStory;
+
+
+        public static RecipeDef JJK_CreateCursedObject;
+
+        public static AbilityCategoryDef Cursed_Energy;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         static JJKDefOf()

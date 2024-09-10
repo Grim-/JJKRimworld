@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="BaseMeleeWeapon_Sharp_Quality">
+  <defName>JJK_SplitSoulKatana</defName>
+  <label>Split Soul Katana</label>
+  <description>The ancient weapon of kings, the longsword can be used for slashing or stabbing.</description>
+  <possessionCount>1</possessionCount>
+  <graphicData>
+    <texPath>SplitSoulKatana</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+  </graphicData>
+  <techLevel>Medieval</techLevel>
+  <weaponTags>
+    <li>MedievalMeleeAdvanced</li>
+    <li>LongSword</li>
+  </weaponTags>
+  <costStuffCount>100</costStuffCount>
+  <thingSetMakerTags><li>RewardStandardQualitySuper</li></thingSetMakerTags>
+  <statBases>
+    <WorkToMake>18000</WorkToMake>
+    <Mass>2</Mass>
+  </statBases>
+  <relicChance>2</relicChance>
+  <equippedAngleOffset>-65</equippedAngleOffset>
+  <stuffCategories>
+    <li>Metallic</li>
+    <li>Woody</li>
+  </stuffCategories>
+  <tools>
+    <li>
+      <label>handle</label>
+      <capacities>
+        <li>Blunt</li>
+      </capacities>
+      <power>15</power>
+      <cooldownTime>2</cooldownTime>
+    </li>
+    <li>
+      <label>point</label>
+      <capacities>
+        <li>Stab</li>
+      </capacities>
+      <power>40</power>
+      <cooldownTime>2.6</cooldownTime>
+    </li>
+    <li>
+      <label>edge</label>
+      <capacities>
+        <li>Cut</li>
+      </capacities>
+      <power>50</power>
+      <cooldownTime>2.6</cooldownTime>
+    </li>
+  </tools>
+  <recipeMaker>
+    <researchPrerequisite>LongBlades</researchPrerequisite>
+    <skillRequirements>
+      <Crafting>5</Crafting>
+    </skillRequirements>
+    <displayPriority>420</displayPriority>
+  </recipeMaker>
+  <comps>
+    <li Class="JJK.CompProperties_EquipCompApplyHediffOnHit">
+      <ApplyToSelf>false</ApplyToSelf>
+      <ApplyOnTarget>true</ApplyOnTarget>
+      <ApplyChance>1</ApplyChance>
+      <hediffToApply>JJK_SplitSoul</hediffToApply>
+    </li>
+  </comps>
+</ThingDef>
+</Defs>

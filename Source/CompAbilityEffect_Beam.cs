@@ -5,10 +5,6 @@ namespace JJK
 {
     public class CompProperties_ComplexBeam : CompProperties_AbilityEffect
     {
-        //public ThingDef StartMote;
-       // public ThingDef MidMote;
-        //public ThingDef EndMote;
-
         public EffecterDef BeamStart;
         public ThingDef BeamMiddle;
         public EffecterDef BeamEnd;

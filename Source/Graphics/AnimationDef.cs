@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace JJK
-{       
-	/*
+{
+
+    /*
 	 * This file contains code derived from the TMagic mod by TorannD.
 	 * Original source: https://github.com/TorannD/TMagic
 	 * 
@@ -37,7 +39,7 @@ namespace JJK
 	 * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 	 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	 */
-	public class AnimationDef : ThingDef
+    public class AnimationDef : ThingDef
 	{
 			public override void PostLoad()
 			{

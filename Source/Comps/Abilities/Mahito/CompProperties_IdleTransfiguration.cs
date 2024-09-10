@@ -46,7 +46,7 @@ namespace JJK
             float PawnMass = target.Pawn.GetStatValue(StatDefOf.Mass);
             float Cost = PawnMass * Props.CostPerMass;
 
-            JJKUtility.SummonedCreatureManager.RegisterSummon(FleshBeast, parent.pawn);
+            //JJKUtility.SummonedCreatureManager.RegisterSummon(FleshBeast, parent.pawn);
 
             FleshBeast.health.AddHediff(JJKDefOf.JJK_IdleTransfigurationBeastStatBoost);
             FleshBeast.SetFaction(this.parent.pawn.Faction, this.parent.pawn);
