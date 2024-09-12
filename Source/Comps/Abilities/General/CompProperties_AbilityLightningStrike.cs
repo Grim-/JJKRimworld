@@ -22,17 +22,9 @@ namespace JJK
     {
         public new CompProperties_AbilityLightningStrike Props => (CompProperties_AbilityLightningStrike)props;
 
-        //public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
-        //{
-
-        //}
-
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             base.Apply(target, dest);
-
-            Effecter effecter = JJKDefOf.JJK_RedEffecter.Spawn(target.Cell, parent.pawn.MapHeld);
-            effecter.Trigger(parent.pawn, parent.pawn);
 
             Map map = parent.pawn.Map;
             IntVec3 strikeLocation = target.Cell;

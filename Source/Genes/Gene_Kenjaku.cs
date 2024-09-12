@@ -126,6 +126,16 @@ namespace JJK
                // Log.Warning("JJK: JJK_KenjakuPossesion is null");
             }
 
+            TargetPawn.story.birthLastName = CurrentPawn.story.birthLastName;
+
+            NameTriple originalName = (NameTriple)TargetPawn.Name;
+
+            TargetPawn.Name = new NameTriple(
+                originalName.First,
+                originalName.Nick,
+                originalName.Last
+            );
+
             // Log.Message("JJK: Transferring genes and abilities");
             JJKUtility.GiveCursedEnergy(TargetPawn);
             JJKUtility.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);

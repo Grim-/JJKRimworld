@@ -15,83 +15,58 @@ namespace JJK
         }
     }
 
-
-    public class CompAbilityEffect_DemondogSummon : CompAbilityEffect
+    public class CompAbilityEffect_DemondogSummon : CompBaseShikigamiSummon
     {
         public new CompProperties_AbilityDemondogSummon Props => (CompProperties_AbilityDemondogSummon)props;
-        private bool ShouldSummonTotality = false;
-        private bool CanSummon = true;
 
+        private enum DivineDogSummonMode
+        {
+            Individual,
+            Totality,
+            Cooldown
+        }
+
+        private DivineDogSummonMode CurrentState = DivineDogSummonMode.Individual;
         private Pawn DemonDogTotality;
         private Pawn DemonDogWhite;
         private Pawn DemonDogBlack;
 
-
-
         private int TicksUntilAvailableAgain = 1250;
         private int ResummonTimer = 0;
 
-        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
+        public override void OnPawnTarget(Pawn Pawn, Map Map)
         {
-            base.Apply(target, dest);
+            Summon(parent.pawn.Position, Pawn);
+        }
 
-            if (HasActive())
-            {
-                DestroyActive();
-            }
-            else
-            {
-                Map map = parent.pawn.Map;
-                IntVec3 spawnPosition = parent.pawn.Position;
-
-                if (spawnPosition.Walkable(map))
-                {
-                    Summon(spawnPosition, target.Pawn);
-                }
-            }
+        public override void OnLocationTarget(IntVec3 Position, Map Map)
+        {
+            Summon(Position, null);
         }
 
         public override void CompTick()
         {
             base.CompTick();
 
-            if (!CanSummon)
+            if (CurrentState == DivineDogSummonMode.Cooldown)
             {
                 ResummonTimer++;
 
                 if (ResummonTimer >= TicksUntilAvailableAgain)
                 {
-                    CanSummon = true;
-                    ResummonTimer = 0;
-                }
-            }
-            else
-            {
-
-            }
-        }
-
-
-        private void UpdateSummonStatus()
-        {
-            if (DemonDogBlack != null)
-            {
-                if (DemonDogBlack.Dead)
-                {
-
+                    OnCooldownStateEnd();
                 }
             }
         }
 
-
-        private void Summon(IntVec3 Position, Pawn TargetPawn)
+        public override void Summon(IntVec3 Position, Pawn TargetPawn)
         {
-            if (!CanSummon)
+            if (CurrentState == DivineDogSummonMode.Cooldown)
             {
                 return;
             }
 
-            if (ShouldSummonTotality)
+            if (CurrentState == DivineDogSummonMode.Totality)
             {
                 DemonDogTotality = SpawnDemonDog(JJKDefOf.JJK_DivineDogTotality, Position, TargetPawn, parent.pawn.Map);
             }
@@ -102,62 +77,77 @@ namespace JJK
             }
         }
 
-
-        private bool HasActive()
+        public override bool HasActive()
         {
-            return DemonDogWhite != null || DemonDogBlack != null;
+            return DemonDogWhite != null || DemonDogBlack != null || DemonDogTotality != null;
         }
 
-        private void DestroyActive()
+        public override void DestroyActive()
         {
-            if (DemonDogBlack != null && !DemonDogBlack.Destroyed)
-            {
-                if (DemonDogBlack.TryGetComp(out CompOnDeathHandler compOnDeath))
-                {
-                    Log.Message($"unRegistering OnDeath Handler for {DemonDogBlack.Label} (shikigami)");
-                    compOnDeath.OnDeath -= OnShikigamiDeath;
-                }
-
-                DemonDogBlack.Destroy();
-            }
-
-            if (DemonDogWhite != null && !DemonDogWhite.Destroyed)
-            {
-                if (DemonDogWhite.TryGetComp(out CompOnDeathHandler compOnDeath))
-                {
-                    Log.Message($"unRegistering OnDeath Handler for {DemonDogWhite.Label} (shikigami)");
-                    compOnDeath.OnDeath -= OnShikigamiDeath;
-                }
-
-                DemonDogWhite.Destroy();
-            }
+            DestroySummon(DemonDogBlack);
+            DemonDogBlack = null;
+            DestroySummon(DemonDogWhite);
+            DemonDogWhite = null;
+            DestroySummon(DemonDogTotality);
+            DemonDogTotality = null;
         }
 
-        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        public override void UnSummon()
         {
-            return base.CanApplyOn(target, dest);
+            DestroySummon(DemonDogBlack);
+            DemonDogBlack = null;
+            DestroySummon(DemonDogWhite);
+            DemonDogWhite = null;
+            DestroySummon(DemonDogTotality);
+            DemonDogTotality = null;
         }
 
-        private Pawn SpawnDemonDog(PawnKindDef KindDef, IntVec3 spawnPosition, Pawn TargetPawn, Map Map)
+        private Pawn SpawnDemonDog(PawnKindDef KindDef, IntVec3 SpawnPosition, Pawn TargetPawn, Map Map)
         {
-            Pawn demondog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, spawnPosition);
-
-            if (demondog.TryGetComp(out CompOnDeathHandler compOnDeath))
+            Pawn DemonDog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, SpawnPosition);
+            JJKDefOf.JJK_ShadowSummonEffectLarge.SpawnMaintained(SpawnPosition, Map);
+            if (DemonDog.TryGetComp(out CompOnDeathHandler CompOnDeath))
             {
-                Log.Message($"Registering OnDeath Handler for {demondog.Label} (shikigami)");
-                compOnDeath.OnDeath += OnShikigamiDeath;
+                //Log.Message($"Registering OnDeath Handler for {DemonDog.Label} (shikigami)");
+                CompOnDeath.OnDeath += OnShikigamiDied;
             }
 
             if (TargetPawn != null)
             {
-                TryStartAttackJob(demondog, TargetPawn);
+                TryStartAttackJob(DemonDog, TargetPawn);
             }
-            return demondog;
+            return DemonDog;
         }
 
-        private void OnShikigamiDeath(Thing obj)
+        private void DestroySummon(Pawn Summon)
         {
-            if (obj is Pawn Pawn)
+            if (Summon != null && !Summon.Destroyed)
+            {
+                if (Summon.TryGetComp(out CompOnDeathHandler CompOnDeath))
+                {
+                    //Log.Message($"Unregistering OnDeath Handler for {Summon.Label} (shikigami)");
+                    CompOnDeath.OnDeath -= OnShikigamiDied;
+                }
+
+                Summon.Destroy();
+            }
+        }
+
+        private void TryStartAttackJob(Pawn Pawn, Pawn TargetPawn)
+        {
+            if (TargetPawn != null)
+            {
+                Job Job = JobMaker.MakeJob(JJKDefOf.JJK_DemondogAttackAndVanish);
+                Job.SetTarget(TargetIndex.A, parent.pawn);
+                Job.SetTarget(TargetIndex.B, TargetPawn);
+                Pawn.jobs.StartJob(Job, JobCondition.None);
+            }
+        }
+
+        private void OnShikigamiDied(Thing Obj)
+        {
+            //Log.Message($"OnShikigamiDied");
+            if (Obj is Pawn Pawn)
             {
                 if (Pawn.kindDef == JJKDefOf.JJK_DivineDogBlack || Pawn.kindDef == JJKDefOf.JJK_DivineDogWhite)
                 {
@@ -167,179 +157,48 @@ namespace JJK
                     {
                         DestroyActive();
                     }
-                    ShouldSummonTotality = true;
-                    Summon(obj.Position, null);
+                    CurrentState = DivineDogSummonMode.Totality;
+                    Summon(Obj.Position, null);
                 }
-                else if(Pawn.kindDef == JJKDefOf.JJK_DivineDogTotality)
+                else if (Pawn.kindDef == JJKDefOf.JJK_DivineDogTotality)
                 {
-                    CanSummon = false;
+                    Messages.Message($"{Pawn.Label} Has died! The ability is now on cooldown.", MessageTypeDefOf.NegativeEvent, true);
+                    StartCooldownState();
                 }
             }
-
- 
-
-          
         }
 
-        private void TryStartAttackJob(Pawn Pawn, Pawn TargetPawn)
+
+        private void StartCooldownState()
         {
-            if (TargetPawn != null)
-            {
-                Job job = JobMaker.MakeJob(JJKDefOf.JJK_DemondogAttackAndVanish);
-                job.SetTarget(TargetIndex.A, parent.pawn);
-                job.SetTarget(TargetIndex.B, TargetPawn);
-                Pawn.jobs.StartJob(job, JobCondition.None);
-            }
+            CurrentState = DivineDogSummonMode.Cooldown;
+            ResummonTimer = 0;
+            ShouldDisableGizmo = true;
         }
+
+        private void OnCooldownStateEnd()
+        {
+            CurrentState = DivineDogSummonMode.Individual;
+            ResummonTimer = 0;
+            ShouldDisableGizmo = false;
+        }
+
+
+        public override string CompInspectStringExtra()
+        {
+            return base.CompInspectStringExtra() + $"Current Summon State {CurrentState}";
+        }
+
         public override void PostExposeData()
         {
             base.PostExposeData();
 
-            Scribe_Values.Look(ref CanSummon, "canSummon", false);
-            Scribe_Values.Look(ref ShouldSummonTotality, "shouldSummonTotality", false);
-            Scribe_References.Look(ref DemonDogBlack, "demonDogBlack");
-            Scribe_References.Look(ref DemonDogWhite, "demonDogWhite");
+            Scribe_Values.Look(ref CurrentState, "CurrentState", DivineDogSummonMode.Individual);
+            Scribe_References.Look(ref DemonDogBlack, "DemonDogBlack");
+            Scribe_References.Look(ref DemonDogWhite, "DemonDogWhite");
+            Scribe_References.Look(ref DemonDogTotality, "DemonDogTotality");
+            Scribe_Values.Look(ref ResummonTimer, "ResummonTimer", 0);
         }
+
     }
 }
-
-//using RimWorld;
-//using Verse;
-//using Verse.AI;
-
-//namespace JJK
-//{
-//    public class CompProperties_AbilityDemondogSummon : CompProperties_AbilityEffect
-//    {
-//        public PawnKindDef demondogKindDef;
-
-//        public CompProperties_AbilityDemondogSummon()
-//        {
-//            compClass = typeof(CompAbilityEffect_DemondogSummon);
-//        }
-//    }
-
-
-//    public class CompAbilityEffect_DemondogSummon : CompAbilityEffect
-//    {
-//        public new CompProperties_AbilityDemondogSummon Props => (CompProperties_AbilityDemondogSummon)props;
-
-
-//        private Hediff_TenShadowsUser _TenShadowsUser;
-//        private Hediff_TenShadowsUser TenShadowsUser
-//        {
-//            get
-//            {
-//                if (_TenShadowsUser == null)
-//                {
-//                    Hediff hediff = parent.pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_TenShadowsUser);
-
-//                    if (hediff is Hediff_TenShadowsUser shadowsUser)
-//                    {
-//                        _TenShadowsUser = shadowsUser;
-//                    }
-//                }
-
-//                return _TenShadowsUser;
-//            }
-//        }
-
-//        private Pawn DemonDogWhite;
-//        private Pawn DemonDogBlack;
-//        private Pawn DemonDogTotality;
-
-//        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
-//        {
-//            base.Apply(target, dest);
-
-//            if (DemonDogWhite != null || DemonDogBlack != null)
-//            {
-//                if (!DemonDogBlack.Destroyed)
-//                {
-//                    DemonDogBlack.Destroy();
-//                }
-
-//                if (!DemonDogWhite.Destroyed)
-//                {
-//                    DemonDogWhite.Destroy();
-//                }
-//            }
-//            else
-//            {
-//                Map map = parent.pawn.Map;
-//                IntVec3 spawnPosition = parent.pawn.Position;
-
-
-//                if (!spawnPosition.Walkable(map))
-//                {
-//                    Log.Error("Spawn postiion is unwalkable, cannot summon divine dogs");
-//                    return;
-//                }
-
-
-
-//                if (TenShadowsUser != null)
-//                {
-//                    if (TenShadowsUser.ShouldSummonTotalityDivineDog)
-//                    {
-//                        if (TenShadowsUser.CanSummonShikigamiKind(JJKDefOf.JJK_DivineDogTotality))
-//                        {
-//                            DemonDogTotality = TenShadowsUser.SummonShikigami(JJKDefOf.JJK_DivineDogTotality, spawnPosition, parent.pawn.Map);
-
-//                            if (target.Pawn != null && target.Pawn.Faction.HostileTo(parent.pawn.Faction))
-//                            {
-//                                TryStartAttackJob(DemonDogTotality, target.Pawn);
-//                            }
-//                        }
-//                    }
-//                    else
-//                    {
-//                        if (TenShadowsUser.CanSummonShikigamiKind(JJKDefOf.JJK_DivineDogBlack))
-//                        {
-//                            DemonDogBlack = TenShadowsUser.SummonShikigami(JJKDefOf.JJK_DivineDogBlack, spawnPosition + new IntVec3(-1, 0, 0), parent.pawn.Map);
-
-//                            if (target.Pawn != null && target.Pawn.Faction.HostileTo(parent.pawn.Faction))
-//                            {
-//                                TryStartAttackJob(DemonDogBlack, target.Pawn);
-//                            }
-//                        }
-
-//                        if (TenShadowsUser.CanSummonShikigamiKind(JJKDefOf.JJK_DivineDogWhite))
-//                        {
-//                            DemonDogWhite = TenShadowsUser.SummonShikigami(JJKDefOf.JJK_DivineDogWhite, spawnPosition + new IntVec3(-1, 0, 0), parent.pawn.Map);
-
-//                            if (target.Pawn != null && target.Pawn.Faction.HostileTo(parent.pawn.Faction))
-//                            {
-//                                TryStartAttackJob(DemonDogWhite, target.Pawn);
-//                            }
-//                        }
-//                    }
-
-//                }
-//            }
-//        }
-
-//        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
-//        {
-//            return base.CanApplyOn(target, dest);
-//        }
-
-//        private void TryStartAttackJob(Pawn Pawn, Pawn TargetPawn)
-//        {
-//            if (TargetPawn != null)
-//            {
-//                Job job = JobMaker.MakeJob(JJKDefOf.JJK_DemondogAttackAndVanish);
-//                job.SetTarget(TargetIndex.A, parent.pawn);
-//                job.SetTarget(TargetIndex.B, TargetPawn);
-//                Pawn.jobs.StartJob(job, JobCondition.None);
-//            }
-//        }
-
-//        public override void PostExposeData()
-//        {
-//            base.PostExposeData();
-//            Scribe_References.Look(ref DemonDogBlack, "demonDogBlack");
-//            Scribe_References.Look(ref DemonDogWhite, "demonDogWhite");
-//        }
-//    }
-//}

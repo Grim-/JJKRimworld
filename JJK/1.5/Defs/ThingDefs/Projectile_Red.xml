@@ -4,6 +4,7 @@
     <defName>ReversedCursedTechnique_RedProjecitle</defName>
     <label>Red</label>
     <thingClass>JJK.Projectile_Red</thingClass>
+    <tickerType>Normal</tickerType>
     <graphicData>
       <texPath>Animations/StarburstImpact</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -27,13 +28,19 @@
         <glowColor>(255,0,0,0)</glowColor>
       </li>
       <li Class="JJK.CompProperties_PulseAoeDamage">
-        <TicksBetweenPulse>100</TicksBetweenPulse>
+        <TicksBetweenPulse>10</TicksBetweenPulse>
         <ExplosionRadius>4</ExplosionRadius>
         <DamageType>Bomb</DamageType>
-        <DamageAmount>10</DamageAmount>
+        <DamageAmount>25</DamageAmount>
         <ArmorPenetration>0.3</ArmorPenetration>
-        <ExplosionSound>Explosion_Bomb</ExplosionSound>
+      </li>
+      <li Class="JJK.CompProperties_BeamEffect">
+        <TrailMote>JJK_Mote_ScorchMarkRed</TrailMote>
+        <MoteInterval>0.25</MoteInterval>
+        <MoteDuration>30</MoteDuration>
+        <AlignWithMovement>true</AlignWithMovement>
       </li>
     </comps>
   </ThingDef>
+
 </Defs>

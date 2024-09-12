@@ -93,7 +93,7 @@
         <lifeExpectancy>1</lifeExpectancy>
         <manhunterOnDamageChance>0</manhunterOnDamageChance>
         <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
-        <baseBodySize>1.0</baseBodySize>
+        <baseBodySize>4.0</baseBodySize>
         <baseHealthScale>1.0</baseHealthScale>
         <wildness>0</wildness>
         <canReleaseToWild>false</canReleaseToWild>
@@ -126,9 +126,10 @@
       <li>
         <bodyGraphicData>
           <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
-          <drawSize>1.5</drawSize>
-          <color>(1, 1, 1)</color>
-          <colorTwo>(0,0,0)</colorTwo>
+          <shaderType>CutoutComplex</shaderType>
+          <drawSize>4</drawSize>
+          <color>(0, 0, 0)</color>
+          <colorTwo>(1,1,1)</colorTwo>
         </bodyGraphicData>
       </li>
     </lifeStages>

@@ -44,7 +44,7 @@
     <offset>(0, 1, 0)</offset>
     <layerOffset>10</layerOffset>
     <workerClass>JJK.PawnOverlayNodeWorker</workerClass>
-    <shaderTypeDef>Transparent</shaderTypeDef>
+    <shaderTypeDef>CutoutComplex</shaderTypeDef>
   </li>
   </renderNodeProperties>
   <stages>

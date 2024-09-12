@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKHeavenlyPactCursedEnergy</defName>
+    <label>Heavenly Pact</label>
+    <description>In exchange for crippling pain, skin as weak as paper, you have gained an abudance of Cursed energy, far exceeding almost all others.</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>Hemogen</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergyRegen>10</JJK_CursedEnergyRegen>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
+      <JJK_CursedEnergy>400</JJK_CursedEnergy>
+      <MeleeDPS>0.3</MeleeDPS>
+      <MaxHitPoints>0.4</MaxHitPoints>
+      <MoveSpeed>0.7</MoveSpeed>
+      <MeleeHitChance>0.01</MeleeHitChance>
+      <MeleeArmorPenetration>0.1</MeleeArmorPenetration>
+      <MeleeDodgeChance>0.4</MeleeDodgeChance>
+      <CarryingCapacity>0.1</CarryingCapacity>
+      <PainShockThreshold>0.1</PainShockThreshold>
+    </statFactors>
+    <exclusionTags>
+      <li>CursedEnergyMultiplierGene</li>
+    </exclusionTags>
+    <capMods>
+      <li>
+        <capacity>Sight</capacity>
+        <postFactor>0.7</postFactor>
+      </li>
+      <li>
+        <capacity>Hearing</capacity>
+        <postFactor>1</postFactor>
+      </li>
+      <li>
+        <capacity>BloodFiltration</capacity>
+        <postFactor>0.9</postFactor>
+      </li>
+      <li>
+        <capacity>BloodPumping</capacity>
+        <postFactor>0.9</postFactor>
+      </li>
+      <li>
+        <capacity>Breathing</capacity>
+        <postFactor>0.8</postFactor>
+      </li>
+      <li>
+        <capacity>Moving</capacity>
+        <postFactor>0.4</postFactor>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <postFactor>0.1</postFactor>
+      </li>
+      <li>
+        <capacity>Consciousness</capacity>
+        <postFactor>5</postFactor>
+      </li>
+    </capMods>
+  </GeneDef>
+</Defs>

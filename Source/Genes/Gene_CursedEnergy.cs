@@ -140,12 +140,19 @@ namespace JJK
         {
             base.Tick();
 
-            if (Pawn.IsHashIntervalTick(RegenTicks))
+            CurrentTick++;
+            if (CurrentTick >= RegenTicks)
             {
                 Log.Message($"Regenerating {RegenMod} after {RegenTicks} ticks.");
                 RestoreCursedEnergy(RegenMod);
+                ResetRegenTicks();
             }
+        }
 
+
+        public void ResetRegenTicks()
+        {
+            CurrentTick = 0;
         }
 
         public override void SetTargetValuePct(float val)
@@ -174,6 +181,7 @@ namespace JJK
         {
             base.ExposeData();
             Scribe_Values.Look(ref CursedEnergy, "cursedEnergy", defaultValue: true);
+            Scribe_Values.Look(ref CurrentTick, "currentRegenTick", defaultValue: 0);
         }
     }
 }

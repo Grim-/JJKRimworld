@@ -16,7 +16,7 @@
     <drawSize>1</drawSize>
     <shaderParameters>
       <_DistortionTex>/Other/Ripples</_DistortionTex>
-      <_distortionIntensity>0.05</_distortionIntensity>
+      <_distortionIntensity>0.1</_distortionIntensity>
       <_DistortionScale>0.4</_DistortionScale>
       <_distortionScrollSpeed>(0.07, 0.07, 0.0)</_distortionScrollSpeed>
     </shaderParameters>
@@ -27,34 +27,13 @@
       <glowColor>(0,0,255,0)</glowColor>
     </li>
     <li Class="CompProperties_DestroyAfterDelay">
-      <delayTicks>6000</delayTicks>
+      <delayTicks>2500</delayTicks>
     </li>
-    <li Class="JJK.CompProperties_PawnPuller">
+    <li Class="JJK.CompProperties_BlueAOE">
+      <PullTicks>40</PullTicks>
+      <DamageTicks>600</DamageTicks>
+      <DamageAmount>15</DamageAmount>
     </li>
   </comps>
 </ThingDef>
-
-<ThingDef ParentName="BaseBullet">
-  <defName>JJK_BloodBullet</defName>
-  <label>blood bullet</label>
-  <graphicData>
-    <texPath>Animations/projectilebolt</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-    <shaderType>Transparent</shaderType>
-    <drawSize>2</drawSize>
-    <shaderParameters>
-      <_Color>(255,0,0,1)</_Color>
-      <_DistortionTex>/Other/Ripples</_DistortionTex>
-      <_distortionIntensity>0.05</_distortionIntensity>
-      <_DistortionScale>0.4</_DistortionScale>
-      <_distortionScrollSpeed>(0.07, 0.07, 0.0)</_distortionScrollSpeed>
-    </shaderParameters>
-  </graphicData>
-  <projectile>
-    <damageDef>Cut</damageDef>
-    <damageAmountBase>3</damageAmountBase>
-    <speed>90</speed>
-  </projectile>
-</ThingDef>
-
 </Defs>

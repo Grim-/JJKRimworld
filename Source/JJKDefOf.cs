@@ -31,6 +31,7 @@ namespace JJK
         public static GeneDef Gene_JJKGrade2;
         public static GeneDef Gene_JJKGrade3;
         public static GeneDef Gene_JJKHeavenlyPact;
+        public static GeneDef Gene_JJKHeavenlyPactCursedEnergy;
         public static GeneDef Gene_Shoko;
         public static GeneDef Gene_JJKSixEyes;
         public static GeneDef Gene_JJKSpecialGrade;
@@ -107,7 +108,9 @@ namespace JJK
 
         public static EffecterDef JJK_Deflect;
         public static EffecterDef JJK_aura;
-        public static EffecterDef JJK_RedEffecter;
+        public static EffecterDef JJK_ShadowSummonEffect;
+        public static EffecterDef JJK_ShadowSummonEffectLarge;
+
 
         public static BackstoryDef ZombieChildhoodStory;
         public static BackstoryDef ZombieAdulthoodStory;

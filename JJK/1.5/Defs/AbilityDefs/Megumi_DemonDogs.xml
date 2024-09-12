@@ -8,7 +8,7 @@
     <verbClass>Verb_CastAbility</verbClass>
     <drawAimPie>true</drawAimPie>
     <range>20</range>
-    <warmupTime>1</warmupTime>
+    <warmupTime>0</warmupTime>
     <targetParams>
       <canTargetLocations>true</canTargetLocations>
       <canTargetPawns>true</canTargetPawns>

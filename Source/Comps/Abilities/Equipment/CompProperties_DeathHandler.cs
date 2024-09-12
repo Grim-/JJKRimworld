@@ -15,19 +15,11 @@ namespace JJK
     public class CompOnDeathHandler : ThingCompExt
     {
         public event Action<Thing> OnDeath;
-
-
-        public override void PostPostMake()
-        {
-            base.PostPostMake();
-            Log.Message("CompOnDeathHandler PostPostMake called");
-
-        }
+        public event Action<Thing> OnDespawned;
 
         public override void Notify_KilledPawn(Pawn pawn)
         {
             Log.Message("Notify_KilledPawn called");
-
             base.Notify_KilledPawn(pawn);
         }
 
@@ -38,11 +30,11 @@ namespace JJK
             base.Notify_Killed(prevMap, dinfo);
         }
 
-        public override void Notify_KilledLeavingsLeft(List<Thing> leavings)
+        public override void PostDeSpawn(Map map)
         {
-            Log.Message("Notify_KilledLeavingsLeft called");
-            base.Notify_KilledLeavingsLeft(leavings);
-
+            Log.Message("PostDeSpawn called");
+            OnDespawned?.Invoke(parent);
+            base.PostDeSpawn(map);
         }
     }
 }

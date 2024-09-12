@@ -28,6 +28,9 @@
           <TeleportInEffecter>Skip_EntryNoDelay</TeleportInEffecter>
           <DistanceCostMult>1.1</DistanceCostMult>
         </li>
+        <li Class="JJK.CompProperties_AbilityCECost">
+          <cursedEnergyCost>10</cursedEnergyCost>
+        </li>
       </comps>
     </AbilityDef>
 </Defs>

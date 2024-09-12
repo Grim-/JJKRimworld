@@ -82,31 +82,84 @@ namespace JJK
     [HarmonyPatch(typeof(Pawn_GeneTracker), nameof(Pawn_GeneTracker.AddGene), new System.Type[] { typeof(GeneDef), typeof(bool) })]
     public static class Patch_AddGene
     {
+
+        private static float HeavenlyPactChance = 10f;
+        private static float SixEyesChance = 10f;
+
+
         static void Postfix(Pawn_GeneTracker __instance, GeneDef geneDef, bool xenogene)
         {
             Pawn pawn = __instance.pawn;
 
-            if (geneDef == JJKDefOf.Gene_JJKLimitless && pawn.HasSixEyes() || geneDef == JJKDefOf.Gene_JJKSixEyes && pawn.IsLimitlessUser())
+            if (geneDef == JJKDefOf.Gene_JJKCursedEnergy)
+            {
+                if (!RollHeavenlyPact(pawn, geneDef))
+                {
+                    JJKUtility.GiveRandomSorcererGrade(pawn);
+                    RollSixEyes(pawn, geneDef);
+                }
+            }
+
+            if (CanGrantHollowPurple(pawn, geneDef))
             {
                 if (!pawn.HasAbility(JJKDefOf.Gojo_HollowPurple))
                 {
                     pawn.abilities.GainAbility(JJKDefOf.Gojo_HollowPurple);
                 }
             }
-            else if(geneDef == JJKDefOf.Gene_JJKCursedEnergy)
+
+        }
+
+        private static bool RollHeavenlyPact(Pawn Pawn, GeneDef GeneAdded)
+        {
+            if (Rand.Range(0, 100) < HeavenlyPactChance)
             {
-                if (Rand.Range(0, 100) < 10)
+                if (Rand.Bool)
                 {
-                    pawn.genes.AddGene(JJKDefOf.Gene_JJKHeavenlyPact, false);
+                    if (Pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKHeavenlyPact))
+                    {
+                        Pawn.genes.AddGene(JJKDefOf.Gene_JJKHeavenlyPact, true);
+                        return true;
+                    }
                 }
                 else
                 {
-                    JJKUtility.GiveRandomSorcererGrade(pawn);
+                    if (Pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKHeavenlyPactCursedEnergy))
+                    {
+                        Pawn.genes.AddGene(JJKDefOf.Gene_JJKHeavenlyPactCursedEnergy, true);
+                        return true;
+                    }
                 }
-              
             }
+            return false;
+        }
+
+        private static bool RollSixEyes(Pawn Pawn, GeneDef GeneAdded)
+        {
+            if (Pawn.HasHeavenlyPact())
+            {
+                return false;
+            }
+
+            if (Rand.Range(0, 100) < SixEyesChance)
+            {
+                if (!Pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKSixEyes))
+                {
+                    Pawn.genes.AddGene(JJKDefOf.Gene_JJKSixEyes, true);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool CanGrantHollowPurple(Pawn pawn, GeneDef geneDef)
+        {
+            return geneDef == JJKDefOf.Gene_JJKLimitless && pawn.HasSixEyes() || geneDef == JJKDefOf.Gene_JJKSixEyes && pawn.IsLimitlessUser();
         }
     }
+
+
+    
 
     [HarmonyPatch(typeof(TraitSet), nameof(TraitSet.GainTrait), new System.Type[] { typeof(Trait), typeof(bool) })]
     public static class Patch_AddTrait
@@ -252,7 +305,7 @@ namespace JJK
             }
 
 
-            return true; // Run the original method
+            return true; 
         }
 
 
@@ -263,6 +316,11 @@ namespace JJK
             {
                 if (__instance.IsShikigami())
                 {
+                    foreach (ThingComp thingComp in __instance.AllComps)
+                    {
+                        thingComp.Notify_Killed(__instance.Map, dinfo);
+                    }
+
                     // Prevent corpse creation
                     if (__instance.Corpse != null)
                     {
@@ -273,8 +331,8 @@ namespace JJK
                     if (__instance.Spawned)
                         __instance.DeSpawn();
 
-                    // Destroy the pawn
-                    __instance.Destroy(DestroyMode.Vanish);
+                    if (!__instance.Destroyed)
+                        __instance.Destroy(DestroyMode.Vanish);
 
                     // Skip the original method
                     return false;

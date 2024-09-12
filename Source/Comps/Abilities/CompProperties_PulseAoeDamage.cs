@@ -1,5 +1,9 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace JJK
 {
@@ -10,7 +14,8 @@ namespace JJK
         public DamageDef DamageType = DamageDefOf.Bomb;
         public int DamageAmount = 7;
         public float ArmorPenetration = 0.4f;
-        public SoundDef ExplosionSound = null;
+        public bool CanDamageSelf = false;
+        public bool CanDamageFriendly = true;
 
         public CompProperties_PulseAoeDamage()
         {
@@ -23,6 +28,11 @@ namespace JJK
         private int TicksUntilPulse;
 
         public CompProperties_PulseAoeDamage Props => (CompProperties_PulseAoeDamage)props;
+
+
+
+        private Thing Launcher => Projectile.Launcher;
+        private Projectile Projectile => (Projectile)parent;
 
         public override void Initialize(CompProperties props)
         {
@@ -45,16 +55,36 @@ namespace JJK
 
         private void Explode()
         {
-            GenExplosion.DoExplosion(
-                parent.Position,
-                parent.Map,
-                Props.ExplosionRadius,
-                Props.DamageType,
-                parent,
-                Props.DamageAmount,
-                Props.ArmorPenetration,
-                Props.ExplosionSound
-            );
+            List<Thing> thingsInRadius = JJKUtility.GetThingsInRange(parent.Position, parent.MapHeld, Props.ExplosionRadius, TargetFilter).ToList();
+
+            foreach (Thing thing in thingsInRadius)
+            {
+                if (thing.Position.DistanceTo(parent.Position) <= Props.ExplosionRadius)
+                {
+                    IntVec3 position = thing.Position;
+                    Props.DamageType.soundExplosion.PlayOneShot(new TargetInfo(position, parent.Map, false));
+                    FleckMaker.WaterSplash(position.ToVector3Shifted(), parent.Map, 1f * 6f, 20f);
+
+                    if (!thing.Destroyed)
+                    {
+                        DamageInfo dinfo = new DamageInfo(Props.DamageType, Props.DamageAmount, Props.ArmorPenetration, -1f, parent);
+                        thing.TakeDamage(dinfo);
+                    }
+                }
+            }
+        }
+
+        private bool TargetFilter(Thing Thing)
+        {
+            if (Launcher is Pawn launcherPawn && !Props.CanDamageSelf)
+            {
+                return Thing != launcherPawn;
+            }
+            else if (!Thing.Faction.HostileTo(parent.Faction) && Props.CanDamageFriendly)
+            {
+                return true;
+            }
+            return true;
         }
 
         private void ResetTimer()

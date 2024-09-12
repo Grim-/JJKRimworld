@@ -88,13 +88,18 @@
     <Compile Include="AI\ThinkNode_ConditionalDoAlways.cs" />
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="CompAbilityEffect_Beam.cs" />
-    <Compile Include="ComplexBeamEffect.cs" />
+    <Compile Include="Comps\Abilities\CompProperties_BeamEffect.cs" />
+    <Compile Include="Comps\Abilities\CompProperties_Orbiter.cs" />
+    <Compile Include="Comps\Abilities\CompProperties_TrailEffect.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_BaseShikigami.cs" />
+    <Compile Include="Graphics\ComplexBeamEffect.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundPawn.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
+    <Compile Include="Comps\AoeDamageAtEndFlyer.cs" />
     <Compile Include="Comps\Abilities\Equipment\BaseTraitComp.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_DeathHandler.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompRemoveHediffOnHit.cs" />
-    <Compile Include="Comps\Abilities\Equipment\PlayfulCloudKnockbackFlyer.cs" />
+    <Compile Include="Comps\PlayfulCloudKnockbackFlyer.cs" />
     <Compile Include="Comps\Abilities\CompProperties_PulseAoeDamage.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_AbilityFleeingHareSummon.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_DamageInRect.cs" />
@@ -137,8 +142,8 @@
     <Compile Include="Graphics\Graphic_Animated.cs" />
     <Compile Include="Graphics\IAnimated.cs" />
     <Compile Include="Graphics\Mote_Animation.cs" />
-    <Compile Include="Graphics\PawnRenderNodeWorker_OverlayRika.cs" />
-    <Compile Include="MoteBeam.cs" />
+    <Compile Include="Graphics\PawnOverlayNodeProperties.cs" />
+    <Compile Include="Graphics\MoteBeam.cs" />
     <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
@@ -176,7 +181,7 @@
     <Compile Include="Comps\Hediff\HediffCompProperties_CursedSpeechEffect.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_RandomDisappear.cs" />
     <Compile Include="Comps\Hediff\Hediff_InfiniteDomainComa.cs" />
-    <Compile Include="Comps\Misc\JobDriver_ChannelDomain.cs" />
+    <Compile Include="Ability\JobDriver_ChannelDomain.cs" />
     <Compile Include="Comps\World\AbsorbedCreatureManager.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompAbilityEffect_RestorePawnFromDoll.cs" />
     <Compile Include="Comps\Abilities\Gojo\CompProperties_BlueSelfTeleport.cs" />
@@ -204,7 +209,7 @@
     <Compile Include="Comps\Misc\ThingCompExt.cs" />
     <Compile Include="Comps\Misc\TransfigurationOption.cs" />
     <Compile Include="Comps\Abilities\Base\BaseCursedEnergyAbility.cs" />
-    <Compile Include="Comps\Abilities\CompEffect_PawnPuller.cs" />
+    <Compile Include="Comps\Abilities\CompEffect_BlueAOE.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityZombifyWorkSlave.cs" />
     <Compile Include="Comps\CompProperties_BodyTintComp.cs" />
     <Compile Include="Comps\CompProperties_DraftableSummon.cs" />
@@ -226,7 +231,6 @@
     <Compile Include="Projectiles\Projectile_HollowPurple.cs" />
     <Compile Include="Projectiles\Projectile_Red.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecipePatchClass.cs" />
     <Compile Include="Traits\Sukuna_Trait.cs" />
     <Compile Include="Comps\Misc\SummonDraftManager.cs" />
     <Compile Include="AI\JobGiver_AICastOffensiveAbility.cs" />

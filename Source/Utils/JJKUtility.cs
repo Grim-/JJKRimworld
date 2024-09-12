@@ -195,6 +195,15 @@ namespace JJK
                 Log.Message($"{targetPawn.Name} already has the highest sorcerer grade available.");
             }
         }
+
+
+
+        public static bool HasHeavenlyPact(this Pawn pawn)
+        {
+            return pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKHeavenlyPact) || pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKHeavenlyPactCursedEnergy);
+        }
+
+
         public static void CopyCursedEnergyAbilities(Pawn sourcePawn, Pawn targetPawn, bool removeFromSource = false)
         {
             if (sourcePawn == null || targetPawn == null)
@@ -336,7 +345,13 @@ namespace JJK
             }       
         }
 
-
+        public static IEnumerable<Thing> GetThingsInRange(IntVec3 center, Map map, float radius, Func<Thing, bool> Predicate = null)
+        {
+            return GenRadial.RadialCellsAround(center, radius, true)
+                .SelectMany(c => c.GetThingList(map))
+                .OfType<Thing>()
+                .Where(p => Predicate == null || Predicate(p));
+        }
         public static IEnumerable<Pawn> GetEnemyPawnsInRange(IntVec3 center, Map map, float radius)
         {
             return GenRadial.RadialCellsAround(center, radius, true)

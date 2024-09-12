@@ -8,7 +8,7 @@
     <tickerType>Normal</tickerType>
     <sealedForm>
       <graphicData>
-        <texPath>Things/Item/Equipment/WeaponMelee/LongSword</texPath>
+        <texPath>SplitSoulKatana</texPath>
         <graphicClass>Graphic_Single</graphicClass>
       </graphicData>
       <MeleeDamage>1</MeleeDamage>
@@ -17,7 +17,7 @@
     </sealedForm>
     <shikaiForm>
       <graphicData>
-        <texPath>Things/Item/Equipment/WeaponMelee/Gladius</texPath>
+        <texPath>Playfulcloud</texPath>
         <graphicClass>Graphic_Single</graphicClass>
       </graphicData>
       <MeleeDamage>1.3</MeleeDamage>
@@ -26,12 +26,12 @@
     </shikaiForm>
     <bankaiForm>
       <graphicData>
-        <texPath>Things/Item/Equipment/WeaponMelee/Zeushammer</texPath>
+        <texPath>Kamutoke</texPath>
         <graphicClass>Graphic_Single</graphicClass>
       </graphicData>
       <MeleeDamage>2</MeleeDamage>
       <CooldownMulti>0.8</CooldownMulti>
-      <ArmourPenMulti>1</ArmourPenMulti>
+      <ArmourPenMulti>1.5</ArmourPenMulti>
     </bankaiForm>
     <graphicData>
       <texPath>Things/Item/Equipment/WeaponMelee/LongSword</texPath>

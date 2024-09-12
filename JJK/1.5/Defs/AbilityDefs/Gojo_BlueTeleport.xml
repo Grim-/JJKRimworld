@@ -32,10 +32,8 @@
           <requiresLineOfSight>False</requiresLineOfSight>
         </li>
         <li Class="JJK.CompProperties_AbilityCECost">
-          <cursedEnergyCost>0.15</cursedEnergyCost>
+          <cursedEnergyCost>25</cursedEnergyCost>
         </li>
       </comps>
     </AbilityDef>
-
-
 </Defs>
