@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ShaderTypeDef>
+    <defName>CausticShader</defName>
+    <shaderPath>Shader Forge/CausticsShader</shaderPath>
+  </ShaderTypeDef>
+</Defs>

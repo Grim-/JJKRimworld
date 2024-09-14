@@ -118,6 +118,9 @@ namespace JJK
 
         public static RecipeDef JJK_CreateCursedObject;
 
+
+        public static ShaderTypeDef CausticShader;
+
         public static AbilityCategoryDef Cursed_Energy;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

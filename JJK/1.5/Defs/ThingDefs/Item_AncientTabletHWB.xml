@@ -25,7 +25,7 @@
         <useLabel>Read the ancient tablet</useLabel>
         <useDuration>600</useDuration>
       </li>
-      <li Class="CompProperties_UseEffect_GainAbility">
+      <li Class="JJK.CompProperties_GrantAbilityOnUse">
         <ability>JJK_HollowWickerBasketChannel</ability>
       </li>
       <li Class="CompProperties_UseEffectDestroySelf">

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace JJK
@@ -76,5 +77,6 @@ namespace JJK
             compClass = typeof(CompStoredPawn);
         }
     }
+
 
 }

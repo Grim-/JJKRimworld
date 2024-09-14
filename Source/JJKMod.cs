@@ -6,19 +6,27 @@ namespace JJK
     [StaticConstructorOnStartup]
     public class JJKMod : Mod
     {
-        public static Material CustomMaterial { get; private set; }
+        public Shader Shader;
+
         public JJKMod(ModContentPack content) : base(content)
         {
-            //Shader customShader = content.assetBundles.loadedAssetBundles
-            //if (customShader != null)
+
+            ////content.ReloadContent();
+            //Log.Message("JJK Mod Init");
+            //Log.Message($"Asset Bundles {content.assetBundles.loadedAssetBundles.EnumerableCount()}");
+
+
+            //foreach (var item in content.assetBundles.loadedAssetBundles)
             //{
-            //    CustomMaterial = new Material(customShader);
-            //    // Set any properties on CustomMaterial here
+            //    Log.Message(item.name);
+
+            //    foreach (var w in item.GetAllAssetNames())
+            //    {
+            //        Log.Message(w);
+            //    }
             //}
-            //else
-            //{
-            //    Log.Error("Failed to load custom shader from AssetBundle.");
-            //}
+
+            //Shader = (Shader)content.assetBundles.loadedAssetBundles[0].LoadAsset("Assets/YourShaderName.shader");
         }
     }
 }

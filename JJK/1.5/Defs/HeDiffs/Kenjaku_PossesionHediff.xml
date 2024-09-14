@@ -2,10 +2,10 @@
 <Defs>
 <HediffDef>
   <defName>JJK_KenjakuPossesion</defName>
-  <label>Cursed Technique Amplification Blue</label>
+  <label>Possesed</label>
   <hediffClass>HediffWithComps</hediffClass>
-  <description>Affected by the Reversed Cursed Technique Blue. Unable to move.</description>
+  <description>This pawn has a disturbing suture across the forehead...</description>
   <tendable>false</tendable>
-  <initialSeverity>0.001</initialSeverity>
+  <initialSeverity>1</initialSeverity>
 </HediffDef>
 </Defs>

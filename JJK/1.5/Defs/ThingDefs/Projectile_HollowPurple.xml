@@ -21,5 +21,13 @@
     <damageAmountBase>100</damageAmountBase>
     <speed>15</speed>
   </projectile>
+  <comps>
+    <li Class="JJK.CompProperties_BeamEffect">
+      <TrailMote>JJK_Mote_ScorchMarkBlue</TrailMote>
+      <MoteInterval>0.25</MoteInterval>
+      <MoteDuration>30</MoteDuration>
+      <AlignWithMovement>true</AlignWithMovement>
+    </li>
+  </comps>
 </ThingDef>
 </Defs>

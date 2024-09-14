@@ -3,9 +3,11 @@ using LudeonTK;
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Verse;
 
 namespace JJK
@@ -87,12 +89,16 @@ namespace JJK
             targetPawn.genes.AddGene(GeneToForce, true);
         }
 
-        public static void GiveRandomSorcererGrade(Pawn targetPawn)
+        public static void GiveRandomSorcererGrade(Pawn targetPawn, bool overwriteExistingGrade = false)
         {
-            // Find all GeneDefs with CursedEnergyGeneExtension
             List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
                 .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
                 .ToList();
+
+            List<Gene> existingSorcererGenes = targetPawn.genes.GenesListForReading
+             .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
+             .ToList();
+
 
             if (sorcererGeneDefs.Count == 0)
             {
@@ -100,19 +106,15 @@ namespace JJK
                 return;
             }
 
-            // Remove existing sorcerer genes
-            var existingSorcererGenes = targetPawn.genes.GenesListForReading
-                .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
-                .ToList();
-            foreach (Gene sourceGene in existingSorcererGenes)
+
+            if (existingSorcererGenes.Count > 0 && overwriteExistingGrade)
             {
-                targetPawn.genes.RemoveGene(sourceGene);
+                foreach (Gene sourceGene in existingSorcererGenes)
+                {
+                    targetPawn.genes.RemoveGene(sourceGene);
+                }
             }
-
-            // Select a random sorcerer GeneDef
             GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
-
-            // Add the randomly selected gene to the pawn
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
         }
 
@@ -589,9 +591,59 @@ namespace JJK
 
             return limbs.RandomElementWithFallback();
         }
+
+        public static void GenerateShaderPropertiesFiles()
+        {
+            try
+            {
+                // Create a directory to store the files
+                string directoryPath = Path.Combine(GenFilePaths.ConfigFolderPath, "ShaderProperties");
+                Directory.CreateDirectory(directoryPath);
+
+                // Get all public static fields of ShaderDatabase
+                FieldInfo[] fields = typeof(ShaderDatabase).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+                foreach (FieldInfo field in fields)
+                {
+                    if (field.FieldType == typeof(Shader))
+                    {
+                        Shader shader = (Shader)field.GetValue(null);
+                        if (shader != null)
+                        {
+                            string filePath = Path.Combine(directoryPath, $"{shader.name}_properties.txt");
+
+                            using (StreamWriter writer = new StreamWriter(filePath))
+                            {
+                                writer.WriteLine($"Shader Name: {shader.name}");
+                                writer.WriteLine($"Render Queue: {shader.renderQueue}");
+                                writer.WriteLine($"Is Supported: {shader.isSupported}");
+                                writer.WriteLine("\nProperties:");
+
+                                // Get all properties of the shader
+                                for (int i = 0; i < shader.GetPropertyCount(); i++)
+                                {
+                                    string propertyName = shader.GetPropertyName(i);
+                                    ShaderPropertyType propertyType = shader.GetPropertyType(i);
+
+                                    writer.WriteLine($"  - Name: {propertyName}");
+                                    writer.WriteLine($"    Type: {propertyType}");
+                                    writer.WriteLine();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Log.Message($"Shader properties have been written to: {directoryPath}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error generating shader properties: {ex.Message}");
+            }
+        }
     }
 
 
-
+   
 }
 

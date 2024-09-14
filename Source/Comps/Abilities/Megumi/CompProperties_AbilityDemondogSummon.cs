@@ -5,7 +5,7 @@ using Verse.AI;
 
 namespace JJK
 {
-    public class CompProperties_AbilityDemondogSummon : CompProperties_AbilityEffect
+    public class CompProperties_AbilityDemondogSummon : CompProperties_BaseShikigami
     {
         public PawnKindDef demondogKindDef;
 

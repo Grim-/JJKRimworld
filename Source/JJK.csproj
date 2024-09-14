@@ -88,10 +88,11 @@
     <Compile Include="AI\ThinkNode_ConditionalDoAlways.cs" />
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="CompAbilityEffect_Beam.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_BeamEffect.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_Orbiter.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_TrailEffect.cs" />
-    <Compile Include="Comps\Abilities\General\CompProperties_BaseShikigami.cs" />
+    <Compile Include="Comps\Misc\CompProperties_BeamEffect.cs" />
+    <Compile Include="Comps\Misc\CompProperties_GrantAbilityOnUse.cs" />
+    <Compile Include="Comps\Misc\CompProperties_Orbiter.cs" />
+    <Compile Include="Comps\Misc\CompProperties_TrailEffect.cs" />
+    <Compile Include="Comps\Abilities\Megumi\CompProperties_BaseShikigami.cs" />
     <Compile Include="Graphics\ComplexBeamEffect.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundPawn.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
@@ -100,8 +101,8 @@
     <Compile Include="Comps\Abilities\Equipment\CompProperties_DeathHandler.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompRemoveHediffOnHit.cs" />
     <Compile Include="Comps\PlayfulCloudKnockbackFlyer.cs" />
-    <Compile Include="Comps\Abilities\CompProperties_PulseAoeDamage.cs" />
-    <Compile Include="Comps\Abilities\General\CompProperties_AbilityFleeingHareSummon.cs" />
+    <Compile Include="Comps\Misc\CompProperties_PulseAoeDamage.cs" />
+    <Compile Include="Comps\Abilities\Megumi\CompProperties_AbilityFleeingHareSummon.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_DamageInRect.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_DeflectProjectiles.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_TeleportMeleeAttack.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="Comps\Zanpakto\ZanpaktoGraphicData.cs" />
     <Compile Include="Comps\Zanpakto\ZanpaktoState.cs" />
     <Compile Include="Comps\Zanpakto\ZanpaktoWeapon.cs" />
-    <Compile Include="Comps\Abilities\General\CompProperties_AbilityDemondogSummon.cs" />
+    <Compile Include="Comps\Abilities\Megumi\CompProperties_AbilityDemondogSummon.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_AbilityLightningStrike.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechLure.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_SeverityPerInterval.cs" />

@@ -25,7 +25,7 @@
         <useLabel>Commune with Death Womb Painting</useLabel>
         <useDuration>600</useDuration>
       </li>
-      <li Class="CompProperties_UseEffect_GainAbility">
+      <li Class="JJK.CompProperties_GrantAbilityOnUse">
         <ability>JJK_ReversedCurseTechnique</ability>
       </li>
       <li Class="CompProperties_UseEffectDestroySelf">

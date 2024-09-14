@@ -45,10 +45,10 @@ namespace JJK
         }
 
         protected bool ShouldDisableGizmo = false;
-        public override bool GizmoDisabled(out string reason)
-        {
-            return base.GizmoDisabled(out reason) && ShouldDisableGizmo;
-        }
+        //public override bool GizmoDisabled(out string reason)
+        //{
+        //    return base.GizmoDisabled(out reason) && ShouldDisableGizmo;
+        //}
 
         public abstract bool HasActive();
 
