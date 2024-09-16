@@ -25,10 +25,12 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_Cleave">
-        <numCuts>10</numCuts>
-        <knockback>7</knockback>
-        <cutDamage>10</cutDamage>
-        <ticksBetweenCuts>30</ticksBetweenCuts>
+        <NumberOfCuts>10</NumberOfCuts>
+        <KnockbackDistance>7</KnockbackDistance>
+        <BaseDamage>10</BaseDamage>
+        <TicksBetweenCuts>15</TicksBetweenCuts>
+        <DamageDef>Cut</DamageDef>
+        <CleaveDamageEffecter>JJK_CleaveDamageEffect</CleaveDamageEffecter>
       </li>
       <li Class="JJK.CompProperties_AbilityCECost">
         <cursedEnergyCost>40</cursedEnergyCost>

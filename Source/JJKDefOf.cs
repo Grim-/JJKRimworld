@@ -110,6 +110,7 @@ namespace JJK
         public static EffecterDef JJK_aura;
         public static EffecterDef JJK_ShadowSummonEffect;
         public static EffecterDef JJK_ShadowSummonEffectLarge;
+        public static EffecterDef JJK_BlueAuraEffect;
 
 
         public static BackstoryDef ZombieChildhoodStory;

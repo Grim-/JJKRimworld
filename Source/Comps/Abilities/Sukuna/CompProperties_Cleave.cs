@@ -12,10 +12,13 @@ namespace JJK
 {
     public class CompProperties_Cleave : CompProperties_CursedAbilityProps
     {
-        public int numCuts = 8;
-        public int knockback = 5;
-        public float cutDamage = 8f;
-        public int ticksBetweenCuts = 10;
+        public int NumberOfCuts = 8;
+        public int KnockbackDistance = 5;
+        public float BaseDamage = 8f;
+        public int TicksBetweenCuts = 10;
+        public DamageDef DamageDef;
+
+        public EffecterDef CleaveDamageEffecter;
 
         public CompProperties_Cleave()
         {
@@ -25,6 +28,9 @@ namespace JJK
     public class CompAbilityEffect_Cleave : BaseCursedEnergyAbility
     {
         public new CompProperties_Cleave Props => (CompProperties_Cleave)props;
+        private Pawn TargetPawn;
+        private float DamagePerCut;
+        private Ticker DamageTicker;
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
@@ -34,34 +40,53 @@ namespace JJK
                 return;
             }
 
-            int totalCuts = Props.numCuts;
-            float damagePerCut = Props.cutDamage;
-            int ticksBetweenCuts = Props.ticksBetweenCuts;
+            TargetPawn = pawn;
+            DamagePerCut = Props.BaseDamage;
 
-            // Calculate the total duration for applying damage
-            int totalTicks = totalCuts * ticksBetweenCuts;
-
-            // Calculate the damage per tick
-            float damagePerTick = damagePerCut / ticksBetweenCuts;
-
-            // Start applying damage over time
-            ApplyDamageOverTime(pawn, totalTicks, damagePerTick);
+            // Initialize the Ticker
+            DamageTicker = new Ticker(Props.TicksBetweenCuts, ApplyCut, true, Props.NumberOfCuts);
 
             // Launch the pawn
             IntVec3 launchDirection = pawn.Position - parent.pawn.Position;
-            IntVec3 destination = pawn.Position + launchDirection * Props.knockback;
+            IntVec3 destination = pawn.Position + launchDirection * Props.KnockbackDistance;
             PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(JJKDefOf.JJK_Flyer, pawn, destination, null, null);
             GenSpawn.Spawn(pawnFlyer, destination, parent.pawn.Map);
         }
 
-
-        private async void ApplyDamageOverTime(Pawn pawn, int totalTicks, float damagePerTick)
+        public override void CompTick()
         {
-            for (int i = 0; i < totalTicks; i++)
+            base.CompTick();
+
+            if (DamageTicker != null && DamageTicker.IsRunning)
             {
-                pawn.TakeDamage(new DamageInfo(DamageDefOf.Cut, damagePerTick * pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyDamageBonus)));
-                await Task.Delay(1); // Adjust delay according to your desired time frame
+                DamageTicker.Tick();
             }
+        }
+
+        private void ApplyCut()
+        {
+            if (TargetPawn == null || TargetPawn.Dead || TargetPawn.Destroyed)
+            {
+                DamageTicker.Stop();
+                return;
+            }
+
+            if (this.Props.CleaveDamageEffecter != null)
+            {
+                this.Props.CleaveDamageEffecter.SpawnMaintained(TargetPawn, TargetPawn.MapHeld);
+            }
+
+            float actualDamage = DamagePerCut * TargetPawn.GetStatValue(JJKDefOf.JJK_CursedEnergyDamageBonus);
+            DamageInfo damageInfo = new DamageInfo(Props.DamageDef, actualDamage);
+            TargetPawn.TakeDamage(damageInfo);
+        }
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+
+            Scribe_References.Look(ref TargetPawn, "targetPawn");
+            Scribe_Values.Look(ref DamagePerCut, "damagePerCut");
+            Scribe_Deep.Look(ref DamageTicker, "damageTicker");
         }
     }
 

@@ -4,13 +4,13 @@
     <defName>JJK_GRoundCrack</defName>
     <children>
       <li>
-        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <subEffecterClass>SubEffecter_SprayerTriggered</subEffecterClass>
         <fleckDef>JJK_GroundCrackFleck</fleckDef>
         <spawnLocType>OnTarget</spawnLocType>
         <burstCount>1~1</burstCount>
         <positionRadius>0</positionRadius>
         <positionRadiusMin>0</positionRadiusMin>
-        <scale>.2~.3</scale>
+        <scale>0.4~0.5</scale>
         <rotation>0~0</rotation>
         <rotationRate>0~0</rotationRate>
         <angle>0~0</angle>
@@ -26,12 +26,12 @@
   <FleckDef ParentName="FleckBase">
     <defName>JJK_GroundCrackFleck</defName>
     <altitudeLayer>Projectile</altitudeLayer>
-    <fadeInTime>.1</fadeInTime>
+    <fadeInTime>0.1</fadeInTime>
     <solidTime>5</solidTime>
     <fadeOutTime>0.7</fadeOutTime>
     <growthRate>0</growthRate>
     <graphicData>
-      <graphicClass>Graphic_FleckSplash</graphicClass>
+      <graphicClass>Graphic_Fleck</graphicClass>
       <texPath>Animations/Crater37</texPath>
       <shaderType>Mote</shaderType>
       <renderInstanced>false</renderInstanced>

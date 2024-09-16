@@ -88,9 +88,12 @@
     <Compile Include="AI\ThinkNode_ConditionalDoAlways.cs" />
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="CompAbilityEffect_Beam.cs" />
+    <Compile Include="Comps\Abilities\Ticker.cs" />
+    <Compile Include="Comps\DelegateFlyer.cs" />
     <Compile Include="Comps\Misc\CompProperties_BeamEffect.cs" />
     <Compile Include="Comps\Misc\CompProperties_GrantAbilityOnUse.cs" />
     <Compile Include="Comps\Misc\CompProperties_Orbiter.cs" />
+    <Compile Include="Comps\Misc\CompProperties_Pulse.cs" />
     <Compile Include="Comps\Misc\CompProperties_TrailEffect.cs" />
     <Compile Include="Comps\Abilities\Megumi\CompProperties_BaseShikigami.cs" />
     <Compile Include="Graphics\ComplexBeamEffect.cs" />
@@ -230,7 +233,7 @@
     <Compile Include="Utils\JJKUtility.cs" />
     <Compile Include="JKKPatchClass.cs" />
     <Compile Include="Projectiles\Projectile_HollowPurple.cs" />
-    <Compile Include="Projectiles\Projectile_Red.cs" />
+    <Compile Include="Projectiles\Projectile_ImpactAOE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Traits\Sukuna_Trait.cs" />
     <Compile Include="Comps\Misc\SummonDraftManager.cs" />

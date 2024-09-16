@@ -11,7 +11,7 @@
   </graphicData>
   <projectile>
     <damageDef>JJK_Dismantle</damageDef>
-    <damageAmountBase>15</damageAmountBase>
+    <damageAmountBase>55</damageAmountBase>
     <armorPenetrationBase>1</armorPenetrationBase>
     <stoppingPower>0.6</stoppingPower>
     <speed>50</speed>

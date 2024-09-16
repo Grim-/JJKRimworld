@@ -6,6 +6,7 @@ namespace JJK
     public abstract class CompProperties_BaseShikigami : CompProperties_CursedAbilityProps
     {
         public float SummonCost = 20f;
+        public EffecterDef SummonEffecter;
     }
 
     public abstract class CompBaseShikigamiSummon : BaseCursedEnergyAbility
@@ -53,6 +54,15 @@ namespace JJK
         public abstract bool HasActive();
 
         public abstract void DestroyActive();
+
+
+        public virtual void CreateSummonVFX(IntVec3 Position, Map Map)
+        {
+            if (Props.SummonEffecter != null)
+            {
+                Props.SummonEffecter.Spawn(Position, Map);
+            }
+        }
 
 
         public virtual void Summon(IntVec3 Position, Pawn TargetPawn)

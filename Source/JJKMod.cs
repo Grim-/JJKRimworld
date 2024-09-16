@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using HarmonyLib;
+using RimWorld;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 using Verse;
 
 namespace JJK
@@ -6,29 +10,53 @@ namespace JJK
     [StaticConstructorOnStartup]
     public class JJKMod : Mod
     {
-        public Shader Shader;
-
         public JJKMod(ModContentPack content) : base(content)
         {
-
-            ////content.ReloadContent();
-            //Log.Message("JJK Mod Init");
-            //Log.Message($"Asset Bundles {content.assetBundles.loadedAssetBundles.EnumerableCount()}");
+         
+        }
 
 
-            //foreach (var item in content.assetBundles.loadedAssetBundles)
-            //{
-            //    Log.Message(item.name);
+        public void SetupShaders()
+        {
+            Log.Message($"SetupShaders");
+            // Load your custom shader from the asset bundle
 
-            //    foreach (var w in item.GetAllAssetNames())
-            //    {
-            //        Log.Message(w);
-            //    }
-            //}
+            Shader CustomShader = Content.assetBundles.loadedAssetBundles[0].LoadAsset<Shader>("lavashader");
 
-            //Shader = (Shader)content.assetBundles.loadedAssetBundles[0].LoadAsset("Assets/YourShaderName.shader");
+            if (CustomShader != null)
+            {
+                // Use reflection to get the private lookup dictionary
+                FieldInfo lookupField = typeof(ShaderDatabase).GetField("lookup", BindingFlags.NonPublic | BindingFlags.Static);
+                Dictionary<string, Shader> lookup = lookupField.GetValue(null) as Dictionary<string, Shader>;
+
+
+                string shaderPath = "lavashader";
+                if (lookup != null)
+                {
+                    if (!lookup.ContainsKey(shaderPath))
+                    {
+                        lookup[shaderPath] = CustomShader;
+                        Log.Message($"Custom shader '{shaderPath}' added to ShaderDatabase.");
+                    }
+                }
+                else
+                {
+                    Log.Error("Failed to access ShaderDatabase lookup.");
+                }
+            }
+            else
+            {
+                Log.Error("Failed to load custom shader from asset bundle.");
+            }
         }
     }
+
+    public class CustomShaderDef : Def
+    {
+
+    }
+
+
 }
     
 

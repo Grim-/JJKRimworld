@@ -179,6 +179,16 @@ namespace JJK
         }
     }
 
+    [HarmonyPatch(typeof(LoadedModManager), nameof(LoadedModManager.LoadAllActiveMods), new System.Type[] { typeof(bool) })]
+    public static class Patch_OnModsReady
+    {
+        [HarmonyPostfix]
+        static void Postfix(bool hotReload = false)
+        {
+            Log.Message("WDWDWDW");
+            LoadedModManager.GetMod<JJKMod>().SetupShaders();
+        }
+    }
 
     [HarmonyPatch(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.WouldBeDownedAfterAddingHediff), new Type[] { typeof(HediffDef), typeof(BodyPartRecord), typeof(float) })]
     public static class Patch_WouldBeDownedAfterAddingHediff

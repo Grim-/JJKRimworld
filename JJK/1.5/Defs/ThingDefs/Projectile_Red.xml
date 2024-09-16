@@ -3,7 +3,7 @@
   <ThingDef ParentName="BaseBullet">
     <defName>ReversedCursedTechnique_RedProjecitle</defName>
     <label>Red</label>
-    <thingClass>JJK.Projectile_Red</thingClass>
+    <thingClass>JJK.Projectile_ImpactAOE</thingClass>
     <tickerType>Normal</tickerType>
     <graphicData>
       <texPath>Animations/StarburstImpact</texPath>
@@ -15,24 +15,19 @@
         <_brightnessMultiplier>1</_brightnessMultiplier>
       </shaderParameters>
     </graphicData>
-    <projectile>
-      <damageDef>Blunt</damageDef>
-      <damageAmountBase>30</damageAmountBase>
-      <armorPenetrationBase>1</armorPenetrationBase>
+    <projectile Class="JJK.ProjectileProperties_ImpactAOE">
+      <damageDef>Bomb</damageDef>
+      <BaseDamage>30</BaseDamage>
+      <armorPenetrationBase>0.3</armorPenetrationBase>
+      <ExplosionRadius>5</ExplosionRadius>
       <stoppingPower>1</stoppingPower>
+      <ExplosionEffect>JJK_RedExplosionEffect</ExplosionEffect>
       <speed>25</speed>
     </projectile>
     <comps>
       <li Class="CompProperties_Glower">
         <glowRadius>15</glowRadius>
         <glowColor>(255,0,0,0)</glowColor>
-      </li>
-      <li Class="JJK.CompProperties_PulseAoeDamage">
-        <TicksBetweenPulse>10</TicksBetweenPulse>
-        <ExplosionRadius>4</ExplosionRadius>
-        <DamageType>Bomb</DamageType>
-        <DamageAmount>25</DamageAmount>
-        <ArmorPenetration>0.3</ArmorPenetration>
       </li>
       <li Class="JJK.CompProperties_BeamEffect">
         <TrailMote>JJK_Mote_ScorchMarkRed</TrailMote>

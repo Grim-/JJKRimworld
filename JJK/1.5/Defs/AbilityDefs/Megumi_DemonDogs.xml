@@ -8,7 +8,7 @@
     <verbClass>Verb_CastAbility</verbClass>
     <drawAimPie>true</drawAimPie>
     <range>20</range>
-    <warmupTime>0</warmupTime>
+    <warmupTime>0.5</warmupTime>
     <targetParams>
       <canTargetLocations>true</canTargetLocations>
       <canTargetPawns>true</canTargetPawns>
@@ -17,6 +17,7 @@
   <comps>
     <li Class="JJK.CompProperties_AbilityDemondogSummon">
       <demondogKindDef>JJK_DivineDogBlack</demondogKindDef>
+      <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
     </li>
   </comps>
 </AbilityDef>

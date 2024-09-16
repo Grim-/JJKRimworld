@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -14,7 +13,7 @@ namespace JJK
         public DamageDef Damage = DamageDefOf.Crush;
         public float DamageAmount = 15f;
         public float ArmourPen = 1f;
-
+        public EffecterDef AOEEffecter;
         public CompProperties_BlueAOE()
         {
             compClass = typeof(CompEffect_BlueAOE);
@@ -26,6 +25,8 @@ namespace JJK
 
         private Ticker PullTickTimer = null;
         private Ticker DamageTickTimer = null;
+
+        private Effecter Effect;
 
         public override void PostPostMake()
         {
@@ -41,12 +42,35 @@ namespace JJK
             {
                 DamageTickTimer = new Ticker(Props.DamageTicks, DamagePawnsInRadius);
             }
+
+
+        }
+
+        public override void PostDeSpawn(Map map)
+        {
+            if (Effect != null)
+            {
+                Effect.Cleanup();
+                Effect = null;
+            }
+            base.PostDeSpawn(map);
         }
 
 
         public override void CompTick()
         {
             base.CompTick();
+
+            if (Effect == null && Props.AOEEffecter != null)
+            {
+                Effect = Props.AOEEffecter.SpawnMaintained(this.parent.Position, this.parent.MapHeld);
+            }
+
+            if (Effect != null)
+            {
+                Effect.EffectTick(this.parent, this.parent);
+            }
+
             if (PullTickTimer != null)
             {
                 PullTickTimer.Tick();
@@ -101,57 +125,6 @@ namespace JJK
 
             Scribe_Deep.Look(ref PullTickTimer, "pullTickTimer");
             Scribe_Deep.Look(ref DamageTickTimer, "damageTickTimer");
-        }
-    }
-
-
-    public class Ticker: IExposable
-    {
-        public int Ticks = 100;
-
-        protected Action _OnTick;
-        protected int CurrentTick = 0;
-        public bool IsRunning { private set; get; }
-
-        public Ticker(int ticks, Action onTick, bool startAutomatically = true)
-        {
-            Ticks = ticks;
-            _OnTick = onTick;
-            CurrentTick = 0;
-           if(startAutomatically) Start();
-        }
-
-        public void Tick()
-        {
-            CurrentTick++;
-
-            if (CurrentTick >= Ticks)
-            {
-                _OnTick?.Invoke();
-                Reset();
-            }
-        }
-
-        public void Reset()
-        {
-            CurrentTick = 0;
-        }
-
-        public void Start()
-        {
-            IsRunning = true;
-        }
-
-        public void Stop(bool reset = false)
-        {
-            IsRunning = false;
-
-            if (reset) Reset();
-        }
-
-        public void ExposeData()
-        {
-            Scribe_Values.Look(ref CurrentTick, "timerCurrentTick", 0);
         }
     }
 }

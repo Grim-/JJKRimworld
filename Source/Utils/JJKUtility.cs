@@ -347,6 +347,30 @@ namespace JJK
             }       
         }
 
+
+        public static void DealDamageToThingsInRange(List<Thing> ThingsInRadius, DamageDef DamageDef, float Damage, float ArmourPen = 0, float Angle = -1f, Thing Instigator = null, EffecterDef EffectorToPlay = null, Func<Thing, bool> Predicate = null)
+        {
+            foreach (var item in ThingsInRadius)
+            {
+                if (!item.Destroyed)
+                {
+                    if (EffectorToPlay != null)
+                    {
+                        EffectorToPlay.SpawnMaintained(item.Position, item.Map);
+                    }
+                    item.TakeDamage(new DamageInfo(DamageDef, Damage, ArmourPen, Angle, Instigator));
+                }
+            }
+        }
+
+
+        public static void DealDamageToThingsInRange(IntVec3 center, Map map, float radius, DamageDef DamageDef, float Damage, float ArmourPen = 0, float Angle = -1f, Thing Instigator = null, EffecterDef EffectorToPlay = null, Func<Thing, bool> Predicate = null)
+        {
+            List<Thing> ThingsInRadius = JJKUtility.GetThingsInRange(center, map, radius).ToList();
+            DealDamageToThingsInRange(ThingsInRadius, DamageDef, Damage, ArmourPen, Angle, Instigator, EffectorToPlay, Predicate);
+        }
+
+
         public static IEnumerable<Thing> GetThingsInRange(IntVec3 center, Map map, float radius, Func<Thing, bool> Predicate = null)
         {
             return GenRadial.RadialCellsAround(center, radius, true)

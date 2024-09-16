@@ -77,4 +77,36 @@ namespace JJK
             Scribe_Values.Look(ref targetPosition, "targetPosition");
         }
     }
+
+    public class GraphicDataCustomShader : GraphicData
+    {
+        public string shaderName;
+
+    }
+
+    public class Graphic_CustomShader : Graphic_Single
+    {
+        public Graphic_CustomShader()
+        { 
+        
+        }
+
+
+        public override Material MatSingle
+        {
+            get
+            {
+                if (mat == null)
+                {
+                    mat = MaterialPool.MatFrom(this.data.texPath, this.data.shaderType.Shader ?? ShaderDatabase.DefaultShader, Color.white);
+                }
+                return mat;
+            }
+        }
+
+        public override Graphic GetColoredVersion(Shader newShader, Color newColor, Color newColorTwo)
+        {
+            return GraphicDatabase.Get<Graphic_CustomShader>(path, this.data.shaderType.Shader ?? newShader, drawSize, newColor, newColorTwo, data);
+        }
+    }
 }

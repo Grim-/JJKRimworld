@@ -23,7 +23,7 @@
   </projectile>
   <comps>
     <li Class="JJK.CompProperties_BeamEffect">
-      <TrailMote>JJK_Mote_ScorchMarkBlue</TrailMote>
+      <TrailMote>VFX/JJK_Mote_ScorchMarkBlue</TrailMote>
       <MoteInterval>0.25</MoteInterval>
       <MoteDuration>30</MoteDuration>
       <AlignWithMovement>true</AlignWithMovement>

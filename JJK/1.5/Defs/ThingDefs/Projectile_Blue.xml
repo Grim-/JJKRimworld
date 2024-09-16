@@ -24,15 +24,16 @@
   <comps>
     <li Class="CompProperties_Glower">
       <glowRadius>15</glowRadius>
-      <glowColor>(0,0,255,0)</glowColor>
+      <glowColor>(0,0, 255 ,0)</glowColor>
     </li>
     <li Class="CompProperties_DestroyAfterDelay">
-      <delayTicks>2500</delayTicks>
+      <delayTicks>1250</delayTicks>
     </li>
     <li Class="JJK.CompProperties_BlueAOE">
       <PullTicks>40</PullTicks>
       <DamageTicks>600</DamageTicks>
       <DamageAmount>15</DamageAmount>
+      <AOEEffecter>JJK_BlueAuraEffect</AOEEffecter>
     </li>
   </comps>
 </ThingDef>

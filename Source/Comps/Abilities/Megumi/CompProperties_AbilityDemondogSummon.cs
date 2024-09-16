@@ -105,7 +105,8 @@ namespace JJK
         private Pawn SpawnDemonDog(PawnKindDef KindDef, IntVec3 SpawnPosition, Pawn TargetPawn, Map Map)
         {
             Pawn DemonDog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, SpawnPosition);
-            JJKDefOf.JJK_ShadowSummonEffectLarge.SpawnMaintained(SpawnPosition, Map);
+            CreateSummonVFX(SpawnPosition, Map);
+
             if (DemonDog.TryGetComp(out CompOnDeathHandler CompOnDeath))
             {
                 //Log.Message($"Registering OnDeath Handler for {DemonDog.Label} (shikigami)");

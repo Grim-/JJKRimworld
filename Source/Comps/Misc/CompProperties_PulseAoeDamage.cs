@@ -7,9 +7,9 @@ using Verse.Sound;
 
 namespace JJK
 {
-    public class CompProperties_PulseAoeDamage : CompProperties
+    public class CompProperties_PulseAoeDamage : CompProperties_Pulse
     {
-        public int TicksBetweenPulse = 80;
+
         public float ExplosionRadius = 3f;
         public DamageDef DamageType = DamageDefOf.Bomb;
         public int DamageAmount = 7;
@@ -23,35 +23,12 @@ namespace JJK
         }
     }
 
-    public class PulseAOEDamageComp : ThingComp
+    public class PulseAOEDamageComp : BasePulseComp
     {
-        private int TicksUntilPulse;
-
-        public CompProperties_PulseAoeDamage Props => (CompProperties_PulseAoeDamage)props;
-
-
+        public new CompProperties_PulseAoeDamage Props => (CompProperties_PulseAoeDamage)props;
 
         private Thing Launcher => Projectile.Launcher;
         private Projectile Projectile => (Projectile)parent;
-
-        public override void Initialize(CompProperties props)
-        {
-            base.Initialize(props);
-            ResetTimer();
-        }
-
-        public override void CompTick()
-        {
-            base.CompTick();
-
-            TicksUntilPulse--;
-
-            if (TicksUntilPulse <= 0)
-            {
-                Explode();
-                ResetTimer();
-            }
-        }
 
         private void Explode()
         {
@@ -87,15 +64,10 @@ namespace JJK
             return true;
         }
 
-        private void ResetTimer()
-        {
-            TicksUntilPulse = Props.TicksBetweenPulse;
-        }
 
-        public override void PostExposeData()
+        public override void OnPulse()
         {
-            base.PostExposeData();
-            Scribe_Values.Look(ref TicksUntilPulse, "TicksUntilExplosion");
+            Explode();
         }
     }
 }

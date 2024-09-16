@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+<ThingDef ParentName="BuildingBase">
+  <defName>LavaTile</defName>
+  <label>lava tile</label>
+  <description>A dangerously hot tile of molten lava.</description>
+  <thingClass>Building</thingClass>
+  <category>Building</category>
+  <graphicData>
+    <texPath>Lava</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <drawSize>(1,1)</drawSize>
+  </graphicData>
+  <altitudeLayer>FloorEmplacement</altitudeLayer>
+  <passability>Standable</passability>
+  <castEdgeShadows>false</castEdgeShadows>
+  <staticSunShadowHeight>0</staticSunShadowHeight>
+  <blockLight>false</blockLight>
+  <building>
+    <isEdifice>false</isEdifice>
+    <ai_chillDestination>false</ai_chillDestination>
+  </building>
+  <statBases>
+    <Beauty>-5</Beauty>
+    <WorkToBuild>0</WorkToBuild>
+    <Flammability>0</Flammability>
+  </statBases>
+  <comps>
+    <li Class="CompProperties_HeatPusher">
+      <compClass>CompHeatPusher</compClass>
+      <heatPerSecond>30</heatPerSecond>
+      <heatPushMaxTemperature>1000</heatPushMaxTemperature>
+    </li>
+  </comps>
+  <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+</ThingDef>
+</Defs>
