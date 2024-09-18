@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -16,30 +17,15 @@ namespace JJK
 
     public class CompAbilityEffect_IdleTransfigurationRespawn : BaseCursedEnergyAbility
     {
-        public new CompProperties_IdleTransfigurationRespawn Props => (CompProperties_IdleTransfigurationRespawn)props;
-
+      public new CompProperties_IdleTransfigurationRespawn Props => (CompProperties_IdleTransfigurationRespawn)props;
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            Thing dollStack = parent.pawn.inventory.innerContainer
-                .FirstOrDefault(thing => thing.def == JJKDefOf.JJK_idleTransfigurationDoll);
+            CompStoredPawn storedPawnComp = GetStoredPawnComp(target);
 
-            if (dollStack == null)
+            if (storedPawnComp == null)
             {
-                Messages.Message("No Idle Transfiguration Doll found in inventory.", MessageTypeDefOf.RejectInput);
-                return;
-            }
-
-            CompStoredPawn storedPawnComp = dollStack.TryGetComp<CompStoredPawn>();
-            if (storedPawnComp == null || storedPawnComp.Pawn == null)
-            {
-                Messages.Message("The doll doesn't contain a stored pawn.", MessageTypeDefOf.RejectInput);
-                return;
-            }
-
-            if (!target.Cell.Walkable(parent.pawn.Map))
-            {
-                Messages.Message("Cannot spawn pawn at the target location. Please choose a walkable cell.", MessageTypeDefOf.RejectInput);
+                Messages.Message("No valid Idle Transfiguration Doll found.", MessageTypeDefOf.RejectInput);
                 return;
             }
 
@@ -50,45 +36,75 @@ namespace JJK
                 return;
             }
 
-            float pawnMass = storedPawn.GetStatValue(StatDefOf.Mass);
-            float cost = pawnMass * Props.CostPerMass;
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(cost);
-
-            GenSpawn.Spawn(storedPawn, target.Cell, parent.pawn.Map);
-
-            if (parent.pawn.Faction != null)
-            {
-                storedPawn.SetFaction(parent.pawn.Faction);
-            }
-
-            DollTransformationWorldComponent dollManager = Find.World.GetComponent<DollTransformationWorldComponent>();
-            if (dollManager != null)
-            {
-                dollManager.RemovePawn(storedPawn);
-            }
-
-            if (dollStack.stackCount <= 1)
-            {
-                parent.pawn.inventory.innerContainer.Remove(dollStack);
-                dollStack.Destroy();
-            }
-            else
-            {
-                dollStack.stackCount--;
-            }
+            SpawnStoredPawn(storedPawn, target.Cell);
+            ConsumeCursedEnergy(storedPawn);
+            RemoveOrDecrementDoll(storedPawnComp.parent);
 
             Messages.Message($"{storedPawn.LabelShort} has been restored from transfiguration.", MessageTypeDefOf.PositiveEvent);
         }
 
-        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        private CompStoredPawn GetStoredPawnComp(LocalTargetInfo target)
         {
-            return base.CanApplyOn(target, dest) &&
-                   parent.pawn.inventory.innerContainer.Any(thing => thing.def == JJKDefOf.JJK_idleTransfigurationDoll);
+            // Check if the target is a thing with CompStoredPawn
+            if (target.Thing != null)
+            {
+                var comp = target.Thing.TryGetComp<CompStoredPawn>();
+                if (comp != null && comp.Pawn != null)
+                {
+                    return comp;
+                }
+            }
+
+            Thing inventoryDoll = parent.pawn.inventory.innerContainer
+                .FirstOrDefault(thing => thing.def == JJKDefOf.JJK_idleTransfigurationDoll);
+
+            if (inventoryDoll != null)
+            {
+                var comp = inventoryDoll.TryGetComp<CompStoredPawn>();
+                if (comp != null && comp.Pawn != null)
+                {
+                    return comp;
+                }
+            }
+
+            return null;
         }
 
-        public override bool AICanTargetNow(LocalTargetInfo target)
+        private void SpawnStoredPawn(Pawn storedPawn, IntVec3 cell)
         {
-            return false;
+            GenSpawn.Spawn(storedPawn, cell, parent.pawn.Map);
+            if (parent.pawn.Faction != null)
+            {
+                storedPawn.SetFaction(parent.pawn.Faction);
+            }
+        }
+
+        private void ConsumeCursedEnergy(Pawn storedPawn)
+        {
+            float pawnMass = storedPawn.GetStatValue(StatDefOf.Mass);
+            float cost = pawnMass * Props.CostPerMass;
+            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(cost);
+        }
+
+        private void RemoveOrDecrementDoll(Thing doll)
+        {
+            if (doll.stackCount <= 1)
+            {
+                doll.holdingOwner?.Remove(doll);
+                doll.Destroy();
+            }
+            else
+            {
+                doll.stackCount--;
+            }
+        }
+
+        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            return base.CanApplyOn(target, dest) && GetStoredPawnComp(target) != null;
         }
     }
+
+
+
 }

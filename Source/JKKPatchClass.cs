@@ -20,34 +20,6 @@ namespace JJK
         }
     }
 
-    //[HarmonyPatch(typeof(MentalStateHandler), "TryStartMentalState")]
-    //public static class Patch_MentalStateHandler_TryStartMentalState
-    //{
-    //    private static FieldInfo pawnField = AccessTools.Field(typeof(MentalStateHandler), "pawn");
-
-    //    public static bool Prefix(
-    //        MentalStateHandler __instance,
-    //        MentalStateDef stateDef,
-    //        string reason,
-    //        bool forced,
-    //        bool forceWake,
-    //        bool causedByMood,
-    //        Pawn otherPawn,
-    //        bool transitionSilently,
-    //        bool causedByDamage,
-    //        bool causedByPsycast,
-    //        ref bool __result)
-    //    {
-    //        Pawn pawn = (Pawn)pawnField.GetValue(__instance);
-    //        if (pawn.def.defName == "JJK_DemonDogBlack" || pawn.def.defName == "JJK_DemonDogWhite")
-    //        {
-    //            __result = false;
-    //            return false; // Skip the original method
-    //        }
-    //        return true;
-    //    }
-    //}
-
     [HarmonyPatch(typeof(Pawn))]
     [HarmonyPatch("GetDisabledWorkTypes")]
     public static class Patch_Pawn_GetDisabledWorkTypes
@@ -179,16 +151,6 @@ namespace JJK
         }
     }
 
-    [HarmonyPatch(typeof(LoadedModManager), nameof(LoadedModManager.LoadAllActiveMods), new System.Type[] { typeof(bool) })]
-    public static class Patch_OnModsReady
-    {
-        [HarmonyPostfix]
-        static void Postfix(bool hotReload = false)
-        {
-            Log.Message("WDWDWDW");
-            LoadedModManager.GetMod<JJKMod>().SetupShaders();
-        }
-    }
 
     [HarmonyPatch(typeof(Pawn_HealthTracker), nameof(Pawn_HealthTracker.WouldBeDownedAfterAddingHediff), new Type[] { typeof(HediffDef), typeof(BodyPartRecord), typeof(float) })]
     public static class Patch_WouldBeDownedAfterAddingHediff

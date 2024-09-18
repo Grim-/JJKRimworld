@@ -40,6 +40,14 @@ namespace JJK
             }
 
             Pawn TargetPawn = target.Pawn;
+
+            if (TargetPawn.health.hediffSet.HasHediff(JJKDefOf.JJK_Mahito_UnstableSoul))
+            {
+                Messages.Message("You cannot transform this target because their soul is too damaged.", MessageTypeDefOf.NegativeEvent, false);
+                return;
+            }
+
+
             float PawnMass = target.Pawn.GetStatValue(StatDefOf.Mass);
             float Cost = PawnMass * Props.CostPerMass;
             Thing NewItem = JJKUtility.CreateDollFromPawn(TargetPawn);

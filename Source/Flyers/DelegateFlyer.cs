@@ -6,8 +6,8 @@ namespace JJK
 {
     public class DelegateFlyer : PawnFlyer
     {
-        public Action<PawnFlyer> OnSpawn;
-        public Action<Pawn, PawnFlyer> OnRespawnPawn;
+        public event Action<PawnFlyer> OnSpawn;
+        public event Action<Pawn, PawnFlyer> OnRespawnPawn;
 
 
         public override void PostMake()
@@ -18,8 +18,8 @@ namespace JJK
 
         protected override void RespawnPawn()
         {
-            OnRespawnPawn?.Invoke(this.FlyingPawn, this);
             base.RespawnPawn();
+            OnRespawnPawn?.Invoke(this.FlyingPawn, this);
         }
     }
 }

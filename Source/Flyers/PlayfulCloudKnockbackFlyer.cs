@@ -12,8 +12,12 @@ namespace JJK
         protected override void RespawnPawn()
         {
             DamageInfo damageInfo = new DamageInfo(DamageDefOf.Blunt, collisionDamage);
-            FlyingPawn.TakeDamage(damageInfo);
-            MoteMaker.ThrowText(FlyingPawn.DrawPos, this.Map, "Collision!", Color.red);
+
+            if (!FlyingPawn.Destroyed && !FlyingPawn.Dead)
+            {
+                FlyingPawn.TakeDamage(damageInfo);
+            }
+         
             base.RespawnPawn();
             //this.Destroy();
         }

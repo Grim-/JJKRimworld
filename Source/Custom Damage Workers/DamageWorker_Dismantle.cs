@@ -8,19 +8,31 @@ using Verse;
 
 namespace JJK
 {
-    public class DamageWorker_Dismantle : DamageWorker_AddInjury
+    public class DamageWorker_Dismantle : DamageWorker_Cut
     {
         protected override BodyPartRecord ChooseHitPart(DamageInfo dinfo, Pawn pawn)
         {
             return pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, BodyPartDepth.Outside);
         }
 
+        public override DamageResult Apply(DamageInfo dinfo, Thing thing)
+        {
+            DamageResult damage = base.Apply(dinfo, thing);
+
+            if (thing is Building building)
+            {
+                damage.deflectedByMetalArmor = false;
+                damage.totalDamageDealt *= 3f;
+            }
+
+
+
+            return damage;
+        }
+
         protected override void ApplySpecialEffectsToPart(Pawn pawn, float totalDamage, DamageInfo dinfo, DamageResult result)
         {
-            // Select a random body part for dismemberment
             BodyPartRecord partToDismember = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, BodyPartDepth.Outside);
-
-            // Apply injury to the selected body part
             DamageInfo dinfo2 = dinfo;
             dinfo2.SetHitPart(partToDismember);
             FinalizeAndAddInjury(pawn, totalDamage + 999, dinfo2, result);

@@ -46,6 +46,7 @@ namespace JJK
         public static ThingDef JJK_DismantleProjectile;
         public static ThingDef JJK_idleTransfigurationDoll;
         public static ThingDef JJK_Flyer;
+        public static ThingDef JJK_CloudStrikeFlyer;
         public static ThingDef JJK_CursedObjectPiece;
 
         public static MentalStateDef TransfiguredState_Murderous;
@@ -83,6 +84,8 @@ namespace JJK
         public static HediffDef JJK_IdleTransfigurationBeastStatBoost;
         public static HediffDef JJK_CursedTechniqueBurnout;
         public static HediffDef JJK_CursedTechniqueStrain;
+
+        public static HediffDef JJK_Mahito_UnstableSoul;
         
         public static HediffDef JJK_PlayfulCloudConcussion;
 
@@ -101,6 +104,7 @@ namespace JJK
 
         //public static ThingDef JJK_RedBeam;
         public static ThingDef JJK_BeamMote;
+        public static ThingDef Mote_PowerBeam;
 
         public static DamageDef JJK_TwistDamage;
         public static DamageDef JJK_CrushDamage;
@@ -110,7 +114,7 @@ namespace JJK
         public static EffecterDef JJK_aura;
         public static EffecterDef JJK_ShadowSummonEffect;
         public static EffecterDef JJK_ShadowSummonEffectLarge;
-        public static EffecterDef JJK_BlueAuraEffect;
+        public static EffecterDef JJK_BlueAOEAuraEffect;
 
 
         public static BackstoryDef ZombieChildhoodStory;

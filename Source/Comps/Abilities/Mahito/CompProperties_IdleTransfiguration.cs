@@ -8,7 +8,7 @@ namespace JJK
     public class CompProperties_IdleTransfiguration : CompProperties_CursedAbilityProps
     {
         public float CostPerMass = 1.2f;
-
+        public List<HediffDef> hediffsToApply;
 
 
         public CompProperties_IdleTransfiguration()
@@ -20,13 +20,7 @@ namespace JJK
 
     public class CompAbilityEffect_IdleTransfiguration : BaseCursedEnergyAbility
     {
-        public new CompProperties_IdleTransfiguration Props
-        {
-            get
-            {
-                return (CompProperties_IdleTransfiguration)this.props;
-            }
-        }
+        public new CompProperties_IdleTransfiguration Props => (CompProperties_IdleTransfiguration)this.props;
 
         public override bool AICanTargetNow(LocalTargetInfo target)
         {
@@ -46,13 +40,26 @@ namespace JJK
             float PawnMass = target.Pawn.GetStatValue(StatDefOf.Mass);
             float Cost = PawnMass * Props.CostPerMass;
 
-            //JJKUtility.SummonedCreatureManager.RegisterSummon(FleshBeast, parent.pawn);
+            if (Props.hediffsToApply != null)
+            {
+                foreach (var hediff in Props.hediffsToApply)
+                {
+                    if (hediff == null)
+                    {
+                        continue;
+                    }
 
-            FleshBeast.health.AddHediff(JJKDefOf.JJK_IdleTransfigurationBeastStatBoost);
+                    FleshBeast.health.AddHediff(hediff);
+                }
+            }
+
+            if (FleshBeast.training != null)
+            {
+                FleshBeast.training.SetWantedRecursive(TrainableDefOf.Release, true);
+            }
+
             FleshBeast.SetFaction(this.parent.pawn.Faction, this.parent.pawn);
-            //CompAbilityEffect_GiveMentalState.TryGiveMentalState(JJKDefOf.TransfiguredState_Murderous, FleshBeast, this.parent.def, null, this.parent.pawn, true);
-            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);
-            
+            parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);      
         }
     }
 

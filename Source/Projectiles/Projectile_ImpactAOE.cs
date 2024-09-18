@@ -27,13 +27,7 @@ namespace JJK
 
         protected override void Impact(Thing hitThing, bool blockedByShield = false)
         {
-            List<Thing> ThingsToHit = JJKUtility.GetThingsInRange(this.Position, this.MapHeld, this.Props.ExplosionRadius, (Thing) =>
-            {
-                return Thing != this;
-            }).ToList();
-
-
-
+            List<Thing> ThingsToHit = JJKUtility.GetThingsInRange(this.Position, this.MapHeld, this.Props.ExplosionRadius, TargetValidator).ToList();
             JJKUtility.DealDamageToThingsInRange(ThingsToHit, Props.damageDef, Props.BaseDamage * CasterDamageBonus, Props.GetArmorPenetration(this.launcher));
 
             foreach (var thingToHit in ThingsToHit)
@@ -52,6 +46,30 @@ namespace JJK
             }
 
             base.Impact(hitThing, blockedByShield);
+        }
+
+
+        private bool TargetValidator(Thing HitThing)
+        {
+            if (HitThing == this)
+            {
+                return false;
+            }
+
+            if (this.launcher != null && HitThing == this.launcher && !Props.CanHitCaster)
+            {
+                return false;
+            }
+
+            if (HitThing.Faction != null)
+            {
+                if (!HitThing.Faction.HostileTo(this.launcher.Faction) && !Props.CanHitFriendly)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void PushBack(Pawn HitPawn)
@@ -87,5 +105,7 @@ namespace JJK
         public float BaseDamage = 1f;
         public float ExplosionRadius = 10f;
         public EffecterDef ExplosionEffect;
+        public bool CanHitFriendly = true;
+        public bool CanHitCaster = false;
     }
 }

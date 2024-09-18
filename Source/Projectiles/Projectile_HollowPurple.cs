@@ -17,15 +17,12 @@ namespace JJK
         {
             base.Tick();
 
-            // Check if the projectile has reached its intended target
             if (DestinationCell == Position)
             {
-                // Destroy the projectile
                 Destroy();
                 return;
             }
 
-            // If the projectile hasn't reached its target, explode at its current position
             ExplodeAtPosition(Position, Map, 3f);
         }
 
@@ -33,7 +30,6 @@ namespace JJK
         {
             List<Thing> ignoredThings = new List<Thing>();
 
-            // Add pawns of the same faction as the launcher to the ignored list
             if (launcher != null && launcher.Faction != null)
             {
                 Faction launcherFaction = launcher.Faction;

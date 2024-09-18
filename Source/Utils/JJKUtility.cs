@@ -89,7 +89,7 @@ namespace JJK
             targetPawn.genes.AddGene(GeneToForce, true);
         }
 
-        public static void GiveRandomSorcererGrade(Pawn targetPawn, bool overwriteExistingGrade = false)
+        public static void GiveRandomSorcererGrade(Pawn targetPawn, bool overwriteExistingGrade = true)
         {
             List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
                 .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
@@ -107,12 +107,16 @@ namespace JJK
             }
 
 
-            if (existingSorcererGenes.Count > 0 && overwriteExistingGrade)
+            if (existingSorcererGenes.Count > 0)
             {
-                foreach (Gene sourceGene in existingSorcererGenes)
+                if (overwriteExistingGrade)
                 {
-                    targetPawn.genes.RemoveGene(sourceGene);
+                    foreach (Gene sourceGene in existingSorcererGenes)
+                    {
+                        targetPawn.genes.RemoveGene(sourceGene);
+                    }
                 }
+
             }
             GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
@@ -131,12 +135,12 @@ namespace JJK
                 Log.Warning("No GeneDefs found with CursedTechniqueGeneExtension.");
                 return;
             }
+
             if (RemoveExisting)
             {
                 // Remove existing sorcerer genes
-                var existingSorcererGenes = targetPawn.genes.GenesListForReading
-                    .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
-                    .ToList();
+                var existingSorcererGenes = GetSorcererGenes(targetPawn);
+
                 foreach (Gene sourceGene in existingSorcererGenes)
                 {
                     targetPawn.genes.RemoveGene(sourceGene);
@@ -147,6 +151,14 @@ namespace JJK
             GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
             // Add the randomly selected gene to the pawn
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
+        }
+
+
+        public static List<Gene> GetSorcererGenes(this Pawn Pawn)
+        {
+            return Pawn.genes.GenesListForReading
+                    .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
+                    .ToList();
         }
 
 

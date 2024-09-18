@@ -64,6 +64,10 @@
       <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
@@ -88,22 +92,22 @@
     <Compile Include="AI\ThinkNode_ConditionalDoAlways.cs" />
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="CompAbilityEffect_Beam.cs" />
+    <Compile Include="Comps\Abilities\General\PowerBeamVisual.cs" />
     <Compile Include="Comps\Abilities\Ticker.cs" />
-    <Compile Include="Comps\DelegateFlyer.cs" />
+    <Compile Include="Flyers\DelegateFlyer.cs" />
     <Compile Include="Comps\Misc\CompProperties_BeamEffect.cs" />
     <Compile Include="Comps\Misc\CompProperties_GrantAbilityOnUse.cs" />
     <Compile Include="Comps\Misc\CompProperties_Orbiter.cs" />
     <Compile Include="Comps\Misc\CompProperties_Pulse.cs" />
     <Compile Include="Comps\Misc\CompProperties_TrailEffect.cs" />
     <Compile Include="Comps\Abilities\Megumi\CompProperties_BaseShikigami.cs" />
-    <Compile Include="Graphics\ComplexBeamEffect.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundPawn.cs" />
     <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
-    <Compile Include="Comps\AoeDamageAtEndFlyer.cs" />
+    <Compile Include="Flyers\AoeDamageAtEndFlyer.cs" />
     <Compile Include="Comps\Abilities\Equipment\BaseTraitComp.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_DeathHandler.cs" />
     <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompRemoveHediffOnHit.cs" />
-    <Compile Include="Comps\PlayfulCloudKnockbackFlyer.cs" />
+    <Compile Include="Flyers\PlayfulCloudKnockbackFlyer.cs" />
     <Compile Include="Comps\Misc\CompProperties_PulseAoeDamage.cs" />
     <Compile Include="Comps\Abilities\Megumi\CompProperties_AbilityFleeingHareSummon.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_DamageInRect.cs" />
@@ -148,6 +152,7 @@
     <Compile Include="Graphics\Mote_Animation.cs" />
     <Compile Include="Graphics\PawnOverlayNodeProperties.cs" />
     <Compile Include="Graphics\MoteBeam.cs" />
+    <Compile Include="Graphics\PawnOverlayNodeWorker.cs" />
     <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
@@ -246,9 +251,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Shaders\DomainEffect.shader" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Shaders\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
   </ItemGroup>

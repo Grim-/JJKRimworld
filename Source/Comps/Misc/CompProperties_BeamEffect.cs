@@ -48,16 +48,12 @@ namespace JJK
                 IntVec3 targetCell = projectile.intendedTarget.Cell;
                 Vector3 direction = (targetCell.ToVector3() - launcherPos).normalized;
 
-                // Calculate the distance to the target
                 float distance = (targetCell - launcherCell).LengthHorizontal;
-
-                // Set the mote's position to be halfway between launcher and target
                 mote.exactPosition = launcherPos + (direction * (distance / 2f));
 
                 currentMote = (Mote)GenSpawn.Spawn(mote, launcherCell, parent.Map);
                 currentMote.exactRotation = direction.ToAngleFlat();
 
-                // Scale the mote to fit the length
                 currentMote.Scale = distance;
             }
         }

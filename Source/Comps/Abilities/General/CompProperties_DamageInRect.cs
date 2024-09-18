@@ -9,9 +9,13 @@ namespace JJK
     {
         public float rectWidth = 10f;
         public float rectLength = 2f;
-        public DamageDef damageType = DamageDefOf.Cut;
+        public DamageDef damageType;
         public int damageAmount = 10;
-        public bool useMouseAsOrigin = true;
+        public bool useMouseAsOrigin = false;
+        public ThingDef beamMoteDef;
+        public EffecterDef beamEndMoteDef;
+        public int beamDurationTicks = 60;
+        public float beamWidth = 10f;
 
         public CompProperties_DamageInRect()
         {
@@ -22,10 +26,13 @@ namespace JJK
     public class CompAbilityEffect_DamageInRect : CompAbilityEffect
     {
         public new CompProperties_DamageInRect Props => (CompProperties_DamageInRect)props;
+        private PowerBeamVisual powerBeam;
+        private LocalTargetInfo currentTarget;
 
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             Pawn pawn = parent.pawn;
+            currentTarget = target;
             Vector3 origin = Props.useMouseAsOrigin ? target.CenterVector3 : pawn.DrawPos;
             float angle = GetAngleToTarget(origin, target.Cell.ToVector3());
             List<Thing> targets = RotatedRectTargetFinder.GetTargetsInRotatedRect(pawn.Map, origin, Props.rectWidth, Props.rectLength, angle);
@@ -36,9 +43,33 @@ namespace JJK
                 {
                     DamageInfo dinfo = new DamageInfo(Props.damageType, Props.damageAmount, 0, -1, pawn);
                     thing.TakeDamage(dinfo);
-                    MoteMaker.ThrowText(thing.DrawPos, thing.Map, "Damaged!", Color.red);
                 }
             }
+
+            CreatePowerBeam(pawn.Position, target.Cell, pawn.Map);
+       
+        }
+
+        public override void CompTick()
+        {
+            base.CompTick();
+            if (powerBeam != null && currentTarget.IsValid)
+            {
+                powerBeam.TickBeam(currentTarget.Cell);
+                if (!powerBeam.IsRunning)
+                {
+                    powerBeam = null;
+                }
+            }
+        }
+
+        private void CreatePowerBeam(IntVec3 source, IntVec3 target, Map map)
+        {
+            if (Props.beamMoteDef == null) return;
+
+            powerBeam = new PowerBeamVisual(Props.beamMoteDef, Props.beamEndMoteDef, source, map, Props.beamWidth, Props.beamDurationTicks);
+            powerBeam.InitializeBeam(source, target);
+            powerBeam.TickBeam(target);
         }
 
         public override void DrawEffectPreview(LocalTargetInfo target)
@@ -47,7 +78,6 @@ namespace JJK
             Vector3 origin = Props.useMouseAsOrigin ? target.CenterVector3 : pawn.DrawPos;
             float angle = GetAngleToTarget(origin, target.Cell.ToVector3());
             List<IntVec3> cells = RotatedRectTargetFinder.GetCellsInRotatedRect(pawn.Map, origin, Props.rectWidth, Props.rectLength, angle);
-
             GenDraw.DrawFieldEdges(cells, Color.red);
         }
 
@@ -58,7 +88,4 @@ namespace JJK
             return angle;
         }
     }
-
-
-
 }
