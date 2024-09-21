@@ -11,6 +11,13 @@ namespace JJK
         {
             base.ExposeData();
             Scribe_References.Look(ref referencedPawn, "referencedPawn");
+            JJKUtility.MakeDraftable(pawn);
+
+        }
+
+        public override void PostMake()
+        {
+            base.PostMake();
         }
 
         public override string DebugString()

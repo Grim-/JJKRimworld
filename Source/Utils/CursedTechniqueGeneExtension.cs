@@ -2,7 +2,7 @@
 
 namespace JJK
 {
-    public class CursedEnergyGeneExtension : DefModExtension
+    public class CursedTechniqueGeneExtension : DefModExtension
     {
         public int priority = 0;
     }

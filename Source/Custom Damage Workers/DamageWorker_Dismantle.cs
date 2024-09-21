@@ -22,10 +22,8 @@ namespace JJK
             if (thing is Building building)
             {
                 damage.deflectedByMetalArmor = false;
-                damage.totalDamageDealt *= 3f;
+                damage.totalDamageDealt *= 10f;
             }
-
-
 
             return damage;
         }

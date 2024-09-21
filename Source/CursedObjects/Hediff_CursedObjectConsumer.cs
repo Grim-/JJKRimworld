@@ -65,7 +65,7 @@ namespace JJK
         private void TransferAbilities()
         {
             Messages.Message("Has fully absorbed the thingy, and as such the thingy has happened.", MessageTypeDefOf.PositiveEvent);
-            JJKUtility.TryUpgradeSorcererGrade(pawn);
+            JJKGeneUtil.TryUpgradeSorcererGrade(pawn);
             JJKUtility.TransferAbilities(currentOriginPawn, pawn);
 
         }

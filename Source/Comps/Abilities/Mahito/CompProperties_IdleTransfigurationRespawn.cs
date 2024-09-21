@@ -21,18 +21,20 @@ namespace JJK
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
+           // Log.Message(target.Thing);
+            //Log.Message(dest.Thing);
             CompStoredPawn storedPawnComp = GetStoredPawnComp(target);
 
             if (storedPawnComp == null)
             {
-                Messages.Message("No valid Idle Transfiguration Doll found.", MessageTypeDefOf.RejectInput);
+                Messages.Message("No valid Idle Transfiguration Doll found.", MessageTypeDefOf.NegativeEvent);
                 return;
             }
 
             Pawn storedPawn = storedPawnComp.ReleasePawn();
             if (storedPawn == null)
             {
-                Messages.Message("Failed to retrieve stored pawn.", MessageTypeDefOf.RejectInput);
+                Messages.Message("Failed to retrieve stored pawn.", MessageTypeDefOf.NegativeEvent);
                 return;
             }
 
@@ -45,14 +47,12 @@ namespace JJK
 
         private CompStoredPawn GetStoredPawnComp(LocalTargetInfo target)
         {
+            CompStoredPawn compOnThing = target.Cell.GetFirstThingWithComp<CompStoredPawn>(parent.pawn.MapHeld).TryGetComp<CompStoredPawn>();
+           
             // Check if the target is a thing with CompStoredPawn
-            if (target.Thing != null)
+            if (compOnThing != null)
             {
-                var comp = target.Thing.TryGetComp<CompStoredPawn>();
-                if (comp != null && comp.Pawn != null)
-                {
-                    return comp;
-                }
+                return compOnThing;
             }
 
             Thing inventoryDoll = parent.pawn.inventory.innerContainer
@@ -99,10 +99,10 @@ namespace JJK
             }
         }
 
-        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
-        {
-            return base.CanApplyOn(target, dest) && GetStoredPawnComp(target) != null;
-        }
+        //public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        //{
+        //    return base.CanApplyOn(target, dest) && GetStoredPawnComp(target) != null;
+        //}
     }
 
 

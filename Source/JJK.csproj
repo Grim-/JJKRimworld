@@ -93,7 +93,12 @@
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="CompAbilityEffect_Beam.cs" />
     <Compile Include="Comps\Abilities\General\PowerBeamVisual.cs" />
+    <Compile Include="Comps\Abilities\Mahito\ITab_BindingVows.cs" />
+    <Compile Include="Comps\Abilities\Mahito\ITab_CursedSpiritManipulator.cs" />
     <Compile Include="Comps\Abilities\Ticker.cs" />
+    <Compile Include="Comps\Hediff\HediffCompProperties_SelectiveDamageImmunity.cs" />
+    <Compile Include="Comps\Misc\CompProperties_Dismissable.cs" />
+    <Compile Include="Custom Damage Workers\DamageWorker_CursedEnergy.cs" />
     <Compile Include="Flyers\DelegateFlyer.cs" />
     <Compile Include="Comps\Misc\CompProperties_BeamEffect.cs" />
     <Compile Include="Comps\Misc\CompProperties_GrantAbilityOnUse.cs" />
@@ -145,8 +150,11 @@
     <Compile Include="CursedObjects\CursedObjectDef.cs" />
     <Compile Include="CursedObjects\Hediff_CursedObjectConsumer.cs" />
     <Compile Include="CursedObjects\Recipe_CreateCursedObject.cs" />
+    <Compile Include="Genes\Gene_Geto.cs" />
     <Compile Include="Genes\Graphic_Animated.cs" />
     <Compile Include="Graphics\AnimationDef.cs" />
+    <Compile Include="Graphics\AssetBundleShaderManager.cs" />
+    <Compile Include="Graphics\ABSGraphicData.cs" />
     <Compile Include="Graphics\Graphic_Animated.cs" />
     <Compile Include="Graphics\IAnimated.cs" />
     <Compile Include="Graphics\Mote_Animation.cs" />
@@ -211,6 +219,8 @@
     <Compile Include="Comps\Abilities\CursedCompAbilityEffect_LaunchProjectile.cs" />
     <Compile Include="JJKMod.cs" />
     <Compile Include="Utils\CursedEnergyGeneExtension.cs" />
+    <Compile Include="Utils\CursedTechniqueGeneExtension.cs" />
+    <Compile Include="Utils\JJKGeneUtil.cs" />
     <Compile Include="Utils\PawnHealingUtility.cs" />
     <Compile Include="AI\JobDriver_DefendMaster.cs" />
     <Compile Include="Comps\World\SummonedCreatureManager.cs" />
@@ -241,7 +251,7 @@
     <Compile Include="Projectiles\Projectile_ImpactAOE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Traits\Sukuna_Trait.cs" />
-    <Compile Include="Comps\Misc\SummonDraftManager.cs" />
+    <Compile Include="Comps\Misc\DraftingUtility.cs" />
     <Compile Include="AI\JobGiver_AICastOffensiveAbility.cs" />
     <Compile Include="AI\JobGiver_SummonedCreatureFightEnemy.cs" />
     <Compile Include="AI\JobGiver_SummonedCreatureFollowMaster.cs" />

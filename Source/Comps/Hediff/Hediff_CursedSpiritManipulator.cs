@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Verse;
+using Verse.AI.Group;
 
 namespace JJK
 {
@@ -62,8 +63,10 @@ namespace JJK
                     summonedPawn.abilities = new Pawn_AbilityTracker(pawn);
                 }
 
+                JJKUtility.TrainPawn(summonedPawn, this.pawn);
                 summonedPawn.abilities.GainAbility(JJKDefOf.JJK_CastLightningStrike);
                 activeCursedSpirits.Add(summonedPawn);
+                JJKUtility.MakeDraftable(summonedPawn);
                 return true;
             }
             return false;

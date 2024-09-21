@@ -83,7 +83,7 @@ namespace JJK
             }
         }
 
-        private void DeflectProjectiles()
+        public  void DeflectProjectiles()
         {
             IEnumerable<Thing> projectilesInRange = GenRadial.RadialDistinctThingsAround(parent.pawn.Position, parent.pawn.MapHeld, Props.Radius, true);
             foreach (var item in projectilesInRange)

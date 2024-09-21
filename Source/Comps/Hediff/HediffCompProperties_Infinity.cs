@@ -20,6 +20,7 @@ namespace JJK
     public class HediffComp_Infinity : HediffComp
     {
         public HediffCompProperties_Infinity Props => (HediffCompProperties_Infinity)props;
+
         public override void CompPostTick(ref float severityAdjustment)
         {
             base.CompPostTick(ref severityAdjustment);
@@ -37,13 +38,13 @@ namespace JJK
         private void PerformInfinityEffects()
         {
             CheckAndReflectProjectiles();
+            CheckAndPushEnemyPawns();
             // TODO: Add other Infinity effects here
         }
 
         private void CheckAndReflectProjectiles()
         {
             if (Pawn.Map == null) return;
-
             IEnumerable<Thing> projectilesInRange = GenRadial.RadialDistinctThingsAround(parent.pawn.Position, parent.pawn.MapHeld, Props.CheckRadius, true);
             foreach (var item in projectilesInRange)
             {
@@ -53,7 +54,67 @@ namespace JJK
                 }
             }
         }
+
+        private void CheckAndPushEnemyPawns()
+        {
+            if (parent.pawn.Map == null) return;
+
+            foreach (IntVec3 cell in GenAdj.CellsAdjacent8Way(new TargetInfo(parent.pawn.Position, parent.pawn.MapHeld)))
+            {
+                if (cell.InBounds(parent.pawn.Map))
+                {
+                    Pawn enemyPawn = cell.GetFirstPawn(parent.pawn.Map);
+                    if (enemyPawn != null && enemyPawn.Faction != Faction.OfPlayer && enemyPawn.Faction.HostileTo(Faction.OfPlayer))
+                    {
+                        PushEnemyPawn(enemyPawn);
+                    }
+                }
+            }
+        }
+
+        private void PushEnemyPawn(Pawn enemyPawn)
+        {
+            IntVec3 pushDirection = parent.pawn.Rotation.FacingCell;
+            //IntVec3 pushDirection = (enemyPawn.Position - parent.pawn.Position);
+            IntVec3 targetCell = enemyPawn.Position + pushDirection;
+
+            if (targetCell.InBounds(parent.pawn.Map))
+            {
+                bool isObstructed = IsWallOrBuildingPresent(targetCell);
+
+                if (!isObstructed)
+                {
+                    enemyPawn.Position = targetCell;
+                    enemyPawn.Notify_Teleported(true, false);
+                }
+                else
+                {
+                    DamageInfo damageInfo = new DamageInfo(DamageDefOf.Vaporize, 100f, 0f, -1f, parent.pawn);
+                    enemyPawn.TakeDamage(damageInfo);
+
+                    EffecterDefOf.MeatExplosionExtraLarge.Spawn(targetCell, parent.pawn.Map);
+                }
+            }
+        }
+
+        private bool IsWallOrBuildingPresent(IntVec3 cell)
+        {
+            if (cell.InBounds(parent.pawn.Map))
+            {
+                List<Thing> thingList = cell.GetThingList(parent.pawn.Map);
+                foreach (Thing thing in thingList)
+                {
+                    if (thing is Building && (thing.def.fillPercent == 1f || thing.def.passability == Traversability.Impassable))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
+
+
 }
 
 

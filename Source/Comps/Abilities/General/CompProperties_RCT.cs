@@ -20,6 +20,7 @@ namespace JJK
         public float CEHediffCost = 30f;
         public bool CanCureAddiction = false;
         public bool ShouldRemoveImplants = false;
+        public EffecterDef AuraEffecter;
 
         public CompProperties_RCT()
         {
@@ -32,7 +33,7 @@ namespace JJK
 
         protected override bool IgnoreBurnout => true;
 
-        public override int Ticks => Mathf.RoundToInt(Props.Ticks * parent.pawn.GetStatValue(JJKDefOf.JJK_RCTSpeed));
+        public override int Ticks => Mathf.RoundToInt(Props.Ticks * RCTSpeedAmount);
 
         private Gene_CursedEnergy _CursedEnergy;
         private Gene_CursedEnergy CursedEnergy
@@ -56,7 +57,7 @@ namespace JJK
         protected virtual Pawn Caster => parent.pawn;
         protected virtual Pawn Target => parent.pawn;
 
-
+        private float RCTSpeedAmount => parent.pawn.GetStatValue(JJKDefOf.JJK_RCTSpeed, true, 100);
         private float RCTHealAmount => parent.pawn.GetStatValue(JJKDefOf.JJK_RCTHealingBonus, true, 100);
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
@@ -69,13 +70,12 @@ namespace JJK
         {
             base.CompTick();
 
-
-
-
             if (AuraEffecter != null)
             {
                 AuraEffecter.EffectTick(parent.pawn, parent.pawn);
             }
+
+
             HandleMaintenanceCostTick();
         }
 
@@ -85,7 +85,7 @@ namespace JJK
             {
                 if (CursedEnergy.ValueCostMultiplied < Props.CECostPerTick)
                 {
-                    DeactiveOnParentAbility();
+                    DeActivate();
                 }
                 else
                 {
@@ -221,16 +221,11 @@ namespace JJK
         {
             base.Activate();
 
-            if (AuraEffecter != null)
+            if (Props.AuraEffecter != null && AuraEffecter == null)
             {
-                AuraEffecter.Cleanup();
+                AuraEffecter = Props.AuraEffecter.SpawnAttached(Target, Target.MapHeld);
 
-                AuraEffecter = null;
             }
-
-
-            AuraEffecter = JJKDefOf.JJK_aura.SpawnAttached(Target, Target.MapHeld);
-
 
             if (!JJKUtility.HasRCTActive(parent.pawn))
             {
@@ -254,6 +249,8 @@ namespace JJK
             {
                 JJKUtility.RemoveRCTHediff(Target);
             }
+
+            DeactiveOnParentAbility();
         }
     }
 }

@@ -76,6 +76,10 @@ namespace JJK
         public int RegenTicks => Mathf.RoundToInt(Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegenSpeed, true, 100));
         public float CostMult => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost, true, 100);
 
+
+        public float TotalUsedCursedEnergy = 0;
+
+
         public override void PostAdd()
         {
             if (ModLister.CheckBiotech("Hemogen"))
@@ -111,6 +115,7 @@ namespace JJK
                 return;
             }
 
+            TotalUsedCursedEnergy += Amount;
             Value -= Amount * CostMult;
         }
 
@@ -143,7 +148,7 @@ namespace JJK
             CurrentTick++;
             if (CurrentTick >= RegenTicks)
             {
-                Log.Message($"Regenerating {RegenMod} after {RegenTicks} ticks.");
+                //Log.Message($"Regenerating {RegenMod} after {RegenTicks} ticks.");
                 RestoreCursedEnergy(RegenMod);
                 ResetRegenTicks();
             }
@@ -182,6 +187,7 @@ namespace JJK
             base.ExposeData();
             Scribe_Values.Look(ref CursedEnergy, "cursedEnergy", defaultValue: true);
             Scribe_Values.Look(ref CurrentTick, "currentRegenTick", defaultValue: 0);
+            Scribe_Values.Look(ref TotalUsedCursedEnergy, "TotalUsedCursedEnergy", defaultValue: 0);      
         }
     }
 }

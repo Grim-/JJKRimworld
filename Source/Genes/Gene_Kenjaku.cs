@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
-using Verse;
 
 namespace JJK
 {
@@ -114,7 +113,7 @@ namespace JJK
             {
                 if (TargetPawn.health != null)
                 {
-                    TargetPawn.health.AddHediff(JJKDefOf.JJK_KenjakuPossesion);
+                    TargetPawn.health.GetOrAddHediff(JJKDefOf.JJK_KenjakuPossesion);
                 }
                 else
                 {
@@ -132,15 +131,15 @@ namespace JJK
 
             TargetPawn.Name = new NameTriple(
                 originalName.First,
-                originalName.Nick,
+                "Kenjaku",
                 originalName.Last
             );
 
             // Log.Message("JJK: Transferring genes and abilities");
-            JJKUtility.GiveCursedEnergy(TargetPawn);
-            JJKUtility.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);
+            JJKGeneUtil.GiveCursedEnergy(TargetPawn);
             JJKUtility.TransferAbilities(CurrentPawn, TargetPawn);
-            JJKUtility.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
+            JJKGeneUtil.TransferGenes(CurrentPawn, TargetPawn, JJKDefOf.Gene_Kenjaku);
+            JJKGeneUtil.TransferCursedEnergyGenes(CurrentPawn, TargetPawn);
         }
 
         private void RemovePossession(Pawn pawn)

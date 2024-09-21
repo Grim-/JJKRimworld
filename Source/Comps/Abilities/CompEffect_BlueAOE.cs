@@ -8,12 +8,14 @@ namespace JJK
     public class CompProperties_BlueAOE : CompProperties
     {
         public float PullRadius = 10f;
-        public int PullTicks = 80;
+        public int PullTicks = 300;
         public int DamageTicks = 180;
         public DamageDef Damage = DamageDefOf.Crush;
         public float DamageAmount = 15f;
         public float ArmourPen = 1f;
         public EffecterDef AOEEffecter;
+        public HediffDef Hediff;
+
         public CompProperties_BlueAOE()
         {
             compClass = typeof(CompEffect_BlueAOE);
@@ -84,19 +86,26 @@ namespace JJK
 
         private void PullPawnsTowardsCenter()
         {
-            List<Pawn> pawnsToPull = JJKUtility.GetEnemyPawnsInRange(parent.Position, parent.MapHeld, Props.PullRadius).ToList();
-            foreach (Pawn pawn in pawnsToPull)
+            List<Thing> pawnsToPull = JJKUtility.GetThingsInRange(parent.Position, parent.MapHeld, Props.PullRadius).ToList();
+            foreach (Thing thing in pawnsToPull)
             {
-                bool isBlueUser = pawn.IsLimitlessUser() || pawn.Faction == Faction.OfPlayer;
-                if (isBlueUser)
-                {
-                    continue;
-                }
+                IntVec3 direction = parent.Position - thing.Position;
+                IntVec3 destination = thing.Position + direction;
 
-                IntVec3 direction = parent.Position - pawn.Position;
-                IntVec3 destination = pawn.Position + direction;
-                PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(JJKDefOf.JJK_Flyer, pawn, destination, null, null);
-                GenSpawn.Spawn(pawnFlyer, destination, parent.MapHeld);
+                if (thing is Pawn pawn)
+                {
+                    if (pawn.IsLimitlessUser())
+                    {
+                        continue;
+                    }
+
+                    PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(JJKDefOf.JJK_Flyer, pawn, destination, null, null);
+                    GenSpawn.Spawn(pawnFlyer, destination, parent.MapHeld);
+                }
+                else if (thing is Projectile projectile)
+                {
+                    ProjectileUtility.RedirectProjectile(parent, projectile, parent.Position);
+                }
             }
         }
 
@@ -110,6 +119,11 @@ namespace JJK
                 if (isBlueUser)
                 {
                     continue;
+                }
+
+                if (Props.Hediff != null && !pawn.Dead)
+                {
+                    pawn.health.AddHediff(Props.Hediff);
                 }
 
                 if (Props.Damage != null && !pawn.Dead)

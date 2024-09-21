@@ -53,15 +53,12 @@ namespace JJK
                 }
             }
 
-            if (FleshBeast.training != null)
-            {
-                FleshBeast.training.SetWantedRecursive(TrainableDefOf.Release, true);
-            }
+
+            JJKUtility.TrainPawn(FleshBeast, TargetPawn);
+            JJKUtility.MakeDraftable(FleshBeast);
 
             FleshBeast.SetFaction(this.parent.pawn.Faction, this.parent.pawn);
             parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);      
         }
     }
-
-
 }

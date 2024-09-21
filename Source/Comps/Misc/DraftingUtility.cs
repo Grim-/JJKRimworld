@@ -5,7 +5,7 @@ using Verse;
 
 namespace JJK
 {
-    public static class SummonDraftManager
+    public static class DraftingUtility
     {
         private static HashSet<Pawn> draftableCreatures = new HashSet<Pawn>();
 
@@ -53,7 +53,7 @@ namespace JJK
         [HarmonyPostfix]
         public static void MakePawnControllable(Pawn pawn, ref bool __result)
         {
-            if (SummonDraftManager.IsDraftableCreature(pawn) && pawn.Faction?.IsPlayer == true)
+            if (DraftingUtility.IsDraftableCreature(pawn) && pawn.Faction?.IsPlayer == true)
             {
                 __result = true;
             }
@@ -66,7 +66,7 @@ namespace JJK
         [HarmonyPostfix]
         public static void DisableDoctorWork(WorkTypeDef w, Pawn __instance, ref bool __result)
         {
-            if (w == WorkTypeDefOf.Doctor && SummonDraftManager.IsDraftableCreature(__instance)
+            if (w == WorkTypeDefOf.Doctor && DraftingUtility.IsDraftableCreature(__instance)
                 && __instance.RaceProps.IsMechanoid == false)
             {
                 __result = true;
@@ -80,7 +80,7 @@ namespace JJK
         [HarmonyPrefix]
         public static bool PreventTeaching(Pawn teacher, ref bool __result)
         {
-            if (SummonDraftManager.IsDraftableCreature(teacher))
+            if (DraftingUtility.IsDraftableCreature(teacher))
             {
                 __result = false;
                 return false;
@@ -95,7 +95,7 @@ namespace JJK
         [HarmonyPostfix]
         public static void AddDraftableCreatureAsColonist(Pawn __instance, ref bool __result)
         {
-            if (SummonDraftManager.IsDraftableCreature(__instance))
+            if (DraftingUtility.IsDraftableCreature(__instance))
             {
                 __result = __instance.Spawned && __instance.HostFaction == null && __instance.Faction == Faction.OfPlayer;
             }

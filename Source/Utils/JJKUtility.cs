@@ -9,6 +9,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Verse;
+using Verse.AI.Group;
 
 namespace JJK
 {
@@ -31,185 +32,36 @@ namespace JJK
 
 
         [DebugAction("JJK", "Restore Pawn CE", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
-        public static void MyDebugAction(Pawn p)
+        public static void RestorePawnCE(Pawn p)
         {
             Gene_CursedEnergy cursedEnergy = p.GetCursedEnergy();
 
             if (cursedEnergy != null)
             {
-                cursedEnergy.RestoreCursedEnergy(10000);
+                cursedEnergy.RestoreCursedEnergy(99999);
             }
         }
 
-        public static void TransferCursedEnergyGenes(Pawn sourcePawn, Pawn targetPawn)
+
+        [DebugAction("JJK", "Remove All", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void RemoveAll(Pawn p)
         {
-            var sourceGenes = sourcePawn.genes.GenesListForReading
-                .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
-                .ToList();
-
-            foreach (Gene sourceGene in sourceGenes)
-            {
-                var extension = sourceGene.def.GetModExtension<CursedEnergyGeneExtension>();
-                Gene existingGene = targetPawn.genes.GetGene(sourceGene.def);
-
-                if (existingGene == null)
-                {
-                    targetPawn.genes.AddGene(sourceGene.def, true);
-                }
-                else
-                {
-                    var existingExtension = existingGene.def.GetModExtension<CursedEnergyGeneExtension>();
-                    if (extension.priority > existingExtension.priority)
-                    {
-                        targetPawn.genes.RemoveGene(existingGene);
-                        targetPawn.genes.AddGene(sourceGene.def, true);
-                    }
-                }
-            }
+            RemoveAllCursedEnergyAndTechniques(p);
         }
 
-        public static void ForceSorcererGradeGene(Pawn targetPawn, GeneDef GeneToForce)
+
+        [DebugAction("JJK", "Give Pawn Random CT", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void GivePawnRandomCT(Pawn p)
         {
-            CursedEnergyGeneExtension geneToForceExtension = GeneToForce.GetModExtension<CursedEnergyGeneExtension>();
-            if (geneToForceExtension == null)
-            {
-                Log.Message($"{GeneToForce} has no CursedEnergyGeneExtension.");
-                return;
-            }
-
-            var allSorcererGenes = targetPawn.genes.GenesListForReading
-                .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
-                .ToList();
-
-            foreach (Gene sourceGene in allSorcererGenes)
-            {
-                targetPawn.genes.RemoveGene(sourceGene);
-            }
-
-            targetPawn.genes.AddGene(GeneToForce, true);
+            JJKGeneUtil.GiveRandomCursedTechnique(p);
         }
 
-        public static void GiveRandomSorcererGrade(Pawn targetPawn, bool overwriteExistingGrade = true)
+        public static void RemoveAllCursedEnergyAndTechniques(this Pawn Pawn)
         {
-            List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
-                .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
-                .ToList();
-
-            List<Gene> existingSorcererGenes = targetPawn.genes.GenesListForReading
-             .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
-             .ToList();
-
-
-            if (sorcererGeneDefs.Count == 0)
-            {
-                Log.Warning("No GeneDefs found with CursedEnergyGeneExtension.");
-                return;
-            }
-
-
-            if (existingSorcererGenes.Count > 0)
-            {
-                if (overwriteExistingGrade)
-                {
-                    foreach (Gene sourceGene in existingSorcererGenes)
-                    {
-                        targetPawn.genes.RemoveGene(sourceGene);
-                    }
-                }
-
-            }
-            GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
-            targetPawn.genes.AddGene(randomSorcererGeneDef, true);
+            JJKGeneUtil.RemoveAllGradeGenes(Pawn);
+            JJKGeneUtil.RemoveCursedEnergy(Pawn);
+            JJKUtility.RemoveCursedEnergyAbilities(Pawn);
         }
-
-
-        public static void GiveRandomSorcererGene(Pawn targetPawn, bool RemoveExisting = false)
-        {
-            // Find all GeneDefs with CursedEnergyGeneExtension
-            List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
-                .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
-                .ToList();
-
-            if (sorcererGeneDefs.Count == 0)
-            {
-                Log.Warning("No GeneDefs found with CursedTechniqueGeneExtension.");
-                return;
-            }
-
-            if (RemoveExisting)
-            {
-                // Remove existing sorcerer genes
-                var existingSorcererGenes = GetSorcererGenes(targetPawn);
-
-                foreach (Gene sourceGene in existingSorcererGenes)
-                {
-                    targetPawn.genes.RemoveGene(sourceGene);
-                }
-            }
-
-            // Select a random sorcerer GeneDef
-            GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
-            // Add the randomly selected gene to the pawn
-            targetPawn.genes.AddGene(randomSorcererGeneDef, true);
-        }
-
-
-        public static List<Gene> GetSorcererGenes(this Pawn Pawn)
-        {
-            return Pawn.genes.GenesListForReading
-                    .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
-                    .ToList();
-        }
-
-
-        public static void TryUpgradeSorcererGrade(Pawn targetPawn)
-        {
-            List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
-                .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
-                .OrderBy(x => x.GetModExtension<CursedEnergyGeneExtension>().priority)
-                .ToList();
-
-            if (sorcererGeneDefs.Count == 0)
-            {
-                Log.Warning("No GeneDefs found with CursedEnergyGeneExtension.");
-                return;
-            }
-
-            // Find the pawn's current sorcerer gene
-            Gene currentSorcererGene = targetPawn.genes.GenesListForReading
-                .FirstOrDefault(g => g.def.HasModExtension<CursedEnergyGeneExtension>());
-
-            if (currentSorcererGene == null)
-            {
-                // If no gene exists, add the lowest grade gene (lowest priority number)
-                GeneDef lowestGradeGene = sorcererGeneDefs.First();
-                targetPawn.genes.AddGene(lowestGradeGene, true);
-                Log.Message($"Added initial sorcerer gene {lowestGradeGene.defName} to {targetPawn.Name}");
-                return;
-            }
-
-            int currentPriority = currentSorcererGene.def.GetModExtension<CursedEnergyGeneExtension>().priority;
-
-            // Find the next higher grade gene (higher priority number)
-            GeneDef upgradedGeneDef = sorcererGeneDefs
-                .FirstOrDefault(geneDef => geneDef.GetModExtension<CursedEnergyGeneExtension>().priority > currentPriority);
-
-            if (upgradedGeneDef != null)
-            {
-                // Remove the current gene
-                targetPawn.genes.RemoveGene(currentSorcererGene);
-
-                // Add the upgraded gene
-                targetPawn.genes.AddGene(upgradedGeneDef, true);
-
-                Log.Message($"Upgraded {targetPawn.Name}'s sorcerer grade from {currentSorcererGene.def.defName} to {upgradedGeneDef.defName}");
-            }
-            else
-            {
-                Log.Message($"{targetPawn.Name} already has the highest sorcerer grade available.");
-            }
-        }
-
 
 
         public static bool HasHeavenlyPact(this Pawn pawn)
@@ -236,7 +88,6 @@ namespace JJK
                 return;
             }
 
-            // Get all Cursed_Energy abilities from the source pawn
             List<Ability> cursedEnergyAbilities = sourceAbilities.abilities
                 .Where(ability => ability.def.category == JJKDefOf.Cursed_Energy)
                 .ToList();
@@ -264,9 +115,42 @@ namespace JJK
                     sourcePawn.abilities.RemoveAbility(item.def);
                 }
             }
-
-        
         }
+
+        public static void RemoveCursedEnergyAbilities(Pawn sourcePawn)
+        {
+            if (sourcePawn == null)
+            {
+                Log.Error("RemoveCursedEnergyAbilities: Source pawn is null.");
+                return;
+            }
+
+            // Get the ability user component from both pawns
+            Pawn_AbilityTracker sourceAbilities = sourcePawn.abilities;
+
+            if (sourceAbilities == null)
+            {
+                Log.Error("RemoveCursedEnergyAbilities: pawn does not have a CompAbilities component.");
+                return;
+            }
+
+            List<Ability> cursedEnergyAbilities = sourceAbilities.abilities
+                .Where(ability => ability.def.category == JJKDefOf.Cursed_Energy)
+                .ToList();
+
+            if (cursedEnergyAbilities.Count == 0)
+            {
+                //Log.Message($"{sourcePawn.Name} has no Cursed_Energy abilities to remove.");
+                return;
+            }
+
+            Log.Message($"removed {cursedEnergyAbilities.Count} Cursed_Energy abilities from {sourcePawn.Name}");
+            foreach (var item in cursedEnergyAbilities)
+            {
+                sourcePawn.abilities.RemoveAbility(item.def);
+            }
+        }
+
         public static void AddTraitIfNotExist(Pawn Pawn, TraitDef TraitDef, int degree = 0, bool force = false)
         { 
             if (TraitDef != null && !Pawn.story.traits.HasTrait(TraitDef))
@@ -288,7 +172,7 @@ namespace JJK
                     Position,
                     Map,
                     radius,
-                    DamageDefOf.Bomb,
+                    DamageDef,
                     Instigator,
                     DamageAmount,
                     Arp
@@ -316,10 +200,22 @@ namespace JJK
                 summon.SetMaster(Master);
             }
 
+            JJKUtility.MakeDraftable(shikigami);
             TrainPawn(shikigami, Master);
             return shikigami;
         }
 
+
+        public static IEnumerable<HediffComp_SelectiveDamageImmunity> GetSelectiveDamageImmunityComps(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.GetAllComps()
+                .OfType<HediffComp_SelectiveDamageImmunity>();
+        }
+
+        public static bool HasSelectiveDamageImmunity(this Pawn pawn)
+        {
+            return pawn.GetSelectiveDamageImmunityComps().Any();
+        }
 
         public static void TrainPawn(Pawn PawnToTrain, Pawn Trainer = null)
         {
@@ -337,7 +233,6 @@ namespace JJK
             }
         }
 
-
         public static bool IsShikigami(this Pawn pawn)
         {
             return pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_Shikigami);
@@ -349,15 +244,7 @@ namespace JJK
                    Find.CurrentMap?.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == thingId);
         }
 
-        public static void GiveCursedEnergy(Pawn targetPawn)
-        {
-            if (targetPawn == null || targetPawn.genes == null) return;
 
-            if (!targetPawn.genes.HasActiveGene(JJKDefOf.Gene_JJKCursedEnergy))
-            {
-                targetPawn.genes?.AddGene(JJKDefOf.Gene_JJKCursedEnergy, true);
-            }       
-        }
 
 
         public static void DealDamageToThingsInRange(List<Thing> ThingsInRadius, DamageDef DamageDef, float Damage, float ArmourPen = 0, float Angle = -1f, Thing Instigator = null, EffecterDef EffectorToPlay = null, Func<Thing, bool> Predicate = null)
@@ -398,21 +285,7 @@ namespace JJK
                 .Where(p => p.Faction != null && p.Faction != Faction.OfPlayer);
         }
 
-        public static void TransferGenes(Pawn sourcePawn, Pawn targetPawn, GeneDef GeneDefToTransfer, bool IsXenogerm = true)
-        {
-            if (sourcePawn == null || targetPawn == null || sourcePawn.genes == null || targetPawn.genes == null) return;
 
-            if (sourcePawn.genes.HasActiveGene(GeneDefToTransfer))
-            {
-                if (!targetPawn.genes.HasActiveGene(GeneDefToTransfer))
-                {
-                    Gene SourceGene = sourcePawn.genes.GetGene(GeneDefToTransfer);
-                    sourcePawn.genes.RemoveGene(SourceGene);
-                    targetPawn.genes.AddGene(GeneDefToTransfer, IsXenogerm);
-
-                }
-            }
-        }
 
         public static void RemoveViolenceIncapability(Pawn pawn)
         {
@@ -529,6 +402,15 @@ namespace JJK
             return pawn.abilities.AllAbilitiesForReading.Find(x=> x.def == AbiityDef) != null;
         }
 
+        public static bool IsCursedSpiritManipulator(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedSpiritManipulator) != null;
+        }
+        public static Hediff_CursedSpiritManipulator GetCursedSpiritManipulator(this Pawn pawn)
+        {
+            return (Hediff_CursedSpiritManipulator)pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedSpiritManipulator);
+        }
+
         public static Gene_CursedEnergy GetCursedEnergy(this Pawn pawn)
         {
             return pawn.genes?.GetFirstGeneOfType<Gene_CursedEnergy>();
@@ -628,58 +510,18 @@ namespace JJK
             return limbs.RandomElementWithFallback();
         }
 
-        public static void GenerateShaderPropertiesFiles()
+        public static BodyPartRecord GetRandomPartByTagDef(Pawn pawn, List<BodyPartTagDef> PartTags)
         {
-            try
-            {
-                // Create a directory to store the files
-                string directoryPath = Path.Combine(GenFilePaths.ConfigFolderPath, "ShaderProperties");
-                Directory.CreateDirectory(directoryPath);
+            List<BodyPartRecord> limbs = pawn.health.hediffSet.GetNotMissingParts()
+                .Where(part => part.def.tags.Any(x => PartTags.Contains(x)))
+                .ToList();
+            return limbs.RandomElementWithFallback();
+        }
 
-                // Get all public static fields of ShaderDatabase
-                FieldInfo[] fields = typeof(ShaderDatabase).GetFields(BindingFlags.Public | BindingFlags.Static);
-
-                foreach (FieldInfo field in fields)
-                {
-                    if (field.FieldType == typeof(Shader))
-                    {
-                        Shader shader = (Shader)field.GetValue(null);
-                        if (shader != null)
-                        {
-                            string filePath = Path.Combine(directoryPath, $"{shader.name}_properties.txt");
-
-                            using (StreamWriter writer = new StreamWriter(filePath))
-                            {
-                                writer.WriteLine($"Shader Name: {shader.name}");
-                                writer.WriteLine($"Render Queue: {shader.renderQueue}");
-                                writer.WriteLine($"Is Supported: {shader.isSupported}");
-                                writer.WriteLine("\nProperties:");
-
-                                // Get all properties of the shader
-                                for (int i = 0; i < shader.GetPropertyCount(); i++)
-                                {
-                                    string propertyName = shader.GetPropertyName(i);
-                                    ShaderPropertyType propertyType = shader.GetPropertyType(i);
-
-                                    writer.WriteLine($"  - Name: {propertyName}");
-                                    writer.WriteLine($"    Type: {propertyType}");
-                                    writer.WriteLine();
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Log.Message($"Shader properties have been written to: {directoryPath}");
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"Error generating shader properties: {ex.Message}");
-            }
+        public static void MakeDraftable(this Pawn pawn)
+        {
+            DraftingUtility.RegisterDraftableCreature(pawn);
         }
     }
-
-
-   
 }
 

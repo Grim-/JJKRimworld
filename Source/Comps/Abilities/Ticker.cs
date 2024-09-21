@@ -15,6 +15,11 @@ namespace JJK
 
         private int RepeatAmount = -1;
 
+        public Ticker()
+        {
+
+        }
+
         public Ticker(int ticks, Action onTick, bool startAutomatically = true, int repeatCount = -1)
         {
             Ticks = ticks;

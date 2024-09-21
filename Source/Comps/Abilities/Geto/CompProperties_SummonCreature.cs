@@ -24,7 +24,7 @@ namespace JJK
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            Hediff_CursedSpiritManipulator hediff = parent.pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedSpiritManipulator) as Hediff_CursedSpiritManipulator;
+            Hediff_CursedSpiritManipulator hediff = parent.pawn.GetCursedSpiritManipulator();
             if (hediff == null)
             {
                 Log.Error($"JJK: No Hediff_CursedSpiritManipulator found for {parent.pawn.LabelShort} {parent.pawn.ThingID}");

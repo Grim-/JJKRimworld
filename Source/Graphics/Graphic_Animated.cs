@@ -7,7 +7,7 @@ using Verse;
 
 namespace JJK
 {
-	/*
+    /*
 	 * This file contains code derived from the TMagic mod by TorannD.
 	 * Original source: https://github.com/TorannD/TMagic
 	 * 
@@ -41,7 +41,7 @@ namespace JJK
 	 * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 	 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	 */
-	[StaticConstructorOnStartup]
+    [StaticConstructorOnStartup]
 		public class Graphic_Animated : Graphic
 		{
 			public override void Init(GraphicRequest req)
@@ -223,4 +223,4 @@ namespace JJK
 			private Material[] cachedMaterials;
 			private static Dictionary<string, Material[]> loadedMaterials = new Dictionary<string, Material[]>();
 		}
-	}
+}

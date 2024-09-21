@@ -93,13 +93,19 @@ namespace JJK
 
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
+            if (!parent.pawn.IsCursedSpiritManipulator())
+            {
+                Messages.Message("Requires Geto Gene.", MessageTypeDefOf.RejectInput);
+                return;
+            }
+
             if (target.Pawn == null || !target.Pawn.Downed || target.Pawn.RaceProps.Humanlike)
             {
                 Messages.Message("Cannot absorb. Target must be a downed, non-humanlike creature.", MessageTypeDefOf.RejectInput);
                 return;
             }
 
-            Hediff_CursedSpiritManipulator hediff = parent.pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedSpiritManipulator) as Hediff_CursedSpiritManipulator;
+            Hediff_CursedSpiritManipulator hediff = parent.pawn.GetCursedSpiritManipulator();
             if (hediff == null)
             {
                 Messages.Message("Caster does not have the Cursed Spirit Manipulator ability.", MessageTypeDefOf.RejectInput);

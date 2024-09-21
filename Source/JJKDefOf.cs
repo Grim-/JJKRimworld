@@ -111,7 +111,7 @@ namespace JJK
         public static DamageDef JJK_Dismantle;
 
         public static EffecterDef JJK_Deflect;
-        public static EffecterDef JJK_aura;
+        public static EffecterDef JJK_RCTAura;
         public static EffecterDef JJK_ShadowSummonEffect;
         public static EffecterDef JJK_ShadowSummonEffectLarge;
         public static EffecterDef JJK_BlueAOEAuraEffect;

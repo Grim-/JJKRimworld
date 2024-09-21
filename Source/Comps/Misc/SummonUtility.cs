@@ -14,16 +14,6 @@ namespace JJK
 
             return null;
         }
-
-        public static void MakeDraftable(this Pawn pawn)
-        {
-            SummonDraftManager.RegisterDraftableCreature(pawn);
-        }
-
-        public static void RemoveDraftable(this Pawn pawn)
-        {
-            SummonDraftManager.UnregisterDraftableCreature(pawn);
-        }
     }
 }
 
