@@ -6,7 +6,7 @@
     <description>Touch a target to change the shape of it's soul, the body will follow.</description>
     <iconPath>UI/Abilities/ShapeFlesh</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <abilities>
       <li>JJK_IdleTransfigurationMakeDoll</li>
@@ -15,5 +15,10 @@
       <li>JJK_IdleTransfiguration</li>
     </abilities>
     <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
   </GeneDef>
 </Defs>

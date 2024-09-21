@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <DamageDef>
+    <defName>JJK_CursedEnergyDamage</defName>
+    <label>cursed</label>
+    <workerClass>JJK.DamageWorker_CursedEnergy</workerClass>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has been destroyed with cursed energy.</deathMessage>
+    <hediff>Crush</hediff>
+    <hediffSolid>Crush</hediffSolid>
+    <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+    <impactSoundType>Blunt</impactSoundType>
+    <armorCategory>Blunt</armorCategory>
+    <overkillPctToDestroyPart>0.5</overkillPctToDestroyPart>
+  </DamageDef>
+</Defs>

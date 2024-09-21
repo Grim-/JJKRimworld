@@ -4,9 +4,9 @@
     <defName>Gene_JJKSpecialGrade</defName>
     <label>Special Grade Sorcerer</label>
     <description>Special grades cannot be accurately ranked as they tend to have a combination of larger cursed energy reserves and a bizare or extreme set of techniques. </description>
+      <displayCategory>CursedEnergy</displayCategory>
     <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>0</biostatMet>
     <modExtensions>

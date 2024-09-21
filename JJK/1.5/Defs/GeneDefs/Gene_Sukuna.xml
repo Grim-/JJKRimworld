@@ -6,7 +6,7 @@
     <description>The calamity of the Jujutsu world.</description>
     <iconPath>UI/Icons/Gene_Cleave</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>10</marketValueFactor>
     <abilities>
       <li>Sukuna_Cleave</li>
@@ -15,5 +15,15 @@
       <li>JJK_ReversedCurseTechnique</li>
     </abilities>
     <biostatMet>-1</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergyDamageBonus>5</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergy>10</JJK_CursedEnergy>
+      <JJK_CursedEnergyRegen>25</JJK_CursedEnergyRegen>
+    </statFactors>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
   </GeneDef>
 </Defs>

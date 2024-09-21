@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <RulePackDef>
+    <defName>NamerPersonJujutsuSorcerer_Male</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_name(p=10)->[JapaneseNameMale]</li>
+        <li>r_name(p=5)->[JapaneseNameMale] [JapaneseSurname]</li>
+        <li>r_name(p=3)->[JujutsuTechnique] [JapaneseNameMale]</li>
+        <li>r_name(p=2)->[Color] [JapaneseNameMale]</li>
+        <li>r_name->[ConceptPositive] [JapaneseNameMale]</li>
+        <li>JapaneseNameMale->Satoru|Yuji|Megumi|Kento|Toge|Panda|Yuta|Kinji|Kiyotaka|Masamichi|Atsuya|Yoshinobu</li>
+        <li>JapaneseSurname->Gojo|Itadori|Fushiguro|Nanami|Inumaki|Okkotsu|Zenin|Kamo|Yaga|Jogo|Hanami|Mahito</li>
+        <li>JujutsuTechnique->Limitless|Reversal|Shadow|Ratio|Cursed Speech|Copy|Blood Manipulation|Projection|Boogie Woogie</li>
+        <li>Color->Black|White|Red|Blue|Purple|Golden</li>
+        <li>ConceptPositive->Noble|Wise|Brave|Honored|Revered|Esteemed</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>NamerPersonJujutsuSorcerer_Female</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_name(p=10)->[JapaneseNameFemale]</li>
+        <li>r_name(p=5)->[JapaneseNameFemale] [JapaneseSurname]</li>
+        <li>r_name(p=3)->[JujutsuTechnique] [JapaneseNameFemale]</li>
+        <li>r_name(p=2)->[Color] [JapaneseNameFemale]</li>
+        <li>r_name->[ConceptPositive] [JapaneseNameFemale]</li>
+        <li>JapaneseNameFemale->Nobara|Maki|Mai|Kasumi|Miwa|Utahime|Mei|Yuki|Rika|Shoko|Tsumiki|Riko</li>
+        <li>JapaneseSurname->Kugisaki|Zenin|Miwa|Ieiri|Orimoto|Iori|Nitta|Amanai|Fushiguro|Utahime</li>
+        <li>JujutsuTechnique->Straw Doll|Cursed Tools|New Shadow Style|Cursed Speech|Ice Formation|Reverse Cursed|Projection Sorcery</li>
+        <li>Color->Black|White|Red|Pink|Purple|Silver</li>
+        <li>ConceptPositive->Graceful|Wise|Fierce|Honored|Revered|Esteemed</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+</Defs>

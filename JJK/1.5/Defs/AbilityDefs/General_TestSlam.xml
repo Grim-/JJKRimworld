@@ -32,12 +32,6 @@
     <damageAmount>20</damageAmount>
     <useMouseAsOrigin>false</useMouseAsOrigin>
   </li>
-  <li Class="JJK.CompProperties_ComplexBeam">
-    <BeamStart>JJK_RedBeamStart</BeamStart>
-    <BeamMiddle>JJK_BeamMote</BeamMiddle>
-    <BeamEnd>JJK_RedBeamEnd</BeamEnd>
-    <BeamLifeInTicks>1200</BeamLifeInTicks>
-  </li>
 </comps>
 </AbilityDef>
 </Defs>

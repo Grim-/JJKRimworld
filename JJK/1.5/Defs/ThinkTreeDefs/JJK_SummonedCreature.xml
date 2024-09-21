@@ -4,10 +4,15 @@
     <defName>JJK_SummonedCreature</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
+
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
         </li>
-        <li Class="ThinkNode_ConditionalColonist">
+
+        <!-- Do a queued job -->
+        <li Class="ThinkNode_QueuedJob" />
+        
+        <li Class="ThinkNode_ConditionalDrafted">
           <subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>DraftedOrder</tagToGive>
@@ -18,11 +23,13 @@
             </li>
           </subNodes>
         </li>
+
         <li Class="JJK.ThinkNode_ConditionalSelfOrMasterHasTarget">
           <subNodes>
             <li Class="JJK.JobGiver_SummonedCreatureFightEnemy" />
           </subNodes>
         </li>
+
         <li Class="JJK.ThinkNode_ConditionalNearMaster">
           <MaxDistanceToMaster>5</MaxDistanceToMaster>
           <subNodes>
@@ -30,8 +37,10 @@
             </li>
           </subNodes>
         </li>
+
         <li Class="JJK.JobGiver_SummonedCreatureFollowMaster">
         </li>
+
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef>

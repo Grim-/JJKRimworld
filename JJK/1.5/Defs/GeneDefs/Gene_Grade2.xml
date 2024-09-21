@@ -6,7 +6,7 @@
     <description>The second grade of Jujutsu Sorcerer</description>
     <iconPath>Abilities/Gojo/Red</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <modExtensions>

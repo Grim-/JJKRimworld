@@ -4,9 +4,9 @@
     <defName>Gene_JJKHeavenlyPact</defName>
     <label>Heavenly Pact</label>
     <description>In exchange for complete absence of Cursed Energy, grants the user a superhuman physical body with enhanced senses and peak physical potential.</description>
+  <displayCategory>CursedEnergy</displayCategory>
     <iconPath>Abilities/Gojo/Red</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <statFactors>

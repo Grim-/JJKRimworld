@@ -6,7 +6,7 @@
     <description>The lowest grade of Jujutsu Sorcerer</description>
     <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <modExtensions>

@@ -6,7 +6,7 @@
     <description>You can compel your targets to do whatever you say, due to this you have to be very careful what you say as the words can have unintended consequences, dramatically reducing social skills.</description>
     <iconPath>UI/Abilities/ShapeFlesh</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <abilities>
       <li>InumakiCursedSpeech_Stop</li>
@@ -16,5 +16,10 @@
       <li>InumakiCursedSpeech_Crush</li>
     </abilities>
     <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
   </GeneDef>
 </Defs>

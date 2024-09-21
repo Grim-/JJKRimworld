@@ -24,16 +24,17 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_RCT">
-        <Ticks>200</Ticks>
+        <Ticks>100</Ticks>
         <TicksBetweenCost>650</TicksBetweenCost>
         <PartHealCoefficient>5</PartHealCoefficient><!-- multiplier on RCT Heal Bonus -->
-        <HediffHealCoefficient>2</HediffHealCoefficient>
+        <HediffHealCoefficient>5</HediffHealCoefficient>
         <cursedEnergyCost>0</cursedEnergyCost> <!-- inital cast cost zero -->
         <CECostPerTick>15</CECostPerTick> <!-- how much it costs per tick while active -->
         <CEPartRegenCost>2.2</CEPartRegenCost> <!-- multiplier for part heal, used to calculate costs to restore a lost limb part [part HP * CEPartRegenCost] -->
         <CEHediffCost>2</CEHediffCost><!-- multiplier for severity heal, used to calculate costs to restore a lost limb part part [Severity * CEHediffCost] -->
         <CanCureAddiction>False</CanCureAddiction> <!-- should addiction be counted? -->
         <ShouldRemoveImplants>False</ShouldRemoveImplants><!-- should it regenerate and remove implants? -->
+        <AuraEffecter>JJK_RCTAura</AuraEffecter>
       </li>
     </comps>
   </JJK.AbilityDef_Toggleable>

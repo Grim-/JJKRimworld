@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <XenotypeDef>
+    <defName>JJK_SukunaXeno</defName>
+    <label>jujutsu sorcerer</label>
+    <description>Jujutsu sorcerers are individuals with the innate ability to control and manipulate Cursed Energy. They possess heightened spiritual awareness and physical capabilities, allowing them to combat Cursed Spirits and other supernatural threats. Their training involves mastering various Cursed Techniques and developing a deep understanding of Jujutsu.\n\nThese sorcerers often lead dangerous lives, balancing their duties to protect humanity with the constant threat of Cursed Spirits. Their unique abilities set them apart from ordinary humans, sometimes leading to isolation or misunderstanding from society at large. Despite this, they remain committed to their role as guardians against the unseen dangers of the cursed world.</description>
+    <descriptionShort>Jujutsu sorcerers are individuals capable of manipulating Cursed Energy to combat supernatural threats. They possess enhanced physical and spiritual abilities, making them formidable fighters against Cursed Spirits and other mystical dangers.</descriptionShort>
+    <iconPath>UI/Icons/Xenotypes/JujutsuSorcerer</iconPath>
+    <inheritable>true</inheritable>
+    <nameMaker>NamerPersonJujutsuSorcerer_Male</nameMaker>
+    <nameMakerFemale>NamerPersonJujutsuSorcerer_Female</nameMakerFemale>
+    <chanceToUseNameMaker>1</chanceToUseNameMaker>
+    <genes>
+      <li>Gene_JJKCursedEnergy</li>
+    </genes>
+  </XenotypeDef>
+</Defs>

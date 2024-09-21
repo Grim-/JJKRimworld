@@ -4,6 +4,7 @@
     <defName>Gene_JJKSpecialGrade_Monstrous</defName>
     <label>Special Grade Sorcerer (Monstrous)</label>
     <description>Special grades cannot be accurately ranked as they tend to have a combination of larger cursed energy reserves and a bizare or extreme set of techniques. But this one has a disturbing amount of cursed energy. </description>
+      <displayCategory>CursedEnergy</displayCategory>
     <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
     <modExtensions>
     <li Class="JJK.CursedEnergyGeneExtension">
@@ -11,7 +12,6 @@
     </li>
   </modExtensions>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>0</biostatMet>
     <statFactors>

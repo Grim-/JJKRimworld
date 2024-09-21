@@ -6,7 +6,7 @@
     <description>In exchange for crippling pain, skin as weak as paper, you have gained an abudance of Cursed energy, far exceeding almost all others.</description>
     <iconPath>Abilities/Gojo/Red</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <statFactors>

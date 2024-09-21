@@ -1,46 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <EffecterDef>
-    <defName>JJK_aura</defName>
+    <defName>JJK_RCTAura</defName>
     <children>
       <li>
         <subEffecterClass>SubEffecter_DrifterEmoteContinuous</subEffecterClass>
         <chancePerTick>1</chancePerTick>
-        <ticksBetweenMotes>6</ticksBetweenMotes>
-        <moteDef>JJK_AuraMote</moteDef>
+        <ticksBetweenMotes>100</ticksBetweenMotes>
+        <moteDef>ExpandingAuraMote</moteDef>
         <spawnLocType>OnTarget</spawnLocType>
-        <burstCount>1~5</burstCount>
+        <burstCount>1~1</burstCount>
         <positionRadius>0</positionRadius>
         <positionRadiusMin>0</positionRadiusMin>
         <maxMoteCount>2</maxMoteCount>
-        <scale>.25~.4</scale>
+        <scale>1~1.5</scale>
         <rotation>0~0</rotation>
         <rotationRate>0~0</rotationRate>
         <angle>0~0</angle>
         <speed>0</speed>
         <positionOffset>(0, 0.8, 0)</positionOffset>
-        <color>(0.141, 0 ,0.984, 0.2)</color>
-        <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
-        <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
-        <attachToSpawnThing>true</attachToSpawnThing>
-      </li>
-      <li>
-        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
-        <chancePerTick>1</chancePerTick>
-        <ticksBetweenMotes>6</ticksBetweenMotes>
-        <fleckDef>JJK_AuraFleckSplash</fleckDef>
-        <spawnLocType>OnTarget</spawnLocType>
-        <burstCount>1~5</burstCount>
-        <positionRadius>0</positionRadius>
-        <positionRadiusMin>0</positionRadiusMin>
-        <maxMoteCount>99999</maxMoteCount>
-        <scale>.1~.3</scale>
-        <rotation>0~0</rotation>
-        <rotationRate>0~0</rotationRate>
-        <angle>0~360</angle>
-        <speed>0</speed>
-        <positionOffset>(0, 0.5, 0)</positionOffset>
-        <color>(0.141, 0 ,0.984, 0.2)</color>
         <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
         <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
         <attachToSpawnThing>true</attachToSpawnThing>
@@ -49,53 +27,8 @@
   </EffecterDef>
 
   <FleckDef ParentName="FleckBase">
-    <defName>JJK_AuraFleckSplash</defName>
-    <altitudeLayer>Projectile</altitudeLayer>
-    <fadeInTime>.4</fadeInTime>
-    <solidTime>0</solidTime>
-    <fadeOutTime>0.4</fadeOutTime>
-    <growthRate>0.01</growthRate>
-    <graphicData>
-      <graphicClass>Graphic_FleckPulse</graphicClass>
-      <texPath>Animations/Ring_ShockwaveLiquidy</texPath>
-      <shaderType>MoteGlowDistorted</shaderType>
-      <shaderParameters>
-        <_Color>(0.141, 0 ,0.984, 0.2)</_Color>
-        <_Interval>0.04</_Interval>
-        <_DistortionTex>/Other/Ripples</_DistortionTex>
-        <_distortionIntensity>0.05</_distortionIntensity>
-        <_DistortionScale>0.4</_DistortionScale>
-      </shaderParameters>
-      <drawSize>10.0</drawSize>
-    </graphicData>
-  </FleckDef>
-
-  <ThingDef ParentName="MoteBase">
-    <defName>JJK_AuraMote</defName>
-    <thingClass>MoteAttached</thingClass>
-    <graphicData>
-      <texPath>Animations/Aura</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>MoteGlowDistorted</shaderType>
-      <shaderParameters>
-        <_Color>(0.141, 0 ,0.984, 0.2)</_Color>
-        <_Interval>0.04</_Interval>
-        <_DistortionTex>/Other/Ripples</_DistortionTex>
-        <_distortionIntensity>0.05</_distortionIntensity>
-        <_DistortionScale>0.4</_DistortionScale>
-      </shaderParameters>
-    </graphicData>
-    <altitudeLayer>Projectile</altitudeLayer>
-    <mote>
-      <fadeInTime>0.2</fadeInTime>
-      <solidTime>0.8</solidTime>
-      <fadeOutTime>0.4</fadeOutTime>
-    </mote>
-  </ThingDef>
-
-  <FleckDef ParentName="FleckBase">
     <defName>JJK_Aura</defName>
-    <altitudeLayer>Projectile</altitudeLayer>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
     <fadeInTime>.4</fadeInTime>
     <solidTime>0</solidTime>
     <fadeOutTime>0.4</fadeOutTime>
@@ -114,20 +47,20 @@
   </FleckDef>
 
 
-
-
   <ThingDef Name="AuraTestBase" Abstract="True">
     <thingClass>AnimatedMotes.Mote_Animation</thingClass>
     <label>Mote</label>
     <category>Mote</category>
-    <mote>
-      <solidTime>99999999</solidTime>
-    </mote>
     <graphicData Class="AnimatedMotes.GraphicDataAnimation">
       <graphicClass>AnimatedMotes.Graphic_Animated</graphicClass>
-      <shaderType>Mote</shaderType>
+      <shaderType>MoteGlow</shaderType>
       <drawSize>1</drawSize>
     </graphicData>
+    <mote>
+      <solidTime>1</solidTime>
+    </mote>
+    <fpsRate>2</fpsRate>
+    <maxLoopCount>9999</maxLoopCount>
     <altitudeLayer>MoteOverhead</altitudeLayer>
     <tickerType>Normal</tickerType>
     <useHitPoints>false</useHitPoints>
@@ -135,23 +68,4 @@
     <rotatable>false</rotatable>
     <drawOffscreen>true</drawOffscreen>
   </ThingDef>
-
-  <AnimatedMotes.AnimationDef ParentName="AuraTestBase">
-    <defName>ExpandingAuraMote</defName>
-    <graphicData Class="AnimatedMotes.GraphicDataAnimation">
-      <texPath>Animations/Aura</texPath>
-      <drawSize>3</drawSize>
-      <color>(1, 0, 0, 1)</color>
-    </graphicData>
-    <altitudeLayer>MoteOverhead</altitudeLayer>
-    <mote>
-      <fadeInTime>0</fadeInTime>
-      <solidTime>99999</solidTime>
-      <fadeOutTime>0</fadeOutTime>
-      <growthRate>0</growthRate>
-      <speedPerTime>0</speedPerTime>
-    </mote>
-    <fpsRate>2</fpsRate>
-    <maxLoopCount>-1</maxLoopCount>
-  </AnimatedMotes.AnimationDef>
 </Defs>

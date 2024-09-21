@@ -6,7 +6,7 @@
     <description>Shoko Ieiri was one of only three known sorcerers capable of using Reversed Curse Technique on others.</description>
     <iconPath>Abilities/Gojo/Red</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <biostatMet>-1</biostatMet>
     <abilities>
@@ -16,5 +16,10 @@
     <statFactors>
       <JJK_RCTHealingBonus>3</JJK_RCTHealingBonus>
     </statFactors>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
   </GeneDef>
 </Defs>

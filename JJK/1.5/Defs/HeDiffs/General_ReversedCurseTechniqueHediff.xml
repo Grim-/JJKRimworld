@@ -4,7 +4,7 @@
     <defName>JJK_RCTRegenHediff</defName>
     <label>Reversed Cursed Technique</label>
     <hediffClass>Hediff</hediffClass>
-    <description>You are Regenerating.</description>
+    <description>A powerful regenerative technique that rapidly heals injuries and prevents death. The user's body is suffused with reversed cursed energy, accelerating natural healing processes to supernatural levels.</description>
     <initialSeverity>0.001</initialSeverity>
     <isBad>False</isBad>
     <stages>

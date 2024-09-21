@@ -4,6 +4,7 @@
   <defName>GeneJJK_CursedEnergyDamageMaster</defName>
   <label>Cursed Energy Damage Master</label>
   <description>Increases Cursed Energy damage by 50%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
   <prerequisite>Gene_JJKCursedEnergy</prerequisite>
   <statFactors>
     <JJK_CursedEnergyDamageBonus>1.5</JJK_CursedEnergyDamageBonus>
@@ -14,6 +15,7 @@
   <defName>GeneJJK_CursedEnergyDamageWeak</defName>
   <label>Cursed Energy Damage Weak</label>
   <description>Decreases Cursed Energy damage by 50%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
   <statFactors>
     <JJK_CursedEnergyDamageBonus>0.5</JJK_CursedEnergyDamageBonus>
@@ -24,6 +26,7 @@
   <defName>GeneJJK_CursedEnergyDamageJuggernaut</defName>
   <label>Cursed Energy Damage Juggernaut</label>
   <description>Increases Cursed Energy damage by 100%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
   <statFactors>
     <JJK_CursedEnergyDamageBonus>2</JJK_CursedEnergyDamageBonus>
@@ -34,6 +37,7 @@
   <defName>GeneJJK_CursedEnergyDamageInept</defName>
   <label>Cursed Energy Damage Inept</label>
   <description>Decreases Cursed Energy damage by 80%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
   <statFactors>
     <JJK_CursedEnergyDamageBonus>0.2</JJK_CursedEnergyDamageBonus>

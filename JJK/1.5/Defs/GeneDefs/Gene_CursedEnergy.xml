@@ -16,8 +16,8 @@
   <showGizmoWhenDrafted>true</showGizmoWhenDrafted>
   <resourceDescription> A sinister and potent force originating from a pawns fears and other negative emotions, utilized by Jujutsu sorcerers for combat.</resourceDescription>
   <iconPath>UI/Icons/CursedEnergyIcon</iconPath>
-  <selectionWeight>0</selectionWeight>
-  <displayCategory>Hemogen</displayCategory>
+  <selectionWeight>0.2</selectionWeight>
+  <displayCategory>CursedEnergy</displayCategory>
   <displayOrderInCategory>-2</displayOrderInCategory>
   <customEffectDescriptions>
     <li>Gives pawn a cursed energy supply.</li>
@@ -33,7 +33,6 @@
   <biostatMet>1</biostatMet>
   <abilities>
     <li>JJK_CursedEnergyReinforcement</li>
-    <li>JJK_RectangleDamageAbility</li>
   </abilities>
 </GeneDef>
 </Defs>

@@ -6,10 +6,29 @@
   <description>A dangerously hot tile of molten lava.</description>
   <thingClass>Building</thingClass>
   <category>Building</category>
-  <graphicData>
+  <graphicData Class="JJK.ABSGraphicData">
     <texPath>Lava</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
+    <graphicClass>JJK.Graphic_ABS</graphicClass>
+    <customShaderName>lavashader</customShaderName>
     <drawSize>(1,1)</drawSize>
+    <shaderParameters>
+      <_MainTex>/LavaTile/LavaMain</_MainTex>
+      <_Mask>/LavaTile/LavaMask2</_Mask>
+      <_DistortMap>/LavaTile/LavaDistort2</_DistortMap>
+      <_GlobalScale>1</_GlobalScale>
+      <_Color>(0.871, 0.584, 0.004, 1)</_Color>
+      <_VoronoiColor>(1, 0.294, 0, 0)</_VoronoiColor>
+      <_ColorIntensity>2.6</_ColorIntensity>
+      <_ScrollSpeed>3.32</_ScrollSpeed>
+      <_AngleOffset>3.77</_AngleOffset>
+      <_CellDensity>1.1</_CellDensity>
+      <_CellAngleSpeed>0.71</_CellAngleSpeed>
+      <_DistortionStrR>0.43</_DistortionStrR>
+      <_DistortionStrG>0.17</_DistortionStrG>
+      <_DistortionSpeedX>-0.62</_DistortionSpeedX>
+      <_DistortionSpeedY>0.62</_DistortionSpeedY>
+      <_DistortionScale>2</_DistortionScale>
+    </shaderParameters>
   </graphicData>
   <altitudeLayer>FloorEmplacement</altitudeLayer>
   <passability>Standable</passability>

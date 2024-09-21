@@ -38,7 +38,7 @@
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>1.5</drawSize>
     </graphicData>
-    <overlayColor>(0, 0, 1)</overlayColor> <!-- Blue color -->
+    <overlayColor>(0, 0, 1)</overlayColor>
     <overlayAlpha>0.3</overlayAlpha>
     <overlayLayer>Body</overlayLayer>
     <offset>(0, 1, 0)</offset>

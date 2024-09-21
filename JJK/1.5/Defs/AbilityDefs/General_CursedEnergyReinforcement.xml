@@ -27,7 +27,7 @@
           <li>JJK_CursedReinforcementHediff</li>
           <li>JJK_BlackFlash</li>
         </hediffDefs>
-        <cursedEnergyCostPerTick>20</cursedEnergyCostPerTick>
+        <cursedEnergyCostPerTick>10</cursedEnergyCostPerTick>
         <Ticks>1250</Ticks>
       </li>
     </comps>

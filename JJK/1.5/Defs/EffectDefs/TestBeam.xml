@@ -4,7 +4,7 @@
     <defName>JJK_BeamMote</defName>
     <thingClass>JJK.MoteBeam</thingClass>
     <graphicData>
-      <texPath>Animations/beamglow</texPath>
+      <texPath>Animations/beamglow2</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>MoteGlowDistorted</shaderType>
       <shaderParameters>
@@ -15,7 +15,7 @@
         <_DistortionScale>0.4</_DistortionScale>
       </shaderParameters>
     </graphicData>
-    <altitudeLayer>Projectile</altitudeLayer>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
     <mote>
       <fadeInTime>0.2</fadeInTime>
       <solidTime>9999</solidTime>
@@ -27,7 +27,7 @@
     <defName>JJK_RedBeamStart</defName>
     <children>
       <li>
-        <subEffecterClass>SubEffecter_DrifterEmoteContinuous</subEffecterClass>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
         <chancePerTick>1</chancePerTick>
         <ticksBetweenMotes>6</ticksBetweenMotes>
         <moteDef>JJK_AuraMote</moteDef>
@@ -54,7 +54,7 @@
     <defName>JJK_RedBeamMid</defName>
     <children>
       <li>
-        <subEffecterClass>SubEffecter_DrifterEmoteContinuous</subEffecterClass>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
         <chancePerTick>1</chancePerTick>
         <ticksBetweenMotes>6</ticksBetweenMotes>
         <moteDef>JJK_BeamMote</moteDef>
@@ -81,7 +81,7 @@
     <defName>JJK_RedBeamEnd</defName>
     <children>
       <li>
-        <subEffecterClass>SubEffecter_DrifterEmoteContinuous</subEffecterClass>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
         <chancePerTick>1</chancePerTick>
         <ticksBetweenMotes>6</ticksBetweenMotes>
         <moteDef>JJK_AuraMote</moteDef>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="BaseBullet">
+  <defName>JJK_DismantleProjectile</defName>
+  <label>dismantle</label>
+  <graphicData>
+    <texPath>Things/Projectile/Sukuna/Dismantle</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <shaderType>MoteGlowDistorted</shaderType>
+    <color>(1, 1, 1, 1)</color>
+    <shaderParameters>
+      <_DistortionTex>/Other/Ripples</_DistortionTex>
+      <_distortionIntensity>0.5</_distortionIntensity>
+      <_DistortionScale>0.6</_DistortionScale>
+      <_distortionScrollSpeed>(0.07, 2, 0.0)</_distortionScrollSpeed>
+    </shaderParameters>
+    <drawSize>3</drawSize>
+  </graphicData>
+  <projectile>
+    <damageDef>JJK_Dismantle</damageDef>
+    <damageAmountBase>150</damageAmountBase>
+    <armorPenetrationBase>1</armorPenetrationBase>
+    <stoppingPower>0.6</stoppingPower>
+    <speed>120</speed>
+  </projectile>
+</ThingDef>
+</Defs>

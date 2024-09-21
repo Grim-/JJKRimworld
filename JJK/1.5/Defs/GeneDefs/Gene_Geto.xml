@@ -6,7 +6,7 @@
     <description>This technique is the ability to absorb any creature that is downed, allowing you to summon it as an ally.</description>
     <iconPath>Abilities/Gojo/HollowPurple</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <abilities>
       <li>JJK_GetoSummonCreature</li>

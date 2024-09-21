@@ -6,12 +6,17 @@
     <description>wwww</description>
     <iconPath>UI/Abilities/ShapeFlesh</iconPath>
     <prerequisite>Gene_JJKCursedEnergy</prerequisite>
-    <displayCategory>Hemogen</displayCategory>
+  <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>2.5</marketValueFactor>
     <abilities>
       <li>JJK_SummonDemondogBlack</li>
       <li>JJK_SummonFleeingHares</li>
     </abilities>
     <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
   </GeneDef>
 </Defs>
