@@ -21,17 +21,19 @@ namespace JJK
         {
             if (!HasShader(ShaderName))
             {
+                Log.Message($"Shader Cache registering Shader {ShaderName}");
                 ShaderCache.Add(ShaderName, Shader);
             }
             else
             {
+                Log.Message($"Shader Cache updating Shader {ShaderName}");
                 ShaderCache[ShaderName] = Shader;
             }
         }
 
         public static Shader GetShaderByAssetName(string ShaderName)
         {
-            Log.Message($"Attemping to tetrie {ShaderName}");
+            Log.Message($"Attemping to retrieving Shader with name {ShaderName} from cache");
             if (HasShader(ShaderName))
             {
                 Log.Message($"{ShaderName} found.");

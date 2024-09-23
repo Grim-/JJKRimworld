@@ -86,6 +86,15 @@ namespace JJK
             }
         }
 
+        public override bool ShouldDisableBecauseNoCE(float Cost)
+        {
+            if (IsActive)
+            {
+                return false;
+            }
+            else return base.ShouldDisableBecauseNoCE(Cost);
+        }
+
         private void RemoveHediff(Pawn pawn)
         {
             foreach (var item in Props.hediffDefs)

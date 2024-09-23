@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using Verse;
 
@@ -6,7 +7,11 @@ namespace JJK
 {
     public class CompProperties_KenjakuPossess : CompProperties_CursedAbilityProps
     {
-        public float CursedEnergyCost = 50f; // Adjust as needed
+        public float CursedEnergyCost = 50f;
+        public HediffDef possessionHediff;
+        public List<TraitDef> guaranteedTraits;
+        public List<TraitDef> randomTraits;
+        public float randomTraitChance = 0.5f;
 
         public CompProperties_KenjakuPossess()
         {
@@ -79,29 +84,10 @@ namespace JJK
                 var cursedEnergyGene = caster.GetCursedEnergy();
                // Log.Message($"JJK: Cursed Energy Gene found: {cursedEnergyGene != null}");
 
-                // Check if the caster has the Gene_Kenjaku
-                Gene_Kenjaku kenjakuGene = caster.GetKenjakuGene();
-                //Log.Message($"JJK: Kenjaku Gene found: {kenjakuGene != null}");
-
-                // Additional checks
-                var allGenes = caster.genes.GenesListForReading;
-                //Log.Message($"JJK: Total genes on caster: {allGenes.Count}");
-                var kenjakuGeneFromList = allGenes.FirstOrDefault(g => g is Gene_Kenjaku);
-               // Log.Message($"JJK: Kenjaku Gene found in list: {kenjakuGeneFromList != null}");
-
-                if (kenjakuGene == null)
-                {
-                  //  Log.Error($"JJK: Kenjaku Gene not found on caster {caster.LabelShort}");
-                    Messages.Message("JJK_KenjakuPossessionFailed_NoGene".Translate(caster.LabelShort), MessageTypeDefOf.RejectInput);
-                    return;
-                }
-
-
-
                 //Log.Message("JJK: Kenjaku Gene found, attempting possession");
 
                 // Attempt possession
-                kenjakuGene.PossessPawn(caster, targetPawn);
+                KenjakuUtil.PossessPawn(caster, targetPawn, Props.guaranteedTraits);
 
                 // Kill the previous host (the caster)
                 caster.Kill(new DamageInfo(DamageDefOf.NerveStun, 9999, 1));
@@ -112,8 +98,6 @@ namespace JJK
             {
                 Log.Error($"JJK: Kenjaku Gene could not ressurct target for possesion {target.Pawn.Label}");
             }
-
-
         }
     }
 }

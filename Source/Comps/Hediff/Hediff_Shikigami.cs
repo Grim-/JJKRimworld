@@ -20,6 +20,17 @@ namespace JJK
             base.PostMake();
         }
 
+
+        public override void PostTick()
+        {
+            base.PostTick();
+
+            if (referencedPawn != null && referencedPawn.Dead)
+            {
+                this.pawn.Kill(null);
+            }
+        }
+
         public override string DebugString()
         {
             string baseString = base.DebugString();
@@ -39,6 +50,7 @@ namespace JJK
             referencedPawn = pawn;
         }
     }
+
 }
 
 

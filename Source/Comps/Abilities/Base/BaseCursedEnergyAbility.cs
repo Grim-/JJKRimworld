@@ -55,7 +55,7 @@ namespace JJK
                 return true;
             }
 
-            if (!CursedEnergy.HasCursedEnergy(CastCost))
+            if (ShouldDisableBecauseNoCE(CastCost))
             {
                 reason = "AbilityDisabledNoCursedEnergy".Translate(parent.pawn);
                 return true;
@@ -68,6 +68,11 @@ namespace JJK
             }
             reason = null;
             return false;
+        }
+
+        public virtual bool ShouldDisableBecauseNoCE(float Cost)
+        {
+            return !CursedEnergy.HasCursedEnergy(CastCost);
         }
 
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)

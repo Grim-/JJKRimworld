@@ -137,14 +137,19 @@ namespace JJK
 
         public static List<Gene> GetSorcererGradeGenes(this Pawn Pawn)
         {
-            return Pawn.genes.GenesListForReading
+            if (Pawn.genes == null)
+            {
+                return null;
+            }
+            return Pawn.genes?.GenesListForReading
                     .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
                     .ToList();
         }
 
         public static bool HasGradeGene(this Pawn Pawn)
         {
-            return GetSorcererGradeGenes(Pawn).Count > 0;
+            List<Gene> genes = GetSorcererGradeGenes(Pawn);
+            return genes != null && genes.Count > 0;
         }
 
         public static void TransferGenes(Pawn sourcePawn, Pawn targetPawn, GeneDef GeneDefToTransfer, bool IsXenogerm = true)
@@ -164,11 +169,20 @@ namespace JJK
         }
         public static bool HasCursedTechnique(this Pawn Pawn)
         {
+            if (Pawn.genes == null)
+            {
+                return false;
+            }
+
             return Pawn.genes.GenesListForReading
                     .Where(g => g.def.HasModExtension<CursedTechniqueGeneExtension>()).Count() > 0;
         }
 
-
+        public static Gene GetCursedTechniqueGene(this Pawn Pawn)
+        {
+            return Pawn.genes.GenesListForReading
+                    .Where(g => g.def.HasModExtension<CursedTechniqueGeneExtension>()).FirstOrDefault();
+        }
 
         public static void TryUpgradeSorcererGrade(Pawn targetPawn)
         {

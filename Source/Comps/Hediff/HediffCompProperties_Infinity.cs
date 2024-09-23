@@ -8,6 +8,7 @@ namespace JJK
     {
         public float CheckRadius = 4f;
         public int CheckIntervalTicks = 60; // Default to checking every 60 ticks (1 second)
+        public EffecterDef Effect;
 
         public HediffCompProperties_Infinity()
         {
@@ -20,10 +21,41 @@ namespace JJK
     public class HediffComp_Infinity : HediffComp
     {
         public HediffCompProperties_Infinity Props => (HediffCompProperties_Infinity)props;
+        private Effecter AuraEffect = null;
+
+
+        public override void CompPostMake()
+        {
+            base.CompPostMake();
+
+            if (Props.Effect != null)
+            {
+                AuraEffect = Props.Effect.Spawn(this.Pawn, this.Pawn.MapHeld);
+            }
+        }
+
+
+        public override void CompPostPostRemoved()
+        {
+            base.CompPostPostRemoved();
+
+            if (AuraEffect != null)
+            {
+                AuraEffect.Cleanup();
+                AuraEffect = null;
+            }
+        }
+
 
         public override void CompPostTick(ref float severityAdjustment)
         {
             base.CompPostTick(ref severityAdjustment);
+
+            if (AuraEffect != null)
+            {
+                AuraEffect.EffectTick(this.Pawn, this.Pawn);
+            }
+
             if (parent.pawn.IsHashIntervalTick(Props.CheckIntervalTicks))
             {
                 PerformInfinityEffects();
@@ -89,10 +121,13 @@ namespace JJK
                 }
                 else
                 {
-                    DamageInfo damageInfo = new DamageInfo(DamageDefOf.Vaporize, 100f, 0f, -1f, parent.pawn);
-                    enemyPawn.TakeDamage(damageInfo);
-
-                    EffecterDefOf.MeatExplosionExtraLarge.Spawn(targetCell, parent.pawn.Map);
+                    if (Rand.Range(0, 100) <= 80)
+                    {
+                        DamageInfo damageInfo = new DamageInfo(DamageDefOf.Vaporize, 100f, 0f, -1f, parent.pawn);
+                        enemyPawn.TakeDamage(damageInfo);
+                        Messages.Message($"SPLAT {enemyPawn.Label} has been turned into a mess on the wall.", MessageTypeDefOf.NeutralEvent);
+                        EffecterDefOf.MeatExplosionExtraLarge.Spawn(targetCell, parent.pawn.Map);
+                    }
                 }
             }
         }
@@ -111,6 +146,20 @@ namespace JJK
                 }
             }
             return false;
+        }
+        public override void CompExposeData()
+        {
+            base.CompExposeData();
+
+            // Save whether the AuraEffect is active
+            bool auraEffectActive = AuraEffect != null;
+            Scribe_Values.Look(ref auraEffectActive, "AuraEffectActive", false);
+
+            // When loading, recreate the AuraEffect if it was active
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && auraEffectActive && Props.Effect != null)
+            {
+                AuraEffect = Props.Effect.SpawnAttached(this.Pawn, this.Pawn.MapHeld);
+            }
         }
     }
 

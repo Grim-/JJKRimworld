@@ -20,154 +20,24 @@ namespace JJK
         }
     }
 
-    [HarmonyPatch(typeof(Pawn))]
-    [HarmonyPatch("GetDisabledWorkTypes")]
-    public static class Patch_Pawn_GetDisabledWorkTypes
-    {
-        private static List<WorkTypeDef> cachedDisabledTypes;
-
-        [HarmonyPostfix]
-        public static void Postfix(Pawn __instance, ref List<WorkTypeDef> __result, bool permanentOnly)
-        {
-            if (__instance.health.hediffSet.HasHediff(JJKDefOf.JJK_ZombieWorkSlaveHediff))
-            {
-                if (cachedDisabledTypes == null)
-                {
-                    cachedDisabledTypes = new List<WorkTypeDef>
-                {
-                    WorkTypeDefOf.Childcare,
-                    WorkTypeDefOf.Doctor,
-                    WorkTypeDefOf.DarkStudy,
-                    WorkTypeDefOf.Research
-                };
-                }
-
-                // Combine the original disabled types with our additional disabled types
-                if (__result == null)
-                {
-                    __result = new List<WorkTypeDef>(cachedDisabledTypes);
-                }
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(Pawn_GeneTracker), nameof(Pawn_GeneTracker.AddGene), new System.Type[] { typeof(GeneDef), typeof(bool) })]
-    public static class Patch_AddGene
-    {
-
-        static void Postfix(Pawn_GeneTracker __instance, GeneDef geneDef, bool xenogene)
-        {
-            Pawn pawn = __instance.pawn;
-
-            if (geneDef == JJKDefOf.Gene_JJKCursedEnergy)
-            {
-                if (!RollHeavenlyPact(pawn, geneDef))
-                {
-                    JJKGeneUtil.GiveRandomSorcererGrade(pawn);
-                    RollSixEyes(pawn, geneDef);
-                }
-            }
-
-            if (CanGrantHollowPurple(pawn, geneDef))
-            {
-                if (!pawn.HasAbility(JJKDefOf.Gojo_HollowPurple))
-                {
-                    pawn.abilities.GainAbility(JJKDefOf.Gojo_HollowPurple);
-                }
-            }
-
-        }
-
-        private static bool RollHeavenlyPact(Pawn Pawn, GeneDef GeneAdded)
-        {
-            if (Rand.Range(0, 100) < JJKMod.HeavenlyPactChance)
-            {
-                if (Rand.Bool)
-                {
-                    if (Pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKHeavenlyPact))
-                    {
-                        Pawn.genes.AddGene(JJKDefOf.Gene_JJKHeavenlyPact, true);
-                        return true;
-                    }
-                }
-                else
-                {
-                    if (Pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKHeavenlyPactCursedEnergy))
-                    {
-                        Pawn.genes.AddGene(JJKDefOf.Gene_JJKHeavenlyPactCursedEnergy, true);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private static bool RollSixEyes(Pawn Pawn, GeneDef GeneAdded)
-        {
-            if (Pawn.HasHeavenlyPact())
-            {
-                return false;
-            }
-
-            if (Rand.Range(0, 100) < JJKMod.SixEyesChance)
-            {
-                if (!Pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKSixEyes))
-                {
-                    Pawn.genes.AddGene(JJKDefOf.Gene_JJKSixEyes, true);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static bool CanGrantHollowPurple(Pawn pawn, GeneDef geneDef)
-        {
-            return geneDef == JJKDefOf.Gene_JJKLimitless && pawn.HasSixEyes() || geneDef == JJKDefOf.Gene_JJKSixEyes && pawn.IsLimitlessUser();
-        }
-    }
-
     [HarmonyPatch(typeof(Pawn_AgeTracker))]
     [HarmonyPatch("BirthdayBiological")]
-    public static class Patch_Pawn_AgeTracker_BirthdayBiological
+    public static partial class Patch_Pawn_AgeTracker_BirthdayBiological
     {
         public static void Postfix(Pawn_AgeTracker __instance, Pawn ___pawn, int birthdayAge)
         {
-            if (birthdayAge >= 5 && (___pawn.GetCursedEnergy() == null || !___pawn.HasGradeGene() || !___pawn.HasCursedTechnique()))
+            Pawn pawn = ___pawn;
+            Gene_CursedEnergy CursedEnergy = pawn.GetCursedEnergy();
+            if (CursedEnergy == null)
             {
-                Pawn pawn = ___pawn;
-                Gene_CursedEnergy cursedEnergy = pawn.GetCursedEnergy();
-                if (cursedEnergy == null)
-                {
-                    JJKGeneUtil.GiveCursedEnergy(pawn);
-                }
+                return;
+            }
 
-                if (!pawn.HasGradeGene())
-                {
-                    JJKGeneUtil.GiveRandomSorcererGrade(pawn);
-                }
-
+            if (birthdayAge >= JJKMod.AgeAbiltiesAwaken && !___pawn.HasCursedTechnique())
+            {
                 if (!pawn.HasCursedTechnique())
                 {
                     JJKGeneUtil.GiveRandomCursedTechnique(pawn);
-                }
-            }
-        }
-
-
-        [HarmonyPatch(typeof(TraitSet), nameof(TraitSet.GainTrait), new System.Type[] { typeof(Trait), typeof(bool) })]
-        public static class Patch_AddTrait
-        {
-            static void Postfix(TraitSet __instance, Trait trait, bool suppressConflicts = false)
-            {
-                Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
-                if (pawn != null && trait != null)
-                {
-                    if (trait.def == JJKDefOf.JJK_SukunaTrait)
-                    {
-                        JJKGeneUtil.GiveCursedEnergy(pawn);
-                        JJKGeneUtil.ForceSorcererGradeGene(pawn, JJKDefOf.Gene_JJKSpecialGrade_Monstrous);
-                        JJKUtility.AddTraitIfNotExist(pawn, TraitDef.Named("Cannibal"));
-                    }
                 }
             }
         }

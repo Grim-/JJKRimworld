@@ -14,7 +14,6 @@ namespace JJK
             compClass = typeof(BlackFlash);
         }
     }
-
     public class BlackFlash : HediffComp
     {
         public HediffCompProperties_BlackFlash Props => (HediffCompProperties_BlackFlash)props;

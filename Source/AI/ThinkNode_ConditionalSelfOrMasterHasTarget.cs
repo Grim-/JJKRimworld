@@ -8,10 +8,10 @@ namespace JJK
     {
         protected override bool Satisfied(Pawn pawn)
         {
-            if (pawn != null && pawn.IsShikigami() && pawn.GetMaster() != null)
-            {
-                Pawn master = pawn.GetMaster();
+            Pawn master = pawn.GetMaster();
 
+            if (pawn != null && pawn.IsShikigami() && master  != null)
+            {
                 if (pawn.mindState.enemyTarget != null || master.mindState.enemyTarget != null)
                 {
                     //Log.Message($"{pawn.Label} or its master {master.Label} have an enemy target.");

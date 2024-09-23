@@ -88,9 +88,7 @@ namespace JJK
                 return;
             }
 
-            List<Ability> cursedEnergyAbilities = sourceAbilities.abilities
-                .Where(ability => ability.def.category == JJKDefOf.Cursed_Energy)
-                .ToList();
+            List<Ability> cursedEnergyAbilities = GetCursedEnergyAbilities(sourcePawn);
 
             if (cursedEnergyAbilities.Count == 0)
             {
@@ -115,6 +113,36 @@ namespace JJK
                     sourcePawn.abilities.RemoveAbility(item.def);
                 }
             }
+        }
+        public static List<Ability> GetCursedEnergyAbilities(Pawn sourcePawn)
+        {
+            List<Ability> cursedEnergyAbilities = new List<Ability>();
+
+            if (sourcePawn == null)
+            {
+                Log.Error("CopyCursedEnergyAbilities: Source or target pawn is null.");
+                return null;
+            }
+
+            Pawn_AbilityTracker sourceAbilities = sourcePawn.abilities;
+            if (sourceAbilities == null)
+            {
+                Log.Error("CopyCursedEnergyAbilities: One or both pawns do not have a CompAbilities component.");
+                return null;
+            }
+
+            cursedEnergyAbilities = sourceAbilities.abilities
+                .Where(ability => ability.def.category == JJKDefOf.Cursed_Energy)
+                .ToList();
+
+            if (cursedEnergyAbilities.Count == 0)
+            {
+                Log.Message($"{sourcePawn.Name} has no Cursed_Energy abilities to copy.");
+                return null;
+            }
+
+
+            return cursedEnergyAbilities;
         }
 
         public static void RemoveCursedEnergyAbilities(Pawn sourcePawn)
@@ -285,8 +313,6 @@ namespace JJK
                 .Where(p => p.Faction != null && p.Faction != Faction.OfPlayer);
         }
 
-
-
         public static void RemoveViolenceIncapability(Pawn pawn)
         {
             //hopefully remove all traits that stop a being violent.
@@ -408,7 +434,7 @@ namespace JJK
         }
         public static Hediff_CursedSpiritManipulator GetCursedSpiritManipulator(this Pawn pawn)
         {
-            return (Hediff_CursedSpiritManipulator)pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedSpiritManipulator);
+            return (Hediff_CursedSpiritManipulator)pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedSpiritManipulator);
         }
 
         public static Gene_CursedEnergy GetCursedEnergy(this Pawn pawn)

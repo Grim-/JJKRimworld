@@ -66,5 +66,11 @@ namespace JJK
                // Messages.Message($"Reversed Curse Technique disabled due to lack of curse energy", MessageTypeDefOf.NegativeEvent);
             }
         }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref IsActive, "isActive", false);
+        }
     }
 }

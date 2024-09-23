@@ -40,6 +40,7 @@ namespace JJK
         public static GeneDef Gene_Kenjaku;
         public static GeneDef Gene_JJKLimitless;
         public static GeneDef Gene_JJKMahito;
+        public static GeneDef Gene_JJKYuta;
         //public static GeneDef Gene_JJKGeto;
 
 
@@ -51,9 +52,10 @@ namespace JJK
 
         public static MentalStateDef TransfiguredState_Murderous;
 
-        public static AbilityDef JJK_KenjakuPosess;
+        public static AbilityDef JJK_KenjakuPossess;
         public static AbilityDef Gojo_HollowPurple;
         public static AbilityDef JJK_CastLightningStrike;
+        public static AbilityDef JJK_RiikaSummon;
 
         public static ThinkTreeDef JJK_EmptyConstantThinkTree;
         public static ThinkTreeDef JJK_SummonedCreature;
@@ -67,7 +69,7 @@ namespace JJK
         public static JobDef JJK_DemondogAttackAndVanish;
 
 
-
+        public static HediffDef JJK_SplitSoul;
         public static HediffDef JJK_Shikigami;
         public static HediffDef JJK_BlackFlash;
         public static HediffDef JJK_CursedEnergySurge;
@@ -75,7 +77,7 @@ namespace JJK
         public static HediffDef JJK_InfiniteDomainComa;
         public static HediffDef JJK_SimpleShadowDomain;
         public static HediffDef JJK_HollowWickerBasket;
-        public static HediffDef JJK_KenjakuPossesion;
+        public static HediffDef JJK_KenjakuPossession;
         public static HediffDef JJ_SummonedCreatureTag;
         public static HediffDef JJK_ThinkTreeOverrideSummonBehaviour;
         public static HediffDef JJK_RCTRegenHediff;
@@ -93,6 +95,8 @@ namespace JJK
 
         public static HediffDef JJK_CursedSpiritManipulator;
         public static HediffDef JJK_TenShadowsUser;
+
+        public static HediffDef JJK_YutaAbilityStore;
 
         public static PawnKindDef JJK_DivineDogWhite;
         public static PawnKindDef JJK_DivineDogBlack;

@@ -75,4 +75,41 @@ namespace JJK
 
         }
     }
+
+
+    public class Verb_StealCursedTechnique : Verb_MeleeAttackDamage
+    {
+        protected override DamageWorker.DamageResult ApplyMeleeDamageToTarget(LocalTargetInfo target)
+        {
+            // First, apply the normal melee damage
+            DamageWorker.DamageResult damageResult = base.ApplyMeleeDamageToTarget(target);
+
+            // Now, let's add our custom behavior
+            if (target.Thing is Pawn targetPawn)
+            {
+
+                targetPawn.health.GetOrAddHediff(JJKDefOf.JJK_SplitSoul);
+
+                //// Check if the target pawn has any cursed techniques (you'll need to define what this means in your mod)
+                //Hediff cursedTechnique = targetPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.YourCursedTechniqueHediff);
+                //if (cursedTechnique != null)
+                //{
+                //    // Remove the cursed technique from the target
+                //    targetPawn.health.RemoveHediff(cursedTechnique);
+
+                //    // Optionally, add the cursed technique to the attacker
+                //    if (this.CasterPawn != null)
+                //    {
+                //        Hediff stolenTechnique = HediffMaker.MakeHediff(HediffDefOf.YourCursedTechniqueHediff, this.CasterPawn);
+                //        this.CasterPawn.health.AddHediff(stolenTechnique);
+
+                //        // Display a message
+                //        Messages.Message("CursedTechniqueStolen".Translate(this.CasterPawn.LabelShort, targetPawn.LabelShort), MessageTypeDefOf.NeutralEvent);
+                //    }
+                //}
+            }
+
+            return damageResult;
+        }
+    }
 }

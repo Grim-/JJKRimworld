@@ -9,6 +9,7 @@ namespace JJK
     public class Ability_Toggleable : Ability
     {
         public bool IsActive = false;
+        public bool IsDisabled = false;
         //I have no god damn idea which constructors are even used.
 
         public Ability_Toggleable() : base ()
@@ -46,6 +47,11 @@ namespace JJK
 
         public virtual void Toggle()
         {
+            if (IsDisabled)
+            {
+                return;
+            }
+
             //Log.Message("Toggle pressed");
             IsActive = !IsActive;
 
@@ -76,6 +82,32 @@ namespace JJK
             if (IsActive)
             {
                 Toggle();
+            }
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref IsActive, "isActive", false);
+            Scribe_Values.Look(ref IsDisabled, "isDisabled", false);
+
+            // If loading and the ability is active, reactivate all toggleable comps
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && IsActive)
+            {
+                if (EffectComps != null && EffectComps.Count > 0)
+                {
+                    foreach (var item in EffectComps)
+                    {
+                        if (item is IToggleableComp toggleableComp)
+                        {
+                            if (IsActive)
+                            {
+                                toggleableComp.Activate();
+                            }
+                            else toggleableComp.DeActivate();
+                        }
+                    }
+                }
             }
         }
     }
