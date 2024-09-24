@@ -49,13 +49,17 @@ namespace JJK
         public static ThingDef JJK_Flyer;
         public static ThingDef JJK_CloudStrikeFlyer;
         public static ThingDef JJK_CursedObjectPiece;
+        public static ThingDef JJK_SealedCursedSpiritOrb;
+
 
         public static MentalStateDef TransfiguredState_Murderous;
 
         public static AbilityDef JJK_KenjakuPossess;
         public static AbilityDef Gojo_HollowPurple;
         public static AbilityDef JJK_CastLightningStrike;
-        public static AbilityDef JJK_RiikaSummon;
+        public static AbilityDef JJK_RiikaPartialManifest;
+        public static AbilityDef JJK_RiikaFullManifest;
+
 
         public static ThinkTreeDef JJK_EmptyConstantThinkTree;
         public static ThinkTreeDef JJK_SummonedCreature;

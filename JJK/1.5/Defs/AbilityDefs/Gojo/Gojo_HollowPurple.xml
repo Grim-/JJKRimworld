@@ -12,8 +12,9 @@
       <verbProperties>
         <verbClass>Verb_CastAbility</verbClass>
         <range>20</range>
-        <warmupTime>0.5</warmupTime>
+        <warmupTime>3</warmupTime>
         <soundCast>FireSpew_Resolve</soundCast>
+        <warmupEffecter>JJK_PurpleSparksCastEffect</warmupEffecter>
         <targetParams>
           <canTargetPawns>True</canTargetPawns>
           <canTargetLocations>True</canTargetLocations>
@@ -32,7 +33,7 @@
           <beamMoteDef>Mote_PowerBeam</beamMoteDef>
           <beamDurationTicks>80</beamDurationTicks>
           <damageType>Blunt</damageType>
-          <beamWidth>5</beamWidth>
+          <beamWidth>10</beamWidth>
         </li>
         <li Class="JJK.CompProperties_AbilityCECost">
           <cursedEnergyCost>60</cursedEnergyCost>

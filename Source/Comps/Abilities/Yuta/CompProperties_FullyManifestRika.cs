@@ -5,19 +5,19 @@ using Verse;
 
 namespace JJK
 {
-    public class CompProperties_SummonRiika : CompProperties_ToggleableEffect
+    public class CompProperties_FullyManifestRika : CompProperties_ToggleableEffect
     {
         public PawnKindDef riikaKindDef;
 
-        public CompProperties_SummonRiika()
+        public CompProperties_FullyManifestRika()
         {
-            compClass = typeof(CompAbilityEffect_SummonRiika);
+            compClass = typeof(CompAbilityEffect_FullyManifestRika);
         }
     }
 
-    public class CompAbilityEffect_SummonRiika : ToggleableCompAbilityEffect
+    public class CompAbilityEffect_FullyManifestRika : ToggleableCompAbilityEffect
     {
-        public new CompProperties_SummonRiika Props => (CompProperties_SummonRiika)props;
+        public new CompProperties_FullyManifestRika Props => (CompProperties_FullyManifestRika)props;
         private HediffComp_YutaAbilities Storage => this.parent.pawn.GetYutaAbilityStorage();
 
         private Pawn summonedRiika;
@@ -36,40 +36,55 @@ namespace JJK
             {
                 SummonRiika();
                 RemoveSummonAbility();
-
-                //if (Storage != null)
-                //{
-                //    Storage.GrantRiikaAbilities(this.parent.pawn);
-                //}
-
             }
         }
-
-
-
 
         public override void DeActivate()
         {
             base.DeActivate();
             UnsummonRiika();
-            //if (Storage != null)
-            //{
-            //    Storage.RemoveRiikaAbilities(this.parent.pawn);
-            //}
             ReaddSummonAbility();
         }
-
-
 
         private void SummonRiika()
         {
             summonedRiika = JJKUtility.SpawnShikigami(Props.riikaKindDef, parent.pawn, parent.pawn.Map, parent.pawn.Position);
+
+            Comp_OnDeathHandler onDeathHandler = summonedRiika.TryGetComp<Comp_OnDeathHandler>();
+
+            if (onDeathHandler != null)
+            {
+                onDeathHandler.OnDeath += OnDeathHandler_OnDeath;
+            }
+        }
+
+        private void OnDeathHandler_OnDeath(Thing obj)
+        {
+            if (this.parent is Ability_Toggleable toggleable)
+            {
+                toggleable.ForceDeactivate();
+            }
+
+            Ability partiallyManifest = this.parent.pawn.abilities.GetAbility(JJKDefOf.JJK_RiikaPartialManifest);
+
+            if (partiallyManifest != null)
+            {
+                partiallyManifest.StartCooldown(1250);
+            }
+
+            this.parent.StartCooldown(1250);
         }
 
         private void UnsummonRiika()
         {
             if (summonedRiika != null && summonedRiika.Spawned)
             {
+                Comp_OnDeathHandler onDeathHandler = summonedRiika.TryGetComp<Comp_OnDeathHandler>();
+
+                if (onDeathHandler != null)
+                {
+                    onDeathHandler.OnDeath -= OnDeathHandler_OnDeath;
+                }
                 summonedRiika.DeSpawn(DestroyMode.Vanish);
                 summonedRiika = null;
             }
@@ -78,7 +93,7 @@ namespace JJK
         private void RemoveSummonAbility()
         {
             Pawn caster = parent.pawn;
-            removedSummonAbility = (Ability_Toggleable)caster.abilities.GetAbility(JJKDefOf.JJK_RiikaSummon);
+            removedSummonAbility = (Ability_Toggleable)caster.abilities.GetAbility(JJKDefOf.JJK_RiikaPartialManifest);
             if (removedSummonAbility != null)
             {
                 if (removedSummonAbility.IsActive)
@@ -95,7 +110,11 @@ namespace JJK
             if (removedSummonAbility != null)
             {
                 Pawn caster = parent.pawn;
-                caster.abilities.GainAbility(removedSummonAbility.def);
+
+                if (!caster.HasAbility(removedSummonAbility.def))
+                {
+                    caster.abilities.GainAbility(removedSummonAbility.def);
+                }   
                 removedSummonAbility = null;
             }
         }

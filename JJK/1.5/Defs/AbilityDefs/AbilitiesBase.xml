@@ -5,6 +5,11 @@
     <displayOrder>1000</displayOrder>
   </AbilityCategoryDef>
 
+  <AbilityCategoryDef>
+    <defName>Cursed_Innate</defName>
+    <displayOrder>1000</displayOrder>
+  </AbilityCategoryDef>
+
   <AbilityDef Name="AbilityTouchBase" Abstract="True">
     <stunTargetWhileCasting>true</stunTargetWhileCasting>
     <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>

@@ -121,7 +121,18 @@ namespace JJK
             GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
             targetPawn.genes.AddGene(randomSorcererGeneDef, true);
         }
+        public static void RemoveAllTechniqueGenes(this Pawn Pawn)
+        {
+            List<Gene> FoundGenes = GetCursedTechniqueGenes(Pawn);
 
+            foreach (var item in FoundGenes)
+            {
+                if (Pawn.genes.HasActiveGene(item.def))
+                {
+                    Pawn.genes.RemoveGene(item);
+                }
+            }
+        }
         public static void RemoveAllGradeGenes(this Pawn Pawn)
         {
             List<Gene> FoundGenes = GetSorcererGradeGenes(Pawn);
@@ -183,7 +194,11 @@ namespace JJK
             return Pawn.genes.GenesListForReading
                     .Where(g => g.def.HasModExtension<CursedTechniqueGeneExtension>()).FirstOrDefault();
         }
-
+        public static List<Gene> GetCursedTechniqueGenes(this Pawn Pawn)
+        {
+            return Pawn.genes.GenesListForReading
+                    .Where(g => g.def.HasModExtension<CursedTechniqueGeneExtension>()).ToList();
+        }
         public static void TryUpgradeSorcererGrade(Pawn targetPawn)
         {
             List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <PawnKindDef>
+    <defName>JJK_RiikaManifested</defName>
+    <label>Riika</label>
+    <race>JJK_Riika_Race</race>
+    <combatPower>500</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <aiAvoidCover>true</aiAvoidCover>
+    <fleeHealthThresholdRange>0~0</fleeHealthThresholdRange>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Riika/RikaBody</texPath>
+          <drawSize>5</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.32, 0.35, 0.32)</volume>
+            <offset>(0,0,0)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Riika/RikaBody</texPath>
+          <drawSize>6</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+
+    <modExtensions>
+    <li Class="JJK.CursedSpiritExtension">
+      <Grade>SPECIAL_GRADE_1</Grade>
+      <CanBeAbsorbed>false</CanBeAbsorbed>
+    </li>
+  </modExtensions>
+  </PawnKindDef>
+
+</Defs>

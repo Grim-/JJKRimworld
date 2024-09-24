@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKTakuma</defName>
+    <label>Cursed Technique : Auspicious Beasts Summon</label>
+    <description>Auspicious Beasts Summon is activated when pawn hides their face by covering it with their mask, turning himself into a spiritual medium. This allows pawn to summon and use the abilities of four auspicious beasts: Kaichi, Reiki, Kirin, and Ryu</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>10</marketValueFactor>
+    <selectionWeight>0.001</selectionWeight>
+    <biostatMet>-1</biostatMet>
+    <abilities>
+      <li>JJK_ReversedCurseTechnique</li>
+    </abilities>
+  </GeneDef>
+</Defs>

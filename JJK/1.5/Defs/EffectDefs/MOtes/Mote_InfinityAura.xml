@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="MoteBase">
+    <defName>JJK_InfinityAuraMote</defName>
+    <thingClass>MoteAttached</thingClass>
+    <graphicData>
+      <texPath>RCTAura/RCTAura_0</texPath>
+      <graphicClass>Graphic_Mote</graphicClass>
+      <shaderType>Transparent</shaderType>
+    </graphicData>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <mote>
+      <fadeInTime>0.08</fadeInTime>
+      <solidTime>1</solidTime>
+      <fadeOutTime>0.1</fadeOutTime>
+      <growthRate>0.3</growthRate>
+    </mote>
+  </ThingDef>
+</Defs>

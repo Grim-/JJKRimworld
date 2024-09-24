@@ -46,7 +46,7 @@ namespace JJK
         {
             get
             {
-                string tip = $"Original form: {originalPawn?.LabelShort ?? "Unknown"}\n";
+                string tip = $"Original form: {originalPawn?.LabelMouseover ?? "Unknown"}\n";
                 tip += "Possessed forms:\n";
                 foreach (var pawn in possessedPawns)
                 {

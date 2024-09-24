@@ -6,7 +6,7 @@
   <description>Perform a powerful leap to a nearby location.</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
   <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
-      <category>Cursed_Energy</category>
+      <category>Cursed_Innate</category>
   <verbProperties>
     <verbClass>Verb_CastAbility</verbClass>
     <drawAimPie>true</drawAimPie>

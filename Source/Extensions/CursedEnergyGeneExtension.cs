@@ -6,6 +6,5 @@ namespace JJK
     {
         public int priority = 0;
     }
-
 }
 

@@ -107,7 +107,7 @@ namespace JJK
             Pawn DemonDog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, SpawnPosition);
             CreateSummonVFX(SpawnPosition, Map);
 
-            if (DemonDog.TryGetComp(out CompOnDeathHandler CompOnDeath))
+            if (DemonDog.TryGetComp(out Comp_OnDeathHandler CompOnDeath))
             {
                 //Log.Message($"Registering OnDeath Handler for {DemonDog.Label} (shikigami)");
                 CompOnDeath.OnDeath += OnShikigamiDied;
@@ -124,7 +124,7 @@ namespace JJK
         {
             if (Summon != null && !Summon.Destroyed)
             {
-                if (Summon.TryGetComp(out CompOnDeathHandler CompOnDeath))
+                if (Summon.TryGetComp(out Comp_OnDeathHandler CompOnDeath))
                 {
                     //Log.Message($"Unregistering OnDeath Handler for {Summon.Label} (shikigami)");
                     CompOnDeath.OnDeath -= OnShikigamiDied;

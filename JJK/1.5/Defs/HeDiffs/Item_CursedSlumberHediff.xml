@@ -30,23 +30,6 @@
     </Genes>
     </li>
   </comps>
-  <renderNodeProperties>
-  <li Class="JJK.PawnOverlayNodeProperties">
-    <texPath>Animations/Moon1</texPath>
-    <graphicData>
-      <texPath>Things/Pawn/Animal/Warg/Warg</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>1.5</drawSize>
-    </graphicData>
-    <overlayColor>(0, 0, 1)</overlayColor>
-    <overlayAlpha>0.3</overlayAlpha>
-    <overlayLayer>Body</overlayLayer>
-    <offset>(0, 1, 0)</offset>
-    <layerOffset>10</layerOffset>
-    <workerClass>JJK.PawnOverlayNodeWorker</workerClass>
-    <shaderTypeDef>CutoutComplex</shaderTypeDef>
-  </li>
-  </renderNodeProperties>
   <stages>
   </stages>
 </HediffDef>

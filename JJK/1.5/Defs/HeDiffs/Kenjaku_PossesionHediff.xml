@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 <HediffDef>
-  <defName>JJK_KenjakuPossesion</defName>
-  <label>Possesed</label>
+  <defName>JJK_KenjakuPossession</defName>
+  <label>Possessed</label>
   <hediffClass>HediffWithComps</hediffClass>
   <description>This pawn has a disturbing suture across the forehead...</description>
   <tendable>false</tendable>
   <initialSeverity>1</initialSeverity>
+  <comps>
+    <li Class="JJK.HediffCompProperties_KenjakuPossession">
+    </li>
+  </comps>
 </HediffDef>
 </Defs>

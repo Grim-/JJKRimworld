@@ -43,7 +43,7 @@ namespace JJK
         }
 
 
-        [DebugAction("JJK", "Remove All", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        [DebugAction("JJK", "Remove All JJK Abilities and Genes", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void RemoveAll(Pawn p)
         {
             RemoveAllCursedEnergyAndTechniques(p);
@@ -60,6 +60,7 @@ namespace JJK
         {
             JJKGeneUtil.RemoveAllGradeGenes(Pawn);
             JJKGeneUtil.RemoveCursedEnergy(Pawn);
+            JJKGeneUtil.RemoveAllTechniqueGenes(Pawn);
             JJKUtility.RemoveCursedEnergyAbilities(Pawn);
         }
 
@@ -228,7 +229,7 @@ namespace JJK
                 summon.SetMaster(Master);
             }
 
-            JJKUtility.MakeDraftable(shikigami);
+            DraftingUtility.MakeDraftable(shikigami);
             TrainPawn(shikigami, Master);
             return shikigami;
         }
@@ -432,11 +433,18 @@ namespace JJK
         {
             return pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedSpiritManipulator) != null;
         }
+        public static bool IsTenShadowsUser(this Pawn pawn)
+        {
+            return pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_TenShadowsUser) != null;
+        }
         public static Hediff_CursedSpiritManipulator GetCursedSpiritManipulator(this Pawn pawn)
         {
             return (Hediff_CursedSpiritManipulator)pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedSpiritManipulator);
         }
-
+        public static Hediff_TenShadowsUser GetTenShadowsUser(this Pawn pawn)
+        {
+            return (Hediff_TenShadowsUser)pawn.health.GetOrAddHediff(JJKDefOf.JJK_TenShadowsUser);
+        }
         public static Gene_CursedEnergy GetCursedEnergy(this Pawn pawn)
         {
             return pawn.genes?.GetFirstGeneOfType<Gene_CursedEnergy>();
@@ -544,10 +552,6 @@ namespace JJK
             return limbs.RandomElementWithFallback();
         }
 
-        public static void MakeDraftable(this Pawn pawn)
-        {
-            DraftingUtility.RegisterDraftableCreature(pawn);
-        }
     }
 }
 

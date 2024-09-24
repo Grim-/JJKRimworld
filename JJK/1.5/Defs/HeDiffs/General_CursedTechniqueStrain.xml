@@ -6,6 +6,7 @@
     <description>Mental and physical strain from using cursed techniques, when the severity reaches severe you have a chance to cause a burnout of your techniques, which will heal over time or with reversed curse technique.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+      <duplicationAllowed>false</duplicationAllowed>
     <stages>
       <li>
         <label>minor</label>

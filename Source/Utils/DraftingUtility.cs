@@ -11,8 +11,13 @@ namespace JJK
 
         public static void RegisterDraftableCreature(Pawn pawn)
         {
-            if (pawn != null && !draftableCreatures.Contains(pawn))
+            if (pawn != null)
             {
+                if (draftableCreatures.Contains(pawn))
+                {
+                    draftableCreatures.Remove(pawn);
+                }
+
                 draftableCreatures.Add(pawn);
                 EnsureDraftComponents(pawn);
             }
@@ -31,7 +36,7 @@ namespace JJK
             return pawn != null && draftableCreatures.Contains(pawn);
         }
 
-        private static void EnsureDraftComponents(Pawn pawn)
+        public static void EnsureDraftComponents(Pawn pawn)
         {
             if (pawn.drafter == null)
             {
@@ -44,6 +49,10 @@ namespace JJK
         }
 
 
+        public static void MakeDraftable(this Pawn pawn)
+        {
+            DraftingUtility.RegisterDraftableCreature(pawn);
+        }
     }
 
     // Harmony patches

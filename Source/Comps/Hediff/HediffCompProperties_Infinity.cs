@@ -162,8 +162,6 @@ namespace JJK
             }
         }
     }
-
-
 }
 
 

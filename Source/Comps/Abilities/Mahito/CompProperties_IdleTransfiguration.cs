@@ -55,7 +55,7 @@ namespace JJK
 
 
             JJKUtility.TrainPawn(FleshBeast, TargetPawn);
-            JJKUtility.MakeDraftable(FleshBeast);
+            DraftingUtility.MakeDraftable(FleshBeast);
 
             FleshBeast.SetFaction(this.parent.pawn.Faction, this.parent.pawn);
             parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(Cost);      

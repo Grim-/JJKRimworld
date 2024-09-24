@@ -46,7 +46,7 @@ namespace JJK
             Log.Message($"Attempting to summon a {KindDef.label} shikigami for {pawn.Label}.");
 
             Pawn Pawn = JJKUtility.SpawnShikigami(KindDef, pawn, Map, Position);
-            if (Pawn.TryGetComp(out CompOnDeathHandler compOnDeath))
+            if (Pawn.TryGetComp(out Comp_OnDeathHandler compOnDeath))
             {
                 Log.Message($"Registering OnDeath Handler for {Pawn.Label} (shikigami)");
                 compOnDeath.OnDeath += OnShikigamiDeath;

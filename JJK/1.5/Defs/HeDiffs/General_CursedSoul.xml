@@ -8,6 +8,7 @@
     <description>This pawn is immune to all but cursed energy attacks.</description>
     <defaultLabelColor>(0.5, 0.8, 0.8)</defaultLabelColor>
     <isBad>false</isBad>
+      <duplicationAllowed>false</duplicationAllowed>
     <comps>
       <li Class="JJK.HediffCompProperties_SelectiveDamageImmunity">
         <vulnerableToDamageTypes>

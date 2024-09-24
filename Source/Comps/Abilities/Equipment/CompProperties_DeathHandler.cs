@@ -8,11 +8,11 @@ namespace JJK
     {
         public CompProperties_DeathHandler()
         {
-            compClass = typeof(CompOnDeathHandler);
+            compClass = typeof(Comp_OnDeathHandler);
         }
     }
 
-    public class CompOnDeathHandler : ThingCompExt
+    public class Comp_OnDeathHandler : ThingCompExt
     {
         public event Action<Thing> OnDeath;
         public event Action<Thing> OnDespawned;

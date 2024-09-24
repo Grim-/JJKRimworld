@@ -9,9 +9,13 @@
   <displayCategory>CursedEnergy</displayCategory>
     <marketValueFactor>1.5</marketValueFactor>
     <abilities>
-      <li>JJK_GetoSummonCreature</li>
       <li>JJK_GetoAbsorbCreature</li>
     </abilities>
     <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
   </GeneDef>
 </Defs>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 <AbilityDef ParentName="AbilityTouchBase">
-  <defName>JJK_KenjakuPosess</defName>
+  <defName>JJK_KenjakuPossess</defName>
   <label>Posses Host</label>
   <description>Change the shape of the targets soul into something monstrous. 'Hey you want to know something about digusting humans? There is so many of them!'</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
@@ -31,6 +31,12 @@
   <comps>
     <li Class="JJK.CompProperties_KenjakuPossess">
         <compClass>JJK.CompAbilityEffect_KenjakuPossess</compClass>
+        <possessionHediff>JJK_KenjakuPossession</possessionHediff>
+        <guaranteedTraits>
+          <li>Psychopath</li>
+          <li>FastLearner</li>
+        </guaranteedTraits>
+        <randomTraitChance>0</randomTraitChance>
     </li>
     <li Class="JJK.CompProperties_AbilityCECost">
           <cursedEnergyCost>50</cursedEnergyCost>

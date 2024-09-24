@@ -7,6 +7,7 @@
     <description>A powerful regenerative technique that rapidly heals injuries and prevents death. The user's body is suffused with reversed cursed energy, accelerating natural healing processes to supernatural levels.</description>
     <initialSeverity>0.001</initialSeverity>
     <isBad>False</isBad>
+    <duplicationAllowed>false</duplicationAllowed>
     <stages>
       <li>
         <statFactors>

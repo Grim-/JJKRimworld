@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKYuta</defName>
+    <label>Cursed Technique : Copy Cat</label>
+        <geneClass>JJK.Gene_Yuta</geneClass>
+    <description>This technique is the ability to perfectly mimic any techniques gained from having riika eat the corpses of Jujutsu Sorcerers.</description>
+    <iconPath>Abilities/Gojo/HollowPurple</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>JJK_RiikaPartialManifest</li>
+      <li>JJK_RiikaFullManifest</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+    <statFactors>
+      <JJK_CursedEnergy>3</JJK_CursedEnergy>
+      <JJK_CursedEnergyRegen>3</JJK_CursedEnergyRegen>
+      <JJK_CursedEnergyRegenSpeed>2</JJK_CursedEnergyRegenSpeed>
+      <JJK_CursedEnergyDamageBonus>2</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
+      <JJK_RCTHealingBonus>3</JJK_RCTHealingBonus>
+    </statFactors>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
+  </GeneDef>
+</Defs>

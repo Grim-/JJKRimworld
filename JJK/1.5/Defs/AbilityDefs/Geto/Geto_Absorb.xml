@@ -5,7 +5,7 @@
   <label>Absorb</label>
   <description>Absorb any creature that has been downed, this enables you to summon it again later. You can store up-to 5 creature kinds.</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
-  <category>Sanguophage</category>
+      <category>Cursed_Energy</category>
   <displayOrder>100</displayOrder>
   <cooldownTicksRange>
     <min>100</min>

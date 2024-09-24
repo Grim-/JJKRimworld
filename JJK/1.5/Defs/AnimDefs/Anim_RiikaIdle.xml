@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<AnimationDef>
+  <defName>JJK_RiikaIdleBob</defName>
+  <durationTicks>30000</durationTicks>
+  <startOnRandomTick>true</startOnRandomTick>
+  <animationParts>
+    <li>
+      <key>Body</key>
+      <value>
+        <workerClass>JJK.IdleBobbingAnimationWorker</workerClass>
+      </value>
+    </li>
+  </animationParts>
+</AnimationDef>
+</Defs>

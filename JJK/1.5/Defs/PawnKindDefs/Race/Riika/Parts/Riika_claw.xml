@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<BodyPartDef>
+  <defName>RikaClaw</defName>
+  <label>claw</label>
+  <hitPoints>12</hitPoints>
+  <frostbiteVulnerability>1</frostbiteVulnerability>
+  <skinCovered>false</skinCovered>
+  <tags>
+    <li>MovingLimbSegment</li>
+  </tags>
+</BodyPartDef>
+</Defs>

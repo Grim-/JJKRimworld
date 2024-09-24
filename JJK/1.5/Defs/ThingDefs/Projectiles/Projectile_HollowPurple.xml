@@ -8,7 +8,7 @@
     <texPath>Things/Projectile/Gojo/HollowPurple</texPath>
     <graphicClass>Graphic_Single</graphicClass>
     <shaderType>MoteGlowDistorted</shaderType>
-    <drawSize>6</drawSize>
+    <drawSize>5</drawSize>
     <shaderParameters>
       <_DistortionTex>/Other/Ripples</_DistortionTex>
       <_distortionIntensity>0.1</_distortionIntensity>
@@ -22,6 +22,9 @@
     <speed>15</speed>
   </projectile>
   <comps>
+    <li Class="JJK.CompProperties_Effecter">
+      <effecterDef>JJK_PurpleSparksEffect</effecterDef>
+    </li>
   </comps>
 </ThingDef>
 </Defs>

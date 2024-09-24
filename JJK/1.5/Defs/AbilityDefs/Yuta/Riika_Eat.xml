@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_RiikaEat</defName>
+    <label>Consume</label>
+    <description>While Riika is manifested she can eat the remains of Jujutsu Sorcerer and gain their abilities.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <aiCanUse>true</aiCanUse>
+    <warmupEffecter>WaterMist</warmupEffecter>
+    <emittedFleck>ShockwaveFast</emittedFleck>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <stunTargetWhileCasting>false</stunTargetWhileCasting>
+    <verbProperties>
+      <verbClass>Verb_CastAbilityTouch</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <range>-1</range>
+      <warmupTime>3</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetable>true</targetable>
+      <targetParams>
+        <canTargetCorpses>True</canTargetCorpses>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_RiikaEat">
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

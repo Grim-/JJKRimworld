@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <JJK.KenjakuGeneDef>
+  <GeneDef>
     <defName>Gene_Kenjaku</defName>
     <label>Kenjaku's Possession</label>
     <geneClass>JJK.Gene_Kenjaku</geneClass>
     <description>Carriers of this gene possess the ability to transfer their consciousness between bodies, a technique perfected by the ancient sorcerer Kenjaku.</description>
     <iconPath>UI/Abilities/ShapeFlesh</iconPath>
-  <displayCategory>CursedEnergy</displayCategory>
+    <displayCategory>CursedEnergy</displayCategory>
     <displayOrderInCategory>100</displayOrderInCategory>
     <biostatCpx>0</biostatCpx>
     <biostatMet>0</biostatMet>
     <abilities>
-      <li>JJK_KenjakuPosess</li>
+      <li>JJK_KenjakuPossess</li>
     </abilities>
     <customEffectDescriptions>
       <li>Allows the carrier to possess other pawns, transferring their consciousness and traits.</li>
       <li>Possessed pawns gain the Psychopath trait and have a chance to gain the Bloodlust trait.</li>
     </customEffectDescriptions>
-    <possessionHediff>JJK_KenjakuPossesion</possessionHediff>
-    <guaranteedTraits>
-      <li>Psychopath</li>
-      <li>FastLearner</li>
-    </guaranteedTraits>
-    <randomTraitChance>0</randomTraitChance>
     <modExtensions>
     <li Class="JJK.CursedTechniqueGeneExtension">
       <priority>16</priority>
     </li>
   </modExtensions>
-  </JJK.KenjakuGeneDef>
+  </GeneDef>
 </Defs>

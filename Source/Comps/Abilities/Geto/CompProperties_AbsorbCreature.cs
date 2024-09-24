@@ -5,79 +5,6 @@ using Verse;
 
 namespace JJK
 {
-    //public class CompProperties_AbsorbCreature : CompProperties_CursedAbilityProps
-    //{
-    //    public float BaseBodySizeCost = 25;
-
-    //    public CompProperties_AbsorbCreature()
-    //    {
-    //        compClass = typeof(CompAbilityEffect_AbsorbCreature);
-    //    }
-    //}
-
-    //public class CompAbilityEffect_AbsorbCreature : BaseCursedEnergyAbility
-    //{
-    //    public new CompProperties_AbsorbCreature Props => (CompProperties_AbsorbCreature)props;
-
-    //    public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
-    //    {
-    //        if (target.Pawn == null || !target.Pawn.Downed)
-    //        {
-    //            Messages.Message("Cannot absorb. Target must be a downed creature.", MessageTypeDefOf.RejectInput);
-    //            return;
-    //        }
-
-    //        if (target.Pawn.RaceProps.Humanlike)
-    //        {
-    //            Messages.Message("Cannot absorb. Target must be a downed creature.", MessageTypeDefOf.RejectInput);
-    //            return;
-    //        }
-
-
-    //        Hediff_CursedSpiritManipulator summonHediff = null;
-
-
-    //        if (parent.pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedSpiritManipulator) != null && target.Pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedSpiritManipulator) is Hediff_CursedSpiritManipulator SummonerHediff)
-    //        {
-    //            summonHediff = SummonerHediff;
-    //        }
-
-
-    //        if (!summonHediff.CanAsborbNewSummon(target.Pawn.kindDef))
-    //        {
-    //            Messages.Message("You can only absorb 5 creatures, you must delete one by right clicking its button.", MessageTypeDefOf.RejectInput);
-    //            return;
-    //        }
-
-    //        Pawn caster = parent.pawn;
-    //        Pawn targetPawn = target.Pawn;
-
-
-    //        if (!summonHediff.HasAbsorbedCreatureKind(targetPawn.kindDef))
-    //        {
-    //            Gene_CursedEnergy cursedEnergy = caster.GetCursedEnergy();
-    //            float bodySizeFactor = targetPawn.BodySize;
-    //            int ceCost = Mathf.RoundToInt(Props.BaseBodySizeCost * bodySizeFactor);
-
-    //            if (cursedEnergy.Value >= ceCost)
-    //            {
-    //                summonHediff.AbsorbCreature(targetPawn.kindDef);
-    //                targetPawn.Destroy();
-    //                parent.pawn.GetCursedEnergy()?.ConsumeCursedEnergy(ceCost);
-    //                Messages.Message($"{caster.LabelShort} has absorbed {targetPawn.LabelShort}.", MessageTypeDefOf.PositiveEvent);
-    //            }
-    //            else
-    //            {
-    //                Messages.Message($"{caster.LabelShort} requires atleast {ceCost} Cursed Energy to absorb {targetPawn.LabelShort}. Base Cost {Props.BaseBodySizeCost} * {bodySizeFactor}", MessageTypeDefOf.NegativeEvent);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            //already has type
-    //        }
-    //    }
-    //}
-
     public class CompProperties_AbsorbCreature : CompProperties_CursedAbilityProps
     {
         public float BaseBodySizeCost = 25f;
@@ -113,9 +40,25 @@ namespace JJK
             }
 
             Pawn targetPawn = target.Pawn;
-            if (!hediff.CanAbsorbNewSummon(targetPawn.kindDef))
+
+            if (!IsCursedSpirit(targetPawn))
             {
-                Messages.Message("You can only absorb 5 different types of creatures. You must delete one before absorbing a new type.", MessageTypeDefOf.RejectInput);
+                Messages.Message("You can only absorb cursed spirits.", MessageTypeDefOf.RejectInput);
+                return;
+            }
+
+            Pawn currentTargetMaster = targetPawn.GetMaster();
+
+            if (currentTargetMaster != null && !currentTargetMaster.Dead)
+            {
+                Messages.Message("You cannot absorb spirits bound to a master.", MessageTypeDefOf.RejectInput);
+                return;
+            }
+
+
+            if (!hediff.CanAbsorbNewCreature())
+            {
+                Messages.Message("You can only absorb 5 creatures. You must delete one before absorbing a new one.", MessageTypeDefOf.RejectInput);
                 return;
             }
 
@@ -125,15 +68,34 @@ namespace JJK
 
             if (cursedEnergy.Value >= ceCost)
             {
-                hediff.AbsorbCreature(targetPawn.kindDef, targetPawn);
-                targetPawn.Destroy();
-                cursedEnergy.ConsumeCursedEnergy(ceCost);
-                Messages.Message($"{parent.pawn.LabelShort} has absorbed {targetPawn.LabelShort}.", MessageTypeDefOf.PositiveEvent);
+                Thing orb = ThingMaker.MakeThing(JJKDefOf.JJK_SealedCursedSpiritOrb);
+                Comp_CursedSpiritOrb comp = orb.TryGetComp<Comp_CursedSpiritOrb>();
+                if (comp != null)
+                {
+                    comp.StoreSpirit(targetPawn);
+                    GenSpawn.Spawn(orb, parent.pawn.Position, parent.pawn.Map);
+                    HealthUtility.HealNonPermanentInjuriesAndRestoreLegs(targetPawn);
+                    targetPawn.DeSpawn();
+                    cursedEnergy.ConsumeCursedEnergy(ceCost);
+                    //Messages.Message($"{parent.pawn.LabelShort} has sealed {targetPawn.LabelShort} into an orb.", MessageTypeDefOf.PositiveEvent);
+                }
+                else
+                {
+                    Messages.Message("Failed to create Sealed Cursed Spirit Orb.", MessageTypeDefOf.NegativeEvent);
+                }
+
             }
             else
             {
                 Messages.Message($"{parent.pawn.LabelShort} requires at least {ceCost} Cursed Energy to absorb {targetPawn.LabelShort}. (Base Cost {Props.BaseBodySizeCost} * {bodySizeFactor})", MessageTypeDefOf.NegativeEvent);
             }
+        }
+
+
+        private bool IsCursedSpirit(Pawn Pawn)
+        {
+            CursedSpiritExtension cursedSpiritExtension = Pawn.kindDef.GetModExtension<CursedSpiritExtension>();
+            return cursedSpiritExtension != null;
         }
     }
 }

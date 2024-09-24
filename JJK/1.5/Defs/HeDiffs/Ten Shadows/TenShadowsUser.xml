@@ -6,6 +6,7 @@
   <description>A pawn born with the hereditary Technique Ten Shadows</description>
   <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
   <hediffClass>JJK.Hediff_TenShadowsUser</hediffClass>
+  <duplicationAllowed>false</duplicationAllowed>
   <isBad>false</isBad>
   <stages>
     <li>

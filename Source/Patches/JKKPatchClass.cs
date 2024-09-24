@@ -175,14 +175,14 @@ namespace JJK
             [HarmonyPatch(typeof(Pawn), nameof(Pawn.Kill))]
             public static class Patch_Pawn_Kill
             {
-                public static bool Prefix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
+                public static void PostFix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
                 {
                     if (__instance.IsShikigami())
                     {
-                        foreach (ThingComp thingComp in __instance.AllComps)
-                        {
-                            thingComp.Notify_Killed(__instance.Map, dinfo);
-                        }
+                        //foreach (ThingComp thingComp in __instance.AllComps)
+                        //{
+                        //    thingComp.Notify_Killed(__instance.Map, dinfo);
+                        //}
 
                         // Prevent corpse creation
                         if (__instance.Corpse != null)
@@ -198,9 +198,9 @@ namespace JJK
                             __instance.Destroy(DestroyMode.Vanish);
 
                         // Skip the original method
-                        return false;
+                        //return false;
                     }
-                    return true;
+                    //return true;
                 }
             }
 
@@ -278,6 +278,21 @@ namespace JJK
                     return true;
                 }
 
+            }
+        }
+
+        [HarmonyPatch(typeof(ITab_Pawn_Gear), "IsVisible", MethodType.Getter)]
+        public static class Patch_HideEquipTabOnSummons
+        {
+            public static bool Prefix(ITab_Pawn_Gear __instance, ref bool __result)
+            {
+                Pawn pawn = Traverse.Create(__instance).Property("SelPawn").GetValue<Pawn>();
+                if (pawn != null && pawn.IsShikigami())
+                {
+                    __result = false;
+                    return false;
+                }
+                return true;
             }
         }
     }

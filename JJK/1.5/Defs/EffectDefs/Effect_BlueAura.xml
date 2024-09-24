@@ -19,30 +19,11 @@
         <angle>0~360</angle>
         <speed>0</speed>
         <positionOffset>(0, 0, 0)</positionOffset>
-        <color>(0.5, 0, 0.5, 255)</color>
+        <color>(255, 255, 255, 255)</color>
         <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
         <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
         <attachToSpawnThing>false</attachToSpawnThing>
       </li>
       </children>
     </EffecterDef>
-
-    <!-- MoteDef -->
-    <ThingDef ParentName="MoteBase">
-        <defName>JJK_BlueAOEAura</defName>
-        <graphicData>
-          <texPath>ArcaneRing</texPath>
-          <graphicClass>Graphic_Mote</graphicClass>
-          <shaderType>MoteGlow</shaderType>
-          <drawSize>1</drawSize>
-          <color>(0.5, 0, 255, 255)</color>
-        </graphicData>
-        <altitudeLayer>MoteOverhead</altitudeLayer>
-        <mote>
-          <fadeInTime>0.08</fadeInTime>
-          <solidTime>0.2</solidTime>
-          <fadeOutTime>2</fadeOutTime>
-          <growthRate>-2</growthRate>
-        </mote>
-      </ThingDef>
   </Defs>

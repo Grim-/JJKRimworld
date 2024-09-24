@@ -5,7 +5,7 @@
   <label>Summon</label>
   <description>Summon any creature you have absorbed.</description>
   <iconPath>UI/Abilities/ShapeFlesh</iconPath>
-  <category>Sanguophage</category>
+      <category>Cursed_Energy</category>
   <displayOrder>100</displayOrder>
   <warmupEffecter>Bloodfeed_Warmup</warmupEffecter>
   <warmupStartSound>Bloodfeed_Cast</warmupStartSound>

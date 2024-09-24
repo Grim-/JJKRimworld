@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_Nobara</defName>
+    <label>Shoko</label>
+    <description>Nobara Kugisaki.</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <abilities>
+    </abilities>
+    <statFactors>
+    </statFactors>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
+  </GeneDef>
+</Defs>

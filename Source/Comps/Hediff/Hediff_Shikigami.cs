@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace JJK
 {
@@ -6,12 +7,13 @@ namespace JJK
     {
         private Pawn referencedPawn;
         public Pawn Master => referencedPawn;
+        public override string Label => base.Label;
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_References.Look(ref referencedPawn, "referencedPawn");
-            JJKUtility.MakeDraftable(pawn);
+            DraftingUtility.MakeDraftable(pawn);
 
         }
 
@@ -48,6 +50,24 @@ namespace JJK
         public void SetMaster(Pawn pawn)
         {
             referencedPawn = pawn;
+        }
+
+        public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
+        {
+            Log.Message($"Notify_PawnDied {Master}");
+
+            if (Master != null && Master.IsCursedSpiritManipulator())
+            {
+                Messages.Message($"{this.pawn.Label} has died, {Master.Label} has lost the ability to summon {this.pawn.Label}.", MessageTypeDefOf.NegativeEvent);
+                Master.GetCursedSpiritManipulator().RemoveSummon(this.pawn, true);
+            }
+
+            if (Master != null && Master.IsTenShadowsUser())
+            {
+                //Master.GetTenShadowsUser().remo
+            }
+
+            base.Notify_PawnDied(dinfo, culprit);
         }
     }
 

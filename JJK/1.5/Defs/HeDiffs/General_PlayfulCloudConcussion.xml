@@ -7,6 +7,7 @@
   <description>Hit by PlayfulCloud partially stunning, reducing movement by 20%.</description>
   <tendable>false</tendable>
   <initialSeverity>1</initialSeverity>
+    <duplicationAllowed>false</duplicationAllowed>
   <stages>
     <li>
         <capMods>

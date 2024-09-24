@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <EffecterDef>
+    <defName>JJK_InfinityAuraEffect</defName>
+    <maintainTicks>-1</maintainTicks>
+    <children>
+      <li>
+        <moteDef>JJK_InfinityAuraMote</moteDef>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <chancePerTick>1</chancePerTick>
+        <ticksBetweenMotes>20</ticksBetweenMotes>
+        <spawnLocType>OnSource</spawnLocType>
+        <burstCount>1~1</burstCount>
+        <positionRadius>0.1</positionRadius>
+        <positionRadiusMin>0</positionRadiusMin>
+        <maxMoteCount>15</maxMoteCount>
+        <scale>1~2</scale>
+        <rotation>0</rotation>
+        <rotationRate>0</rotationRate>
+        <angle>0</angle>
+        <speed>0</speed>
+        <positionOffset>(0.2, 0, 0.2)</positionOffset>
+        <color>(255, 255, 255, 255)</color>
+        <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+        <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+        <attachToSpawnThing>true</attachToSpawnThing>
+      </li>
+    </children>
+  </EffecterDef>
+</Defs>

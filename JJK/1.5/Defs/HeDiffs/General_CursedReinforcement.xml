@@ -3,28 +3,125 @@
   <HediffDef>
     <defName>JJK_CursedReinforcementHediff</defName>
     <label>cursed energy reinforcement</label>
-    <description>Reinforced by cursed energy, this pawn has vastly increased capacities and tougher limbs.</description>
-    <hediffClass>HediffWithComps</hediffClass>
+    <description>Reinforced by cursed energy, this pawn has vastly increased capacities and tougher limbs. Effects scale with Cursed Energy.</description>
+    <hediffClass>JJK.Hediff_CursedReinforcement</hediffClass>
     <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
-    <initialSeverity>1</initialSeverity>
-    <maxSeverity>1.0</maxSeverity>
     <isBad>false</isBad>
     <duplicationAllowed>false</duplicationAllowed>
     <stages>
       <li>
-        <statOffsets>
-          <MeleeCooldownFactor>-0.2</MeleeCooldownFactor>
-          <MeleeHitChance>1</MeleeHitChance>
-          <IncomingDamageFactor>-0.3</IncomingDamageFactor>
-          <MeleeDodgeChance>0.15</MeleeDodgeChance>
-          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
-          <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
-        </statOffsets>
-        <statFactors>
-          <MoveSpeed>1.25</MoveSpeed>
-          <MeleeDamageFactor>1.3</MeleeDamageFactor>
-          <PainShockThreshold>0.7</PainShockThreshold>
-        </statFactors>
+        <statFactorsBySeverity>
+          <li>
+            <stat>MoveSpeed</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 1.0)</li>
+                <li>(0.25, 1.25)</li>
+                <li>(0.5, 1.75)</li>
+                <li>(0.75, 2.5)</li>
+                <li>(1.0, 3)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>MeleeDamageFactor</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 1.0)</li>
+                <li>(0.25, 1.075)</li>
+                <li>(0.5, 1.15)</li>
+                <li>(0.75, 1.225)</li>
+                <li>(1.0, 1.3)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>PainShockThreshold</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.9)</li>
+                <li>(0.25, 0.7)</li>
+                <li>(0.5, 0.6)</li>
+                <li>(0.75, 0.4)</li>
+                <li>(1.0, 0.3)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+        </statFactorsBySeverity>
+        <statOffsetsBySeverity>
+          <li>
+            <stat>MeleeCooldownFactor</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.01)</li>
+                <li>(0.25, -0.10)</li>
+                <li>(0.5, -0.15)</li>
+                <li>(0.75, -0.25)</li>
+                <li>(1.0, -0.30)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>MeleeHitChance</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.0)</li>
+                <li>(0.25, 0.25)</li>
+                <li>(0.5, 0.5)</li>
+                <li>(0.75, 0.75)</li>
+                <li>(1.0, 1.0)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>IncomingDamageFactor</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.0)</li>
+                <li>(0.25, -0.075)</li>
+                <li>(0.5, -0.15)</li>
+                <li>(0.75, -0.225)</li>
+                <li>(1.0, -0.3)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>MeleeDodgeChance</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.0)</li>
+                <li>(0.25, 0.0375)</li>
+                <li>(0.5, 0.075)</li>
+                <li>(0.75, 0.1125)</li>
+                <li>(1.0, 0.35)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>ArmorRating_Blunt</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.0)</li>
+                <li>(0.25, 0.0625)</li>
+                <li>(0.5, 0.125)</li>
+                <li>(0.75, 0.1875)</li>
+                <li>(1.0, 0.35)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
+            <stat>ArmorRating_Sharp</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.0)</li>
+                <li>(0.25, 0.0375)</li>
+                <li>(0.5, 0.075)</li>
+                <li>(0.75, 0.1125)</li>
+                <li>(1.0, 0.45)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+        </statOffsetsBySeverity>
         <capMods>
           <li>
             <capacity>Moving</capacity>
@@ -44,4 +141,5 @@
       </li>
     </stages>
   </HediffDef>
+
 </Defs>
