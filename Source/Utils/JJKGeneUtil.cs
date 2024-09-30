@@ -156,6 +156,59 @@ namespace JJK
                     .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
                     .ToList();
         }
+        public static Gene GetSorcererGradeGene(this Pawn Pawn)
+        {
+            if (Pawn.genes == null)
+            {
+                return null;
+            }
+            return Pawn.genes?.GenesListForReading
+                    .Where(g => g.def.HasModExtension<CursedEnergyGeneExtension>())
+                    .FirstOrDefault();
+        }
+
+        public static void UpgradeSorcererGrade(this Pawn targetPawn)
+        {
+            // Get all sorcerer grade gene definitions
+            List<GeneDef> sorcererGeneDefs = DefDatabase<GeneDef>.AllDefs
+                .Where(geneDef => geneDef.HasModExtension<CursedEnergyGeneExtension>())
+                .OrderByDescending(geneDef => geneDef.GetModExtension<CursedEnergyGeneExtension>().priority)
+                .ToList();
+
+            if (sorcererGeneDefs.Count == 0)
+            {
+                Log.Warning("No GeneDefs found with CursedEnergyGeneExtension.");
+                return;
+            }
+
+            // Get the pawn's current sorcerer grade gene
+            Gene currentGradeGene = targetPawn.GetSorcererGradeGene();
+
+            if (currentGradeGene == null)
+            {
+                GeneDef randomSorcererGeneDef = sorcererGeneDefs.RandomElement();
+                targetPawn.genes.AddGene(randomSorcererGeneDef, true);
+                Log.Message($"Gave {targetPawn.Name} a random sorcerer grade: {randomSorcererGeneDef.defName}");
+                return;
+            }
+
+            int currentIndex = sorcererGeneDefs.FindIndex(def => def == currentGradeGene.def);
+
+            if (currentIndex == -1)
+            {
+                Log.Error($"Current grade gene {currentGradeGene.def.defName} not found in the list of sorcerer grade genes.");
+                return;
+            }
+
+            if (currentIndex > 0)
+            {
+                GeneDef nextGradeDef = sorcererGeneDefs[currentIndex - 1];
+                targetPawn.genes.RemoveGene(currentGradeGene);
+                targetPawn.genes.AddGene(nextGradeDef, true);
+
+                Log.Message($"Upgraded {targetPawn.Name}'s sorcerer grade from {currentGradeGene.def.defName} to {nextGradeDef.defName}");
+            }
+        }
 
         public static bool HasGradeGene(this Pawn Pawn)
         {

@@ -7,7 +7,7 @@ namespace JJK
     public class HediffCompProperties_Infinity : HediffCompProperties
     {
         public float CheckRadius = 4f;
-        public int CheckIntervalTicks = 60; // Default to checking every 60 ticks (1 second)
+        public int CheckIntervalTicks = 60;
         public EffecterDef Effect;
 
         public HediffCompProperties_Infinity()
@@ -22,6 +22,10 @@ namespace JJK
     {
         public HediffCompProperties_Infinity Props => (HediffCompProperties_Infinity)props;
         private Effecter AuraEffect = null;
+
+
+        private int SplatCooldownTicks = 3000;
+        private int SplatCooldown = -1;
 
 
         public override void CompPostMake()
@@ -107,13 +111,10 @@ namespace JJK
         private void PushEnemyPawn(Pawn enemyPawn)
         {
             IntVec3 pushDirection = parent.pawn.Rotation.FacingCell;
-            //IntVec3 pushDirection = (enemyPawn.Position - parent.pawn.Position);
             IntVec3 targetCell = enemyPawn.Position + pushDirection;
-
             if (targetCell.InBounds(parent.pawn.Map))
             {
                 bool isObstructed = IsWallOrBuildingPresent(targetCell);
-
                 if (!isObstructed)
                 {
                     enemyPawn.Position = targetCell;
@@ -121,12 +122,15 @@ namespace JJK
                 }
                 else
                 {
-                    if (Rand.Range(0, 100) <= 80)
+                    int CurrentTick = Find.TickManager.TicksGame;
+                    if (Rand.Range(0, 100) <= 80 && CurrentTick >= SplatCooldown)
                     {
                         DamageInfo damageInfo = new DamageInfo(DamageDefOf.Vaporize, 100f, 0f, -1f, parent.pawn);
                         enemyPawn.TakeDamage(damageInfo);
                         Messages.Message($"SPLAT {enemyPawn.Label} has been turned into a mess on the wall.", MessageTypeDefOf.NeutralEvent);
                         EffecterDefOf.MeatExplosionExtraLarge.Spawn(targetCell, parent.pawn.Map);
+
+                        SplatCooldown = CurrentTick + SplatCooldownTicks;
                     }
                 }
             }
@@ -151,11 +155,10 @@ namespace JJK
         {
             base.CompExposeData();
 
-            // Save whether the AuraEffect is active
             bool auraEffectActive = AuraEffect != null;
             Scribe_Values.Look(ref auraEffectActive, "AuraEffectActive", false);
+            Scribe_Values.Look(ref SplatCooldown, "SplatCooldown", -1);
 
-            // When loading, recreate the AuraEffect if it was active
             if (Scribe.mode == LoadSaveMode.PostLoadInit && auraEffectActive && Props.Effect != null)
             {
                 AuraEffect = Props.Effect.SpawnAttached(this.Pawn, this.Pawn.MapHeld);

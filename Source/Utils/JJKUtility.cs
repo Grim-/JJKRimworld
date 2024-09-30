@@ -210,6 +210,11 @@ namespace JJK
         }
 
 
+        public static int TicksInSeconds(int Seconds)
+        {
+            return 60 * Seconds;
+        }
+
 
         public static Pawn SpawnShikigami(PawnKindDef pawnKindDef, Pawn Master, Map Map, IntVec3 Position)
         {
@@ -219,6 +224,12 @@ namespace JJK
             }
 
             Pawn shikigami = PawnGenerator.GeneratePawn(pawnKindDef, Master.Faction);
+
+            if (shikigami.Dead)
+            {
+                shikigami.health.Reset();
+            }
+
             GenSpawn.Spawn(shikigami, Position, Map);
             Hediff_Shikigami summon = (Hediff_Shikigami)shikigami.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
 

@@ -49,8 +49,6 @@ namespace JJK
         public override float MinLevelForAlert => 0.15f;
         public override float MaxLevelOffset => 0.1f;
 
-
-
         private float lastMax;
         public override float Max
         {

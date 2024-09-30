@@ -93,13 +93,20 @@
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="Comps\Abilities\Base\CompAbilityEffect_Beam.cs" />
     <Compile Include="Comps\Abilities\Base\CompProperties_Effecter.cs" />
+    <Compile Include="Comps\Abilities\Domains\CompProperties_Capsule.cs" />
+    <Compile Include="Comps\Abilities\Domains\ProjectileCapsule.cs" />
+    <Compile Include="Comps\Abilities\Domains\Verb_ThrowCapsule.cs" />
+    <Compile Include="Comps\Abilities\General\CompProperties_AbilityLaunchScalingProjectile.cs" />
+    <Compile Include="Custom Damage Workers\CompProperties_GameOfLife.cs" />
+    <Compile Include="Projectiles\Projectile_ScalingDoomsdayRocket.cs" />
+    <Compile Include="Projectiles\ScalingStatDamageProjectile.cs" />
     <Compile Include="Comps\Abilities\Yuta\CompProperties_RiikaEat.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_YutaAbilities.cs" />
     <Compile Include="Comps\Abilities\General\PowerBeamVisual.cs" />
     <Compile Include="Comps\Abilities\Mahito\ITab_BindingVows.cs" />
     <Compile Include="Comps\Abilities\Mahito\ITab_CursedSpiritManipulator.cs" />
     <Compile Include="Comps\Abilities\Yuta\CompProperties_FullyManifestRika.cs" />
-    <Compile Include="Comps\Abilities\Ticker.cs" />
+    <Compile Include="Comps\Misc\Ticker.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_KenjakuPossession.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_SelectiveDamageImmunity.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_YutaToggleAbilities.cs" />
@@ -129,7 +136,7 @@
     <Compile Include="Comps\Abilities\General\CompProperties_DamageInRect.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_DeflectProjectiles.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_TeleportMeleeAttack.cs" />
-    <Compile Include="Comps\Abilities\General\ProjectileUtility.cs" />
+    <Compile Include="Utils\ProjectileUtility.cs" />
     <Compile Include="Comps\Abilities\General\RotatedRectTargetFinder.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_CursedSpeechCrush.cs" />
     <Compile Include="Comps\Abilities\Inumaki\CompProperties_TwistAreaEffect.cs" />
@@ -236,7 +243,6 @@
     <Compile Include="Comps\Abilities\General\CompProperties_RCTBase.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_ReverseIdleTransfigurationDoll.cs" />
     <Compile Include="Comps\Abilities\Shoko\CompProperties_TargetedRCT.cs" />
-    <Compile Include="Comps\Abilities\CursedCompAbilityEffect_LaunchProjectile.cs" />
     <Compile Include="JJKMod.cs" />
     <Compile Include="Extensions\CursedEnergyGeneExtension.cs" />
     <Compile Include="Extensions\CursedTechniqueGeneExtension.cs" />
@@ -283,6 +289,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Comps\Projectile\" />
     <Folder Include="Shaders\" />
   </ItemGroup>
   <ItemGroup>

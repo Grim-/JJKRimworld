@@ -11,6 +11,7 @@ namespace JJK
     [DefOf]
     internal class JJKDefOf
     {
+        public static DamageDef JJK_CursedEnergyDamage;
 
         //stats
         public static StatDef JJK_CursedEnergy;
@@ -71,6 +72,7 @@ namespace JJK
         public static JobDef ChannelRCT;
         public static JobDef JJK_CursedSpeechLure;
         public static JobDef JJK_DemondogAttackAndVanish;
+        public static JobDef JJK_ChannelDomain;
 
 
         public static HediffDef JJK_SplitSoul;
@@ -90,16 +92,11 @@ namespace JJK
         public static HediffDef JJK_IdleTransfigurationBeastStatBoost;
         public static HediffDef JJK_CursedTechniqueBurnout;
         public static HediffDef JJK_CursedTechniqueStrain;
-
-        public static HediffDef JJK_Mahito_UnstableSoul;
-        
+        public static HediffDef JJK_Mahito_UnstableSoul;     
         public static HediffDef JJK_PlayfulCloudConcussion;
-
         public static HediffDef JJK_CursedObjectConsumer;
-
         public static HediffDef JJK_CursedSpiritManipulator;
         public static HediffDef JJK_TenShadowsUser;
-
         public static HediffDef JJK_YutaAbilityStore;
 
         public static PawnKindDef JJK_DivineDogWhite;
@@ -107,10 +104,10 @@ namespace JJK
         public static PawnKindDef JJK_DivineDogTotality;
 
 
-        public static FleckDef JJK_BlackSmoke;
-        public static ThingDef JJK_PlayfulCloudKnockbackFlyer;
+      
 
         //public static ThingDef JJK_RedBeam;
+        public static ThingDef JJK_PlayfulCloudKnockbackFlyer;
         public static ThingDef JJK_BeamMote;
         public static ThingDef Mote_PowerBeam;
 
@@ -123,16 +120,11 @@ namespace JJK
         public static EffecterDef JJK_ShadowSummonEffect;
         public static EffecterDef JJK_ShadowSummonEffectLarge;
         public static EffecterDef JJK_BlueAOEAuraEffect;
-
+        public static FleckDef JJK_BlackSmoke;
 
         public static BackstoryDef ZombieChildhoodStory;
         public static BackstoryDef ZombieAdulthoodStory;
-
-
         public static RecipeDef JJK_CreateCursedObject;
-
-
-        public static ShaderTypeDef CausticShader;
 
         public static AbilityCategoryDef Cursed_Energy;
 

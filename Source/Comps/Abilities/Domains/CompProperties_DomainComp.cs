@@ -11,6 +11,9 @@ namespace JJK
         public float DomainCastCost = 10;
         public float DomainCostPerTick = 4;
         public ThingDef WallDef;
+        public ThingDef DomainFloorDef;
+
+
         public int TicksBetweenApplication = 100;
         public float AreaRadius = 10f;
 
@@ -165,14 +168,13 @@ namespace JJK
             {
                 if (cell.InBounds(parent.Map))
                 {
-                    // Store original terrain
                     TerrainDef currentTerrain = cell.GetTerrain(parent.Map);
                     if (!originalTerrain.ContainsKey(cell))
                     {
                         originalTerrain[cell] = currentTerrain;
                     }
 
-                    // Store original things (plants, etc.)
+  
                     List<Thing> cellThings = cell.GetThingList(parent.Map)
                         .Where(t => t.def.category == ThingCategory.Plant)
                         .ToList();
@@ -185,8 +187,7 @@ namespace JJK
                         }
                     }
 
-                    // Change terrain to shallow water
-                    parent.Map.terrainGrid.SetTerrain(cell, TerrainDefOf.WaterShallow);
+                    parent.Map.terrainGrid.SetTerrain(cell, TerrainDefOf.Voidmetal);
                 }
             }
             terrainChanged = true;
@@ -203,10 +204,8 @@ namespace JJK
 
                     if (cell.InBounds(parent.Map))
                     {
-                        // Restore original terrain
                         parent.Map.terrainGrid.SetTerrain(cell, terrain);
 
-                        // Restore original things
                         if (originalThings.TryGetValue(cell, out List<Thing> cellThings))
                         {
                             foreach (Thing thing in cellThings)
@@ -231,7 +230,7 @@ namespace JJK
             {
                 if (kvp.Key.InBounds(parent.Map))
                 {
-                    parent.Map.terrainGrid.SetTerrain(kvp.Key, TerrainDefOf.WaterShallow);
+                    parent.Map.terrainGrid.SetTerrain(kvp.Key, TerrainDefOf.Voidmetal);
                 }
             }
         }
@@ -366,7 +365,7 @@ namespace JJK
                     }
 
                     // Construct the wall
-                    Thing wall = ThingMaker.MakeThing(ThingDefOf.RaisedRocks);
+                    Thing wall = ThingMaker.MakeThing(ThingDefOf.VoidmetalWall);
                     if (wall != null)
                     {
                         Thing spawnedWall = GenSpawn.Spawn(wall, cell, parent.Map);
@@ -415,7 +414,6 @@ namespace JJK
                 wallsConstructed = false;
             }
         }
-
         public override void PostDrawExtraSelectionOverlays()
         {
             base.PostDrawExtraSelectionOverlays();
@@ -451,6 +449,5 @@ namespace JJK
 
 
     }
-
 
 }

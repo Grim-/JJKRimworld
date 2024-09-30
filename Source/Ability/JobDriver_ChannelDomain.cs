@@ -23,21 +23,37 @@ namespace JJK
         {
             Toil ChanneToil = new Toil();
             ChanneToil.defaultCompleteMode = ToilCompleteMode.Never;
-            ChanneToil.tickAction = () =>
-            {
-                if (pawn.pather.MovingNow || pawn.stances.stunner.Stunned)
-                {
-                    Log.Message("Maintaing Domain channel was interrupted");
-                    abilityReference?.DestroyActiveDomain();
-                    this.EndJobWith(JobCondition.InterruptOptional);
-                }
-            };
+
+            //ChanneToil.AddPreTickAction(ShouldFail);
+            ChanneToil.tickAction = OnChannelDomainTick;
+
+            ChanneToil.AddFinishAction(OnChannelDomainFinish);
             yield return ChanneToil;
         }
-    }
 
-    public class CantMoveStance : Stance
-    {
-        public override bool StanceBusy => true;
+
+        private void OnChannelDomainTick()
+        {
+            if (abilityReference != null)
+            {
+                abilityReference.IsDomainActive = true;
+            }
+        }
+
+        private void ShouldFail()
+        {
+            if (abilityReference == null || abilityReference.DomainThing == null)
+            {
+                this.EndJobWith(JobCondition.InterruptForced);
+            }
+        }
+
+        private void OnChannelDomainFinish()
+        {
+            if (abilityReference != null)
+            {
+                abilityReference.DestroyActiveDomain();
+            }
+        }
     }
 }

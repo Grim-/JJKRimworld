@@ -11,7 +11,7 @@ using Verse.Noise;
 
 namespace JJK
 {
-    internal class Projectile_HollowPurple : Projectile
+    internal class Projectile_HollowPurple : ScalingStatDamageProjectile
     {
         public override void Tick()
         {

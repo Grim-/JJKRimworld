@@ -74,7 +74,13 @@ namespace JJK
                 .OrderByDescending(x => x.Severity)
                 .FirstOrDefault();
         }
-
+        public static List<Hediff> GetMostSevereHealthProblems(Pawn pawn)
+        {
+            return pawn.health.hediffSet.hediffs
+                  .Where(x => !(x is Hediff_MissingPart) && x.Visible && x.def != JJKDefOf.JJK_ZombieWorkSlaveHediff && x.def != JJKDefOf.JJK_InfiniteDomainComa && x.def.isBad && !x.def.chronic)
+                .OrderByDescending(x => x.Severity)
+                .ToList();
+        }
         public static List<Hediff_MissingPart> GetMissingPartsPrioritized(Pawn pawn)
         {
             return pawn.health.hediffSet.hediffs

@@ -72,27 +72,17 @@ namespace JJK
                 removeDiedThoughts = true
             }))
             {
-
                 Pawn caster = parent.pawn;
-                //Pawn targetPawn = target.Pawn;
-
-                // Detailed debug logging
-                //Log.Message($"JJK: Attempting possession. Caster: {caster.LabelShort}, Target: {targetPawn.LabelShort}");
-                //Log.Message($"JJK: Caster genes: {string.Join(", ", caster.genes.GenesListForReading.Select(g => g.def.defName))}");
-
-                // Check for Cursed Energy gene (as a comparison)
                 var cursedEnergyGene = caster.GetCursedEnergy();
-               // Log.Message($"JJK: Cursed Energy Gene found: {cursedEnergyGene != null}");
+                if (KenjakuUtil.PossessPawn(caster, targetPawn, Props.guaranteedTraits))
+                {
+                    // Kill the previous host (the caster)
+                    caster.Kill(new DamageInfo(DamageDefOf.NerveStun, 9999, 1));
 
-                //Log.Message("JJK: Kenjaku Gene found, attempting possession");
+                    Messages.Message("JJK_KenjakuPossessionSuccessful".Translate(caster.LabelShort, targetPawn.LabelShort), MessageTypeDefOf.PositiveEvent);
+                }
 
-                // Attempt possession
-                KenjakuUtil.PossessPawn(caster, targetPawn, Props.guaranteedTraits);
 
-                // Kill the previous host (the caster)
-                caster.Kill(new DamageInfo(DamageDefOf.NerveStun, 9999, 1));
-
-                Messages.Message("JJK_KenjakuPossessionSuccessful".Translate(caster.LabelShort, targetPawn.LabelShort), MessageTypeDefOf.PositiveEvent);
             }
             else
             {

@@ -179,11 +179,6 @@ namespace JJK
                 {
                     if (__instance.IsShikigami())
                     {
-                        //foreach (ThingComp thingComp in __instance.AllComps)
-                        //{
-                        //    thingComp.Notify_Killed(__instance.Map, dinfo);
-                        //}
-
                         // Prevent corpse creation
                         if (__instance.Corpse != null)
                         {
@@ -196,11 +191,7 @@ namespace JJK
 
                         if (!__instance.Destroyed)
                             __instance.Destroy(DestroyMode.Vanish);
-
-                        // Skip the original method
-                        //return false;
                     }
-                    //return true;
                 }
             }
 
@@ -293,6 +284,96 @@ namespace JJK
                     return false;
                 }
                 return true;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(HediffWithParents))]
+        [HarmonyPatch("SetParents")]
+        public static class Patch_GeneInheritance
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(HediffWithParents __instance, ref Pawn mother, ref Pawn father, ref GeneSet geneSet)
+            {
+                if (mother != null && father != null)
+                {
+                    Gene_CursedEnergy motherCE = mother.GetCursedEnergy();
+                    Gene_CursedEnergy fatherCE = father.GetCursedEnergy();
+
+                    if (motherCE != null || fatherCE != null)
+                    {
+                        // Give Cursed Energy gene to the child
+                        GeneDef cursedEnergyGeneDef = JJKDefOf.Gene_JJKCursedEnergy;
+                        geneSet.AddGene(cursedEnergyGeneDef);
+
+                        // Handle Cursed Technique inheritance
+                        Gene motherCT = mother.GetCursedTechniqueGene();
+                        Gene fatherCT = father.GetCursedTechniqueGene();
+                        GeneDef inheritedCT = null;
+
+                        int newCTChance = Rand.Range(0, 100);
+                        if (newCTChance < JJKMod.NewRandomCTGeneInheritanceChance)
+                        {
+                            // New random Cursed Technique
+                            List<GeneDef> ctGeneDefs = DefDatabase<GeneDef>.AllDefs
+                                .Where(g => g.HasModExtension<CursedTechniqueGeneExtension>())
+                                .ToList();
+                            inheritedCT = ctGeneDefs.RandomElement();
+                        }
+                        else
+                        {
+                            // Inherit from either mother or father
+                            inheritedCT = Rand.Value > 0.5f ? motherCT?.def : fatherCT?.def;
+                        }
+
+                        if (inheritedCT != null)
+                        {
+                            geneSet.AddGene(inheritedCT);
+                        }
+
+                        Log.Message($"Mother's CT: {motherCT?.def.LabelCap ?? "None"}, Father's CT: {fatherCT?.def.LabelCap ?? "None"}, Inherited CT: {inheritedCT?.LabelCap ?? "None"}");
+
+                        Gene motherGrade = mother.GetSorcererGradeGene();
+                        Gene fatherGrade = father.GetSorcererGradeGene();
+
+                        GeneDef bestParentGrade = GetHigherPriorityGrade(motherGrade?.def, fatherGrade?.def);
+                        GeneDef upgradedGrade = UpgradeGrade(bestParentGrade);
+
+                        if (upgradedGrade != null)
+                        {
+                            geneSet.AddGene(upgradedGrade);
+                        }
+
+     
+                        geneSet.GenesListForReading.RemoveAll(g => g == JJKDefOf.Gene_JJKCursedEnergy || g.HasModExtension<CursedEnergyGeneExtension>());
+                    }
+                }
+
+                return true; 
+            }
+
+            private static GeneDef GetHigherPriorityGrade(GeneDef grade1, GeneDef grade2)
+            {
+                if (grade1 == null) return grade2;
+                if (grade2 == null) return grade1;
+
+                int priority1 = grade1.GetModExtension<CursedEnergyGeneExtension>()?.priority ?? 0;
+                int priority2 = grade2.GetModExtension<CursedEnergyGeneExtension>()?.priority ?? 0;
+
+                return priority1 >= priority2 ? grade1 : grade2;
+            }
+
+            private static GeneDef UpgradeGrade(GeneDef currentGrade)
+            {
+                if (currentGrade == null) return null;
+
+                List<GeneDef> gradeDefs = DefDatabase<GeneDef>.AllDefs
+                    .Where(g => g.HasModExtension<CursedEnergyGeneExtension>())
+                    .OrderByDescending(g => g.GetModExtension<CursedEnergyGeneExtension>().priority)
+                    .ToList();
+
+                int currentIndex = gradeDefs.IndexOf(currentGrade);
+                return currentIndex > 0 ? gradeDefs[currentIndex - 1] : currentGrade;
             }
         }
     }

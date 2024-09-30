@@ -1,4 +1,6 @@
-﻿using Verse;
+﻿using RimWorld;
+using System.Collections.Generic;
+using Verse;
 
 namespace JJK
 {
@@ -10,4 +12,6 @@ namespace JJK
             return damage;
         }
     }
+
+
 }

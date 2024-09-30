@@ -16,8 +16,14 @@ namespace JJK
 
         public static float HeavenlyPactChance = 10f;
         public static float SixEyesChance = 10f;
+        public static float SixEyesCursedReinforcementBonus = 6000;
         public static int AgeAbiltiesAwaken = 5;
         public static float CursedEnergyScalingCap = 10000f;
+
+        public static int NewRandomCTGeneInheritanceChance = 20;
+
+
+
 
         public JJKMod(ModContentPack content) : base(content)
         {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using RimWorld;
+using System.Linq;
 using Verse;
 
 namespace JJK
@@ -13,7 +14,7 @@ namespace JJK
 
     public class CompMalevolentShrineDomain : CompDomainEffect
     {
-        private const int TicksBetweenEffects = 60; 
+        private const int TicksBetweenEffects = 90; 
         public override void ApplyDomainEffects()
         {
             FireDismantleProjectiles();
@@ -31,7 +32,7 @@ namespace JJK
         private void FireDismantleProjectiles()
         {
             var map = parent.Map;
-            var validTargets = GetThingsInDomain().ToList();
+            var validTargets = GetThingsInDomain();
 
             foreach (var target in validTargets)
             {
@@ -46,11 +47,27 @@ namespace JJK
 
         private bool ValidateTarget(Thing Thing)
         {
-            if (Thing is Pawn Pawn)
+            if (Thing.Destroyed)
             {
-                return !Pawn.Destroyed && !Pawn.Dead && !Pawn.IsImmuneToDomainSureHit() && Pawn != DomainCaster;
+                return false;
             }
-            return !Thing.Destroyed;
+
+            if (Thing.Faction == Faction.OfPlayerSilentFail)
+            {
+                return false;
+            }
+
+            if (constructedWalls.Contains(Thing))
+            {
+                return false;
+            }
+
+            if (Thing is Pawn Pawn && !Pawn.Destroyed && !Pawn.Dead && !Pawn.IsImmuneToDomainSureHit() && Pawn != DomainCaster)
+            {
+                return true;
+            }
+
+            return true;
         }
 
         private IntVec3 GetRandomCellInDomain()

@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 
 namespace JJK
 {
-    public class Projectile_ImpactAOE : Projectile
+    public class Projectile_ImpactAOE : ScalingStatDamageProjectile
     {
         public new ProjectileProperties_ImpactAOE Props => (ProjectileProperties_ImpactAOE)this.def.projectile;
 
@@ -98,7 +98,6 @@ namespace JJK
             }
         }
     }
-
 
     public class ProjectileProperties_ImpactAOE : ProjectileProperties
     {

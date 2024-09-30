@@ -51,7 +51,10 @@
                 return;
             }
 
-            targetPawn.SetFaction(Faction.OfPlayer);
+            if (targetPawn.Faction != Faction.OfPlayer)
+            {
+                targetPawn.SetFaction(Faction.OfPlayer);
+            }
 
             if (currentPawn.ideo?.Ideo != null && targetPawn.ideo != null)
             {
@@ -73,10 +76,9 @@
 
             UpdateTargetName(currentPawn, targetPawn);
 
-            JJKGeneUtil.GiveCursedEnergy(targetPawn);
-            JJKUtility.TransferAbilities(currentPawn, targetPawn);
-            JJKGeneUtil.TransferGenes(currentPawn, targetPawn, JJKDefOf.Gene_Kenjaku);
             JJKGeneUtil.TransferCursedEnergyGenes(currentPawn, targetPawn);
+            JJKGeneUtil.TransferGenes(currentPawn, targetPawn, JJKDefOf.Gene_Kenjaku);
+            JJKUtility.TransferAbilities(currentPawn, targetPawn);
         }
 
         private static void ApplyTraits(Pawn targetPawn, List<TraitDef> traits)
@@ -103,9 +105,11 @@
 
         private static void UpdateTargetName(Pawn currentPawn, Pawn targetPawn)
         {
+
+
             targetPawn.story.birthLastName = currentPawn.story.birthLastName;
             NameTriple originalName = (NameTriple)targetPawn.Name;
-            targetPawn.Name = new NameTriple(originalName.First, "Kenjaku", originalName.Last);
+            targetPawn.Name = new NameTriple(originalName.First, ((NameTriple)currentPawn.Name).Nick, originalName.Last);
         }
 
         public static void RemovePossession(Pawn pawn)

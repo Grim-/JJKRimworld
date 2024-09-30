@@ -88,7 +88,7 @@ namespace JJK
                     summonedPawn.abilities = new Pawn_AbilityTracker(summonedPawn);
                 }
                 JJKUtility.TrainPawn(summonedPawn, this.pawn);
-                summonedPawn.abilities.GainAbility(JJKDefOf.JJK_CastLightningStrike);
+                //summonedPawn.abilities.GainAbility(JJKDefOf.JJK_CastLightningStrike);
                 activeCursedSpirits.Add(summonedPawn);
                 DraftingUtility.MakeDraftable(summonedPawn);
 

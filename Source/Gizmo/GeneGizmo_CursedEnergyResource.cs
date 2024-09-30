@@ -24,100 +24,44 @@ namespace JJK
 
     public override GizmoResult GizmoOnGUI(Vector2 topLeft, float maxWidth, GizmoRenderParms parms)
     {
-        GizmoResult result = base.GizmoOnGUI(topLeft, maxWidth, parms);
-        float num = Mathf.Repeat(Time.time, 0.85f);
-        float num2 = 1f;
-        if (num < 0.1f)
-        {
-            num2 = num / 0.1f;
-        }
-        else if (num >= 0.25f)
-        {
-            num2 = 1f - (num - 0.25f) / 0.6f;
-        }
-        if (((MainTabWindow_Inspect)MainButtonDefOf.Inspect.TabWindow)?.LastMouseoverGizmo is Command_Ability command_Ability && gene.Max != 0f)
-        {
-            foreach (CompAbilityEffect effectComp in command_Ability.Ability.EffectComps)
+            GizmoResult result = base.GizmoOnGUI(topLeft, maxWidth, parms);
+            float num = Mathf.Repeat(Time.time, 0.85f);
+            if (gene is Gene_CursedEnergy cursedEnergy)
             {
-                    if (effectComp is CompAbilityEffect_HemogenCost compAbilityEffect_HemogenCost && compAbilityEffect_HemogenCost.Props.hemogenCost > float.Epsilon)
-                    {
-                        Rect rect = barRect.ContractedBy(3f);
-                        float width = rect.width;
-                        float num3 = gene.Value / gene.Max;
-                        rect.xMax = rect.xMin + width * num3;
-                        float num4 = Mathf.Min(compAbilityEffect_HemogenCost.Props.hemogenCost / gene.Max, 1f);
-                        rect.xMin = Mathf.Max(rect.xMin, rect.xMax - width * num4);
-                        GUI.color = new Color(1f, 1f, 1f, num2 * 0.7f);
-                        GenUI.DrawTextureWithMaterial(rect, IchorCostTex, null);
-                        GUI.color = Color.white;
-                        break;
-                    }
-                }
-        }
-        return result;
+                Target = num;
+            }
+            return result;
     }
 
         protected override void DrawHeader(Rect headerRect, ref bool mouseOverElement)
         {
-             Gene_CursedEnergy CEGene;
-        if ((gene.pawn.IsColonistPlayerControlled || gene.pawn.IsPrisonerOfColony) && (CEGene = gene as Gene_CursedEnergy) != null)
-        {
-            headerRect.xMax -= 24f;
-            Rect rect = new Rect(headerRect.xMax, headerRect.y, 24f, 24f);
-            Widgets.DefIcon(rect, FleckDefOf.Heart);
-            GUI.DrawTexture(new Rect(rect.center.x, rect.y, rect.width / 2f, rect.height / 2f), CEGene.CursedEnergy ? Widgets.CheckboxOnTex : Widgets.CheckboxOffTex);
-            if (Widgets.ButtonInvisible(rect))
+            Gene_CursedEnergy CEGene;
+            if ((gene.pawn.IsColonistPlayerControlled || gene.pawn.IsPrisonerOfColony) && gene is Gene_CursedEnergy cursedEnergy)
             {
-                CEGene.CursedEnergy = !CEGene.CursedEnergy;
-                if (CEGene.CursedEnergy)
+                headerRect.xMax -= 24f;
+                Rect rect = new Rect(headerRect.xMax, headerRect.y, 24f, 24f);
+                Widgets.DefIcon(rect, FleckDefOf.Heart);
+                if (Mouse.IsOver(rect))
                 {
-                    SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                    Widgets.DrawHighlight(rect);
                 }
-                else
-                {
-                    SoundDefOf.Tick_Low.PlayOneShotOnCamera();
-                }
-            }
-            if (Mouse.IsOver(rect))
-            {
-                Widgets.DrawHighlight(rect);
-                string onOff = (CEGene.CursedEnergy ? "On" : "Off").Translate().ToString().UncapitalizeFirst();
-                 mouseOverElement = true;
-            }
             }
             base.DrawHeader(headerRect, ref mouseOverElement);
         }
 
         protected override string GetTooltip()
-    {
-        tmpDrainGenes.Clear();
-        string text = $"{gene.ResourceLabel.CapitalizeFirst().Colorize(ColoredText.TipSectionTitleColor)}: {gene.ValueForDisplay} / {gene.MaxForDisplay}\n";
-        if (!drainGenes.NullOrEmpty())
         {
-            float num = 0f;
-            foreach (IGeneResourceDrain drainGene in drainGenes)
+            tmpDrainGenes.Clear();
+            string text = $"{gene.ResourceLabel.CapitalizeFirst().Colorize(ColoredText.TipSectionTitleColor)}: {gene.ValueForDisplay} / {gene.MaxForDisplay}\n";
+            int RegenSpeed = (int)this.gene.pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegenSpeed);
+            float RegenAmount = this.gene.pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyRegen);
+            string Regen = $" Regenerates {RegenAmount} every {GenDate.ToStringTicksToPeriod(RegenSpeed)}";
+
+            if (!gene.def.resourceDescription.NullOrEmpty())
             {
-                if (drainGene.CanOffset)
-                {
-                    tmpDrainGenes.Add(new Pair<IGeneResourceDrain, float>(drainGene, drainGene.ResourceLossPerDay));
-                    num += drainGene.ResourceLossPerDay;
-                }
+                text = text + "\n\n" + gene.def.resourceDescription.Formatted(gene.pawn.Named("PAWN")).Resolve();
             }
-            //if (num != 0f)
-            //{
-            //    string text2 = ((num < 0f) ? "RegenerationRate".Translate() : "DrainRate".Translate());
-            //    text = text + "\n\n" + text2 + ": " + "PerDay".Translate(Mathf.Abs(gene.PostProcessValue(num))).Resolve();
-            //    foreach (Pair<IGeneResourceDrain, float> tmpDrainGene in tmpDrainGenes)
-            //    {
-            //        text = text + "\n  - " + tmpDrainGene.First.DisplayLabel.CapitalizeFirst() + ": " + "PerDay".Translate(gene.PostProcessValue(0f - tmpDrainGene.Second).ToStringWithSign()).Resolve();
-            //    }
-            //}
+            return text + Regen;
         }
-        if (!gene.def.resourceDescription.NullOrEmpty())
-        {
-            text = text + "\n\n" + gene.def.resourceDescription.Formatted(gene.pawn.Named("PAWN")).Resolve();
-        }
-        return text;
     }
-}
 }
