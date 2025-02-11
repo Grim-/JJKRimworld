@@ -26,6 +26,10 @@
       <li Class="JJK.PawnExtension_ThinkTreeOverride">
         <thinkTree>JJK_SummonedCreature</thinkTree>
       </li>
+      <li Class="JJK.PawnExtension_NoCorpse">
+      </li>
+      <li Class="JJK.PawnExtension_NoFleeing">
+      </li>
     </modExtensions>
   </PawnKindDef>
 </Defs>

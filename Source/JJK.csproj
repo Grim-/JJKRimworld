@@ -117,8 +117,9 @@
     <Compile Include="Custom Damage Workers\CompProperties_GameOfLife.cs" />
     <Compile Include="CustomShaderTypeDef.cs" />
     <Compile Include="Patches\Patch_CursedEnergyReinforcement.cs" />
-    <Compile Include="Patches\PawnExtension_NoCorpse.cs" />
-    <Compile Include="Patches\PawnExtension_NoFleeing.cs" />
+    <Compile Include="Extensions\PawnExtension_NoCorpse.cs" />
+    <Compile Include="Extensions\PawnExtension_NoFleeing.cs" />
+    <Compile Include="Extensions\PawnExtension_ThinkTreeOverride.cs" />
     <Compile Include="Projectiles\Projectile_ScalingDoomsdayRocket.cs" />
     <Compile Include="Projectiles\ScalingStatDamageProjectile.cs" />
     <Compile Include="Comps\Abilities\Yuta\CompProperties_RiikaEat.cs" />

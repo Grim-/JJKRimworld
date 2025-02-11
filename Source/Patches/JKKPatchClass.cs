@@ -125,22 +125,15 @@ namespace JJK
 	}
 
 
-	[HarmonyPatch(typeof(Pawn), nameof(Pawn.Kill))]
+	[HarmonyPatch(typeof(Pawn), nameof(Pawn.Kill), new Type[] { typeof(DamageInfo), typeof(Hediff)})]
 	public static class Patch_Pawn_Kill
 	{
-		public static void PostFix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
+		public static void Postfix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit)
 		{
             if (__instance.kindDef.HasModExtension<PawnExtension_NoCorpse>() || __instance.IsShikigami())
             {
 				if (__instance.Corpse != null && !__instance.Corpse.Destroyed)
 					__instance.Corpse.Destroy();
-
-				if (__instance.Spawned)
-					__instance.DeSpawn();
-
-
-				if (!__instance.Destroyed)
-					__instance.Destroy(DestroyMode.Vanish);
 			}
 		}
 	}

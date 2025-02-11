@@ -17,8 +17,10 @@ namespace JJK
 
     public class TenShadowGene : Gene
     {
-        private Dictionary<ShikigamiDef, ShikigamiMergeTracker> mergedShikigami = new Dictionary<ShikigamiDef, ShikigamiMergeTracker>();
 
+        private TenShadowsGeneDef Def => (TenShadowsGeneDef)def;
+
+        private Dictionary<ShikigamiDef, ShikigamiMergeTracker> mergedShikigami = new Dictionary<ShikigamiDef, ShikigamiMergeTracker>();
         private List<ShikigamiDef> earnedShadows = new List<ShikigamiDef>();
         private Dictionary<ShikigamiDef, ShikigamiData> Shikigami = new Dictionary<ShikigamiDef, ShikigamiData>();
         public bool ShouldSummonTotalityDivineDog = false;
@@ -28,9 +30,19 @@ namespace JJK
         public override void PostAdd()
         {
             base.PostAdd();
-            UnlockShikigami(JJKDefOf.Shikigami_DivineDogs);
-        }
 
+            if (Def.startingShikigami != null && Def.startingShikigami.Count > 0)
+            {
+                foreach (var item in Def.startingShikigami)
+                {
+                    UnlockShikigami(item);
+                }
+            }
+            else
+            {
+                UnlockShikigami(JJKDefOf.Shikigami_DivineDogs);
+            }
+        }
 
         public override void Tick()
         {
@@ -54,6 +66,11 @@ namespace JJK
                     }
                 }
             }
+        }
+
+        private float GetShadowRegenCost(Pawn ShadowPawn)
+        {
+            return 1f;
         }
 
         public bool CanSummonShikigamiKind(ShikigamiDef KindDef)
