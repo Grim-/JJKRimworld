@@ -9,3 +9,10 @@ The Ten Shadows Technique (十種影法術) is an Inherited Technique of the Zen
 - [Toad](TenShadows/Gama.md) - Utility, storage, and support
 - [Fleeing Hares](TenShadows/FleeingHares.md) - Multiple summon diversion tactics
 - [Max Elephant](TenShadows/MaxElephant.md) - Heavy combat and area control
+
+## Not added
+- [Great Serpent](shadows/GreatSerpent.md) - Binding and combat control
+- [Round Deer](shadows/RoundDeer.md) - Healing and defense
+- [Piercing Ox](shadows/PiercingOx.md) - Direct combat specialist
+- [Tiger Funeral](shadows/TigerFuneral.md) - ?????
+- [Mahoraga](shadows/mahoraga.md) - Adaptive combat specialist
