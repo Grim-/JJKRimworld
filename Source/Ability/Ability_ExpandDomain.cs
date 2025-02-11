@@ -21,17 +21,22 @@ namespace JJK
         {
             if (IsDomainActive)
             {
-                DestroyActiveDomain();
+                pawn.jobs.StopAll();
+                pawn.jobs.ClearQueuedJobs();
+                //DestroyActiveDomain();
+                return false;
             }
             else
             {
-                ActivateDomain(target.Cell);           
+                ActivateDomain(target.Cell);
             }
-            return true;
+
+            return false;
         }
 
-        private bool ActivateDomain(IntVec3 cell)
-        {
+        public bool ActivateDomain(IntVec3 cell)
+        {          
+            IsDomainActive = true;
             DomainExpansionDef domainDef = def as DomainExpansionDef;
             if (domainDef == null || string.IsNullOrEmpty(domainDef.DomainThingDefName))
             {
@@ -46,59 +51,89 @@ namespace JJK
                 return false;
             }
 
-            DomainThing = ThingMaker.MakeThing(domainThingDef);
-            DomainThing = GenSpawn.Spawn(DomainThing, cell, pawn.Map);
-            DomainComp = DomainThing.TryGetComp<CompDomainEffect>();
 
-            if (DomainComp == null)
-            {
-                Log.Error($"Failed to find CompDomainEffect on DomainThing from {domainDef.DomainThingDefName}");
-                DomainThing.Destroy();
-                return false;
+            DomainManagerComp domainManagerComp = Find.World.GetComponent<DomainManagerComp>();
+
+            if (domainManagerComp != null)
+            { 
+                var DomainComp = DomainManagerComp.CreateDomain(domainThingDef, cell, pawn.Map);
+                if (DomainComp == null)
+                {
+                    Log.Error($"Failed to find CompDomainEffect on DomainThing from {domainDef.DomainThingDefName}");
+                    return false;
+                }
+
+                DomainThing = DomainComp.parent;
+
+                if (domainManagerComp.TryExpandDomain(pawn, cell, DomainComp))
+                {
+                    SetDomainComp(DomainComp);
+                    DomainComp.ActivateDomain();
+                    StartDomainChannel();
+                    Log.Message($"Domain activated. IsDomainActive: {IsDomainActive}");
+                }
             }
-
-            SetDomainComp(DomainComp);
-            DomainComp.ActivateDomain();
-
-            StartDomainChannel();
-            IsDomainActive = true;
-            Log.Message($"Domain activated. IsDomainActive: {IsDomainActive}");
+            else
+            {
+                //domain main manger not found
+            }
             return true;
         }
 
+       
         private void StartDomainChannel()
         {
-            Job channelJob = JobMaker.MakeJob(JJKDefOf.JJK_ChannelDomain, DomainThing);
-            channelJob.expiryInterval = 999999;
-
-            if (pawn.jobs.TryTakeOrderedJob(channelJob))
+            //channelJob.expiryInterval = -1;
+            if (pawn.CurJobDef != null && pawn.CurJobDef == JJKDefOf.JJK_ChannelDomain)
             {
-                JobDriver_ChannelDomain jobDriver = pawn.jobs.curDriver as JobDriver_ChannelDomain;
-                if (jobDriver != null)
-                {
-                    jobDriver.SetAbilityReference(this);
-                }
-                else
-                {
-                    Log.Error("Failed to cast job driver to JobDriver_ChannelDomain");
-                }
+                return;
             }
+
+            Job channelJob = JobMaker.MakeJob(JJKDefOf.JJK_ChannelDomain, DomainThing);
+            pawn.jobs.StopAll();
+            pawn.jobs.ClearQueuedJobs();
+            pawn.jobs.StartJob(channelJob, JobCondition.InterruptForced);
+            JobDriver_ChannelDomain jobDriver = pawn.jobs.curDriver as JobDriver_ChannelDomain;
+            if (jobDriver != null)
+            {
+                jobDriver.SetAbilityReference(this);
+            }
+            else
+            {
+                Log.Error("Failed to cast job driver to JobDriver_ChannelDomain");
+            }
+
         }
+
+        //public override Job GetJob(LocalTargetInfo target, LocalTargetInfo destination)
+        //{
+        //    Job channelJob = JobMaker.MakeJob(JJKDefOf.JJK_ChannelDomain, DomainThing);
+
+        //    JobDriver_ChannelDomain jobDriver = pawn.jobs.curDriver as JobDriver_ChannelDomain;
+        //    if (jobDriver != null)
+        //    {
+        //        jobDriver.SetAbilityReference(this);
+        //    }
+        //    else
+        //    {
+        //        Log.Error("Failed to cast job driver to JobDriver_ChannelDomain");
+        //    }
+
+        //    return channelJob;
+        //}
+
         public void DestroyActiveDomain()
         {
+            IsDomainActive = false;
             if (DomainComp != null)
             {
                 DomainComp.DestroyDomain();
             }
 
-            IsDomainActive = false;
             DomainThing = null;
+            DomainComp = null;
 
-            // Force end the channeling job
-            if (pawn.jobs != null && pawn.jobs.curDriver is JobDriver_ChannelDomain)
-            {
-                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
-            }
+
 
             Log.Message($"Domain destroyed. IsDomainActive: {IsDomainActive}");
         }
@@ -115,19 +150,19 @@ namespace JJK
             Scribe_Values.Look(ref IsDomainActive, "isChanneling");
             Scribe_References.Look(ref DomainThing, "domainThing");
 
-            //if (Scribe.mode == LoadSaveMode.PostLoadInit && DomainThing != null)
-            //{
-            //    CompDomainEffect compDomainEffect = DomainThing.TryGetComp<CompDomainEffect>();
-            //    if (compDomainEffect != null)
-            //    {
-            //        SetDomainComp(compDomainEffect);
-            //    }
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && DomainThing != null)
+            {
+                CompDomainEffect compDomainEffect = DomainThing.TryGetComp<CompDomainEffect>();
+                if (compDomainEffect != null)
+                {
+                    SetDomainComp(compDomainEffect);
+                }
 
-            //    if (IsDomainActive)
-            //    {
-            //        StartDomainChannel();
-            //    }
-            //}
+                if (IsDomainActive)
+                {
+                    //StartDomainChannel();
+                }
+            }
         }
     }
 }

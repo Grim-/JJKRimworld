@@ -15,9 +15,6 @@ namespace JJK
         }
     }
 
-
-
-
     public class Comp_Effecter : ThingComp
     {
         private Effecter effecter;
@@ -30,7 +27,16 @@ namespace JJK
 
             if (Props.effecterDef != null)
             {
-                effecter = Props.effecterDef.Spawn();
+                if (Props.attached)
+                {
+                    effecter = Props.effecterDef.SpawnAttached(parent, parent.Map);
+                }
+                else
+                {
+                    effecter = Props.effecterDef.Spawn();
+                }
+
+ 
                 EffectTick();
             }
         }

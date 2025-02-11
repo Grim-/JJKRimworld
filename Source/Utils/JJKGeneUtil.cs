@@ -146,6 +146,30 @@ namespace JJK
             }
         }
 
+        public static GeneDef GetHigherPriorityGrade(GeneDef grade1, GeneDef grade2)
+        {
+            if (grade1 == null) return grade2;
+            if (grade2 == null) return grade1;
+
+            int priority1 = grade1.GetModExtension<CursedEnergyGeneExtension>()?.priority ?? 0;
+            int priority2 = grade2.GetModExtension<CursedEnergyGeneExtension>()?.priority ?? 0;
+
+            return priority1 >= priority2 ? grade1 : grade2;
+        }
+
+        public static GeneDef UpgradeGrade(GeneDef currentGrade)
+        {
+            if (currentGrade == null) return null;
+
+            List<GeneDef> gradeDefs = DefDatabase<GeneDef>.AllDefs
+                .Where(g => g.HasModExtension<CursedEnergyGeneExtension>())
+                .OrderByDescending(g => g.GetModExtension<CursedEnergyGeneExtension>().priority)
+                .ToList();
+
+            int currentIndex = gradeDefs.IndexOf(currentGrade);
+            return currentIndex > 0 ? gradeDefs[currentIndex - 1] : currentGrade;
+        }
+
         public static List<Gene> GetSorcererGradeGenes(this Pawn Pawn)
         {
             if (Pawn.genes == null)

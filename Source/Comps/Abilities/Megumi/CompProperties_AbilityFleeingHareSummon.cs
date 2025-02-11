@@ -6,9 +6,8 @@ using Verse.AI;
 
 namespace JJK
 {
-    public class CompProperties_AbilityFleeingHareSummon : CompProperties_AbilityEffect
+    public class CompProperties_AbilityFleeingHareSummon : CompProperties_BaseShikigami
     {
-        public PawnKindDef fleeingHareKindDef;
         public int NumberToSpawn = 20;
 
         public CompProperties_AbilityFleeingHareSummon()
@@ -16,62 +15,23 @@ namespace JJK
             compClass = typeof(CompAbilityEffect_FleeingHareSummon);
         }
     }
-    public class CompAbilityEffect_FleeingHareSummon : CompAbilityEffect
+    public class CompAbilityEffect_FleeingHareSummon : CompBaseShikigamiSummon
     {
         public new CompProperties_AbilityFleeingHareSummon Props => (CompProperties_AbilityFleeingHareSummon)props;
-        private List<Pawn> Summons = new List<Pawn>();
 
-        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
+        protected override void SummonShikigami(IntVec3 Position, Map Map)
         {
-            base.Apply(target, dest);
+            for (int i = 0; i < Props.NumberToSpawn; i++)
+            {
+                IntVec3 RandomSpawnPosition = Position + new IntVec3(Rand.Range(-2, 2), Position.y, Rand.Range(-2, 2));
 
-            if (Summons.Count > 0)
-            {
-                DestroySummons();
-            }
-            else
-            {
-                for (int i = 0; i < Props.NumberToSpawn; i++)
+                if (RandomSpawnPosition.InBounds(Map))
                 {
-                    IntVec3 RandomSpawnPosition = target.Cell + new IntVec3(Rand.Range(-2, 2), target.Cell.y, Rand.Range(-2, 2));
-
-                    if (RandomSpawnPosition.InBounds(parent.pawn.MapHeld))
-                    {
-                        SpawnFleeingHare(Props.fleeingHareKindDef, RandomSpawnPosition, parent.pawn.MapHeld);
-                    }
+                    TenShadowUser.GetOrGenerateShikigami(Props.shikigamiDef, Props.shikigamiDef.shikigami, RandomSpawnPosition, Map, true);
                 }
             }
-
         }
 
-        private void SpawnFleeingHare(PawnKindDef KindDef, IntVec3 spawnPosition, Map Map)
-        {
-            Pawn demondog = JJKUtility.SpawnShikigami(KindDef, parent.pawn, Map, spawnPosition);
-
-            if (!Summons.Contains(demondog))
-            {
-                Summons.Add(demondog);
-            }
-        }
-
-
-        private void DestroySummons()
-        {
-            foreach (var item in Summons)
-            {
-                if (!item.Destroyed)
-                {
-                    item.Destroy();
-                }     
-            }
-            Summons.Clear();
-        }
-
-        public override void PostExposeData()
-        {
-            base.PostExposeData();
-            Scribe_Collections.Look(ref Summons, "fleeingHares", LookMode.Reference);
-        }
     }
 
 

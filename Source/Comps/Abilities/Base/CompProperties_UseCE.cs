@@ -1,10 +1,21 @@
 ﻿using RimWorld;
 using Verse;
-using Verse.Noise;
 
 namespace JJK
 {
-    public abstract class BaseCursedEnergyAbility : CompAbilityEffect
+    public class CompProperties_UseCE : CompProperties_AbilityEffect
+    {
+        public float cursedEnergyCost = 0.1f;
+        public int cooldownTicks = 2500;
+        public float burnoutStrain = 0f;
+
+        public CompProperties_UseCE()
+        {
+            compClass = typeof(CompAbilityEffect_UseCE);
+        }
+    }
+
+    public class CompAbilityEffect_UseCE : CompAbilityEffect
     {
         public virtual new CompProperties_CursedAbilityProps Props
         {
@@ -72,20 +83,12 @@ namespace JJK
 
         public virtual bool ShouldDisableBecauseNoCE(float Cost)
         {
-            return !CursedEnergy.HasCursedEnergy(CastCost);
+            return parent.pawn.RaceProps.Humanlike ? !CursedEnergy.HasCursedEnergy(CastCost) : false;
         }
 
         public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             base.Apply(target, dest);
-            ApplyAbility(target, dest);
-            PostApply(target, dest);
-        }
-
-        public abstract void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest);
-
-        public virtual void PostApply(LocalTargetInfo target, LocalTargetInfo dest)
-        {
             ApplyAbilityCost(parent.pawn);
             ApplyCursedTechniqueStrain(parent.pawn);
         }
@@ -101,5 +104,4 @@ namespace JJK
         }
     }
 }
-
 

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 namespace JJK
@@ -8,6 +9,7 @@ namespace JJK
         public float TriggerChance = 0.3f;
         public float DamageMultiplier = 1.5f;
         public int AmountOfTimesToTrigger = 1;
+        public List<BlackFlashBonusAbilities> BonusAbilities;
 
         public HediffCompProperties_BlackFlash()
         {
@@ -41,19 +43,42 @@ namespace JJK
                         DamageInfo BF = new DamageInfo(dinfo);
                         BF.SetAmount(BlackFlashDamage);
                         dinfo.IntendedTarget.TakeDamage(BF);
-                        Effecter effecter = EffecterDefOf.Skip_Entry.SpawnAttached(parent.pawn, parent.pawn.MapHeld, 1f);
-                        Log.Message($"Black flash trigger {BF.Amount} damage dealt.");
+                        Effecter effecter = EffecterDefOf.Skip_Entry.SpawnAttached(parent.pawn, parent.pawn.MapHeld, 1f);     
                     }
 
                 }
 
-                if (!parent.pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_CursedEnergySurge))
-                {
-                    parent.pawn.health.AddHediff(JJKDefOf.JJK_CursedEnergySurge);
-                }
+                TriggerBlackFlash(parent.pawn, Props.BonusAbilities);
             }
         }
 
+
+        public static void TriggerBlackFlash(Pawn Pawn, List<BlackFlashBonusAbilities> BonusAbilities)
+        {
+            if (!Pawn.health.hediffSet.HasHediff(JJKDefOf.JJK_CursedEnergySurge))
+            {
+                Pawn.health.AddHediff(JJKDefOf.JJK_CursedEnergySurge);
+                Messages.Message("Black Flash!", MessageTypeDefOf.PositiveEvent);
+
+                if (BonusAbilities != null)
+                {
+                    foreach (var item in BonusAbilities)
+                    {
+                        if (item.Ability != null && !Pawn.HasAbility(item.Ability) && Rand.Chance(item.Chance))
+                        {
+                            Pawn.abilities.GainAbility(item.Ability);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public class BlackFlashBonusAbilities
+    {
+        public float Chance = 0.5f;
+        public AbilityDef Ability;
     }
 }
 

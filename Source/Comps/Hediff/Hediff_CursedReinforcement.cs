@@ -18,9 +18,10 @@ namespace JJK
 
         public void ScaleSeverity()
         {
-            if (pawn == null) return;
+            if (pawn == null) 
+                return;
 
-            float sixEyesBonus = pawn.HasSixEyes() ? JJKMod.SixEyesCursedReinforcementBonus : 0;
+            float sixEyesBonus = CalcSixEyesBonus();
             float maxCECap = JJKMod.CursedEnergyScalingCap;
             float cursedEnergy = pawn.GetStatValue(JJKDefOf.JJK_CursedEnergy);
             cursedEnergy += sixEyesBonus;
@@ -28,6 +29,11 @@ namespace JJK
             float t = cursedEnergy / maxCECap;
             float newSeverity = Mathf.Lerp(0f, 1f, t);
             Severity = newSeverity;
+        }
+
+        private float CalcSixEyesBonus()
+        {
+            return pawn.HasSixEyes() ? JJKMod.SixEyesCursedReinforcementBonus : 0;
         }
 
         public override void PostAdd(DamageInfo? dinfo)

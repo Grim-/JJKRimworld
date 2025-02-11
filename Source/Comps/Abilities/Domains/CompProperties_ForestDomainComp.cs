@@ -129,7 +129,7 @@ namespace JJK
                 // Clean up any destroyed trees from our list
                 spawnedTrees = spawnedTrees.Where(t => t != null && !t.Destroyed).ToList();
 
-                if (_IsDomainActive && spawnedTrees.Count == 0)
+                if (IsDomainActive && spawnedTrees.Count == 0)
                 {
                     SpawnTrees();
                 }

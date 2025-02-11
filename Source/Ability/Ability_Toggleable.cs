@@ -52,8 +52,16 @@ namespace JJK
                 return;
             }
 
+
             //Log.Message("Toggle pressed");
             IsActive = !IsActive;
+
+            if (IsActive)
+            {
+                OnActivate();
+            }
+            else OnDeactivate();
+
 
             if (EffectComps != null && EffectComps.Count > 0)
             {
@@ -76,6 +84,18 @@ namespace JJK
                 }
             }
         }
+
+
+        protected virtual void OnActivate()
+        {
+
+        }
+
+        protected virtual void OnDeactivate()
+        {
+
+        }
+
 
         public void ForceDeactivate()
         {

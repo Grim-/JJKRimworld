@@ -23,37 +23,21 @@ namespace JJK
         {
             Toil ChanneToil = new Toil();
             ChanneToil.defaultCompleteMode = ToilCompleteMode.Never;
-
-            //ChanneToil.AddPreTickAction(ShouldFail);
-            ChanneToil.tickAction = OnChannelDomainTick;
+            //ChanneToil.AddFailCondition(() => { return pawn.pather.Moving; });
 
             ChanneToil.AddFinishAction(OnChannelDomainFinish);
+
             yield return ChanneToil;
-        }
-
-
-        private void OnChannelDomainTick()
-        {
-            if (abilityReference != null)
-            {
-                abilityReference.IsDomainActive = true;
-            }
-        }
-
-        private void ShouldFail()
-        {
-            if (abilityReference == null || abilityReference.DomainThing == null)
-            {
-                this.EndJobWith(JobCondition.InterruptForced);
-            }
         }
 
         private void OnChannelDomainFinish()
         {
-            if (abilityReference != null)
+            if (abilityReference != null && abilityReference.IsDomainActive)
             {
                 abilityReference.DestroyActiveDomain();
             }
+            else
+                Log.Message("AbilityReference is null or domain is already inactive");
         }
     }
 }

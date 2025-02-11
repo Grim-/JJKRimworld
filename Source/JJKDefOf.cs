@@ -39,6 +39,7 @@ namespace JJK
         public static GeneDef Gene_JJKSpecialGrade_Monstrous;
         public static GeneDef Gene_JJKSukuna;
         public static GeneDef Gene_Kenjaku;
+        public static GeneDef Gene_JJKMegumi;
         public static GeneDef Gene_JJKLimitless;
         public static GeneDef Gene_JJKMahito;
         public static GeneDef Gene_JJKYuta;
@@ -96,7 +97,7 @@ namespace JJK
         public static HediffDef JJK_PlayfulCloudConcussion;
         public static HediffDef JJK_CursedObjectConsumer;
         public static HediffDef JJK_CursedSpiritManipulator;
-        public static HediffDef JJK_TenShadowsUser;
+        //public static HediffDef JJK_TenShadowsUser;
         public static HediffDef JJK_YutaAbilityStore;
 
         public static PawnKindDef JJK_DivineDogWhite;
@@ -128,12 +129,7 @@ namespace JJK
 
         public static AbilityCategoryDef Cursed_Energy;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        static JJKDefOf()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        {
-            DefOfHelper.EnsureInitializedInCtor(typeof(JJKDefOf));
-        }
+        public static ShikigamiDef Shikigami_DivineDogs;
     }
 }
     

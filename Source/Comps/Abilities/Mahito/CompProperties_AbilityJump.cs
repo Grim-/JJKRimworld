@@ -35,7 +35,6 @@ namespace JJK
             PawnFlyer pawnFlyer = PawnFlyer.MakeFlyer(JJKDefOf.JJK_Flyer, pawn, targetCell, null, null);
             GenSpawn.Spawn(pawnFlyer, targetCell, map);
 
-            // Apply any post-jump effects
             if (Props.exhaustionHediffDef != null)
             {
                 float severity = pawn.health.hediffSet.HasHediff(Props.exhaustionHediffDef)
@@ -44,6 +43,15 @@ namespace JJK
 
                 HealthUtility.AdjustSeverity(pawn, Props.exhaustionHediffDef, severity);
             }
+        }
+        public override bool AICanTargetNow(LocalTargetInfo target)
+        {
+            return base.AICanTargetNow(target);
+        }
+
+        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            return base.CanApplyOn(target, dest);
         }
 
         private bool CanHitTargetSafely(Pawn Caster, Map map, IntVec3 targetCell)

@@ -7,7 +7,7 @@ namespace JJK
     public class PawnOverlayNodeWorker : PawnRenderNodeWorker
     {
         private float animationProgress = 0f;
-        private const float AnimationSpeed = 1f / 3000f; // Adjust based on your desired speed
+        private const float AnimationSpeed = 1f / 3000f;
 
         public override void AppendDrawRequests(PawnRenderNode node, PawnDrawParms parms, List<PawnGraphicDrawRequest> requests)
         {

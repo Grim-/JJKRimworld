@@ -71,6 +71,16 @@ namespace JJK
         }
 
 
+        public static DamageDef GetCursedEnergyDamageType(this Pawn Pawn)
+        {
+            Trait cursedEnergyDamageTraitDefs = Pawn.story.traits.allTraits.FirstOrDefault(x => x.def is CursedEnergyDamageTraitDef);
+            if (cursedEnergyDamageTraitDefs != null && cursedEnergyDamageTraitDefs.def is CursedEnergyDamageTraitDef ceDamageTrait && ceDamageTrait.DamageType != null)
+            {
+                return ceDamageTrait.DamageType;
+            }
+            return null;
+        }
+
         public static void CopyCursedEnergyAbilities(Pawn sourcePawn, Pawn targetPawn, bool removeFromSource = false)
         {
             if (sourcePawn == null || targetPawn == null)
@@ -228,6 +238,11 @@ namespace JJK
             if (shikigami.Dead)
             {
                 shikigami.health.Reset();
+            }
+
+            if (shikigami.abilities == null)
+            {
+                shikigami.abilities = new Pawn_AbilityTracker(shikigami);
             }
 
             GenSpawn.Spawn(shikigami, Position, Map);
@@ -446,15 +461,16 @@ namespace JJK
         }
         public static bool IsTenShadowsUser(this Pawn pawn)
         {
-            return pawn.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_TenShadowsUser) != null;
+            return pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKMegumi);
         }
         public static Hediff_CursedSpiritManipulator GetCursedSpiritManipulator(this Pawn pawn)
         {
             return (Hediff_CursedSpiritManipulator)pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedSpiritManipulator);
         }
-        public static Hediff_TenShadowsUser GetTenShadowsUser(this Pawn pawn)
+
+        public static TenShadowGene GetTenShadowsUser(this Pawn pawn)
         {
-            return (Hediff_TenShadowsUser)pawn.health.GetOrAddHediff(JJKDefOf.JJK_TenShadowsUser);
+            return pawn.genes.GetFirstGeneOfType<TenShadowGene>();
         }
         public static Gene_CursedEnergy GetCursedEnergy(this Pawn pawn)
         {

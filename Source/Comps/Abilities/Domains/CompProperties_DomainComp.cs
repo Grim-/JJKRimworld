@@ -11,9 +11,8 @@ namespace JJK
         public float DomainCastCost = 10;
         public float DomainCostPerTick = 4;
         public ThingDef WallDef;
-        public ThingDef DomainFloorDef;
-
-
+        public TerrainDef FloorDef;
+        public ThingDef FilthDef;
         public int TicksBetweenApplication = 100;
         public float AreaRadius = 10f;
 
@@ -27,9 +26,7 @@ namespace JJK
     {
         public CompProperties_DomainComp Props => (CompProperties_DomainComp)props;
 
-        protected bool _IsDomainActive = false;
-        public bool IsDomainActive => _IsDomainActive;
-
+        public bool IsDomainActive;
         protected int CurrentTick = 0;
         protected Pawn _DomainCaster;
         public Pawn DomainCaster => _DomainCaster;
@@ -52,9 +49,9 @@ namespace JJK
         }
         public virtual void ActivateDomain()
         {
-            if (!_IsDomainActive)
+            if (!IsDomainActive)
             {
-                _IsDomainActive = true;
+                IsDomainActive = true;
                 ConstructDomainWall();
                 ChangeTerrain();
                 ApplyDomainEffects();
@@ -67,9 +64,9 @@ namespace JJK
 
         public virtual void DeactivateDomain()
         {
-            if (_IsDomainActive)
+            if (IsDomainActive)
             {
-                _IsDomainActive = false;
+                IsDomainActive = false;
                 RemoveDomainWall();
                 RevertTerrain();
                 RemoveDomainEffects();
@@ -83,7 +80,7 @@ namespace JJK
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref _IsDomainActive, "isDomainActive", false);
+            Scribe_Values.Look(ref IsDomainActive, "isDomainActive", false);
             Scribe_Values.Look(ref CurrentTick, "currentTick", 0);
             Scribe_References.Look(ref _DomainCaster, "domainCaster");
             Scribe_Collections.Look(ref constructedWalls, "constructedWalls", LookMode.Reference);
@@ -115,7 +112,7 @@ namespace JJK
             CalculateAreaCells();
             CalculateWallCells();
 
-            if (respawningAfterLoad && _IsDomainActive)
+            if (respawningAfterLoad && IsDomainActive)
             {
                 if (terrainChanged)
                 {
@@ -138,10 +135,26 @@ namespace JJK
             base.PostDeSpawn(map);
         }
 
+
+        private TerrainDef GetTerrainDef()
+        {
+            return Props.FloorDef != null ? Props.FloorDef : TerrainDefOf.Voidmetal;
+        }
+
+        private ThingDef GetWallDef()
+        {
+            return Props.WallDef != null ? Props.WallDef : ThingDefOf.VoidmetalWall;
+        }
+
+        private ThingDef GetFilthDef()
+        {
+            return Props.FilthDef != null ? Props.FilthDef : ThingDefOf.Filth_Blood;
+        }
+
         public override void PostDraw()
         {
             base.PostDraw();
-            if (_IsDomainActive)
+            if (IsDomainActive)
             {
                 DrawDomainRadius();
             }
@@ -187,7 +200,7 @@ namespace JJK
                         }
                     }
 
-                    parent.Map.terrainGrid.SetTerrain(cell, TerrainDefOf.Voidmetal);
+                    parent.Map.terrainGrid.SetTerrain(cell, GetTerrainDef());
                 }
             }
             terrainChanged = true;
@@ -230,7 +243,7 @@ namespace JJK
             {
                 if (kvp.Key.InBounds(parent.Map))
                 {
-                    parent.Map.terrainGrid.SetTerrain(kvp.Key, TerrainDefOf.Voidmetal);
+                    parent.Map.terrainGrid.SetTerrain(kvp.Key, GetTerrainDef());
                 }
             }
         }
@@ -239,14 +252,18 @@ namespace JJK
 
         private void CreateFilth()
         {
-            AddedFilth.Clear();
-            foreach (IntVec3 cell in GetCellsInDomain())
+            ThingDef filthDef = GetFilthDef();
+            if (filthDef != null)
             {
-                if (FilthMaker.CanMakeFilth(cell, parent.Map, ThingDefOf.Filth_Blood))
+                AddedFilth.Clear();
+                foreach (IntVec3 cell in GetCellsInDomain())
                 {
-                    if (FilthMaker.TryMakeFilth(cell, parent.Map, ThingDefOf.Filth_Blood))
+                    if (FilthMaker.CanMakeFilth(cell, parent.Map, filthDef))
                     {
-                        AddedFilth.Add(cell);
+                        if (FilthMaker.TryMakeFilth(cell, parent.Map, filthDef))
+                        {
+                            AddedFilth.Add(cell);
+                        }
                     }
                 }
             }
@@ -263,7 +280,7 @@ namespace JJK
         public override void CompTick()
         {
             base.CompTick();
-            if (_IsDomainActive)
+            if (IsDomainActive)
             {
                 if (_DomainCaster != null && _DomainCaster.Dead)
                 {
@@ -307,7 +324,6 @@ namespace JJK
             areaCells = new HashSet<IntVec3>(GenRadial.RadialCellsAround(parent.Position, Props.AreaRadius, true)
                 .Where(c => c.InBounds(parent.Map)));
         }
-
         protected virtual void CalculateWallCells()
         {
             //Log.Message($"CalculateWallCells called. Parent: {parent}, Map: {parent?.Map}, AreaRadius: {Props.AreaRadius}");
@@ -365,7 +381,7 @@ namespace JJK
                     }
 
                     // Construct the wall
-                    Thing wall = ThingMaker.MakeThing(ThingDefOf.VoidmetalWall);
+                    Thing wall = ThingMaker.MakeThing(GetWallDef());
                     if (wall != null)
                     {
                         Thing spawnedWall = GenSpawn.Spawn(wall, cell, parent.Map);
@@ -417,7 +433,7 @@ namespace JJK
         public override void PostDrawExtraSelectionOverlays()
         {
             base.PostDrawExtraSelectionOverlays();
-            if (_IsDomainActive && areaCells != null)
+            if (IsDomainActive && areaCells != null)
             {
                 GenDraw.DrawFieldEdges(areaCells.ToList(), Color.cyan);
             }

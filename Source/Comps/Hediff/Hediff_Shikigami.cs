@@ -38,11 +38,11 @@ namespace JJK
             string baseString = base.DebugString();
             if (referencedPawn != null)
             {
-                baseString += $"\nReferenced Pawn: {referencedPawn.Name}";
+                baseString += $"\nMaster Pawn: {referencedPawn.Name}";
             }
             else
             {
-                baseString += "\nNo Referenced Pawn";
+                baseString += "\nNo Master";
             }
             return baseString;
         }
@@ -60,11 +60,6 @@ namespace JJK
             {
                 Messages.Message($"{this.pawn.Label} has died, {Master.Label} has lost the ability to summon {this.pawn.Label}.", MessageTypeDefOf.NegativeEvent);
                 Master.GetCursedSpiritManipulator().RemoveSummon(this.pawn, true);
-            }
-
-            if (Master != null && Master.IsTenShadowsUser())
-            {
-                //Master.GetTenShadowsUser().remo
             }
 
             base.Notify_PawnDied(dinfo, culprit);

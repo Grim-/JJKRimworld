@@ -3,18 +3,78 @@ using Verse;
 
 namespace JJK
 {
-    public abstract class CompProperties_BaseShikigami : CompProperties_CursedAbilityProps
+    public class CompProperties_BaseShikigami : CompProperties_CursedAbilityProps
     {
         public float SummonCost = 20f;
         public EffecterDef SummonEffecter;
+        public ShikigamiDef shikigamiDef;
+
+        public CompProperties_BaseShikigami()
+        {
+            compClass = typeof(CompBaseShikigamiSummon);
+        }
     }
 
-    public abstract class CompBaseShikigamiSummon : BaseCursedEnergyAbility
+    public class CompBaseShikigamiSummon : BaseCursedEnergyAbility
     {
         protected Gene_CursedEnergy CursedEnergy => parent.pawn.GetCursedEnergy();
         public new CompProperties_BaseShikigami Props => (CompProperties_BaseShikigami)props;
-        public abstract void OnPawnTarget(Pawn Pawn, Map Map);
-        public abstract void OnLocationTarget(IntVec3 Position, Map Map);
+
+        protected TenShadowGene TenShadowUser => parent.pawn.GetTenShadowsUser();
+        protected bool ShouldDisableGizmo = false;
+
+        public virtual void OnPawnTarget(Pawn Pawn, Map Map)
+        {
+            SummonShikigami(Pawn.Position, Map);
+
+            var shikigamis = TenShadowUser.GetActiveSummonsOfKind(Props.shikigamiDef);
+            if (shikigamis != null && shikigamis.Count > 0)
+            {
+                foreach (var shikigami in shikigamis)
+                {
+                    StartOnPawnTargetAction(shikigami, Pawn, Map);
+                }
+            }
+        }
+
+        public virtual void OnLocationTarget(IntVec3 Position, Map Map)
+        {
+            SummonShikigami(Position, Map);
+
+            var shikigamis = TenShadowUser.GetActiveSummonsOfKind(Props.shikigamiDef);
+            if (shikigamis != null && shikigamis.Count > 0)
+            {
+                foreach (var shikigami in shikigamis)
+                {
+                    StartOnLocationTargetAction(shikigami, Position, Map);
+                }
+            }
+        }
+
+        protected virtual void SummonShikigami(IntVec3 Position, Map Map)
+        {
+           TenShadowUser.GetOrGenerateShikigami(Props.shikigamiDef, Props.shikigamiDef.shikigami, Position, Map);
+        }
+
+        protected virtual void StartOnPawnTargetAction(Pawn shikigami, Pawn TargetPawn, Map Map)
+        {
+            Comp_TenShadowsSummon shadowsSummon = shikigami.GetComp<Comp_TenShadowsSummon>();
+
+            if (shadowsSummon != null)
+            {
+                shadowsSummon.OnTargetSummonAction(TenShadowUser.pawn, TargetPawn);
+            }
+        }
+        protected virtual void StartOnLocationTargetAction(Pawn shikigami, IntVec3 Position, Map Map)
+        {
+            Comp_TenShadowsSummon shadowsSummon = shikigami.GetComp<Comp_TenShadowsSummon>();
+
+            if (shadowsSummon != null)
+            {
+                shadowsSummon.OnLocationSummonAction(TenShadowUser.pawn, Position);
+            }
+        }
+
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
             if (HasActive())
@@ -27,6 +87,8 @@ namespace JJK
 
                 if (CursedEnergy.HasCursedEnergy(Props.SummonCost))
                 {
+                    CursedEnergy.ConsumeCursedEnergy(Props.SummonCost);
+
                     if (target.Pawn != null)
                     {
                         OnPawnTarget(target.Pawn, map);
@@ -35,8 +97,6 @@ namespace JJK
                     {
                         OnLocationTarget(target.Cell, map);
                     }
-
-                    CursedEnergy.ConsumeCursedEnergy(Props.SummonCost);
                 }
                 else
                 {
@@ -45,16 +105,24 @@ namespace JJK
             }
         }
 
-        protected bool ShouldDisableGizmo = false;
-        //public override bool GizmoDisabled(out string reason)
-        //{
-        //    return base.GizmoDisabled(out reason) && ShouldDisableGizmo;
-        //}
+        public override bool Valid(LocalTargetInfo target, bool throwMessages = false)
+        {
+            return HasActive() || base.Valid(target, throwMessages);
+        }
+        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            return HasActive() || base.CanApplyOn(target, dest);
+        }
 
-        public abstract bool HasActive();
+        public virtual bool HasActive()
+        {
+            return TenShadowUser.GetActiveSummonsOfKind(Props.shikigamiDef) != null && TenShadowUser.GetActiveSummonsOfKind(Props.shikigamiDef).Count > 0;
+        }
 
-        public abstract void DestroyActive();
-
+        public virtual void DestroyActive()
+        {
+            TenShadowUser.UnsummonShikigami(Props.shikigamiDef);
+        }
 
         public virtual void CreateSummonVFX(IntVec3 Position, Map Map)
         {
@@ -64,52 +132,6 @@ namespace JJK
             }
         }
 
-
-        public virtual void Summon(IntVec3 Position, Pawn TargetPawn)
-        {
-
-        }
-
-        public virtual void UnSummon()
-        {
-
-        }
     }
 
-
-    public class Verb_StealCursedTechnique : Verb_MeleeAttackDamage
-    {
-        protected override DamageWorker.DamageResult ApplyMeleeDamageToTarget(LocalTargetInfo target)
-        {
-            // First, apply the normal melee damage
-            DamageWorker.DamageResult damageResult = base.ApplyMeleeDamageToTarget(target);
-
-            // Now, let's add our custom behavior
-            if (target.Thing is Pawn targetPawn)
-            {
-
-                targetPawn.health.GetOrAddHediff(JJKDefOf.JJK_SplitSoul);
-
-                //// Check if the target pawn has any cursed techniques (you'll need to define what this means in your mod)
-                //Hediff cursedTechnique = targetPawn.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.YourCursedTechniqueHediff);
-                //if (cursedTechnique != null)
-                //{
-                //    // Remove the cursed technique from the target
-                //    targetPawn.health.RemoveHediff(cursedTechnique);
-
-                //    // Optionally, add the cursed technique to the attacker
-                //    if (this.CasterPawn != null)
-                //    {
-                //        Hediff stolenTechnique = HediffMaker.MakeHediff(HediffDefOf.YourCursedTechniqueHediff, this.CasterPawn);
-                //        this.CasterPawn.health.AddHediff(stolenTechnique);
-
-                //        // Display a message
-                //        Messages.Message("CursedTechniqueStolen".Translate(this.CasterPawn.LabelShort, targetPawn.LabelShort), MessageTypeDefOf.NeutralEvent);
-                //    }
-                //}
-            }
-
-            return damageResult;
-        }
-    }
 }

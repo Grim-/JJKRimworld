@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\Games\RimWorld\Mods\3172043148\1.5\Assemblies\</OutputPath>
+    <OutputPath>D:\Games\RimWorld\Mods\JJK\1.5\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
@@ -85,6 +85,7 @@
     <Compile Include="Ability\AbilityDef_MultiButtonSummon.cs" />
     <Compile Include="Ability\Ability_MultiButton.cs" />
     <Compile Include="Ability\IToggleableComp.cs" />
+    <Compile Include="Ability\Verb_CastDomainExpansion.cs" />
     <Compile Include="AI\JobDriver_DemondogAttackAndVanish.cs" />
     <Compile Include="AI\JobDriver_LuredMove.cs" />
     <Compile Include="AI\JobDriver_SummonBase.cs" />
@@ -93,18 +94,37 @@
     <Compile Include="AI\ThinkNode_ConditionalNearMaster.cs" />
     <Compile Include="Comps\Abilities\Base\CompAbilityEffect_Beam.cs" />
     <Compile Include="Comps\Abilities\Base\CompProperties_Effecter.cs" />
+    <Compile Include="Comps\Abilities\Base\CompProperties_UseCE.cs" />
     <Compile Include="Comps\Abilities\Domains\CompProperties_Capsule.cs" />
     <Compile Include="Comps\Abilities\Domains\ProjectileCapsule.cs" />
     <Compile Include="Comps\Abilities\Domains\Verb_ThrowCapsule.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_AbilityLaunchScalingProjectile.cs" />
+    <Compile Include="Comps\Abilities\Megumi\NueMergeEffect.cs" />
+    <Compile Include="Comps\Abilities\Megumi\ShikigamiMergeEffectDef.cs" />
+    <Compile Include="Comps\Abilities\Megumi\ShikigamiMergeTracker.cs" />
+    <Compile Include="Comps\Abilities\Megumi\ShikigamiMergeWorker.cs" />
+    <Compile Include="Comps\Abilities\Megumi\TenShadowsComps\CompProperties_TenShadowsDemonDogSummon.cs" />
+    <Compile Include="Comps\Abilities\Megumi\TenShadowGene.cs" />
+    <Compile Include="Comps\Abilities\Megumi\TenShadowsComps\CompProperties_TenShadowsSummon.cs" />
+    <Compile Include="Comps\Abilities\Megumi\ShikigamiDef.cs" />
+    <Compile Include="Comps\Abilities\Megumi\TwinShikigamiDef.cs" />
+    <Compile Include="Comps\Abilities\Megumi\Verb_StealCursedTechnique.cs" />
+    <Compile Include="Comps\Hediff\CursedEnergyDamageTraitDef.cs" />
+    <Compile Include="Comps\Abilities\Megumi\ShikigamiData.cs" />
+    <Compile Include="Comps\World\DomainManagerComp.cs" />
+    <Compile Include="Comps\World\SummonPair.cs" />
     <Compile Include="Custom Damage Workers\CompProperties_GameOfLife.cs" />
+    <Compile Include="CustomShaderTypeDef.cs" />
+    <Compile Include="Patches\Patch_CursedEnergyReinforcement.cs" />
+    <Compile Include="Patches\PawnExtension_NoCorpse.cs" />
+    <Compile Include="Patches\PawnExtension_NoFleeing.cs" />
     <Compile Include="Projectiles\Projectile_ScalingDoomsdayRocket.cs" />
     <Compile Include="Projectiles\ScalingStatDamageProjectile.cs" />
     <Compile Include="Comps\Abilities\Yuta\CompProperties_RiikaEat.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_YutaAbilities.cs" />
     <Compile Include="Comps\Abilities\General\PowerBeamVisual.cs" />
-    <Compile Include="Comps\Abilities\Mahito\ITab_BindingVows.cs" />
-    <Compile Include="Comps\Abilities\Mahito\ITab_CursedSpiritManipulator.cs" />
+    <Compile Include="Gizmo\ITab_BindingVows.cs" />
+    <Compile Include="Gizmo\ITab_CursedSpiritManipulator.cs" />
     <Compile Include="Comps\Abilities\Yuta\CompProperties_FullyManifestRika.cs" />
     <Compile Include="Comps\Misc\Ticker.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_KenjakuPossession.cs" />
@@ -124,12 +144,12 @@
     <Compile Include="Comps\Misc\CompProperties_Pulse.cs" />
     <Compile Include="Comps\Misc\CompProperties_TrailEffect.cs" />
     <Compile Include="Comps\Abilities\Megumi\CompProperties_BaseShikigami.cs" />
-    <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundPawn.cs" />
-    <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
+    <Compile Include="Comps\Cursed Tools\CompProperties_BoundPawn.cs" />
+    <Compile Include="Comps\Cursed Tools\CompProperties_SealingGourdSeal.cs" />
     <Compile Include="Flyers\AoeDamageAtEndFlyer.cs" />
-    <Compile Include="Comps\Abilities\Equipment\BaseTraitComp.cs" />
-    <Compile Include="Comps\Abilities\Equipment\CompProperties_DeathHandler.cs" />
-    <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompRemoveHediffOnHit.cs" />
+    <Compile Include="Comps\Equipment\BaseTraitComp.cs" />
+    <Compile Include="Comps\Equipment\CompProperties_DeathHandler.cs" />
+    <Compile Include="Comps\Equipment\CompProperties_EquipCompRemoveHediffOnHit.cs" />
     <Compile Include="Flyers\PlayfulCloudKnockbackFlyer.cs" />
     <Compile Include="Comps\Misc\CompProperties_PulseAoeDamage.cs" />
     <Compile Include="Comps\Abilities\Megumi\CompProperties_AbilityFleeingHareSummon.cs" />
@@ -145,9 +165,9 @@
     <Compile Include="Comps\Hediff\Hediff_CursedSpiritManipulator.cs" />
     <Compile Include="Comps\Hediff\Hediff_TenShadowsUser.cs" />
     <Compile Include="Comps\Zanpakto\BaseZankpaktoComp.cs" />
-    <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompApplyHediffOnHit.cs" />
-    <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompScaleableDamage.cs" />
-    <Compile Include="Comps\Abilities\Equipment\CompProperties_EquipCompKnockbackOnHit.cs" />
+    <Compile Include="Comps\Equipment\CompProperties_EquipCompApplyHediffOnHit.cs" />
+    <Compile Include="Comps\Equipment\CompProperties_EquipCompScaleableDamage.cs" />
+    <Compile Include="Comps\Equipment\CompProperties_EquipCompKnockbackOnHit.cs" />
     <Compile Include="Comps\Zanpakto\CompProperties_ZanpaktoBankai.cs" />
     <Compile Include="Comps\Zanpakto\CompProperties_ZanpaktoRelease.cs" />
     <Compile Include="Comps\Zanpakto\CompProperties_ZanpaktoSeal.cs" />
@@ -191,8 +211,8 @@
     <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
-    <Compile Include="Comps\Abilities\Command_ToggleAbility.cs" />
-    <Compile Include="Comps\Abilities\Cursed Tools\CompAbilityAbsorbingWeapon.cs" />
+    <Compile Include="Gizmo\Command_ToggleAbility.cs" />
+    <Compile Include="Comps\Cursed Tools\CompAbilityAbsorbingWeapon.cs" />
     <Compile Include="Comps\Abilities\CompAbilityEffect_CECost.cs" />
     <Compile Include="AI\JobDriver_ChannelRCT.cs" />
     <Compile Include="Comps\Abilities\General\CompProperties_ToggleableEffect.cs" />
@@ -226,10 +246,9 @@
     <Compile Include="Comps\Hediff\HediffCompProperties_RandomDisappear.cs" />
     <Compile Include="Comps\Hediff\Hediff_InfiniteDomainComa.cs" />
     <Compile Include="Ability\JobDriver_ChannelDomain.cs" />
-    <Compile Include="Comps\World\AbsorbedCreatureManager.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompAbilityEffect_RestorePawnFromDoll.cs" />
     <Compile Include="Comps\Abilities\Gojo\CompProperties_BlueSelfTeleport.cs" />
-    <Compile Include="Comps\Abilities\Cursed Tools\CompProperties_BoundBeast.cs" />
+    <Compile Include="Comps\Cursed Tools\CompProperties_BoundBeast.cs" />
     <Compile Include="Comps\Abilities\Sukuna\CompProperties_Cleave.cs" />
     <Compile Include="Comps\Abilities\CompProperties_CursedAbilityLaunchProjectile.cs" />
     <Compile Include="Comps\Abilities\Base\CompProperties_CursedAbilityProps.cs" />
@@ -253,7 +272,6 @@
     <Compile Include="Comps\Misc\SummonUtility.cs" />
     <Compile Include="Comps\Misc\ThingCompExt.cs" />
     <Compile Include="Comps\Misc\TransfigurationOption.cs" />
-    <Compile Include="Comps\Abilities\Base\BaseCursedEnergyAbility.cs" />
     <Compile Include="Comps\Abilities\CompEffect_BlueAOE.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityZombifyWorkSlave.cs" />
     <Compile Include="Comps\Misc\CompProperties_BodyTintComp.cs" />
