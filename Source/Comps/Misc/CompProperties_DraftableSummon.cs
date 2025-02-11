@@ -16,18 +16,34 @@ namespace JJK
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
-            DraftingUtility.RegisterDraftableCreature(parent as Pawn);
+
+            if (parent is Pawn parentPawn)
+            {
+                DraftingUtility.RegisterDraftableCreature(parentPawn);
+            }
+
+
         }
 
         public override void PostDeSpawn(Map map)
         {
-            DraftingUtility.UnregisterDraftableCreature(parent as Pawn);
+            if (parent is Pawn parentPawn)
+            {
+                DraftingUtility.UnregisterDraftableCreature(parentPawn);
+            }
+
+   
             base.PostDeSpawn(map);
         }
 
         public override void PostDestroy(DestroyMode mode, Map previousMap)
         {
-            DraftingUtility.UnregisterDraftableCreature(parent as Pawn);
+            if (parent is Pawn parentPawn)
+            {
+                DraftingUtility.UnregisterDraftableCreature(parentPawn);
+            }
+
+    
             base.PostDestroy(mode, previousMap);
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!-- PawnKindDef for the summoned Divinedog -->
-<ThingDef ParentName="AnimalThingBase">
+  <ThingDef ParentName="AnimalThingBase">
     <defName>JJK_DivineDog_Race</defName>
     <label>summoned Divine dog</label>
     <description>A summoned Divine dog. This otherworldly creature serves its summoner without question.</description>
@@ -110,46 +110,8 @@
       </lifeStageAges>
     </race>
     <comps>
-      <li Class="JJK.CompProperties_DeathHandler">
+      <li Class="JJK.CompProperties_TenShadowsDemonDogSummon">
       </li>
     </comps>
   </ThingDef>
-
-  <PawnKindDef>
-    <defName>JJK_DivineDogBlack</defName>
-    <label>summoned divine dog black</label>
-    <race>JJK_DivineDog_Race</race>
-    <combatPower>50</combatPower>
-    <canArriveManhunter>false</canArriveManhunter>
-    <aiAvoidCover>true</aiAvoidCover>
-    <fleeHealthThresholdRange>0~0</fleeHealthThresholdRange>
-    <lifeStages>
-      <li>
-        <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
-          <drawSize>1.5</drawSize>
-          <color>(0.2, 0.1, 0.1)</color>
-        </bodyGraphicData>
-      </li>
-    </lifeStages>
-  </PawnKindDef>
-
-  <PawnKindDef>
-    <defName>JJK_DivineDogWhite</defName>
-    <label>summoned Divine dog white</label>
-    <race>JJK_DivineDog_Race</race>
-    <combatPower>50</combatPower>
-    <canArriveManhunter>false</canArriveManhunter>
-    <aiAvoidCover>true</aiAvoidCover>
-    <fleeHealthThresholdRange>0~0</fleeHealthThresholdRange>
-    <lifeStages>
-      <li>
-        <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
-          <drawSize>1.5</drawSize>
-          <color>(1, 1, 1)</color>
-        </bodyGraphicData>
-      </li>
-    </lifeStages>
-  </PawnKindDef>
 </Defs>

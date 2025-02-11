@@ -3,6 +3,7 @@
 <ThingDef ParentName="BaseBullet">
   <defName>JJK_BloodBullet</defName>
   <label>blood bullet</label>
+  <thingClass>JJK.ScalingStatDamageProjectile</thingClass>
   <graphicData>
     <texPath>Animations/projectilebolt</texPath>
     <graphicClass>Graphic_Single</graphicClass>

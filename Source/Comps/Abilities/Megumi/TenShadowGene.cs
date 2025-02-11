@@ -5,6 +5,16 @@ using Verse;
 
 namespace JJK
 {
+    public class TenShadowsGeneDef : GeneDef
+    {
+        public List<ShikigamiDef> startingShikigami;
+
+        public TenShadowsGeneDef()
+        {
+            geneClass = typeof(TenShadowGene);
+        }
+    }
+
     public class TenShadowGene : Gene
     {
         private Dictionary<ShikigamiDef, ShikigamiMergeTracker> mergedShikigami = new Dictionary<ShikigamiDef, ShikigamiMergeTracker>();
@@ -14,10 +24,36 @@ namespace JJK
         public bool ShouldSummonTotalityDivineDog = false;
         private Pawn ParentPawn => pawn;
 
+
         public override void PostAdd()
         {
             base.PostAdd();
             UnlockShikigami(JJKDefOf.Shikigami_DivineDogs);
+        }
+
+
+        public override void Tick()
+        {
+            base.Tick();
+
+            if (pawn.IsHashIntervalTick(2500))
+            {
+                DoShadowsRegenTick();
+            }
+        }
+
+        protected virtual void DoShadowsRegenTick()
+        {
+            foreach (var item in Shikigami.Values)
+            {
+                foreach (var storedPawn in item.StoredPawns)
+                {
+                    if (PawnHealingUtility.HealHealthProblem(storedPawn))
+                    {
+                        //deduct some CE to regen damaged shadows
+                    }
+                }
+            }
         }
 
         public bool CanSummonShikigamiKind(ShikigamiDef KindDef)
@@ -132,10 +168,6 @@ namespace JJK
 
             Pawn shikigami = PawnGenerator.GeneratePawn(pawnKindDef, Master.Faction);
 
-            if (shikigami.Dead)
-            {
-                ResurrectionUtility.TryResurrect(shikigami);
-            }
             SetupSummon(KindDef, Master, shikigami);
             return shikigami;
         }

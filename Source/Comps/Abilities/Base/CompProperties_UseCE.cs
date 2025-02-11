@@ -17,13 +17,7 @@ namespace JJK
 
     public class CompAbilityEffect_UseCE : CompAbilityEffect
     {
-        public virtual new CompProperties_CursedAbilityProps Props
-        {
-            get
-            {
-                return (CompProperties_CursedAbilityProps)this.props;
-            }
-        }
+        public new CompProperties_UseCE Props => (CompProperties_UseCE)props;
 
         private Gene_CursedEnergy _CursedEnergy;
         private Gene_CursedEnergy CursedEnergy

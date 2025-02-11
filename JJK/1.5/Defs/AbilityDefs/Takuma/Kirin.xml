@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_Kirin</defName>
+    <label>Kirin: Intracerebral Doping</label>
+    <description>Experiencing heightened combat abilities at the cost of severe exhaustion afterwards.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>
+      <min>86400</min>
+      <max>86400</max>
+    </cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>201</displayOrder>
+    <targetRequired>false</targetRequired>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>-1</range>
+      <warmupTime>0</warmupTime>
+      <targetParams>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetMechs>false</canTargetMechs>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+     <nonInterruptingSelfCast>true</nonInterruptingSelfCast>
+    </verbProperties>
+    <comps>
+      <li Class="CompProperties_AbilityGiveHediff">
+        <compClass>CompAbilityEffect_GiveHediff</compClass>
+        <hediffDef>JJK_KirinActive</hediffDef>
+        <onlyApplyToSelf>true</onlyApplyToSelf>
+      </li>
+      <li Class="JJK.CompProperties_AbilityCECost">
+          <cursedEnergyCost>15</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

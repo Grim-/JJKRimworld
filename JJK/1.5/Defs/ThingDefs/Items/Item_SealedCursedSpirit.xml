@@ -5,7 +5,7 @@
     <label>sealed cursed spirit orb</label>
     <description>A mystical orb containing a trapped cursed spirit. Can be consumed by those with the Geto gene to absorb the spirit's power.</description>
     <graphicData>
-      <texPath>T_Butterfly</texPath>
+      <texPath>VFX/T_Butterfly</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <resourceReadoutPriority>Middle</resourceReadoutPriority>
@@ -25,7 +25,6 @@
       <preferability>NeverForNutrition</preferability>
       <foodType>Processed</foodType>
       <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
-      <ingestEffect>EatMeal</ingestEffect>
       <ingestSound>RawMeat_Eat</ingestSound>
     </ingestible>
     <comps>

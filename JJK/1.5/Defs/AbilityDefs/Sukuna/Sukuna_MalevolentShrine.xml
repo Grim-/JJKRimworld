@@ -5,16 +5,15 @@
       <label>Expand MalevolentShrine Domain</label>
       <description>Expands and maintains the Malevolent Shrine domain.</description>
       <iconPath>UI/Icons/Gene_FireArrow</iconPath>
-            <category>Cursed_Energy</category>
+      <category>Cursed_Energy</category>
       <verbProperties>
-        <verbClass>Verb_CastAbility</verbClass>
+        <verbClass>JJK.Verb_CastDomainExpansion</verbClass>
         <range>0</range>
         <warmupTime>0</warmupTime>
         <soundCast>FireSpew_Resolve</soundCast>
         <targetable>False</targetable>
       </verbProperties>
       <statBases>
-        <Ability_Duration>-1</Ability_Duration>
       </statBases>
       <DomainThingDefName>JJK_MalevolentShrineDomain</DomainThingDefName>
     </JJK.DomainExpansionDef>

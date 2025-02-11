@@ -20,7 +20,7 @@
         <angle>0</angle>
         <speed>0</speed>
         <positionOffset>(0.2, 0, 0.2)</positionOffset>
-        <color>(255, 255, 255, 255)</color>
+        <color>(255, 255, 255, 50)</color>
         <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
         <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
         <attachToSpawnThing>true</attachToSpawnThing>

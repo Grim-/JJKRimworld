@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <AbilityDef>
-  <defName>JJK_SummonDemondogBlack</defName>
-  <label>Summon Demon dog(Black)</label>
-  <description>Summons a demonic canine to attack enemies, it will find the nearest enemy in range from its inital spawn point, attempt to move towards this target and bite them, it has a 30% chance to cause a bleed.</description>
+  <defName>JJK_SummonGama</defName>
+  <label>Summon Gama</label>
+  <description>Summons a toad wrought of shadow to attack enemies.</description>
   <verbProperties>
     <verbClass>Verb_CastAbility</verbClass>
     <drawAimPie>true</drawAimPie>
@@ -15,9 +15,13 @@
     </targetParams>
   </verbProperties>
   <comps>
-    <li Class="JJK.CompProperties_AbilityDemondogSummon">
-      <demondogKindDef>JJK_DivineDogBlack</demondogKindDef>
+    <li Class="JJK.CompProperties_BaseShikigami">
       <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
+      <shikigamiDef>Shikigami_Gama</shikigamiDef>
+    </li>
+    <li Class="JJK.CompProperties_UseCE">
+      <cursedEnergyCost>20</cursedEnergyCost>
+      <burnoutStrain>0</burnoutStrain>
     </li>
   </comps>
 </AbilityDef>

@@ -4,7 +4,7 @@ using Verse;
 
 namespace JJK
 {
-    public class CompProperties_AbilityJumper : CompProperties_CursedAbilityProps
+    public class CompProperties_AbilityJumper : CompProperties_AbilityEffect
     {
         public float flightDuration = 0.5f;
         public HediffDef exhaustionHediffDef;
@@ -16,10 +16,10 @@ namespace JJK
         }
     }
 
-    public class CompAbilityEffect_Jump : BaseCursedEnergyAbility
+    public class CompAbilityEffect_Jump : CompAbilityEffect
     {
         public new CompProperties_AbilityJumper Props => (CompProperties_AbilityJumper)props;
-        public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
+        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             Pawn pawn = parent.pawn;
             Map map = pawn.MapHeld;
@@ -43,15 +43,6 @@ namespace JJK
 
                 HealthUtility.AdjustSeverity(pawn, Props.exhaustionHediffDef, severity);
             }
-        }
-        public override bool AICanTargetNow(LocalTargetInfo target)
-        {
-            return base.AICanTargetNow(target);
-        }
-
-        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
-        {
-            return base.CanApplyOn(target, dest);
         }
 
         private bool CanHitTargetSafely(Pawn Caster, Map map, IntVec3 targetCell)

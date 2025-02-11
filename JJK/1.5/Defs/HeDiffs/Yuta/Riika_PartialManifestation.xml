@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<!-- HediffDef for the Cursed Slumber -->
 <HediffDef>
   <defName>JJK_RiikaOverlay</defName>
   <label>Riika</label>
@@ -19,7 +18,7 @@
         <drawSize>3</drawSize>
         <customShaderName>Shader Forge/Riika</customShaderName>
         <shaderParameters>
-          <_AlphaMask>/Riika/RikaBodymask</_AlphaMask>
+          <_AlphaMask>/Things/Riika/RikaBodymask</_AlphaMask>
           <_Clipping>0.5</_Clipping>
         </shaderParameters>
       </graphicData>
@@ -53,7 +52,7 @@
           <verbClass>JJK.Verb_StealCursedTechnique</verbClass>
           <defaultCooldownTime>3.5</defaultCooldownTime>
           <meleeDamageBaseAmount>10</meleeDamageBaseAmount>
-          <meleeDamageDef>Scratch</meleeDamageDef>
+          <meleeDamageDef>JJK_CursedEnergyDamage</meleeDamageDef>
         </li>
       </verbs>
     </li>

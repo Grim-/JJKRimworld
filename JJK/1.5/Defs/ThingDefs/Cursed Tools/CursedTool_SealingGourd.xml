@@ -6,7 +6,7 @@
     <description>A mystical gourd imbued with cursed energy. It can seal beings within its confines, trapping them in a pocket dimension.</description>
     <possessionCount>1</possessionCount>
     <graphicData>
-      <texPath>Gourd</texPath>
+      <texPath>Things/Gourd</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <recipeMaker>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="ResourceBase">
+  <defName>JJK_Capsule</defName>
+  <label>Capsule</label>
+  <description>A mysterious device that can store and deploy buildings.</description>
+  <thingClass>ThingWithComps</thingClass>
+  <graphicData>
+    <texPath>Things/Building/Misc/DropBeacon</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <shadowData>
+      <volume>(0.3, 0.2, 0.3)</volume>
+      <offset>(0,0,-0.1)</offset>
+    </shadowData>
+    <damageData>
+      <rect>(0.2,0.2,0.6,0.6)</rect>
+    </damageData>
+  </graphicData>
+  <soundInteract>Standard_Drop</soundInteract>
+  <soundDrop>Standard_Drop</soundDrop>
+  <stackLimit>1</stackLimit>
+  <possessionCount>10</possessionCount>
+    <orderedTakeGroup>Medicine</orderedTakeGroup>
+  <statBases>
+    <MaxHitPoints>80</MaxHitPoints>
+    <Mass>1</Mass>
+    <Flammability>0.5</Flammability>
+    <DeteriorationRate>0</DeteriorationRate>
+  </statBases>
+  <thingCategories>
+    <li>Items</li>
+  </thingCategories>
+  <comps>
+    <li Class="JJK.CompProperties_Capsule">
+      <size>
+        <x>10</x>
+        <z>10</z>
+      </size>
+    </li>
+    <li>
+      <compClass>CompEquippable</compClass>
+    </li>
+  </comps>
+  <tradeTags>
+    <li>ExoticMisc</li>
+  </tradeTags>
+  <verbs>
+    <li>
+      <verbClass>JJK.Verb_ThrowCapsule</verbClass>
+      <range>12.9</range>
+      <hasStandardCommand>true</hasStandardCommand>
+      <warmupTime>1.5</warmupTime>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </li>
+  </verbs>
+</ThingDef>
+<ThingDef ParentName="BaseProjectileNeolithic">
+  <defName>JJK_ProjectileCapsule</defName>
+  <label>capsule</label>
+  <thingClass>JJK.ProjectileCapsule</thingClass>
+  <graphicData>
+    <texPath>Things/Building/Misc/DropBeacon</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+  </graphicData>
+  <projectile>
+    <flyOverhead>true</flyOverhead>
+    <damageDef>Blunt</damageDef>
+    <damageAmountBase>0</damageAmountBase>
+    <speed>40</speed>
+  </projectile>
+</ThingDef>
+</Defs>

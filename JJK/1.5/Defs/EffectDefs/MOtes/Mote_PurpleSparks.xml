@@ -2,6 +2,7 @@
 <Defs>
     <ThingDef ParentName="MoteBase">
         <defName>JJK_PurpleSparksMote</defName>
+        <thingClass>MoteAttached</thingClass>
         <graphicData>
           <texPath>VFX/Spark</texPath>
           <graphicClass>Graphic_Mote</graphicClass>

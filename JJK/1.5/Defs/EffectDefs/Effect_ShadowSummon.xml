@@ -59,7 +59,7 @@
   <AnimatedMotes.AnimationDef ParentName="AuraTestBase">
     <defName>JJK_ShadowSplat</defName>
     <graphicData Class="AnimatedMotes.GraphicDataAnimation">
-      <texPath>ShadowSplat</texPath>
+      <texPath>VFX/ShadowSplat</texPath>
       <drawSize>1</drawSize>
       <color>(0, 0, 0, 1)</color>
     </graphicData>
@@ -68,7 +68,7 @@
       <fadeInTime>0.01</fadeInTime>
       <solidTime>3</solidTime>
       <fadeOutTime>0.2</fadeOutTime>
-      <growthRate>0.01</growthRate>
+      <growthRate>1</growthRate>
       <speedPerTime>0</speedPerTime>
     </mote>
     <fpsRate>3</fpsRate>

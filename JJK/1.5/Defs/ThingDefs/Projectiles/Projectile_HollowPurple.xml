@@ -8,8 +8,9 @@
     <texPath>Things/Projectile/Gojo/HollowPurple</texPath>
     <graphicClass>Graphic_Single</graphicClass>
     <shaderType>MoteGlowDistorted</shaderType>
-    <drawSize>5</drawSize>
+    <drawSize>4</drawSize>
     <shaderParameters>
+      <_Color>(1, 1, 1, 1)</_Color>
       <_DistortionTex>/Other/Ripples</_DistortionTex>
       <_distortionIntensity>0.1</_distortionIntensity>
       <_DistortionScale>0.4</_DistortionScale>

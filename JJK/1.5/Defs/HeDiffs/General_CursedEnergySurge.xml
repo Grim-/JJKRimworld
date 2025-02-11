@@ -12,23 +12,24 @@
   <stages>
     <li>
       <statFactors>
-        <JJK_CursedEnergyDamageBonus>2</JJK_CursedEnergyDamageBonus>
-        <JJK_CursedEnergy>1.5</JJK_CursedEnergy>
+        <JJK_CursedEnergyDamageBonus>2.5</JJK_CursedEnergyDamageBonus>
+        <JJK_CursedEnergy>1.75</JJK_CursedEnergy>
         <JJK_CursedEnergyRegenSpeed>0.5</JJK_CursedEnergyRegenSpeed>
-        <JJK_RCTHealingBonus>2</JJK_RCTHealingBonus>
+        <JJK_RCTHealingBonus>2.5</JJK_RCTHealingBonus>
       </statFactors>
       <statOffsets>
-        <JJK_CursedEnergyRegen>50</JJK_CursedEnergyRegen>
+        <JJK_CursedEnergyRegen>100</JJK_CursedEnergyRegen>
         <MeleeHitChance>0.25</MeleeHitChance>
         <MeleeDodgeChance>0.15</MeleeDodgeChance>
+        <JJK_BlackFlashTriggerChance>0.05</JJK_BlackFlashTriggerChance>
       </statOffsets>
       <blocksMentalBreaks>true</blocksMentalBreaks>
     </li>
   </stages>
   <comps>
     <li Class="JJK.HediffCompProperties_RandomDisappear">
-      <minDurationTicks>1250</minDurationTicks>
-      <maxDurationTicks>5000</maxDurationTicks>
+      <minDurationTicks>300</minDurationTicks>
+      <maxDurationTicks>900</maxDurationTicks>
     </li>
     </comps>
 </HediffDef>

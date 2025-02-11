@@ -17,7 +17,7 @@
     <statFactors>
       <JJK_CursedEnergy>3</JJK_CursedEnergy>
       <JJK_CursedEnergyRegen>3</JJK_CursedEnergyRegen>
-      <JJK_CursedEnergyRegenSpeed>2</JJK_CursedEnergyRegenSpeed>
+      <JJK_CursedEnergyRegenSpeed>0.5</JJK_CursedEnergyRegenSpeed>
       <JJK_CursedEnergyDamageBonus>2</JJK_CursedEnergyDamageBonus>
       <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost>
       <JJK_RCTHealingBonus>3</JJK_RCTHealingBonus>

@@ -6,7 +6,7 @@
     <thingClass>JJK.Projectile_ImpactAOE</thingClass>
     <tickerType>Normal</tickerType>
     <graphicData>
-      <texPath>Animations/StarburstImpact</texPath>
+      <texPath>Things/Projectile/Projectile_RedNew</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>Transparent</shaderType>
       <drawSize>0.7</drawSize>
@@ -16,8 +16,9 @@
       </shaderParameters>
     </graphicData>
     <projectile Class="JJK.ProjectileProperties_ImpactAOE">
-      <damageDef>Bomb</damageDef>
-      <BaseDamage>30</BaseDamage>
+      <damageDef>Blunt</damageDef>
+      <BaseDamage>15</BaseDamage>
+      <damageAmountBase>10</damageAmountBase>
       <armorPenetrationBase>0.3</armorPenetrationBase>
       <ExplosionRadius>5</ExplosionRadius>
       <stoppingPower>1</stoppingPower>
@@ -31,13 +32,6 @@
         <glowRadius>15</glowRadius>
         <glowColor>(255,0,0,0)</glowColor>
       </li>
-      <li Class="JJK.CompProperties_BeamEffect">
-        <TrailMote>JJK_Mote_ScorchMarkRed</TrailMote>
-        <MoteInterval>0.25</MoteInterval>
-        <MoteDuration>30</MoteDuration>
-        <AlignWithMovement>true</AlignWithMovement>
-      </li>
     </comps>
   </ThingDef>
-
 </Defs>

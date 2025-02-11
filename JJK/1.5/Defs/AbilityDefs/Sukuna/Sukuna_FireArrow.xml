@@ -14,7 +14,7 @@
       <verbProperties>
         <verbClass>Verb_CastAbility</verbClass>
         <range>20</range>
-        <warmupTime>0.5</warmupTime>
+        <warmupTime>3</warmupTime>
         <soundCast>FireSpew_Resolve</soundCast>
         <targetParams>
           <canTargetPawns>True</canTargetPawns>
@@ -22,8 +22,9 @@
         </targetParams>
       </verbProperties>
       <comps>
-        <li Class="CompProperties_AbilityLaunchProjectile">
+        <li Class="JJK.CompProperties_AbilityLaunchScalingProjectile">
           <projectileDef>Fire_Arrow</projectileDef>
+          <damageFactor>JJK_CursedEnergyDamageBonus</damageFactor>
         </li>
         <li Class="JJK.CompProperties_AbilityCECost">
           <cursedEnergyCost>100</cursedEnergyCost>

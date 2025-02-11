@@ -10,12 +10,12 @@ namespace JJK
 
         //any already created but not currently summoned onto a map pawns
         private Dictionary<PawnKindDef, Pawn> storedPawnsByKind = new Dictionary<PawnKindDef, Pawn>();
+        public List<Pawn> StoredPawns => storedPawnsByKind.Values.ToList();
+
 
         // Active pawns currently summoned on map
         private List<Pawn> activePawns = new List<Pawn>();
         public List<Pawn> PawnInstances => activePawns;
-
-
 
         public bool IsPermanentlyDead = false;
         public int deathCooldownStartTick = -1;
@@ -33,7 +33,7 @@ namespace JJK
             KindDef = kindDef;
         }
 
-        public void StorePawn(Pawn pawn, bool DespawnAndMoveToWorld = true)
+        public void StorePawn(Pawn pawn)
         {
             if (pawn == null || pawn.Destroyed) 
                 return;
@@ -49,19 +49,15 @@ namespace JJK
                 storedPawnsByKind.Add(pawn.kindDef, pawn);
             }
 
-            if (DespawnAndMoveToWorld)
+            if (!Find.WorldPawns.Contains(pawn))
             {
-                if (!Find.WorldPawns.Contains(pawn))
+                if (pawn.Spawned)
                 {
-                    if (pawn.Spawned)
-                    {
-                        pawn.DeSpawn();
-                    }
-
-                    Find.WorldPawns.PassToWorld(pawn);
+                    pawn.DeSpawn();
                 }
-            }
 
+                Find.WorldPawns.PassToWorld(pawn);
+            }
             activePawns.Remove(pawn);
         }
 
@@ -69,27 +65,7 @@ namespace JJK
         {
             foreach (var item in activePawns.ToList())
             {
-                Pawn pawnRef;
-
-                if (storedPawnsByKind.ContainsKey(item.kindDef))
-                {
-                    storedPawnsByKind[item.kindDef] = item;
-                }
-                else
-                {
-                    storedPawnsByKind.Add(item.kindDef, item);
-                }
-
-                if (!Find.WorldPawns.Contains(item))
-                {
-                    if (item.Spawned)
-                    {
-                        item.DeSpawn();
-                    }
-
-                    Find.WorldPawns.PassToWorld(item);
-                }
-                activePawns.Remove(item);
+                StorePawn(item);
             }
 
         }

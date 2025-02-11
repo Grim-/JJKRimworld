@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.ShikigamiDef>
+    <defName>Shikigami_MaxElephant</defName>
+    <summonAbility>JJK_SummonMaxElephant</summonAbility>
+    <shikigami>JJK_MaxElephant</shikigami>
+    <shikigamiAbilities>
+    </shikigamiAbilities>
+  </JJK.ShikigamiDef>
+</Defs>

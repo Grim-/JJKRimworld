@@ -25,10 +25,9 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_RCT">
-        <Ticks>100</Ticks>
+        <Ticks>60</Ticks>
         <TicksBetweenCost>650</TicksBetweenCost>
-        <PartHealCoefficient>5</PartHealCoefficient><!-- multiplier on RCT Heal Bonus -->
-        <HediffHealCoefficient>5</HediffHealCoefficient>
+        <HealCoefficient>2</HealCoefficient><!-- multiplier on RCT Heal Bonus -->
         <cursedEnergyCost>0</cursedEnergyCost> <!-- inital cast cost zero -->
         <CECostPerTick>15</CECostPerTick> <!-- how much it costs per tick while active -->
         <CEPartRegenCost>2.2</CEPartRegenCost> <!-- multiplier for part heal, used to calculate costs to restore a lost limb part [part HP * CEPartRegenCost] -->

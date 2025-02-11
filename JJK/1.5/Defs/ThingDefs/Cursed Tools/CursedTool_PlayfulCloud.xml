@@ -6,7 +6,7 @@
     <description>A special grade cursed tool in the form of a three-section staff. Connected by three rings between its joints, each section is decorated with flame-like patterns. Playful Cloud amplifies its user's physical strength, making it devastatingly effective even in the hands of those with little cursed energy. Pawns with a Melee skill above 15 gain the Deflect ability when equipping.</description>
     <possessionCount>1</possessionCount>
     <graphicData>
-      <texPath>Playfulcloud</texPath>
+      <texPath>Things/Playfulcloud</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1.5</drawSize>
     </graphicData>

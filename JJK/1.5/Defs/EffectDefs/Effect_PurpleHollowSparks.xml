@@ -3,27 +3,27 @@
       <EffecterDef>
         <defName>JJK_PurpleSparksEffect</defName>
         <children>
-        <li>
-          <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
-          <chancePerTick>1</chancePerTick>
-          <ticksBetweenMotes>10</ticksBetweenMotes>
-          <moteDef>JJK_PurpleSparksMote</moteDef>
-          <spawnLocType>OnTarget</spawnLocType>
-          <burstCount>1~3</burstCount>
-          <positionRadius>0.5</positionRadius>
-          <positionRadiusMin>0</positionRadiusMin>
-          <maxMoteCount>25</maxMoteCount>
-          <scale>0.8~1.8</scale>
-          <rotation>0~360</rotation>
-          <rotationRate>0</rotationRate>
-          <angle>0~360</angle>
-          <speed>0</speed>
-          <positionOffset>(0, 0, 0)</positionOffset>
-          <color>(215, 66, 245, 255)</color>
-          <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
-          <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
-          <attachToSpawnThing>false</attachToSpawnThing>
-        </li>
+          <li>
+            <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+            <chancePerTick>1</chancePerTick>
+            <ticksBetweenMotes>10</ticksBetweenMotes>
+            <moteDef>JJK_PurpleSparksMote</moteDef>
+            <spawnLocType>OnTarget</spawnLocType>
+            <burstCount>1~3</burstCount>
+            <positionRadius>0.5</positionRadius>
+            <positionRadiusMin>0</positionRadiusMin>
+            <maxMoteCount>25</maxMoteCount>
+            <scale>0.8~1.8</scale>
+            <rotation>0~360</rotation>
+            <rotationRate>0</rotationRate>
+            <angle>0~360</angle>
+            <speed>0</speed>
+            <positionOffset>(0, 0, 0)</positionOffset>
+            <color>(215, 66, 245, 255)</color>
+            <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+            <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+            <attachToSpawnThing>true</attachToSpawnThing>
+          </li>
         </children>
       </EffecterDef>
   </Defs>

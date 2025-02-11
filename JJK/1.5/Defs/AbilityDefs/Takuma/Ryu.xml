@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_Ryu</defName>
+    <label>Ryu: Dragon Rush</label>
+    <description>Concentrate cursed energy to summon a large serpentine dragon-like creature that rushes out and crashes into targets in its path.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>
+      <min>36000</min>
+      <max>43200</max>
+    </cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>204</displayOrder>
+    <targetRequired>true</targetRequired>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>25.9</range>
+      <warmupTime>2.0</warmupTime>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>true</canTargetBuildings>
+        <canTargetMechs>true</canTargetMechs>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_DamageInRect">
+        <rectWidth>5</rectWidth>
+        <rectLength>25</rectLength>
+        <damageType>JJK_CursedEnergyDamage</damageType>
+        <damageAmount>40</damageAmount>
+        <useMouseAsOrigin>false</useMouseAsOrigin>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

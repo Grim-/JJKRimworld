@@ -4,7 +4,7 @@
     <ThingDef ParentName="MoteBase">
         <defName>JJK_BlueAOEAura</defName>
         <graphicData>
-          <texPath>ArcaneRing</texPath>
+          <texPath>VFX/ArcaneRing</texPath>
           <graphicClass>Graphic_Mote</graphicClass>
           <shaderType>MoteGlow</shaderType>
           <drawSize>1</drawSize>

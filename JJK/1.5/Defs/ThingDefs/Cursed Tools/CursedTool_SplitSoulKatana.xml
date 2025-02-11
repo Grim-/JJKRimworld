@@ -6,7 +6,7 @@
   <description>The ancient weapon of kings, the longsword can be used for slashing or stabbing.</description>
   <possessionCount>1</possessionCount>
   <graphicData>
-    <texPath>SplitSoulKatana</texPath>
+    <texPath>Things/SplitSoulKatana</texPath>
     <graphicClass>Graphic_Single</graphicClass>
     <drawSize>1.4</drawSize>
   </graphicData>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+  <defName>JJK_SummonNue</defName>
+  <label>Summon Nue</label>
+  <description>Summons a Nue wrought of shadow to attack enemies.</description>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <drawAimPie>true</drawAimPie>
+    <range>20</range>
+    <warmupTime>0.5</warmupTime>
+    <targetParams>
+      <canTargetLocations>true</canTargetLocations>
+      <canTargetPawns>true</canTargetPawns>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="JJK.CompProperties_BaseShikigami">
+      <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
+      <shikigamiDef>Shikigami_Nue</shikigamiDef>
+    </li>
+    <li Class="JJK.CompProperties_UseCE">
+      <cursedEnergyCost>20</cursedEnergyCost>
+      <burnoutStrain>0</burnoutStrain>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

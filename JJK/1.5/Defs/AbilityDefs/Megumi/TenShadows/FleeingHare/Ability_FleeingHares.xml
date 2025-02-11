@@ -15,7 +15,12 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_AbilityFleeingHareSummon">
-        <fleeingHareKindDef>JJK_FleeingHare</fleeingHareKindDef>
+        <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
+        <shikigamiDef>Shikigami_FleeingHares</shikigamiDef>
+      </li>
+      <li Class="JJK.CompProperties_UseCE">
+        <cursedEnergyCost>20</cursedEnergyCost>
+        <burnoutStrain>0</burnoutStrain>      
       </li>
     </comps>
   </AbilityDef>

@@ -50,6 +50,18 @@
         </statFactorsBySeverity>
         <statOffsetsBySeverity>
           <li>
+            <stat>MeleeDodgeChance</stat>
+            <valueBySeverity>
+              <points>
+                <li>(0.0, 0.0)</li>
+                <li>(0.25, 0.0375)</li>
+                <li>(0.5, 0.075)</li>
+                <li>(0.75, 0.1125)</li>
+                <li>(1.0, 0.35)</li>
+              </points>
+            </valueBySeverity>
+          </li>
+          <li>
             <stat>MeleeCooldownFactor</stat>
             <valueBySeverity>
               <points>
@@ -65,11 +77,11 @@
             <stat>MeleeHitChance</stat>
             <valueBySeverity>
               <points>
-                <li>(0.0, 0.0)</li>
+                <li>(0.0, 0.01)</li>
                 <li>(0.25, 0.25)</li>
-                <li>(0.5, 0.5)</li>
-                <li>(0.75, 0.75)</li>
-                <li>(1.0, 1.0)</li>
+                <li>(0.5, 0.30)</li>
+                <li>(0.75, 0.40)</li>
+                <li>(1.0, 0.50)</li>
               </points>
             </valueBySeverity>
           </li>
@@ -77,7 +89,7 @@
             <stat>IncomingDamageFactor</stat>
             <valueBySeverity>
               <points>
-                <li>(0.0, 0.0)</li>
+                <li>(0.0, 0.055)</li>
                 <li>(0.25, -0.075)</li>
                 <li>(0.5, -0.15)</li>
                 <li>(0.75, -0.225)</li>
@@ -86,26 +98,14 @@
             </valueBySeverity>
           </li>
           <li>
-            <stat>MeleeDodgeChance</stat>
-            <valueBySeverity>
-              <points>
-                <li>(0.0, 0.0)</li>
-                <li>(0.25, 0.0375)</li>
-                <li>(0.5, 0.075)</li>
-                <li>(0.75, 0.1125)</li>
-                <li>(1.0, 0.35)</li>
-              </points>
-            </valueBySeverity>
-          </li>
-          <li>
             <stat>ArmorRating_Blunt</stat>
             <valueBySeverity>
               <points>
                 <li>(0.0, 0.0)</li>
-                <li>(0.25, 0.0625)</li>
-                <li>(0.5, 0.125)</li>
-                <li>(0.75, 0.1875)</li>
-                <li>(1.0, 0.35)</li>
+                <li>(0.25, 0.15)</li>
+                <li>(0.5, 0.30)</li>
+                <li>(0.75, 0.45)</li>
+                <li>(1.0, 0.60)</li>
               </points>
             </valueBySeverity>
           </li>
@@ -114,10 +114,10 @@
             <valueBySeverity>
               <points>
                 <li>(0.0, 0.0)</li>
-                <li>(0.25, 0.0375)</li>
-                <li>(0.5, 0.075)</li>
-                <li>(0.75, 0.1125)</li>
-                <li>(1.0, 0.45)</li>
+                <li>(0.25, 0.20)</li>
+                <li>(0.5, 0.40)</li>
+                <li>(0.75, 0.60)</li>
+                <li>(1.0, 0.80)</li>
               </points>
             </valueBySeverity>
           </li>

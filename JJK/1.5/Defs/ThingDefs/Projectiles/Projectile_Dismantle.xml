@@ -3,6 +3,7 @@
 <ThingDef ParentName="BaseBullet">
   <defName>JJK_DismantleProjectile</defName>
   <label>dismantle</label>
+  <thingClass>JJK.ScalingStatDamageProjectile</thingClass>
   <graphicData>
     <texPath>Things/Projectile/Sukuna/Dismantle</texPath>
     <graphicClass>Graphic_Single</graphicClass>
@@ -18,7 +19,7 @@
   </graphicData>
   <projectile>
     <damageDef>JJK_Dismantle</damageDef>
-    <damageAmountBase>150</damageAmountBase>
+    <damageAmountBase>10</damageAmountBase>
     <armorPenetrationBase>1</armorPenetrationBase>
     <stoppingPower>0.6</stoppingPower>
     <speed>120</speed>

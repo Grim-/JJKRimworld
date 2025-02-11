@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.CursedEnergyDamageTraitDef>
+    <defName>JJK_CursedEnergyLightning</defName>
+    <commonality>0.1</commonality>
+    <degreeDatas>
+      <li>
+        <label>Cursed Energy (Lightning)</label>
+        <description>This pawns cursed energy has a serrated feel to it, when this pawn uses Cursed Energy Reinforcement their melee attacks do sharp damage.</description>
+        <degree>0</degree>
+      </li>
+    </degreeDatas>
+    <DamageType>Cut</DamageType>
+  </JJK.CursedEnergyDamageTraitDef>
+</Defs>

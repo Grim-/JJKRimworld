@@ -17,16 +17,19 @@
       <warmupTime>0.5</warmupTime>
       <soundCast>FireSpew_Resolve</soundCast>
       <targetParams>
-        <canTargetPawns>True</canTargetPawns>
-        <canTargetLocations>True</canTargetLocations>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>true</canTargetBuildings>
+        <canTargetMechs>true</canTargetMechs>
       </targetParams>
     </verbProperties>
     <comps>
-      <li Class="CompProperties_AbilityLaunchProjectile">
+      <li Class="JJK.CompProperties_AbilityLaunchScalingProjectile">
         <projectileDef>ReversedCursedTechnique_RedProjecitle</projectileDef>
+        <damageFactor>JJK_CursedEnergyDamageBonus</damageFactor>
       </li>
       <li Class="JJK.CompProperties_AbilityCECost">
-            <cursedEnergyCost>25</cursedEnergyCost>
+        <cursedEnergyCost>25</cursedEnergyCost>
       </li>
     </comps>
   </AbilityDef>

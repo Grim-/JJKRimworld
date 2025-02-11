@@ -5,7 +5,7 @@
     <description>A cursed tool resembling a tokkosho. This mystical weapon grants its wielder the power to call down lightning bolts from the sky, striking their targets with devastating force.</description>
     <possessionCount>1</possessionCount>
     <graphicData>
-      <texPath>kamutoke</texPath>
+      <texPath>Things/kamutoke</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>0.5</drawSize>
     </graphicData>

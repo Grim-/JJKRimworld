@@ -11,6 +11,8 @@
           <DomainCostPerTick>2</DomainCostPerTick>
           <TicksBetweenApplication>60</TicksBetweenApplication>
           <AreaRadius>10</AreaRadius>
+          <WallDef>Wall</WallDef>
+          <FloorDef>WoodPlankFloor</FloorDef>
         </li>
       </comps>
       <tickerType>Normal</tickerType>

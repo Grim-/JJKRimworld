@@ -11,7 +11,7 @@
     <lifeStages>
       <li>
         <bodyGraphicData>
-          <texPath>Riika/RikaBody</texPath>
+          <texPath>Things/Riika/RikaBody</texPath>
           <drawSize>5</drawSize>
           <color>(255,255,255)</color>
           <shadowData>
@@ -20,12 +20,11 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Riika/RikaBody</texPath>
+          <texPath>Things/Riika/RikaBody</texPath>
           <drawSize>6</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>
-
     <modExtensions>
     <li Class="JJK.CursedSpiritExtension">
       <Grade>SPECIAL_GRADE_1</Grade>
@@ -33,5 +32,4 @@
     </li>
   </modExtensions>
   </PawnKindDef>
-
 </Defs>

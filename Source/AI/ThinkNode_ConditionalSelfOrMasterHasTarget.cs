@@ -8,22 +8,36 @@ namespace JJK
     {
         protected override bool Satisfied(Pawn pawn)
         {
-            Pawn master = pawn.GetMaster();
-
-            if (pawn != null && pawn.IsShikigami() && master  != null)
+            if (pawn == null || !pawn.IsShikigami())
             {
-                if (pawn.mindState.enemyTarget != null || master.mindState.enemyTarget != null)
-                {
-                    //Log.Message($"{pawn.Label} or its master {master.Label} have an enemy target.");
-                    return true;
-                }
+                return false;
+            }
 
-                if (PawnUtility.EnemiesAreNearby(pawn, 10, true) || PawnUtility.EnemiesAreNearby(master, 10, true))
+            if (!pawn.Spawned)
+            {
+                return false;
+            }
+
+            Pawn master = pawn.GetMaster();
+            if (master == null)
+            {
+                return false;
+            }
+
+            if (pawn.mindState?.enemyTarget != null || master.mindState?.enemyTarget != null)
+            {
+                return true;
+            }
+
+            if (pawn.Spawned && master.Spawned)
+            {
+                if (PawnUtility.EnemiesAreNearby(pawn, 10, true) ||
+                    PawnUtility.EnemiesAreNearby(master, 10, true))
                 {
-                    //Log.Message($"Enemies are near {pawn.Label}.");
                     return true;
                 }
             }
+
             return false;
         }
     }

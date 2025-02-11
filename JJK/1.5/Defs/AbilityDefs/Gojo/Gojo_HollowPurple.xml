@@ -27,9 +27,9 @@
         <li Class="CompProperties_AbilityLaunchProjectile">
           <projectileDef>Hollow_Purple</projectileDef>
         </li>
-        <li Class="JJK.CompProperties_DamageInRect">
+        <li Class="JJK.CompProperties_BeamDamageInRect">
           <rectWidth>4</rectWidth>
-          <rectLength>15</rectLength>
+          <rectLength>20</rectLength>
           <beamMoteDef>Mote_PowerBeam</beamMoteDef>
           <beamDurationTicks>80</beamDurationTicks>
           <damageType>Blunt</damageType>

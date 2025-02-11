@@ -5,9 +5,4 @@
       <label>Cursed Spirit</label>
       <tabClass>JJK.ITab_CursedSpiritManipulator</tabClass>
     </InspectTabBase>
-    <InspectTabBase>
-      <defName>ITabBindingVows</defName>
-      <label>Binding Vows</label>
-      <tabClass>JJK.ITab_BindingVows</tabClass>
-    </InspectTabBase>
 </Defs>

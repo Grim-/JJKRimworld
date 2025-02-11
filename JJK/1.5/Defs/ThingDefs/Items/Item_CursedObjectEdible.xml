@@ -4,7 +4,7 @@
     <label>cursed object piece</label>
     <description>A piece of a cursed object. Consuming it may grant supernatural abilities, but at great risk.</description>
     <graphicData>
-      <texPath>Playfulcloud</texPath>
+      <texPath>Things/CursedFinger</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <statBases>

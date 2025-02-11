@@ -113,6 +113,7 @@
     <Compile Include="Comps\Abilities\Megumi\ShikigamiData.cs" />
     <Compile Include="Comps\World\DomainManagerComp.cs" />
     <Compile Include="Comps\World\SummonPair.cs" />
+    <Compile Include="Comps\World\WorldComponent_DraftableCreatures.cs" />
     <Compile Include="Custom Damage Workers\CompProperties_GameOfLife.cs" />
     <Compile Include="CustomShaderTypeDef.cs" />
     <Compile Include="Patches\Patch_CursedEnergyReinforcement.cs" />

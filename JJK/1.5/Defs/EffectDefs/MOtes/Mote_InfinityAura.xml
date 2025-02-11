@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <ThingDef ParentName="MoteBase">
+  <AnimatedMotes.AnimationDef ParentName="AuraTestBase">
     <defName>JJK_InfinityAuraMote</defName>
-    <thingClass>MoteAttached</thingClass>
-    <graphicData>
-      <texPath>RCTAura/RCTAura_0</texPath>
-      <graphicClass>Graphic_Mote</graphicClass>
-      <shaderType>Transparent</shaderType>
+    <graphicData Class="AnimatedMotes.GraphicDataAnimation">
+      <texPath>VFX/PurpleAura</texPath>
+      <drawSize>1</drawSize>
+      <color>(1, 1, 1, 0.2)</color>
     </graphicData>
     <altitudeLayer>Projectile</altitudeLayer>
     <mote>
       <fadeInTime>0.08</fadeInTime>
-      <solidTime>1</solidTime>
+      <solidTime>4</solidTime>
       <fadeOutTime>0.1</fadeOutTime>
-      <growthRate>0.3</growthRate>
+      <growthRate>0</growthRate>
     </mote>
-  </ThingDef>
+    <fpsRate>1</fpsRate>
+    <maxLoopCount>9999</maxLoopCount>
+  </AnimatedMotes.AnimationDef>
 </Defs>

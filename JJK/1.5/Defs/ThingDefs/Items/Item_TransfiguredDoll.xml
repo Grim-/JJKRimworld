@@ -12,9 +12,9 @@
   <soundInteract>Metal_Drop</soundInteract>
   <soundDrop>Standard_Drop</soundDrop>
   <stackLimit>1</stackLimit>
+  <possessionCount>10</possessionCount>
   <healthAffectsPrice>false</healthAffectsPrice>
   <drawGUIOverlay>True</drawGUIOverlay>
-  <possessionCount>10</possessionCount>
   <statBases>
     <MaxHitPoints>70</MaxHitPoints>
     <MarketValue>32</MarketValue>

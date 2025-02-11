@@ -19,8 +19,9 @@
   <comps>
     <li Class="JJK.CompProperties_AbilityJumper">
     </li>
-    <li Class="JJK.CompProperties_AbilityCECost">
+    <li Class="JJK.CompProperties_UseCE">
       <cursedEnergyCost>20</cursedEnergyCost>
+      <burnoutStrain>0</burnoutStrain>
     </li>
   </comps>
 </AbilityDef>

@@ -3,7 +3,7 @@ using Verse;
 
 namespace JJK
 {
-    public class CompProperties_BaseShikigami : CompProperties_CursedAbilityProps
+    public class CompProperties_BaseShikigami : CompProperties_AbilityEffect
     {
         public float SummonCost = 20f;
         public EffecterDef SummonEffecter;
@@ -15,7 +15,7 @@ namespace JJK
         }
     }
 
-    public class CompBaseShikigamiSummon : BaseCursedEnergyAbility
+    public class CompBaseShikigamiSummon : CompAbilityEffect
     {
         protected Gene_CursedEnergy CursedEnergy => parent.pawn.GetCursedEnergy();
         public new CompProperties_BaseShikigami Props => (CompProperties_BaseShikigami)props;
@@ -75,7 +75,7 @@ namespace JJK
             }
         }
 
-        public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
+        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
         {
             if (HasActive())
             {

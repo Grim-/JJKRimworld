@@ -31,7 +31,7 @@
   <ThingDef ParentName="MoteBase">
     <defName>Mote_PowerBeamEnd</defName>
     <graphicData>
-      <texPath>spiral_29</texPath>
+      <texPath>VFX/spiral_29</texPath>
       <graphicClass>Graphic_Mote</graphicClass>
       <shaderType>MoteGlow</shaderType>
       <drawSize>1</drawSize>

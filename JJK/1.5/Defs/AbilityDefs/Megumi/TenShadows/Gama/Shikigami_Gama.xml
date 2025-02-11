@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.ShikigamiDef>
+    <defName>Shikigami_Gama</defName>
+    <summonAbility>JJK_SummonGama</summonAbility>
+    <shikigami>JJK_Gama</shikigami>
+    <shikigamiAbilities>
+    </shikigamiAbilities>
+  </JJK.ShikigamiDef>
+</Defs>

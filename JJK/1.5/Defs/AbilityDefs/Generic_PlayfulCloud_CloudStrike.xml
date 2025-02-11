@@ -4,7 +4,7 @@
       <defName>JJK_CloudStrike</defName>
       <label>Cloud Strike</label>
       <description>Instantly teleport to a target and perform a melee attack.</description>
-      <iconPath>UI/Abilities/TeleportStrike</iconPath>
+      <iconPath>UI/Icons/Gene_FireArrow</iconPath>
       <hotKey>Misc4</hotKey>
       <cooldownTicksRange>6000</cooldownTicksRange>
       <targetRequired>True</targetRequired>

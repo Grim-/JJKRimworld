@@ -12,6 +12,8 @@
           <TicksBetweenApplication>60</TicksBetweenApplication>
           <AreaRadius>10</AreaRadius>
           <TreeDef>Plant_TreePine</TreeDef>
+          <WallDef>Wall</WallDef>
+          <FloorDef>WoodPlankFloor</FloorDef>
           <RandomHediffs>
             <li>GutWorms</li>
             <li>MuscleParasites</li>

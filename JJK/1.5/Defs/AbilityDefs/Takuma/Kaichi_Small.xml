@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_KaichiSmall</defName>
+    <label>Kaichi: Swift Strike</label>
+    <description>Summon a small horn projectile that seeks its target. Low damage but quick cooldown.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>
+    </cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>201</displayOrder>
+    <targetRequired>true</targetRequired>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>20</range>
+      <warmupTime>0.5</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>true</canTargetBuildings>
+        <canTargetMechs>true</canTargetMechs>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityLaunchScalingProjectile">
+        <projectileDef>JJK_KaichiProjectileSmall</projectileDef>
+        <damageFactor>JJK_CursedEnergyDamageBonus</damageFactor>
+      </li>
+      <li Class="JJK.CompProperties_AbilityCECost">
+            <cursedEnergyCost>15</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

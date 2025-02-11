@@ -226,8 +226,6 @@ namespace JJK
 
 	}
 
-
-
 	public static class Patch_Pawn_Thinker_ThinkTrees
 	{
 		[HarmonyPatch(typeof(Pawn_Thinker), "MainThinkTree", MethodType.Getter)]
@@ -257,26 +255,38 @@ namespace JJK
 		private static bool HandleThinkTreePatch(Pawn_Thinker __instance, ref ThinkTreeDef __result, bool isConstant)
 		{
 			Pawn pawn = __instance.pawn;
-			if (pawn == null || ThinkTreeMap == null) return true;
 
+			if (pawn == null) 
+				return true;
+
+	
 			if (!isConstant)
 			{
-				foreach (var item in ThinkTreeMap)
-				{
-					if (pawn == null || item.Key == null || item.Value == null)
-					{
-						continue;
-					}
+				PawnExtension_ThinkTreeOverride thinkTreeOverride = pawn.kindDef.GetModExtension<PawnExtension_ThinkTreeOverride>();
 
-					if (pawn.health.hediffSet.GetFirstHediffOfDef(item.Key) != null)
+                if (thinkTreeOverride != null && thinkTreeOverride.thinkTree != null)
+                {
+					__result = thinkTreeOverride.thinkTree;
+					return false;
+				}
+				else
+                {
+					foreach (var item in ThinkTreeMap)
 					{
-						//Log.Message($"overring {pawn.Label} ThinkTree with {item.Value.defName}");
-						__result = item.Value;
-						return false;
+						if (pawn == null || item.Key == null || item.Value == null)
+						{
+							continue;
+						}
+
+						if (pawn.health.hediffSet.GetFirstHediffOfDef(item.Key) != null)
+						{
+							__result = item.Value;
+							return false;
+						}
 					}
 				}
-			}
 
+			}
 
 			return true;
 		}

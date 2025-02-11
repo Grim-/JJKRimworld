@@ -22,9 +22,9 @@
       </targetParams>
     </verbProperties>
     <comps>
-      <li Class="JJK.CompProperties_CursedAbilityLaunchProjectile">
+      <li Class="JJK.CompProperties_AbilityLaunchScalingProjectile">
         <projectileDef>JJK_DismantleProjectile</projectileDef>
-        <cursedEnergyCost>40</cursedEnergyCost>
+        <damageFactor>JJK_CursedEnergyDamageBonus</damageFactor>
       </li>
     </comps>
   </AbilityDef>

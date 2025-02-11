@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef>
+  <defName>JJK_ReikiActive</defName>
+  <label>Reiki: Cursed Water</label>
+  <description>Covered in cursed water, providing protection and increased mobility.</description>
+  <defaultLabelColor>(0.2, 0.4, 0.8)</defaultLabelColor>
+  <isBad>false</isBad>
+  <stages>
+    <li>
+      <label>Active</label>
+      <capMods>
+        <li>
+          <capacity>Moving</capacity>
+          <offset>0.35</offset>
+        </li>
+      </capMods>
+      <statOffsets>
+        <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+        <ArmorRating_Sharp>0.5</ArmorRating_Sharp>
+        <ArmorRating_Heat>0.4</ArmorRating_Heat>
+      </statOffsets>
+    </li>
+  </stages>
+</HediffDef>
+</Defs>

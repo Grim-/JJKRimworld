@@ -7,51 +7,29 @@ namespace JJK
 {
     public static class DraftingUtility
     {
-        private static HashSet<Pawn> draftableCreatures = new HashSet<Pawn>();
+        public static WorldComponent_DraftableCreatures GetDraftableComponent()
+        {
+            return Current.Game.World.GetComponent<WorldComponent_DraftableCreatures>();
+        }
 
         public static void RegisterDraftableCreature(Pawn pawn)
         {
-            if (pawn != null)
-            {
-                if (draftableCreatures.Contains(pawn))
-                {
-                    draftableCreatures.Remove(pawn);
-                }
-
-                draftableCreatures.Add(pawn);
-                EnsureDraftComponents(pawn);
-            }
+            GetDraftableComponent().RegisterDraftableCreature(pawn);
         }
 
         public static void UnregisterDraftableCreature(Pawn pawn)
         {
-            if (pawn != null)
-            {
-                draftableCreatures.Remove(pawn);
-            }
+            GetDraftableComponent().UnregisterDraftableCreature(pawn);
         }
 
         public static bool IsDraftableCreature(Pawn pawn)
         {
-            return pawn != null && draftableCreatures.Contains(pawn);
+            return GetDraftableComponent().IsDraftableCreature(pawn);
         }
-
-        public static void EnsureDraftComponents(Pawn pawn)
-        {
-            if (pawn.drafter == null)
-            {
-                pawn.drafter = new Pawn_DraftController(pawn);
-            }
-            if (pawn.equipment == null)
-            {
-                pawn.equipment = new Pawn_EquipmentTracker(pawn);
-            }
-        }
-
 
         public static void MakeDraftable(this Pawn pawn)
         {
-            DraftingUtility.RegisterDraftableCreature(pawn);
+            RegisterDraftableCreature(pawn);
         }
     }
 
