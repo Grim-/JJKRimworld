@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "TenShadows/Nue.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Nue"
+              "title": "README"
             }
           }
         ]
@@ -165,17 +165,17 @@
   },
   "active": "5e19f28d8d50ebe2",
   "lastOpenFiles": [
+    "TenShadows/DivineDogs.md",
+    "TenShadows/FleeingHares.md",
+    "TenShadows/Nue.md",
     "README.md",
-    "TenShadows/Divine Dogs.md",
     "TenShadows/max-elephant.md",
     "Welcome.md",
     "shadows/divine-dogs.md",
     "shadows",
     "Untitled",
-    "TenShadows/Fleeing Hares.md",
-    "TenShadows/Max Elephant.md",
+    "TenShadows/MaxElephant.md",
     "TenShadows/Gama.md",
-    "TenShadows/Nue.md",
     "TenShadows"
   ]
 }

@@ -4,11 +4,11 @@
 The Ten Shadows Technique (十種影法術) is an Inherited Technique of the Zen'in Family. This repository contains detailed documentation for each of the shadows, their abilities, and tactical applications.
 
 ## Quick Navigation
-- [Divine Dogs](TenShadows/Divine Dogs.md) - Twin pursuit and combat specialists
+- [Divine Dogs](TenShadows/DivineDogs.md) - Twin pursuit and combat specialists
 - [Nue](TenShadows/Nue.md) - Aerial combat and lightning generation
 - [Toad](TenShadows/Gama.md) - Utility, storage, and support
-- [Fleeing Hares](TenShadows/Fleeing Hares.md) - Multiple summon diversion tactics
-- [Max Elephant](TenShadows/Max Elephant.md) - Heavy combat and area control
+- [Fleeing Hares](TenShadows/FleeingHares.md) - Multiple summon diversion tactics
+- [Max Elephant](TenShadows/MaxElephant.md) - Heavy combat and area control
 
 ## Repository Structure
 ```
