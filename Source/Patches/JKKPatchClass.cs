@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -17,6 +18,38 @@ namespace JJK
 		{
 			var harmony = new Harmony("com.jjk.jjkpatches");
 			harmony.PatchAll();
+		}
+	}
+
+
+
+
+	[HarmonyPatch(typeof(FloatMenuMakerMap))]
+	[HarmonyPatch("ChoicesAtFor")]
+	public static class Patch_FloatMenuMakerMap_ChoicesAtFor
+	{
+		public static void Postfix(Vector3 clickPos, Pawn pawn, bool suppressAutoTakeableGoto, ref List<FloatMenuOption> __result)
+		{
+			if (pawn == null || pawn.Map == null) return;
+
+			// Skip if it's already been handled by vanilla logic (i.e., is humanlike)
+			if (pawn.RaceProps.Humanlike || pawn.Drafted) return;
+
+			// Get the cell that was clicked
+			IntVec3 intVec = IntVec3.FromVector3(clickPos);
+
+			// Basic validation
+			if (!intVec.InBounds(pawn.Map)) return;
+
+			// Check if the pawn has our toad component
+			var toadComp = pawn.GetComp<Comp_TenShadowsToad>();
+			if (toadComp == null) return;
+
+			// Add the toad's float menu options
+			foreach (FloatMenuOption option in toadComp.CompFloatMenuOptions(pawn))
+			{
+				__result.Add(option);
+			}
 		}
 	}
 
@@ -148,7 +181,7 @@ namespace JJK
 	{
 		public static bool Prefix(Pawn ___pawn, ref bool __result)
 		{
-			if (___pawn.IsShikigami() || ___pawn.kindDef.HasModExtension<PawnExtension_NoFleeing>())
+			if (___pawn.Faction == Faction.OfPlayer && ___pawn.IsShikigami() || ___pawn.Faction == Faction.OfPlayer && ___pawn.kindDef.HasModExtension<PawnExtension_NoFleeing>())
 			{
 				__result = false;
 				return false;
@@ -171,7 +204,7 @@ namespace JJK
 	{
 		public static bool Prefix(Pawn pawn, ref Job __result)
 		{
-			if (pawn.IsShikigami() || pawn.kindDef.HasModExtension<PawnExtension_NoFleeing>())
+			if (pawn.Faction == Faction.OfPlayer && pawn.IsShikigami() || pawn.Faction == Faction.OfPlayer && pawn.kindDef.HasModExtension<PawnExtension_NoFleeing>())
 			{
 				__result = null;
 				return false;
@@ -249,7 +282,7 @@ namespace JJK
 		{
 			Pawn pawn = __instance.pawn;
 
-			if (pawn == null) 
+			if (pawn == null || pawn.Faction != Faction.OfPlayer) 
 				return true;
 
 	
@@ -259,6 +292,11 @@ namespace JJK
 
                 if (thinkTreeOverride != null && thinkTreeOverride.thinkTree != null)
                 {
+                    if (pawn.TryGetComp(out Comp_TenShadowsSummon shadowsSummon) && shadowsSummon.Master == null)
+                    {
+						return true;
+                    }
+
 					__result = thinkTreeOverride.thinkTree;
 					return false;
 				}

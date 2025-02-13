@@ -1,4 +1,7 @@
-﻿using Verse;
+﻿using RimWorld;
+using RimWorld.Planet;
+using System.Collections.Generic;
+using Verse;
 using Verse.AI;
 
 namespace JJK
@@ -18,9 +21,9 @@ namespace JJK
         {
             base.Notify_Killed(prevMap, dinfo);
 
-            if (TenShadowsUser != null)
+            if (_TenShadowsUser != null)
             {
-                TenShadowsUser.ShouldSummonTotalityDivineDog = true;
+                _TenShadowsUser.ShouldSummonTotalityDivineDog = true;
             }
         }
 
@@ -37,6 +40,9 @@ namespace JJK
             }
         }
     }
+
+
+
 }
 
 

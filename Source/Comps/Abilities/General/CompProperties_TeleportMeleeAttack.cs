@@ -30,7 +30,7 @@ namespace JJK
             }
         }
 
-        private void Flyer_OnRespawnPawn(Pawn arg1, PawnFlyer arg2)
+        private void Flyer_OnRespawnPawn(Pawn arg1, PawnFlyer arg2, Map map)
         {
             DelegateFlyer flyer = (DelegateFlyer)arg2;
             flyer.OnRespawnPawn -= Flyer_OnRespawnPawn;

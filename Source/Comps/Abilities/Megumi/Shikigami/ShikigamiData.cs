@@ -14,8 +14,8 @@ namespace JJK
 
 
         // Active pawns currently summoned on map
-        private List<Pawn> activePawns = new List<Pawn>();
-        public List<Pawn> PawnInstances => activePawns;
+        private List<Pawn> activeShadows = new List<Pawn>();
+        public List<Pawn> ActiveShadows => activeShadows;
 
         public bool IsPermanentlyDead = false;
         public int deathCooldownStartTick = -1;
@@ -24,7 +24,7 @@ namespace JJK
         public ShikigamiData()
         {
             storedPawnsByKind = new Dictionary<PawnKindDef, Pawn>();
-            activePawns = new List<Pawn>();
+            activeShadows = new List<Pawn>();
             IsPermanentlyDead = false;
         }
 
@@ -38,8 +38,6 @@ namespace JJK
             if (pawn == null || pawn.Destroyed) 
                 return;
 
-            Pawn pawnRef;
-
             if (storedPawnsByKind.ContainsKey(pawn.kindDef))
             {
                 storedPawnsByKind[pawn.kindDef] = pawn;
@@ -47,6 +45,10 @@ namespace JJK
             else
             {
                 storedPawnsByKind.Add(pawn.kindDef, pawn);
+            }
+            if (pawn.TryGetComp(out Comp_TenShadowsSummon shadowsSummon))
+            {
+                shadowsSummon.OnUnSummon();
             }
 
             if (!Find.WorldPawns.Contains(pawn))
@@ -56,19 +58,34 @@ namespace JJK
                     pawn.DeSpawn();
                 }
 
-                Find.WorldPawns.PassToWorld(pawn);
+                Find.WorldPawns.PassToWorld(pawn, RimWorld.Planet.PawnDiscardDecideMode.KeepForever);
             }
-            activePawns.Remove(pawn);
+            activeShadows.Remove(pawn);
+        }
+
+        public void AddActivePawn(Pawn Pawn)
+        {
+            if (!ActiveShadows.Contains(Pawn))
+            {
+                ActiveShadows.Add(Pawn);
+            }
         }
 
         public void StoreActivePawns()
         {
-            foreach (var item in activePawns.ToList())
+            foreach (var item in activeShadows.ToList())
             {
+                if (item.Destroyed)
+                {
+                    continue;
+                }
+
                 StorePawn(item);
             }
 
+            activeShadows.Clear();
         }
+
         public bool HasStoredPawnOfKind(PawnKindDef kindDef)
         {
             return storedPawnsByKind.ContainsKey(kindDef) && storedPawnsByKind[kindDef] != null;
@@ -82,9 +99,9 @@ namespace JJK
                 if (pawn != null && !pawn.Destroyed)
                 {
                     storedPawnsByKind.Remove(def);
-                    if (!activePawns.Contains(pawn))
+                    if (!activeShadows.Contains(pawn))
                     {
-                        activePawns.Add(pawn);
+                        activeShadows.Add(pawn);
                     }
                     return pawn;
                 }
@@ -128,7 +145,7 @@ namespace JJK
                 }
             }
 
-            Scribe_Collections.Look(ref activePawns, "activePawns", LookMode.Reference);
+            Scribe_Collections.Look(ref activeShadows, "activePawns", LookMode.Reference);
             Scribe_Values.Look(ref IsPermanentlyDead, "isPermanentlyDead", false);
             Scribe_Values.Look(ref deathCooldownStartTick, "deathCooldownStartTick", -1);
         }

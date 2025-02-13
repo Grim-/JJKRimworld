@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using RimWorld.Planet;
 using Verse;
 
 namespace JJK
@@ -22,6 +23,42 @@ namespace JJK
 
         protected TenShadowGene TenShadowUser => parent.pawn.GetTenShadowsUser();
         protected bool ShouldDisableGizmo = false;
+
+        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            if (HasActive())
+            {
+                DestroyActive();
+                // Set back to requiring a target after unsummoning
+                //this.parent.verb.verbProps.targetable = true;
+                //this.parent.verb.verbProps.nonInterruptingSelfCast = false ;
+            }
+            else
+            {
+                Map map = parent.pawn.Map;
+                if (CursedEnergy.HasCursedEnergy(Props.SummonCost))
+                {
+                    CursedEnergy.ConsumeCursedEnergy(Props.SummonCost);
+
+                    if (target.Pawn != null)
+                    {
+                        OnPawnTarget(target.Pawn, map);
+                    }
+                    else
+                    {
+                        OnLocationTarget(target.Cell, map);
+                    }
+
+                    // After summoning, disable targeting requirement
+                    //this.parent.verb.verbProps.targetable = false;
+                    //this.parent.verb.verbProps.nonInterruptingSelfCast = true;
+                }
+                else
+                {
+                    Messages.Message("Not enough cursed energy to summon.", MessageTypeDefOf.NegativeEvent, false);
+                }
+            }
+        }
 
         public virtual void OnPawnTarget(Pawn Pawn, Map Map)
         {
@@ -75,44 +112,23 @@ namespace JJK
             }
         }
 
-        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
-        {
-            if (HasActive())
-            {
-                DestroyActive();
-            }
-            else
-            {
-                Map map = parent.pawn.Map;
+        //public override bool Valid(LocalTargetInfo target, bool throwMessages = false)
+        //{
+        //    if (HasActive())
+        //    {
+        //        return true;
+        //    }
+        //    return base.Valid(target, throwMessages);
+        //}
 
-                if (CursedEnergy.HasCursedEnergy(Props.SummonCost))
-                {
-                    CursedEnergy.ConsumeCursedEnergy(Props.SummonCost);
-
-                    if (target.Pawn != null)
-                    {
-                        OnPawnTarget(target.Pawn, map);
-                    }
-                    else
-                    {
-                        OnLocationTarget(target.Cell, map);
-                    }
-                }
-                else
-                {
-                    Messages.Message("Not enough cursed energy to summon.", MessageTypeDefOf.NegativeEvent, false);
-                }
-            }
-        }
-
-        public override bool Valid(LocalTargetInfo target, bool throwMessages = false)
-        {
-            return HasActive() || base.Valid(target, throwMessages);
-        }
-        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
-        {
-            return HasActive() || base.CanApplyOn(target, dest);
-        }
+        //public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        //{
+        //    if (HasActive())
+        //    {
+        //        return true;
+        //    }
+        //    return base.CanApplyOn(target, dest);
+        //}
 
         public virtual bool HasActive()
         {

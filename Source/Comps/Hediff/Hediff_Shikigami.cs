@@ -3,7 +3,7 @@ using Verse;
 
 namespace JJK
 {
-    public class Hediff_Shikigami : HediffWithComps
+    public class Hediff_Shikigami : HediffWithComps, IHaveAMaster
     {
         private Pawn referencedPawn;
         public Pawn Master => referencedPawn;
@@ -16,12 +16,6 @@ namespace JJK
             DraftingUtility.MakeDraftable(pawn);
 
         }
-
-        public override void PostMake()
-        {
-            base.PostMake();
-        }
-
 
         public override void PostTick()
         {

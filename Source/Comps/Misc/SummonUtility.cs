@@ -14,6 +14,17 @@ namespace JJK
 
             return null;
         }
+
+
+        public static Pawn GetTenShadowsMaster(this Pawn pawn)
+        {
+            if (pawn.TryGetComp(out Comp_TenShadowsSummon shadowsSummon))
+            {
+                return shadowsSummon.Master;
+            }
+
+            return null;
+        }
     }
 }
 

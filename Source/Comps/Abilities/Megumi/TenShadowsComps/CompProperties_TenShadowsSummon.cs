@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 using Verse.AI;
 
 namespace JJK
@@ -14,76 +15,111 @@ namespace JJK
         }
     }
 
-    public class Comp_TenShadowsSummon : ThingComp
+    public class Comp_TenShadowsSummon : ThingComp, IHaveAMaster
     {
         public Pawn Master;
-        protected TenShadowGene TenShadowsUser;
+        protected TenShadowGene _TenShadowsUser;
+        public TenShadowGene TenShadowsUser
+        {
+            get
+            {
+                if (_TenShadowsUser == null)
+                {
+                    _TenShadowsUser = Master.GetTenShadowsUser();
+                }
+
+                return _TenShadowsUser;
+            }
+        }
         public new CompProperties_TenShadowsSummon Props => (CompProperties_TenShadowsSummon)props;
 
         public ShikigamiDef ShikigamiDef;
 
+        private ShikigamiData _ShikigamiData;
+        public ShikigamiData ShikigamiData
+        {
+            get => _ShikigamiData;
+        }
+
         public Pawn ParentPawn => this.parent as Pawn;
 
-        private int currentMaintainTick = 0;
+        Pawn IHaveAMaster.Master => Master;
 
-        public void SetMaster(Pawn NewMaster, ShikigamiDef ShikigamiDef)
+
+        public IntVec3 LastPosition;
+
+        public override void PostSpawnSetup(bool respawningAfterLoad)
         {
-            Master = NewMaster;
-            TenShadowsUser = Master.GetTenShadowsUser();
+            base.PostSpawnSetup(respawningAfterLoad);
+            DraftingUtility.MakeDraftable(ParentPawn);
+        }
+
+
+        public void SetMaster(Pawn NewMaster, ShikigamiDef ShikigamiDef, ShikigamiData shikigamiData)
+        {
+            SetMaster(NewMaster);
+            SetData(shikigamiData);
             this.ShikigamiDef = ShikigamiDef;
         }
 
-        //public override void CompTick()
-        //{
-        //    base.CompTick();
+        public void SetMaster(Pawn NewMaster)
+        {
+            Master = NewMaster;
+            if (this.parent.Faction != Master.Faction)
+            {
+                this.parent.SetFaction(Master.Faction);
+            }
+        }
 
-        //    if (Master != null && TenShadowsUser != null && this.ShikigamiDef != null)
-        //    {
-        //        currentMaintainTick++;
 
-        //        if (currentMaintainTick >= Props.maintainTicks)
-        //        {
-        //            Gene_CursedEnergy cursedEnergy = TenShadowsUser.pawn.GetCursedEnergy();
-        //            if (cursedEnergy != null)
-        //            {
-        //                if (!cursedEnergy.HasCursedEnergy(Props.cursedEnergyMaintainCost))
-        //                {
-        //                    //unsummon
-        //                    TenShadowsUser.UnsummonShikigami(this.ShikigamiDef);
-        //                }
-        //                else
-        //                {
-        //                    cursedEnergy.ConsumeCursedEnergy(Props.cursedEnergyMaintainCost);
-        //                }
-        //            }
 
-        //            currentMaintainTick = 0;
-        //        }
-        //    }
-        //}
+        public void SetData(ShikigamiData shikigamiData)
+        {
+            this._ShikigamiData = shikigamiData;
+        }
+
+        public override void CompTick()
+        {
+            base.CompTick();
+            LastPosition = this.parent.Position;
+        }
+
 
         public override void Notify_Killed(Map prevMap, DamageInfo? dinfo = null)
         {
-            if (TenShadowsUser != null)
-            {
-                TenShadowsUser.OnShikigamiDeath(ParentPawn);
-            }
-
+            OnBeforeDeath(prevMap, dinfo);
             base.Notify_Killed(prevMap, dinfo);
+            OnAfterDeath(prevMap, dinfo);
+        }
+
+
+        public virtual void OnBeforeDeath(Map prevMap, DamageInfo? dinfo = null)
+        {
+            if (_TenShadowsUser != null)
+            {
+                _TenShadowsUser.OnShikigamiDeath(ParentPawn);
+            }
+        }
+        public virtual void OnAfterDeath(Map prevMap, DamageInfo? dinfo = null)
+        {
+
         }
 
         public virtual void OnSummon()
         {
             GrantAbilities();
         }
-
+        public virtual void OnUnSummon()
+        {
+      
+        }
         public virtual void GrantAbilities()
         {
             if (this.ParentPawn != null)
             {
                 if (this.ParentPawn.abilities == null)
                 {
-                    this.ParentPawn.abilities = new RimWorld.Pawn_AbilityTracker(this.ParentPawn);
+                    this.ParentPawn.abilities = new Pawn_AbilityTracker(this.ParentPawn);
                 }
 
                 foreach (var item in ShikigamiDef.shikigamiAbilities)
@@ -112,10 +148,10 @@ namespace JJK
             base.PostExposeData();
             Scribe_References.Look(ref Master, "master");
             Scribe_Defs.Look(ref ShikigamiDef, "shikigamiDef");
-            Scribe_Values.Look(ref currentMaintainTick, "currentMaintainTick");
+            Scribe_Deep.Look(ref _ShikigamiData, "shikigamiData");
         }
-    }
 
+    }
 }
 
 

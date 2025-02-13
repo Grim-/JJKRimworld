@@ -88,26 +88,9 @@ namespace JJK
         {
             base.Apply(target, dest);
             ApplyAbility(target, dest);
-            PostApply(target, dest);
         }
 
         public abstract void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest);
-
-        public virtual void PostApply(LocalTargetInfo target, LocalTargetInfo dest)
-        {
-            ApplyAbilityCost(parent.pawn);
-            ApplyCursedTechniqueStrain(parent.pawn);
-        }
-
-        public virtual void ApplyAbilityCost(Pawn Pawn)
-        {
-            CursedEnergy?.ConsumeCursedEnergy(CastCost);
-        }
-        protected virtual void ApplyCursedTechniqueStrain(Pawn pawn)
-        {
-            Hediff strain = pawn.health.GetOrAddHediff(JJKDefOf.JJK_CursedTechniqueStrain);
-            strain.Severity += Props.burnoutStrain;
-        }
     }
 
 

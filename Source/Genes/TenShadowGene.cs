@@ -1,6 +1,7 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace JJK
@@ -21,10 +22,38 @@ namespace JJK
         private TenShadowsGeneDef Def => (TenShadowsGeneDef)def;
 
         private Dictionary<ShikigamiDef, ShikigamiMergeTracker> mergedShikigami = new Dictionary<ShikigamiDef, ShikigamiMergeTracker>();
+
+
         private List<ShikigamiDef> earnedShadows = new List<ShikigamiDef>();
-        private Dictionary<ShikigamiDef, ShikigamiData> Shikigami = new Dictionary<ShikigamiDef, ShikigamiData>();
+        public List<ShikigamiDef> EarnedShadows => earnedShadows;
+
+
+        private Dictionary<ShikigamiDef, ShikigamiData> shikigami = new Dictionary<ShikigamiDef, ShikigamiData>();
+        public Dictionary<ShikigamiDef, ShikigamiData> Shikigami => shikigami;
+
         public bool ShouldSummonTotalityDivineDog = false;
         private Pawn ParentPawn => pawn;
+
+
+        public Gene_CursedEnergy _CursedEnergy;
+        public Gene_CursedEnergy CursedEnergy
+        {
+            get
+            {
+                if (_CursedEnergy == null)
+                {
+                    _CursedEnergy = ParentPawn.GetCursedEnergy();
+                }
+
+                return _CursedEnergy;
+            }
+        }
+
+
+        public FormationUtils.FormationType FormationType = FormationUtils.FormationType.Column;
+        public float FormationRadius = 3f;
+        public bool IsFollowMode = true;
+
 
 
         public override void PostAdd()
@@ -56,21 +85,43 @@ namespace JJK
 
         protected virtual void DoShadowsRegenTick()
         {
-            foreach (var item in Shikigami.Values)
+            if (CursedEnergy == null)
             {
-                foreach (var storedPawn in item.StoredPawns)
+                return;
+            }
+
+
+            Log.Message("Ticking Ten Shadow Regen");
+            foreach (var item in shikigami)
+            {
+                ShikigamiDef currentDef = item.Key;
+                foreach (var storedPawn in item.Value.StoredPawns)
                 {
-                    if (PawnHealingUtility.HealHealthProblem(storedPawn))
-                    {
-                        //deduct some CE to regen damaged shadows
+                    float regenCost = GetShadowRegenCost(currentDef, storedPawn);
+                    if (PawnHealingUtility.HealHealthProblem(storedPawn) && CursedEnergy.HasCursedEnergy(regenCost))
+                    {                
+                        ParentPawn.GetCursedEnergy()?.ConsumeCursedEnergy(regenCost);
                     }
                 }
             }
         }
 
-        private float GetShadowRegenCost(Pawn ShadowPawn)
+        public void SetFormationType(FormationUtils.FormationType formationType)
         {
-            return 1f;
+            this.FormationType = formationType;
+        }
+
+        private float GetShadowRegenCost(ShikigamiDef kindDef, Pawn shadowPawn)
+        {
+            if (kindDef == null || shadowPawn == null)
+                return 0f;
+
+            float baseCost = kindDef.maintainCost * 0.5f;
+
+            float modifiedCost = baseCost * kindDef.regenCostModifier;
+            float healthPercentage = shadowPawn.health.summaryHealth.SummaryHealthPercent;
+            float severityMultiplier = 1f + (1f - healthPercentage);
+            return modifiedCost * severityMultiplier;
         }
 
         public bool CanSummonShikigamiKind(ShikigamiDef KindDef)
@@ -121,7 +172,7 @@ namespace JJK
 
         public bool IsShikigamiPermanentlyDead(ShikigamiDef KindDef)
         {
-            return HasShikigamiKind(KindDef) && Shikigami[KindDef].IsPermanentlyDead;
+            return HasShikigamiKind(KindDef) && shikigami[KindDef].IsPermanentlyDead;
         }
 
         public void StartShikigamiCooldown(ShikigamiDef ShikigamiDef)
@@ -131,14 +182,14 @@ namespace JJK
 
         public bool HasShikigamiKind(ShikigamiDef KindDef)
         {
-            return Shikigami.ContainsKey(KindDef);
+            return shikigami.ContainsKey(KindDef);
         }
 
         public ShikigamiData GetShikigamiData(ShikigamiDef KindDef)
         {
             if (HasShikigamiKind(KindDef))
             {
-                return Shikigami[KindDef];
+                return shikigami[KindDef];
             }
 
             return null;
@@ -147,7 +198,7 @@ namespace JJK
         private ShikigamiData AddNewShikigamiData(ShikigamiDef KindDef)
         {
             ShikigamiData shikigamiData = new ShikigamiData(KindDef);
-            Shikigami.Add(KindDef, shikigamiData);
+            shikigami.Add(KindDef, shikigamiData);
             return shikigamiData;
         }
         public Pawn GetOrGenerateShikigami(ShikigamiDef KindDef, PawnKindDef pawnKind, IntVec3 Position, Map Map, bool alwaysGenerateNew = false)
@@ -156,15 +207,15 @@ namespace JJK
 
             Pawn newPawn = null;
 
-            if (!alwaysGenerateNew && HasShikigamiKind(KindDef) && Shikigami[KindDef].HasStoredPawnOfKind(pawnKind))
+            if (!alwaysGenerateNew && HasShikigamiKind(KindDef) && shikigami[KindDef].HasStoredPawnOfKind(pawnKind))
             {
-                newPawn = Shikigami[KindDef].GetStoredPawnOfKind(pawnKind);
+                newPawn = shikigami[KindDef].GetStoredPawnOfKind(pawnKind);
             }
             else
             {
-                var shikigamiData = HasShikigamiKind(KindDef) ? Shikigami[KindDef] : AddNewShikigamiData(KindDef);
+                var shikigamiData = HasShikigamiKind(KindDef) ? shikigami[KindDef] : AddNewShikigamiData(KindDef);
                 newPawn = GenerateNewShikigami(KindDef, pawnKind, this.pawn, Map, Position);
-                shikigamiData.PawnInstances.Add(newPawn);
+                shikigamiData.ActiveShadows.Add(newPawn);
             }
 
             SetupSummon(KindDef, this.pawn, newPawn);
@@ -205,11 +256,16 @@ namespace JJK
                 shikigamiHediff.SetMaster(Master);
             }
 
-
-            Comp_TenShadowsSummon shadowsSummon = Summon.GetComp<Comp_TenShadowsSummon>();
-            if (shadowsSummon != null)
+            ShikigamiData shikigamiData = GetShikigamiData(KindDef);
+            if (shikigamiData != null)
             {
-                shadowsSummon.SetMaster(Master, KindDef);
+                shikigamiData.AddActivePawn(Summon);
+            }
+
+
+            if (Summon.TryGetComp(out Comp_TenShadowsSummon shadowsSummon))
+            {
+                shadowsSummon.SetMaster(Master, KindDef, shikigamiData);
                 shadowsSummon.OnSummon();
             }
 
@@ -220,17 +276,8 @@ namespace JJK
 
             DraftingUtility.MakeDraftable(Summon);
             JJKUtility.TrainPawn(Summon, Master);
-
-            ShikigamiData shikigamiData = GetShikigamiData(KindDef);
-
-            if (shikigamiData != null)
-            {
-                if (!shikigamiData.PawnInstances.Contains(Summon))
-                {
-                    shikigamiData.PawnInstances.Add(Summon);
-                }        
-            }
         }
+
         public void MergeShikigami(ShikigamiDef KindDef, ShikigamiDef MergeIntoKindDef)
         {
             if (KindDef.mergeEffect?.workerClass == null)
@@ -267,8 +314,83 @@ namespace JJK
                         UnlockALLShadows();
                     }
                 };
-
             }
+
+            // Formation Type Selection
+            yield return new Command_Action
+            {
+                defaultLabel = $"Formation: {FormationType}",
+                defaultDesc = "Change the formation type for your shadows",
+                icon = TexCommand.HoldOpen,
+                action = () =>
+                {
+                    List<FloatMenuOption> options = new List<FloatMenuOption>();
+                    foreach (FormationUtils.FormationType type in Enum.GetValues(typeof(FormationUtils.FormationType)))
+                    {
+                        options.Add(new FloatMenuOption(type.ToString(), () =>
+                        {
+                            SetFormationType(type);
+                        }));
+                    }
+                    Find.WindowStack.Add(new FloatMenu(options));
+                }
+            };
+
+            // Formation Radius Adjustment
+            yield return new Command_Action
+            {
+                defaultLabel = $"Radius: {FormationRadius:F1}",
+                defaultDesc = "Adjust the formation radius",
+                icon = TexCommand.GatherSpotActive,
+                action = () =>
+                {
+                    List<FloatMenuOption> options = new List<FloatMenuOption>();
+                    float[] radiusOptions = { 1f, 2f, 3f, 4f, 5f, 6f };
+                    foreach (float radius in radiusOptions)
+                    {
+                        options.Add(new FloatMenuOption($"{radius:F1}", () =>
+                        {
+                            FormationRadius = radius;
+                        }));
+                    }
+                    Find.WindowStack.Add(new FloatMenu(options));
+                }
+            };
+
+            // Follow Toggle
+            yield return new Command_Toggle
+            {
+                defaultLabel = "Follow Mode",
+                defaultDesc = "Toggle whether shadows follow in formation",
+                icon = TexCommand.ForbidOn,
+                isActive = () => IsFollowMode,
+                toggleAction = () =>
+                {
+                    IsFollowMode = !IsFollowMode;
+                    if (IsFollowMode)
+                    {
+                        Messages.Message($"{pawn.Label}'s shadows will now follow in formation.", MessageTypeDefOf.NeutralEvent);
+                    }
+                    else
+                    {
+                        Messages.Message($"{pawn.Label}'s shadows will hold position.", MessageTypeDefOf.NeutralEvent);
+                    }
+                }
+            };
+        }
+
+        public List<Pawn> GetAllActiveShadows()
+        {
+            var List = new List<Pawn>();
+
+            foreach (var shikigami in shikigami.Values)
+            {
+                foreach (var item in shikigami.ActiveShadows)
+                {
+                    List.Add(item);
+                }
+            }
+            return List;
         }
 
         public void UnsummonShikigami(ShikigamiDef KindDef)
@@ -279,14 +401,17 @@ namespace JJK
 
             ShikigamiData shikigamiData = GetShikigamiData(KindDef);
 
-            shikigamiData.StoreActivePawns();
+            if (shikigamiData != null)
+            {
+                shikigamiData.StoreActivePawns();
+            }
         }
 
         public List<Pawn> GetActiveSummonsOfKind(ShikigamiDef KindDef)
         {
             if (HasShikigamiKind(KindDef))
             {
-                return Shikigami[KindDef].PawnInstances;
+                return shikigami[KindDef].ActiveShadows;
             }
             else
             {
@@ -303,7 +428,12 @@ namespace JJK
             {
                 if (HasShikigamiKind(shadowsSummon.ShikigamiDef))
                 {
-                    Shikigami[shadowsSummon.ShikigamiDef].PawnInstances.Remove(Pawn);
+                    ShikigamiData shikigamiData = GetShikigamiData(shadowsSummon.ShikigamiDef);
+
+                    if (shikigamiData != null)
+                    {
+                        shikigamiData.ActiveShadows.Remove(Pawn);
+                    }           
                 }
             }
         }
@@ -311,7 +441,7 @@ namespace JJK
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Collections.Look(ref Shikigami, "shikigami", LookMode.Def, LookMode.Deep);
+            Scribe_Collections.Look(ref shikigami, "shikigami", LookMode.Def, LookMode.Deep);
             Scribe_Collections.Look(ref mergedShikigami, "mergedShikigami", LookMode.Def, LookMode.Deep);
             Scribe_Collections.Look(ref earnedShadows, "earnedShadows", LookMode.Def);
             Scribe_Values.Look(ref ShouldSummonTotalityDivineDog, "shouldSummonTotalityDivineDog", false);

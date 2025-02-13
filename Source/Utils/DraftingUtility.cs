@@ -7,24 +7,38 @@ namespace JJK
 {
     public static class DraftingUtility
     {
-        public static WorldComponent_DraftableCreatures GetDraftableComponent()
+        public static WorldComponent_DraftableCreatures DraftManager
         {
-            return Current.Game.World.GetComponent<WorldComponent_DraftableCreatures>();
+            get
+            {
+                return Current.Game.World.GetComponent<WorldComponent_DraftableCreatures>();
+            }
         }
 
         public static void RegisterDraftableCreature(Pawn pawn)
         {
-            GetDraftableComponent().RegisterDraftableCreature(pawn);
+            if (DraftManager != null)
+            {
+                DraftManager.RegisterDraftableCreature(pawn);
+            }
         }
 
         public static void UnregisterDraftableCreature(Pawn pawn)
         {
-            GetDraftableComponent().UnregisterDraftableCreature(pawn);
+            if (DraftManager != null)
+            {
+                DraftManager.UnregisterDraftableCreature(pawn);
+            }
         }
 
         public static bool IsDraftableCreature(Pawn pawn)
         {
-            return GetDraftableComponent().IsDraftableCreature(pawn);
+            if (DraftManager != null)
+            {
+                return DraftManager.IsDraftableCreature(pawn);
+            }
+
+            return false;
         }
 
         public static void MakeDraftable(this Pawn pawn)

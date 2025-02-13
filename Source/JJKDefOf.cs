@@ -53,6 +53,9 @@ namespace JJK
         public static ThingDef JJK_CursedObjectPiece;
         public static ThingDef JJK_SealedCursedSpiritOrb;
 
+        public static ThingDef JJK_GenericFlyer;
+
+        public static EffecterDef JJK_WaterSpray;
 
         public static MentalStateDef TransfiguredState_Murderous;
 
@@ -61,7 +64,7 @@ namespace JJK
         public static AbilityDef JJK_CastLightningStrike;
         public static AbilityDef JJK_RiikaPartialManifest;
         public static AbilityDef JJK_RiikaFullManifest;
-
+        public static AbilityDef JJK_MaxElephant_Deluge;
 
         public static ThinkTreeDef JJK_EmptyConstantThinkTree;
         public static ThinkTreeDef JJK_SummonedCreature;
@@ -74,6 +77,8 @@ namespace JJK
         public static JobDef JJK_CursedSpeechLure;
         public static JobDef JJK_DemondogAttackAndVanish;
         public static JobDef JJK_ChannelDomain;
+        public static JobDef JJK_FormationFollow;
+        public static JobDef JJK_Gama_CarryPawnJob;
 
 
         public static HediffDef JJK_SplitSoul;
@@ -130,6 +135,7 @@ namespace JJK
         public static AbilityCategoryDef Cursed_Energy;
 
         public static ShikigamiDef Shikigami_DivineDogs;
+        public static ShikigamiDef Shikigami_FleeingHares;
     }
 }
     

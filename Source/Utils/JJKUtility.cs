@@ -219,13 +219,6 @@ namespace JJK
             }
         }
 
-
-        public static int TicksInSeconds(int Seconds)
-        {
-            return 60 * Seconds;
-        }
-
-
         public static Pawn SpawnShikigami(PawnKindDef pawnKindDef, Pawn Master, Map Map, IntVec3 Position)
         {
             if (pawnKindDef == null || Map == null)
@@ -234,11 +227,6 @@ namespace JJK
             }
 
             Pawn shikigami = PawnGenerator.GeneratePawn(pawnKindDef, Master.Faction);
-
-            if (shikigami.Dead)
-            {
-                shikigami.health.Reset();
-            }
 
             if (shikigami.abilities == null)
             {

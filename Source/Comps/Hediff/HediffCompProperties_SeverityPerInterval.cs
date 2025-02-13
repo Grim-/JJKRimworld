@@ -5,7 +5,7 @@ namespace JJK
     public class HediffCompProperties_SeverityPerInterval : HediffCompProperties
     {
         public float severityChange = 0.01f;
-        public int tickInterval = 2500; // About 41.66 seconds
+        public int tickInterval = 2500;
 
         public HediffCompProperties_SeverityPerInterval()
         {

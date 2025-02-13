@@ -60,6 +60,21 @@ namespace JJK
         private float RCTSpeedAmount => parent.pawn.GetStatValue(JJKDefOf.JJK_RCTSpeed, true, 100);
         private float RCTHealAmount => parent.pawn.GetStatValue(JJKDefOf.JJK_RCTHealingBonus, true, 100);
 
+
+        public override string ExtraTooltipPart()
+        {
+            string baseTooltip = base.ExtraTooltipPart();
+            float estimatedCost = EstimateTotalHealingCost();
+
+            if (string.IsNullOrEmpty(baseTooltip))
+            {
+                return $"Estimated CE cost to heal all conditions: {estimatedCost:F1}";
+            }
+
+            return baseTooltip + $"\nEstimated CE cost to heal all conditions: {estimatedCost:F1}";
+        }
+
+
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
             //do nothing the toggleable ability handles it, in order to udpate gizmo.
@@ -77,6 +92,48 @@ namespace JJK
 
 
             HandleMaintenanceCostTick();
+        }
+        private float EstimateTotalHealingCost()
+        {
+            if (Target == null) return 0f;
+
+            float totalCost = 0f;
+
+            // Estimate cost for missing parts
+            List<Hediff_MissingPart> missingParts = PawnHealingUtility.GetMissingPartsPrioritized(Target);
+            if (missingParts != null)
+            {
+                foreach (var part in missingParts)
+                {
+                    totalCost += GetCursedEnergyCost(part.Severity);
+                }
+            }
+
+            // Estimate cost for injuries
+            List<Hediff> injuries = PawnHealingUtility.GetMostSevereHealthProblems(Target);
+            if (injuries != null)
+            {
+                foreach (var injury in injuries)
+                {
+                    totalCost += GetCursedEnergyCost(injury.Severity);
+                }
+            }
+
+            // Estimate cost for blood loss
+            Hediff bloodLoss = Target.health.hediffSet.GetFirstHediffOfDef(HediffDefOf.BloodLoss);
+            if (bloodLoss != null)
+            {
+                totalCost += GetCursedEnergyCost(bloodLoss.Severity);
+            }
+
+            // Estimate cost for burnout
+            Hediff cursedTechniqueBurnout = Target.health.hediffSet.GetFirstHediffOfDef(JJKDefOf.JJK_CursedTechniqueBurnout);
+            if (cursedTechniqueBurnout != null)
+            {
+                totalCost += GetCursedEnergyCost(cursedTechniqueBurnout.Severity);
+            }
+
+            return totalCost;
         }
 
         private void HandleMaintenanceCostTick()
@@ -234,81 +291,6 @@ namespace JJK
         {
             return 20 * Mathf.Min(1, severity);
         }
-
-
-        //private void HealPawnHealthIssues(Pawn targetPawn, List<Hediff_MissingPart> MissingParts)
-        //{
-        //    Hediff currentIssue = null;
-   
-
-        //    if (MissingParts != null && MissingParts.Count > 0)
-        //    {
-        //        currentIssue = PawnHealingUtility.GetMostPrioritizedMissingPart(targetPawn);
-        //        healAmount = GetHealValue(Props.PartHealCoefficient);
-        //    }
-        //    else
-        //    {
-        //        currentIssue = PawnHealingUtility.GetMostSevereHealthProblem(targetPawn);
-        //        healAmount = GetHealValue(Props.HediffHealCoefficient);
-        //    }
-
-        //    while (currentIssue != null && healAmount > 0)
-        //    {
-        //        float partMaxHP = 1f;
-        //        if (currentIssue.Part != null && currentIssue.Part.def != null)
-        //        {
-        //            partMaxHP = currentIssue.Part.def.GetMaxHealth(targetPawn);
-        //        }
-
-        //        float costPerHealPoint;
-        //        if (MissingParts != null && MissingParts.Count > 0)
-        //        {
-        //            costPerHealPoint = (Props.CEPartRegenCost * partMaxHP * Props.PartHealCoefficient) / currentIssue.Severity;
-        //        }
-        //        else
-        //        {
-        //            costPerHealPoint = Props.CEHediffCost;
-        //        }
-
-        //        float maxPossibleHeal = Math.Min(healAmount, currentIssue.Severity);
-        //        float availableCursedEnergy = CursedEnergy.Value;
-        //        float actualHeal = Math.Min(maxPossibleHeal, availableCursedEnergy / costPerHealPoint);
-
-        //        if (actualHeal > 0)
-        //        {
-        //            float actualCost = actualHeal * costPerHealPoint;
-
-        //           //LogHealingAttempt(currentIssue, partMaxHP, actualHeal, actualCost, regenerateMissingParts);
-
-        //            currentIssue.Severity -= actualHeal;
-        //            healAmount -= actualHeal;
-        //            CursedEnergy.ConsumeCursedEnergy(actualCost);
-
-        //            if (currentIssue.Severity <= 0)
-        //            {
-        //                if (MissingParts != null && MissingParts.Count > 0)
-        //                {
-        //                    MoteMaker.ThrowText(targetPawn.DrawPos, targetPawn.Map, "Regenerated : " + currentIssue.Label, Color.green, 4f);
-        //                }
-        //                else
-        //                {
-        //                    MoteMaker.ThrowText(targetPawn.DrawPos, targetPawn.Map, "Healed : " + currentIssue.Label, Color.green, 4f);
-        //                }
-        //                HealthUtility.Cure(currentIssue);
-
-        //                if (MissingParts != null && MissingParts.Count > 0)
-        //                {
-        //                    currentIssue = PawnHealingUtility.GetMostPrioritizedMissingPartFromList(targetPawn, MissingParts);
-        //                }
-        //                else
-        //                {
-        //                    currentIssue = PawnHealingUtility.GetMostSevereHealthProblem(targetPawn);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
         private void LogHealingAttempt(Hediff issue, float partMaxHP, float healAmount, float cost, bool isRegeneration)
         {
             string issueType = isRegeneration ? "part" : "health issue";
@@ -328,12 +310,6 @@ namespace JJK
         public override void Activate()
         {
             base.Activate();
-
-            //if (Props.AuraEffecter != null && AuraEffecter == null)
-            //{
-            //    AuraEffecter = Props.AuraEffecter.SpawnAttached(Target, Target.MapHeld);
-
-            //}
 
             if (!JJKUtility.HasRCTActive(parent.pawn))
             {

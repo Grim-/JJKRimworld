@@ -18,11 +18,11 @@ namespace JJK
         {
             if (pawn != null)
             {
-                if (draftableCreatures.Contains(pawn))
+                if (!draftableCreatures.Contains(pawn))
                 {
-                    draftableCreatures.Remove(pawn);
-                }
-                draftableCreatures.Add(pawn);
+                    draftableCreatures.Add(pawn);
+                }       
+
                 EnsureDraftComponents(pawn);
             }
         }
@@ -37,7 +37,11 @@ namespace JJK
 
         public bool IsDraftableCreature(Pawn pawn)
         {
-            return pawn != null && draftableCreatures.Contains(pawn);
+            if (pawn == null)
+            {
+                return false;
+            }
+            return draftableCreatures.Contains(pawn);
         }
 
         private void EnsureDraftComponents(Pawn pawn)

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 using Verse.AI;
@@ -8,6 +9,7 @@ namespace JJK
     public class JobGiver_SummonedCreatureFollowMaster : JobGiver_AIFollowMaster
     {
         protected Pawn Master = null;
+        protected TenShadowGene TenShadows => Master.genes.GetFirstGeneOfType<TenShadowGene>();
 
         protected override Pawn GetFollowee(Pawn pawn)
         {
@@ -26,8 +28,6 @@ namespace JJK
 
         protected override Job TryGiveJob(Pawn pawn)
         {
-           // Log.Message($"TryGiveJob called for {pawn.LabelShort}");
-
             Pawn followee = GetFollowee(pawn);
             if (followee == null)
             {
@@ -47,31 +47,17 @@ namespace JJK
                 return null;
             }
 
-            //Log.Message($"creating follow close job.");
             Job job = JobMaker.MakeJob(JobDefOf.FollowClose, followee);
             job.expiryInterval = 200;
             job.followRadius = GetRadius(pawn);
-            //pawn.mindState.canFleeIndividual = false;
             job.SetTarget(TargetIndex.A, GetFollowee(pawn));
-
-
             job.reportStringOverride = "Following Summoner";
-            //Log.Message($"Created follow job for {pawn.LabelShort} to follow {followee.LabelShort}");
+
+
             return job;
         }
     }
 
-    public class JobDriver_FormationFollow : JobDriver_FollowClose
-    {
-
-        private Vector3 CalculateFormationPosition(Vector3 leaderPos)
-        {
-            // Implement your formation logic here
-            // This is a simple example that places pawns in a line behind the leader
-            int index = pawn.thingIDNumber % 5; // Assuming 5 pawns per row
-            return leaderPos + new Vector3(index - 2, 0, -index / 5);
-        }
-    }
 }
 
     

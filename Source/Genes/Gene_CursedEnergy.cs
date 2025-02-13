@@ -178,6 +178,19 @@ namespace JJK
             {
                 yield return resourceDrainGizmo;
             }
+
+            if (Prefs.DevMode)
+            {
+                yield return new Command_Action()
+                {
+                    defaultLabel = "DEV: Restore all CE",
+                    action = () =>
+                    {
+                        RestoreCursedEnergy(Max);
+                    }
+                };
+
+            }
         }
 
         public override void ExposeData()
