@@ -30,10 +30,12 @@ namespace JJK
 	{
 		public static void Postfix(Vector3 clickPos, Pawn pawn, bool suppressAutoTakeableGoto, ref List<FloatMenuOption> __result)
 		{
-			if (pawn == null || pawn.Map == null) return;
+			if (pawn == null || pawn.Map == null)
+				return;
 
 			// Skip if it's already been handled by vanilla logic (i.e., is humanlike)
-			if (pawn.RaceProps.Humanlike || pawn.Drafted) return;
+			if (pawn.RaceProps.Humanlike || pawn.Drafted) 
+				return;
 
 			// Get the cell that was clicked
 			IntVec3 intVec = IntVec3.FromVector3(clickPos);
@@ -43,7 +45,13 @@ namespace JJK
 
 			// Check if the pawn has our toad component
 			var toadComp = pawn.GetComp<Comp_TenShadowsToad>();
-			if (toadComp == null) return;
+			if (toadComp == null) 
+				return;
+
+            if (__result == null)
+            {
+				__result = new List<FloatMenuOption>();
+            }
 
 			// Add the toad's float menu options
 			foreach (FloatMenuOption option in toadComp.CompFloatMenuOptions(pawn))
