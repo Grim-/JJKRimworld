@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKTodo</defName>
+    <label>Cursed Technique : Boogie Woogie</label>
+    <description>A very simple cursed technique allowing you to switch places with an object imbued with cursed energy.</description>
+    <iconPath>Abilities/Gojo/HollowPurple</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
+  </GeneDef>
+</Defs>

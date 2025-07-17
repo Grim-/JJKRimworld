@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef>
+  <defName>JJK_DivergentFist</defName>
+  <label>divergent fist</label>
+  <description>Reinforce your melee attacks with cursed energy</description>
+  <hediffClass>HediffWithComps</hediffClass>
+  <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+  <initialSeverity>1</initialSeverity>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>false</isBad>
+  <stages>
+    <li>
+      <statOffsets>
+        <MeleeDamageFactor>1.5</MeleeDamageFactor>
+        <MeleeHitChance>1</MeleeHitChance>
+      </statOffsets>
+      <blocksMentalBreaks>false</blocksMentalBreaks>
+    </li>
+  </stages>
+</HediffDef>
+</Defs>

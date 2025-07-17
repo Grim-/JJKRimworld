@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="BaseMeleeWeapon_Sharp_Quality">
+  <defName>JJK_SplitSoulKatana</defName>
+  <label>Split Soul Katana</label>
+  <description>The ancient weapon of kings, the longsword can be used for slashing or stabbing.</description>
+  <possessionCount>1</possessionCount>
+  <graphicData>
+    <texPath>Things/SplitSoulKatana</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <drawSize>1.4</drawSize>
+  </graphicData>
+  <techLevel>Medieval</techLevel>
+  <recipeMaker>
+    <researchPrerequisite>LongBlades</researchPrerequisite>
+    <recipeUsers>
+      <li>FabricationBench</li>
+    </recipeUsers>
+    <skillRequirements>
+      <Crafting>10</Crafting>
+    </skillRequirements>
+</recipeMaker>
+  <costList>
+    <Steel>100</Steel>
+    <Plasteel>50</Plasteel>
+    <ComponentSpacer>2</ComponentSpacer>
+  </costList>
+  <weaponTags>
+    <li>MedievalMeleeAdvanced</li>
+    <li>LongSword</li>
+  </weaponTags>
+  <costStuffCount>100</costStuffCount>
+  <thingSetMakerTags><li>RewardStandardQualitySuper</li></thingSetMakerTags>
+  <statBases>
+    <WorkToMake>18000</WorkToMake>
+    <Mass>2</Mass>
+  </statBases>
+  <relicChance>2</relicChance>
+  <equippedAngleOffset>-65</equippedAngleOffset>
+  <stuffCategories>
+  </stuffCategories>
+  <tools>
+    <li>
+      <label>handle</label>
+      <capacities>
+        <li>Blunt</li>
+      </capacities>
+      <power>15</power>
+      <cooldownTime>2</cooldownTime>
+    </li>
+    <li>
+      <label>point</label>
+      <capacities>
+        <li>Stab</li>
+      </capacities>
+      <power>40</power>
+      <cooldownTime>2.6</cooldownTime>
+    </li>
+    <li>
+      <label>edge</label>
+      <capacities>
+        <li>Cut</li>
+      </capacities>
+      <power>50</power>
+      <cooldownTime>2.6</cooldownTime>
+    </li>
+  </tools>
+  <comps>
+    <li Class="JJK.CompProperties_EquipCompApplyHediffOnHit">
+      <ApplyToSelf>false</ApplyToSelf>
+      <ApplyOnTarget>true</ApplyOnTarget>
+      <ApplyChance>0.25</ApplyChance>
+      <hediffToApply>JJK_SplitSoul</hediffToApply>
+    </li>
+  </comps>
+</ThingDef>
+</Defs>

@@ -12,7 +12,8 @@ namespace JJK
         public override void AppendDrawRequests(PawnRenderNode node, PawnDrawParms parms, List<PawnGraphicDrawRequest> requests)
         {
             PawnOverlayNode overlayNode = node as PawnOverlayNode;
-            if (overlayNode == null || overlayNode.Graphic == null) return;
+            if (overlayNode == null || overlayNode.PrimaryGraphic == null) 
+                return;
 
             Mesh mesh = node.GetMesh(parms);
             if (mesh == null) return;

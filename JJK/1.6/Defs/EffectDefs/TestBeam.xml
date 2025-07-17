@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="MoteBase">
+    <defName>JJK_BeamMote</defName>
+    <thingClass>JJK.MoteBeam</thingClass>
+    <graphicData>
+      <texPath>Animations/beamglow2</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>MoteGlowDistorted</shaderType>
+      <shaderParameters>
+        <_Color>(0.141, 0 ,0.984, 0.2)</_Color>
+        <_Interval>0.04</_Interval>
+        <_DistortionTex>/Other/Ripples</_DistortionTex>
+        <_distortionIntensity>0.05</_distortionIntensity>
+        <_DistortionScale>0.4</_DistortionScale>
+      </shaderParameters>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.2</fadeInTime>
+      <solidTime>9999</solidTime>
+      <fadeOutTime>0.4</fadeOutTime>
+    </mote>
+  </ThingDef>
+
+  <EffecterDef>
+    <defName>JJK_RedBeamStart</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <chancePerTick>1</chancePerTick>
+        <ticksBetweenMotes>6</ticksBetweenMotes>
+        <moteDef>JJK_AuraMote</moteDef>
+        <spawnLocType>OnTarget</spawnLocType>
+        <burstCount>1</burstCount>
+        <positionRadius>0</positionRadius>
+        <positionRadiusMin>0</positionRadiusMin>
+        <maxMoteCount>1</maxMoteCount>
+        <scale>1~1</scale>
+        <rotation>0~0</rotation>
+        <rotationRate>0~0</rotationRate>
+        <angle>0~0</angle>
+        <speed>0</speed>
+        <positionOffset>(0, 0, 0)</positionOffset>
+        <color>(0.141, 0 ,0.984, 0.2)</color>
+        <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+        <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+        <attachToSpawnThing>true</attachToSpawnThing>
+      </li>
+    </children>
+  </EffecterDef>
+
+  <EffecterDef>
+    <defName>JJK_RedBeamMid</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <chancePerTick>1</chancePerTick>
+        <ticksBetweenMotes>6</ticksBetweenMotes>
+        <moteDef>JJK_BeamMote</moteDef>
+        <spawnLocType>OnTarget</spawnLocType>
+        <burstCount>1</burstCount>
+        <positionRadius>0</positionRadius>
+        <positionRadiusMin>0</positionRadiusMin>
+        <maxMoteCount>1</maxMoteCount>
+        <scale>1~1</scale>
+        <rotation>0~0</rotation>
+        <rotationRate>0~0</rotationRate>
+        <angle>0~0</angle>
+        <speed>0</speed>
+        <positionOffset>(0, 0, 0)</positionOffset>
+        <color>(0.141, 0 ,0.984, 0.2)</color>
+        <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+        <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+        <attachToSpawnThing>true</attachToSpawnThing>
+      </li>
+    </children>
+  </EffecterDef>
+
+  <EffecterDef>
+    <defName>JJK_RedBeamEnd</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+        <chancePerTick>1</chancePerTick>
+        <ticksBetweenMotes>6</ticksBetweenMotes>
+        <moteDef>JJK_AuraMote</moteDef>
+        <spawnLocType>OnTarget</spawnLocType>
+        <burstCount>1</burstCount>
+        <positionRadius>0</positionRadius>
+        <positionRadiusMin>0</positionRadiusMin>
+        <maxMoteCount>1</maxMoteCount>
+        <scale>1~1</scale>
+        <rotation>0~0</rotation>
+        <rotationRate>0~0</rotationRate>
+        <angle>0~0</angle>
+        <speed>0</speed>
+        <positionOffset>(0, 0, 0)</positionOffset>
+        <color>(0.141, 0 ,0.984, 0.2)</color>
+        <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+        <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+        <attachToSpawnThing>true</attachToSpawnThing>
+      </li>
+    </children>
+  </EffecterDef>
+
+</Defs>

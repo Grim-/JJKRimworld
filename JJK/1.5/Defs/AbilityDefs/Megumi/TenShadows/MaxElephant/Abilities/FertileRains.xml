@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <AbilityDef>
+      <defName>JJK_MaxElephant_WaterArea</defName>
+      <label>Fertile Rains</label>
+      <description>Increase the fertility of all tiles in the radius</description>
+      <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+      <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+      <category>Cursed_Innate</category>
+      <verbProperties>
+        <verbClass>Verb_CastAbility</verbClass>
+        <drawAimPie>true</drawAimPie>
+        <range>12</range>
+        <warmupTime>0.25</warmupTime>
+        <targetParams>
+          <canTargetLocations>true</canTargetLocations>
+        </targetParams>
+      </verbProperties>
+      <comps>
+        <li Class="JJK.CompProperties_ChangeFertilityInArea">
+          <radius>3</radius>
+          <statIncrease>0.2</statIncrease>
+        </li>
+        <li Class="JJK.CompProperties_UseMasterCE">
+          <cursedEnergyCost>40</cursedEnergyCost>
+          <burnoutStrain>0</burnoutStrain>
+        </li>
+      </comps>
+    </AbilityDef>
+</Defs>

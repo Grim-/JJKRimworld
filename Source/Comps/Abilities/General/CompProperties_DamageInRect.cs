@@ -12,6 +12,7 @@ namespace JJK
         public DamageDef damageType;
         public int damageAmount = 10;
         public bool useMouseAsOrigin = false;
+        public bool damageFriendly = true;
 
         public CompProperties_DamageInRect()
         {
@@ -52,7 +53,7 @@ namespace JJK
         {
             foreach (Thing thing in targets)
             {
-                if (thing != caster && !thing.Destroyed)
+                if (thing != caster && !thing.Destroyed && (Props.damageFriendly && !thing.Faction.HostileTo(caster.Faction)))
                 {
                     ApplyDamageToTarget(caster, thing);
                 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <AbilityDef>
+      <defName>JJK_Gama_PullTarget</defName>
+      <label>Tongue Pull</label>
+      <description>Pull a target pawn to your location.</description>
+      <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+      <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+      <category>Cursed_Innate</category>
+      <verbProperties>
+        <verbClass>Verb_CastAbility</verbClass>
+        <drawAimPie>false</drawAimPie>
+        <range>15</range>
+        <warmupTime>0.15</warmupTime>
+        <targetParams>
+          <canTargetPawns>true</canTargetPawns>
+        </targetParams>
+      </verbProperties>
+      <comps>
+        <li Class="JJK.CompProperties_AbilityPullTarget">
+        </li>
+        <li Class="JJK.CompProperties_UseMasterCE">
+          <cursedEnergyCost>10</cursedEnergyCost>
+          <burnoutStrain>0</burnoutStrain>
+        </li>
+      </comps>
+    </AbilityDef>
+</Defs>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.AbilityDef_Toggleable>
+    <defName>JJK_CursedEnergyReinforcement</defName>
+    <label>Cursed Energy Reinforcement</label>
+    <description>Toggle to consume cursed energy in reinforce your offensive and defensive capabilities.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <aiCanUse>true</aiCanUse>
+    <warmupEffecter>WaterMist</warmupEffecter>
+    <emittedFleck>ShockwaveFast</emittedFleck>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <stunTargetWhileCasting>false</stunTargetWhileCasting>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>0</range>
+      <warmupTime>0</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetable>False</targetable>
+      <nonInterruptingSelfCast>true</nonInterruptingSelfCast>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_ToggleHediff">
+        <hediffDefs>
+          <li>JJK_CursedReinforcementHediff</li>
+          <li>JJK_BlackFlash</li>
+        </hediffDefs>
+        <cursedEnergyCostPerTick>10</cursedEnergyCostPerTick>
+        <Ticks>1250</Ticks>
+      </li>
+    </comps>
+  </JJK.AbilityDef_Toggleable>
+</Defs>

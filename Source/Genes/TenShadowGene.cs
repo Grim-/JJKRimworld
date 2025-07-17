@@ -316,67 +316,67 @@ namespace JJK
                 };
             }
 
-            // Formation Type Selection
-            yield return new Command_Action
-            {
-                defaultLabel = $"Formation: {FormationType}",
-                defaultDesc = "Change the formation type for your shadows",
-                icon = TexCommand.HoldOpen,
-                action = () =>
-                {
-                    List<FloatMenuOption> options = new List<FloatMenuOption>();
-                    foreach (FormationUtils.FormationType type in Enum.GetValues(typeof(FormationUtils.FormationType)))
-                    {
-                        options.Add(new FloatMenuOption(type.ToString(), () =>
-                        {
-                            SetFormationType(type);
-                        }));
-                    }
-                    Find.WindowStack.Add(new FloatMenu(options));
-                }
-            };
+            //// Formation Type Selection
+            //yield return new Command_Action
+            //{
+            //    defaultLabel = $"Formation: {FormationType}",
+            //    defaultDesc = "Change the formation type for your shadows",
+            //    icon = TexCommand.HoldOpen,
+            //    action = () =>
+            //    {
+            //        List<FloatMenuOption> options = new List<FloatMenuOption>();
+            //        foreach (FormationUtils.FormationType type in Enum.GetValues(typeof(FormationUtils.FormationType)))
+            //        {
+            //            options.Add(new FloatMenuOption(type.ToString(), () =>
+            //            {
+            //                SetFormationType(type);
+            //            }));
+            //        }
+            //        Find.WindowStack.Add(new FloatMenu(options));
+            //    }
+            //};
 
-            // Formation Radius Adjustment
-            yield return new Command_Action
-            {
-                defaultLabel = $"Radius: {FormationRadius:F1}",
-                defaultDesc = "Adjust the formation radius",
-                icon = TexCommand.GatherSpotActive,
-                action = () =>
-                {
-                    List<FloatMenuOption> options = new List<FloatMenuOption>();
-                    float[] radiusOptions = { 1f, 2f, 3f, 4f, 5f, 6f };
-                    foreach (float radius in radiusOptions)
-                    {
-                        options.Add(new FloatMenuOption($"{radius:F1}", () =>
-                        {
-                            FormationRadius = radius;
-                        }));
-                    }
-                    Find.WindowStack.Add(new FloatMenu(options));
-                }
-            };
+            //// Formation Radius Adjustment
+            //yield return new Command_Action
+            //{
+            //    defaultLabel = $"Radius: {FormationRadius:F1}",
+            //    defaultDesc = "Adjust the formation radius",
+            //    icon = TexCommand.GatherSpotActive,
+            //    action = () =>
+            //    {
+            //        List<FloatMenuOption> options = new List<FloatMenuOption>();
+            //        float[] radiusOptions = { 1f, 2f, 3f, 4f, 5f, 6f };
+            //        foreach (float radius in radiusOptions)
+            //        {
+            //            options.Add(new FloatMenuOption($"{radius:F1}", () =>
+            //            {
+            //                FormationRadius = radius;
+            //            }));
+            //        }
+            //        Find.WindowStack.Add(new FloatMenu(options));
+            //    }
+            //};
 
-            // Follow Toggle
-            yield return new Command_Toggle
-            {
-                defaultLabel = "Follow Mode",
-                defaultDesc = "Toggle whether shadows follow in formation",
-                icon = TexCommand.ForbidOn,
-                isActive = () => IsFollowMode,
-                toggleAction = () =>
-                {
-                    IsFollowMode = !IsFollowMode;
-                    if (IsFollowMode)
-                    {
-                        Messages.Message($"{pawn.Label}'s shadows will now follow in formation.", MessageTypeDefOf.NeutralEvent);
-                    }
-                    else
-                    {
-                        Messages.Message($"{pawn.Label}'s shadows will hold position.", MessageTypeDefOf.NeutralEvent);
-                    }
-                }
-            };
+            //// Follow Toggle
+            //yield return new Command_Toggle
+            //{
+            //    defaultLabel = "Follow Mode",
+            //    defaultDesc = "Toggle whether shadows follow in formation",
+            //    icon = TexCommand.ForbidOn,
+            //    isActive = () => IsFollowMode,
+            //    toggleAction = () =>
+            //    {
+            //        IsFollowMode = !IsFollowMode;
+            //        if (IsFollowMode)
+            //        {
+            //            Messages.Message($"{pawn.Label}'s shadows will now follow in formation.", MessageTypeDefOf.NeutralEvent);
+            //        }
+            //        else
+            //        {
+            //            Messages.Message($"{pawn.Label}'s shadows will hold position.", MessageTypeDefOf.NeutralEvent);
+            //        }
+            //    }
+            //};
         }
 
         public List<Pawn> GetAllActiveShadows()

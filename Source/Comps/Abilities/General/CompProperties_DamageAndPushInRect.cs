@@ -64,10 +64,6 @@ namespace JJK
 
             if (destinationCell != targetPawn.Position)
             {
-                if (targetPawn.Map != null)
-                {
-                    EffecterDefOf.Fire_SpewShort.Spawn(targetPawn, targetPawn.Map, 3f);
-                }
                 targetPawn.Position = destinationCell;
                 targetPawn.Notify_Teleported();
             }

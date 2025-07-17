@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<JobDef>
+  <defName>JJK_Gama_CarryPawnJob</defName>
+  <driverClass>JJK.JobDriver_ToadCarryPawn</driverClass>
+  <reportString>carrying TargetA</reportString>
+  <neverFleeFromEnemies>true</neverFleeFromEnemies>
+</JobDef>
+</Defs>

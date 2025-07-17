@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>Sukuna_Dismantle</defName>
+    <label>Dismantle</label>
+    <description>A ranged slashing attack that is normally used for inanimate objects, however it can also be used against cursed spirits and sorcerers to great effectiveness.</description>
+    <iconPath>UI/Icons/Gene_Dismantle</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <aiCanUse>true</aiCanUse>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>20</range>
+      <warmupTime>0.5</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetParams>
+        <canTargetPawns>True</canTargetPawns>
+        <canTargetLocations>True</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityLaunchScalingProjectile">
+        <projectileDef>JJK_DismantleProjectile</projectileDef>
+        <damageFactor>JJK_CursedEnergyDamageBonus</damageFactor>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

@@ -52,7 +52,7 @@ namespace JJK
                     storedPawn.SetFaction(parent.pawn.Faction);
                 }
 
-                DollTransformationWorldComponent dollManager = Find.World.GetComponent<DollTransformationWorldComponent>();
+                DollTransformationWorldComp dollManager = Find.World.GetComponent<DollTransformationWorldComp>();
 
                 if (dollManager != null)
                 {

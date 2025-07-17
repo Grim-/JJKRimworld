@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_RectangleDamageAbility</defName>
+    <label>Rectangle Damage</label>
+    <description>Deals damage in a rectangular area in front of the caster.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <stunTargetWhileCasting>True</stunTargetWhileCasting>
+    <showPsycastEffects>False</showPsycastEffects>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <hotKey>Misc1</hotKey>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>False</drawAimPie>
+      <range>10</range>
+      <warmupTime>1</warmupTime>
+      <targetParams>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetLocations>true</canTargetLocations>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetAnimals>true</canTargetAnimals>
+        <canTargetMechs>true</canTargetMechs>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_DamageInRect">
+        <rectWidth>4</rectWidth>
+        <rectLength>15</rectLength>
+        <damageType>Cut</damageType>
+        <damageAmount>20</damageAmount>
+        <useMouseAsOrigin>false</useMouseAsOrigin>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

@@ -22,7 +22,7 @@ namespace JJK
         public new CompProperties_CursedSpeechCrush Props => (CompProperties_CursedSpeechCrush)props;
         public override void ApplyAbility(LocalTargetInfo target, LocalTargetInfo dest)
         {
-            if (target.Cell != null)
+            if (target.Cell.IsValid)
             {
                 IEnumerable<Pawn> targets = GetEnemyPawnsInRange(target.Cell, parent.pawn.Map, Props.radius);
 

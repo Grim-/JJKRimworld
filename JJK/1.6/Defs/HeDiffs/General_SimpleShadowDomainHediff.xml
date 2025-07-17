@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_SimpleShadowDomain</defName>
+    <label>Simple Shadow Domain protection</label>
+    <labelNoun>Simple Shadow Domain protection</labelNoun>
+    <description>You are currently channeling the New Shadow Style : Simple Domain making you immune to the sure hit effects of a domain.</description>
+  </HediffDef>
+</Defs>

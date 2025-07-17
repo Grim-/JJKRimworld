@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="ResourceBase">
+    <defName>JJK_AncientTabletHollowWicketBasket</defName>
+    <label>ancient tablet</label>
+    <description>An ancient tablet constantly dripping ichor ... grants hollow wicker basket.</description>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <soundInteract>Stone_Drop</soundInteract>
+    <soundDrop>Stone_Drop</soundDrop>
+    <statBases>
+      <MarketValue>2000</MarketValue>
+      <Mass>0.3</Mass>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>Items</li>
+    </thingCategories>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
+    <comps>
+      <li Class="CompProperties_Usable">
+        <useJob>UseItem</useJob>
+        <useLabel>Read the ancient tablet</useLabel>
+        <useDuration>600</useDuration>
+      </li>
+      <li Class="JJK.CompProperties_GrantAbilityOnUse">
+        <ability>JJK_HollowWickerBasketChannel</ability>
+      </li>
+      <li Class="CompProperties_UseEffectDestroySelf">
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

@@ -7,11 +7,16 @@ namespace JJK
 {
     public static class DraftingUtility
     {
-        public static WorldComponent_DraftableCreatures DraftManager
+        public static DraftableCreaturesWorldComp DraftManager
         {
             get
             {
-                return Current.Game.World.GetComponent<WorldComponent_DraftableCreatures>();
+                if (Current.Game != null && Current.Game.World != null)
+                {
+                    return Current.Game.World.GetComponent<DraftableCreaturesWorldComp>();
+                }
+
+                return null;
             }
         }
 

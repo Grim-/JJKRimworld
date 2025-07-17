@@ -17,7 +17,10 @@ namespace JJK
 
         private List<Pair<IGeneResourceDrain, float>> tmpDrainGenes = new List<Pair<IGeneResourceDrain, float>>();
 
-    public GeneGizmo_ResourceCursedEnergy(Gene_Resource gene, List<IGeneResourceDrain> drainGenes, Color barColor, Color barhighlightColor)
+        protected bool _IsDraggingBar = false;
+        protected override bool DraggingBar { get => _IsDraggingBar; set => _IsDraggingBar = value; }
+
+        public GeneGizmo_ResourceCursedEnergy(Gene_Resource gene, List<IGeneResourceDrain> drainGenes, Color barColor, Color barhighlightColor)
         : base(gene, drainGenes, barColor, barhighlightColor)
     {
     }

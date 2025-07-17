@@ -1,0 +1,47 @@
+<Defs>
+  <ThingDef ParentName="MealBase">
+    <defName>JJK_CursedObjectPiece</defName>
+    <label>cursed object piece</label>
+    <description>A piece of a cursed object. Consuming it may grant supernatural abilities, but at great risk.</description>
+    <graphicData>
+      <texPath>Things/CursedFinger</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>0.25</DeteriorationRate>
+      <MarketValue>24</MarketValue>
+      <Mass>0.3</Mass>
+      <WorkToMake>450</WorkToMake>
+      <Nutrition>0.9</Nutrition>
+    </statBases>
+    <thingCategories>
+      <li>Items</li>
+    </thingCategories>
+    <comps>
+      <li Class="JJK.CompProperties_CursedObjectPiece">
+        <TransformThreshold>5</TransformThreshold>
+      </li>
+    </comps>
+    <ingestible>
+      <foodType>Meal</foodType>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <defaultNumToIngestAtOnce>1</defaultNumToIngestAtOnce>
+      <optimalityOffsetHumanlikes>16</optimalityOffsetHumanlikes>
+      <preferability>NeverForNutrition</preferability>
+      <ingestEffect>EatMeat</ingestEffect>
+      <ingestSound>RawMeat_Eat</ingestSound>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <nurseable>false</nurseable>
+    </ingestible>
+    <alwaysHaulable>true</alwaysHaulable>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
+    <thingSetMakerTags>
+      <li>RewardSpecial</li>
+    </thingSetMakerTags>
+    <techLevel>Ultra</techLevel>
+    <stackLimit>5</stackLimit>
+  </ThingDef>
+
+</Defs>

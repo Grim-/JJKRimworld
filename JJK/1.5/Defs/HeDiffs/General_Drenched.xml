@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef>
+  <defName>JJK_Drench</defName>
+  <label>Drenched</label>
+  <description>Completely soaked this pawn takes more electrical damage and moves 20% slower.</description>
+  <hediffClass>HediffWithComps</hediffClass>
+  <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+  <initialSeverity>1</initialSeverity>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>true</isBad>
+  <duplicationAllowed>false</duplicationAllowed>
+  <stages>
+    <li>
+      <statFactors>
+        <MoveSpeed>0.8</MoveSpeed>
+      </statFactors>
+    </li>
+  </stages>
+</HediffDef>
+</Defs>

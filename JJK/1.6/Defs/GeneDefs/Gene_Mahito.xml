@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKMahito</defName>
+    <label>Cursed Technique : Idle Transfiguration</label>
+    <description>Touch a target to change the shape of it's soul, the body will follow.</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+  <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <abilities>
+      <li>JJK_IdleTransfigurationMakeDoll</li>
+      <li>JJK_IdleTransfigurationRevertDoll</li>
+      <li>JJK_IdleTransfigurationShapeSelf</li>
+      <li>JJK_IdleTransfiguration</li>
+    </abilities>
+    <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedTechniqueGeneExtension">
+      <priority>16</priority>
+    </li>
+  </modExtensions>
+  </GeneDef>
+</Defs>

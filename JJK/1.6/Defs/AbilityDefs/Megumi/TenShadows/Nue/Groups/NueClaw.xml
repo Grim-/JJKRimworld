@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<BodyPartDef>
+  <defName>JJK_NueClaw</defName>
+  <label>claw</label>
+  <hitPoints>25</hitPoints>
+  <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+  <skinCovered>false</skinCovered>
+  <solid>true</solid>
+  <bleedRate>0</bleedRate>
+  <tags>
+    <li>ManipulationLimbSegment</li>
+  </tags>
+</BodyPartDef>
+</Defs>

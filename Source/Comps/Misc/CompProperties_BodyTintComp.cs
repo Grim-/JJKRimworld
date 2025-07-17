@@ -30,14 +30,14 @@ namespace JJK
             }
         }
 
-        public override void PostDeSpawn(Map map)
+        public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
         {
+            base.PostDeSpawn(map, mode);
             if (parent is Pawn pawn)
             {
                 RestoreOriginalColor(pawn);
             }
 
-            base.PostDeSpawn(map);
         }
 
 

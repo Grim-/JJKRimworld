@@ -25,7 +25,8 @@ namespace JJK
 
             foreach (IntVec3 cell in GenRadial.RadialCellsAround(target.Cell, Props.radius, true))
             {
-                if (!cell.InBounds(map)) continue;
+                if (!cell.InBounds(map)) 
+                    continue;
 
                 TerrainDef terrain = cell.GetTerrain(map);
                 terrain.fertility += Props.statIncrease;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- MoteDef -->
+  <ThingDef ParentName="MoteBase">
+      <defName>Mote_PowerBeam</defName>
+      <thingClass>JJK.MoteBeam</thingClass>
+      <graphicData>
+        <texPath>VFX/ScorchMark</texPath>
+        <graphicClass>Graphic_Mote</graphicClass>
+        <shaderType>MoteGlow</shaderType>
+        <drawSize>1</drawSize>
+        <color>(215, 66, 245, 255)</color>
+        <shaderParameters>
+          <_DistortionTex>/Other/Ripples</_DistortionTex>
+          <_distortionIntensity>0.5</_distortionIntensity>
+          <_DistortionScale>0.6</_DistortionScale>
+          <_distortionScrollSpeed>(0.07, 2, 0.0)</_distortionScrollSpeed>
+        </shaderParameters>
+      </graphicData>
+      <altitudeLayer>Filth</altitudeLayer>
+      <mote>
+        <fadeInTime>0.1</fadeInTime>
+        <solidTime>999999</solidTime>
+        <fadeOutTime>0.1</fadeOutTime>
+        <growthRate>-4</growthRate>
+      </mote>
+    </ThingDef>
+</Defs>

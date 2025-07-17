@@ -112,23 +112,23 @@ namespace JJK
             }
         }
 
-        //public override bool Valid(LocalTargetInfo target, bool throwMessages = false)
-        //{
-        //    if (HasActive())
-        //    {
-        //        return true;
-        //    }
-        //    return base.Valid(target, throwMessages);
-        //}
+        public override bool Valid(LocalTargetInfo target, bool throwMessages = false)
+        {
+            if (HasActive())
+            {
+                return true;
+            }
+            return base.Valid(target, throwMessages);
+        }
 
-        //public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
-        //{
-        //    if (HasActive())
-        //    {
-        //        return true;
-        //    }
-        //    return base.CanApplyOn(target, dest);
-        //}
+        public override bool CanApplyOn(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            if (HasActive())
+            {
+                return true;
+            }
+            return base.CanApplyOn(target, dest);
+        }
 
         public virtual bool HasActive()
         {

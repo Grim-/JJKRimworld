@@ -135,10 +135,10 @@ namespace JJK
 					if (this.animated.CurInd >= this.subGraphics.Length - 1)
 					{
 						IAnimated animated2 = this.animated;
-						int num = animated2.CurLoopInd;
-						animated2.CurLoopInd = num + 1;
+						int num = animated2.CurrentLoopCount;
+						animated2.CurrentLoopCount = num + 1;
 						this.animated.OnCycle_Completion();
-						if (this.animated.AnimationDef.maxLoopCount > this.animated.CurLoopInd || this.animated.AnimationDef.maxLoopCount <= 0)
+						if (this.animated.AnimationDef.maxLoopCount > this.animated.CurrentLoopCount || this.animated.AnimationDef.maxLoopCount <= 0)
 						{
 							this.animated.CurInd = 0;
 						}

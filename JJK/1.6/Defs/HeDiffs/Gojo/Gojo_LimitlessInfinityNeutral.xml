@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_LimitlessInfinity</defName>
+    <label>Infinity</label>
+    <labelNoun>Infinity</labelNoun>
+    <hediffClass>HediffWithComps</hediffClass>
+    <description>This pawn is currently surrounded by 'infinity' nothing can touch this pawn while this is active.</description>
+    <defaultLabelColor>(0.5, 0.8, 0.8)</defaultLabelColor>
+    <duplicationAllowed>false</duplicationAllowed>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="JJK.HediffCompProperties_Infinity">
+        <Effect>JJK_InfinityAuraEffect</Effect>
+      </li>
+      <li Class="JJK.HediffCompProperties_SelectiveDamageImmunity">
+        <vulnerableToDamageTypes>
+        </vulnerableToDamageTypes>
+      </li>
+    </comps>
+  </HediffDef>
+</Defs>

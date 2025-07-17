@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_Gama_Leap</defName>
+    <label>leap</label>
+    <description>Perform a powerful leap to a nearby location.</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <category>Cursed_Innate</category>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>true</drawAimPie>
+      <range>12</range>
+      <warmupTime>0.25</warmupTime>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityJumper">
+      </li>
+      <li Class="JJK.CompProperties_JumpLandingDamage">
+        <damage>9</damage>
+        <damageType>Bite</damageType>
+        <radius>3</radius>
+        <canTargetFriendly>false</canTargetFriendly>
+      </li>
+      <li Class="JJK.CompProperties_UseMasterCE">
+        <cursedEnergyCost>10</cursedEnergyCost>
+        <burnoutStrain>0</burnoutStrain>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

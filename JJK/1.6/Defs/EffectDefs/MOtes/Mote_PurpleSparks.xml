@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <ThingDef ParentName="MoteBase">
+        <defName>JJK_PurpleSparksMote</defName>
+        <thingClass>MoteAttached</thingClass>
+        <graphicData>
+          <texPath>VFX/Spark</texPath>
+          <graphicClass>Graphic_Mote</graphicClass>
+          <shaderType>Transparent</shaderType>
+          <drawSize>1</drawSize>
+          <color>(215, 66, 245, 255)</color>
+        </graphicData>
+        <altitudeLayer>MoteOverhead</altitudeLayer>
+        <mote>
+          <fadeInTime>0.08</fadeInTime>
+          <solidTime>0.8</solidTime>
+          <fadeOutTime>0.5</fadeOutTime>
+          <growthRate>-2</growthRate>
+        </mote>
+      </ThingDef>
+  </Defs>

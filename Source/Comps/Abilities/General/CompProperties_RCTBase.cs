@@ -68,13 +68,10 @@ namespace JJK
                     {
                         float StatHealBonusValue = parent.pawn.GetStatValue(JJKDefOf.JJK_RCTHealingBonus);
 
-                        // Calculate healing progress
                         float healingProgress = 0.2f + (0.1f * StatHealBonusValue);
 
-                        // Reduce severity of the missing part
                         HighestPrio.Severity -= healingProgress;
 
-                        // If severity reaches 0 or below, fully restore the part
                         if (HighestPrio.Severity <= 0)
                         {
                             HealthUtility.Cure(HighestPrio);

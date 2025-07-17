@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityCategoryDef>
+    <defName>Cursed_Energy</defName>
+    <displayOrder>1000</displayOrder>
+  </AbilityCategoryDef>
+
+  <AbilityCategoryDef>
+    <defName>Cursed_Innate</defName>
+    <displayOrder>1000</displayOrder>
+  </AbilityCategoryDef>
+
+  <AbilityDef Name="AbilityTouchBase" Abstract="True">
+    <stunTargetWhileCasting>true</stunTargetWhileCasting>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>false</disableGizmoWhileUndrafted>
+    <jobDef>CastAbilityOnThingMelee</jobDef>
+  </AbilityDef>
+</Defs>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_MaxElephant_Deluge</defName>
+    <label>Deluge</label>
+    <description>Deal damage and push back all targets in a line</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <category>Cursed_Innate</category>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>true</drawAimPie>
+      <range>12</range>
+      <warmupTime>0.25</warmupTime>
+      <targetParams>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_DamageAndPushInRect">
+        <damageType>Blunt</damageType>
+        <damageAmount>30</damageAmount>
+      </li>
+      <li Class="JJK.CompProperties_UseMasterCE">
+        <cursedEnergyCost>40</cursedEnergyCost>
+        <burnoutStrain>0</burnoutStrain>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

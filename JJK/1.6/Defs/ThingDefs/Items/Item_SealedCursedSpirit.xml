@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<ThingDef ParentName="ResourceBase">
+    <defName>JJK_SealedCursedSpiritOrb</defName>
+    <label>sealed cursed spirit orb</label>
+    <description>A mystical orb containing a trapped cursed spirit. Can be consumed by those with the Geto gene to absorb the spirit's power.</description>
+    <graphicData>
+      <texPath>VFX/T_Butterfly</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Mass>0.3</Mass>
+      <Flammability>0.5</Flammability>
+      <DeteriorationRate>0.5</DeteriorationRate>
+      <Nutrition>0.1</Nutrition>
+    </statBases>
+    <thingCategories>
+      <li>Items</li>
+    </thingCategories>
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+      <foodType>Processed</foodType>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+      <ingestSound>RawMeat_Eat</ingestSound>
+    </ingestible>
+    <comps>
+      <li Class="JJK.CompProperties_CursedSpiritOrb">
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

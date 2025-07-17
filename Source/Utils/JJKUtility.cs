@@ -15,14 +15,14 @@ namespace JJK
 {
     public static class JJKUtility
     {
-        private static DollTransformationWorldComponent _DollTransformationWorldComponent;
-        public static DollTransformationWorldComponent DollTransformationWorldComponent
+        private static DollTransformationWorldComp _DollTransformationWorldComponent;
+        public static DollTransformationWorldComp DollTransformationWorldComponent
         {
             get
             {
                 if (_DollTransformationWorldComponent == null)
                 {
-                    _DollTransformationWorldComponent = Find.World.GetComponent<DollTransformationWorldComponent>();
+                    _DollTransformationWorldComponent = Find.World.GetComponent<DollTransformationWorldComp>();
                 }
 
                 return _DollTransformationWorldComponent;
@@ -464,6 +464,19 @@ namespace JJK
         {
             return pawn.genes?.GetFirstGeneOfType<Gene_CursedEnergy>();
         }
+
+        public static bool TrYGetCursedEnergy(this Pawn pawn, out Gene_CursedEnergy cursedEnergy)
+        {
+            cursedEnergy = null;
+            
+            if (pawn.genes.HasActiveGene(JJKDefOf.Gene_JJKCursedEnergy))
+            {
+                cursedEnergy = pawn.GetCursedEnergy();
+                return true;
+            }
+            return false;
+        }
+
         public static Gene_Kenjaku GetKenjakuGene(this Pawn pawn)
         {
             return pawn.genes?.GetFirstGeneOfType<Gene_Kenjaku>();

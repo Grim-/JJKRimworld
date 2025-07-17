@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_Nue_ThunderClap</defName>
+    <label>ThunderClap</label>
+    <description>Fly to the target location upon landing cause a lightning strike.</description>
+    <iconPath>UI/Abilities/BloodEffect</iconPath>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <category>Cursed_Innate</category>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>true</drawAimPie>
+      <warmupTime>0.1</warmupTime>
+      <range>35</range>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityJumper">
+      </li>
+      <li Class="JJK.CompProperties_JumpLandingDamage">
+        <damage>15</damage>
+        <damageType>Bomb</damageType>
+        <radius>4</radius>
+        <canTargetFriendly>false</canTargetFriendly>
+      </li>
+      <li Class="JJK.CompProperties_UseMasterCE">
+        <cursedEnergyCost>25</cursedEnergyCost>
+        <burnoutStrain>0</burnoutStrain>
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

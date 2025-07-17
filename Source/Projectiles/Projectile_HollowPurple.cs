@@ -13,7 +13,7 @@ namespace JJK
 {
     internal class Projectile_HollowPurple : ScalingStatDamageProjectile
     {
-        public override void Tick()
+        protected override void Tick()
         {
             base.Tick();
 
@@ -45,7 +45,7 @@ namespace JJK
                 GenExplosion.DoExplosion(
                     pos, map, radius, DamageDefOf.Blunt, launcher, 999, ArmorPenetration,
                     SoundDefOf.PlanetkillerImpact, equipmentDef, def, intendedTarget.Thing, null, 0, 1,
-                    null, false, null, 0, 1, 0, false, null, ignoredThings, null, false);
+                    null, null, 0, false, null, 0, 1, 0, false, null, ignoredThings, null, false);
             }
         }
     }

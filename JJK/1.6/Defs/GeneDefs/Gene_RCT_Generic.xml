@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKRCTHealingProdigy</defName>
+    <label>RCT Healing Prodigy</label>
+    <description>A natural-born healer. Increases the Reverse Curse Technique Healing Bonus by 50%.</description>
+      <displayCategory>CursedEnergy</displayCategory>
+      <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <statFactors>
+      <JJK_RCTHealingBonus>1.5</JJK_RCTHealingBonus>
+    </statFactors>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_JJKRCTHealingDullard</defName>
+    <label>RCT Healing Dullard</label>
+    <description>Struggles with healing techniques. Decreases the Reverse Curse Technique Healing Bonus by 50%.</description>
+      <displayCategory>CursedEnergy</displayCategory>
+      <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <statFactors>
+      <JJK_RCTHealingBonus>0.5</JJK_RCTHealingBonus>
+    </statFactors>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_JJKRCTHealingSavant</defName>
+    <label>RCT Healing Savant</label>
+    <description>A master of healing. Increases the Reverse Curse Technique Healing Bonus by 200%.</description>
+      <displayCategory>CursedEnergy</displayCategory>
+      <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <statFactors>
+      <JJK_RCTHealingBonus>2</JJK_RCTHealingBonus>
+    </statFactors>
+  </GeneDef>
+
+  <GeneDef>
+    <defName>Gene_JJKRCTHealingNovice</defName>
+    <label>RCT Healing Novice</label>
+    <description>A beginner in healing techniques. Decreases the Reverse Curse Technique Healing Bonus by 25%.</description>
+      <displayCategory>CursedEnergy</displayCategory>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <statFactors>
+      <JJK_RCTHealingBonus>0.25</JJK_RCTHealingBonus>
+    </statFactors>
+  </GeneDef>
+</Defs>

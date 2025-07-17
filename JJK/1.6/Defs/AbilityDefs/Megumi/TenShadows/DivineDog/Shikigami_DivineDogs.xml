@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <JJK.TwinShikigamiDef>
+    <defName>Shikigami_DivineDogs</defName>
+    <summonAbility>JJK_SummonDivineDogs</summonAbility>
+    <shikigami>JJK_DivineDogBlack</shikigami>
+    <twinShikigami>JJK_DivineDogWhite</twinShikigami>
+    <totalityShikigami>JJK_DivineDogTotality</totalityShikigami>
+    <shikigamiAbilities>
+      <li>JJK_DivineDog_Lacerate</li>
+    </shikigamiAbilities>
+  </JJK.TwinShikigamiDef>
+
+</Defs>

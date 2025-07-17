@@ -1,0 +1,43 @@
+<Defs>
+  <HediffDef>
+  <defName>JJK_CursedObjectConsumer</defName>
+  <label>cursed object consumer</label>
+  <description>This person has consumed a piece of a cursed object. They are in the process of absorbing its power, which may lead to unpredictable changes.</description>
+  <hediffClass>JJK.Hediff_CursedObjectConsumer</hediffClass>
+  <defaultLabelColor>(0.8, 0.4, 0.4)</defaultLabelColor>
+  <initialSeverity>0.1</initialSeverity>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>false</isBad>
+  <comps>
+    <li Class="HediffCompProperties_SeverityPerDay">
+      <severityPerDay>0.1</severityPerDay>
+    </li>
+  </comps>
+  <stages>
+    <li>
+      <label>initial absorption</label>
+      <minSeverity>0.1</minSeverity>
+      <capMods>
+        <li>
+          <capacity>Consciousness</capacity>
+          <offset>0.1</offset>
+        </li>
+      </capMods>
+    </li>
+    <li>
+      <label>growing power</label>
+      <minSeverity>0.5</minSeverity>
+      <capMods>
+        <li>
+          <capacity>Consciousness</capacity>
+          <offset>0.2</offset>
+        </li>
+        <li>
+          <capacity>Moving</capacity>
+          <offset>0.1</offset>
+        </li>
+      </capMods>
+    </li>
+  </stages>
+</HediffDef>
+</Defs>

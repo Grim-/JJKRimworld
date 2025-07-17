@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef Name="JJKTransformedBodyPartBase" ParentName="AddedBodyPartBase" Abstract="True">
+    <isBad>false</isBad>
+    <addedPartProps>
+      <solid>true</solid>
+      <betterThanNatural>true</betterThanNatural>
+    </addedPartProps>
+  </HediffDef>
+
+
+  <HediffDef ParentName="JJKTransformedBodyPartBase">
+    <defName>JJKScytheArms</defName>
+    <label>scythe arm</label>
+    <labelNoun>a scythe arm</labelNoun>
+    <description>A transformed arm that has taken on the properties of a scythe. This biological modification alters the structure of the forearm and hand, reshaping them into a wickedly sharp, curved blade. While it greatly enhances cutting and slashing capabilities, it's less suited for delicate manipulation tasks. The altered physiology also impacts overall mobility.</description>
+    <addedPartProps>
+      <solid>true</solid>
+      <betterThanNatural>true</betterThanNatural>
+    </addedPartProps>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeHitChance>0.20</MeleeHitChance>
+          <MeleeDodgeChance>0.15</MeleeDodgeChance>
+          <PlantWorkSpeed>1.00</PlantWorkSpeed>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.05</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.20</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_VerbGiver">
+        <tools>
+          <li>
+            <label>scythe blade</label>
+            <capacities>
+              <li>Cut</li>
+              <li>Stab</li>
+            </capacities>
+            <power>20</power>
+            <cooldownTime>1.6</cooldownTime>
+            <alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+            <soundMeleeHit>MeleeHit_ScytheArm</soundMeleeHit>
+            <soundMeleeMiss>MeleeMiss_ScytheArm</soundMeleeMiss>
+          </li>
+        </tools>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <HediffDef ParentName="JJKTransformedBodyPartBase">
+    <defName>JJKReinforcedTorso</defName>
+    <label>reinforced torso</label>
+    <labelNoun>a reinforced torso</labelNoun>
+    <description>A torso that has been transformed to have increased density and resilience. The skin has become tougher, muscles more compact, and bones more durable. This modification significantly increases the pawn's overall toughness and resistance to damage, but the added weight slightly reduces movement speed.</description>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.1</partEfficiency>
+      <betterThanNatural>true</betterThanNatural>
+    </addedPartProps>
+    <stages>
+      <li>
+        <statOffsets>
+          <ArmorRating_Blunt>0.15</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+          <PainShockThreshold>0.10</PainShockThreshold>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.05</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef ParentName="JJKTransformedBodyPartBase">
+  <defName>JJKBoneClaw</defName>
+  <label>bone claw</label>
+  <labelNoun>a bone claw</labelNoun>
+  <description>A horrifying transformation of the hand, where bones have grown and reshaped into razor-sharp claws. Each finger terminates in a hooked talon capable of rending flesh and crushing bone. When not in use, the claws can partially retract, allowing for some dexterity in non-combat tasks, but the overall change hampers fine manipulation and slightly slows movement.</description>
+  <stages>
+    <li>
+      <capMods>
+        <li>
+          <capacity>Moving</capacity>
+          <offset>-0.05</offset>
+        </li>
+        <li>
+          <capacity>Manipulation</capacity>
+          <offset>-0.10</offset>
+        </li>
+      </capMods>
+    </li>
+  </stages>
+  <comps>
+    <li Class="HediffCompProperties_VerbGiver">
+      <tools>
+        <li>
+          <label>bone claw</label>
+          <capacities>
+            <li>Scratch</li>
+            <li>Stab</li>
+          </capacities>
+          <power>20</power>
+          <cooldownTime>2</cooldownTime>
+          <alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+          <soundMeleeHit>Pawn_Melee_PowerClaw_Hit</soundMeleeHit>
+          <soundMeleeMiss>Pawn_Melee_PowerClaw_Miss</soundMeleeMiss>
+        </li>
+      </tools>
+    </li>
+  </comps>
+  <addedPartProps>
+    <isGoodWeapon>true</isGoodWeapon>
+    <solid>true</solid>
+    <partEfficiency>1.10</partEfficiency>
+    <betterThanNatural>true</betterThanNatural>
+  </addedPartProps>
+</HediffDef>
+</Defs>

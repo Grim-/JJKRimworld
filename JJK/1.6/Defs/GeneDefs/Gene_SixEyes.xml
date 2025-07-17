@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKSixEyes</defName>
+    <label>Sixeyes</label>
+    <description>The Six Eyes are a nonstandard jujutsu trait manifesting as a pair of bright blue eyes that grant the bearer extrasensory perception. This includes seeing the flow of cursed energy in extreme detail and the ability to use that flow to read cursed techniques. The eyes also allow for ultra-precise control over the user's cursed energy, which is indispensable for utilizing the Hollow Purple application of the Limitless technique.
+
+    "Throughout Heaven and Earth, I alone am the honored one."</description>
+    <iconPath>Abilities/Gojo/Red</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+  <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>10</marketValueFactor>
+    <selectionWeight>0.001</selectionWeight>
+    <biostatMet>-1</biostatMet>
+    <capMods>
+      <li>
+        <capacity>Sight</capacity>
+        <postFactor>6</postFactor>
+      </li>
+    </capMods>
+    <statFactors>
+      <JJK_CursedEnergyCost>0.1</JJK_CursedEnergyCost>
+    </statFactors>
+    <abilities>
+      <li>JJK_ReversedCurseTechnique</li>
+    </abilities>
+  </GeneDef>
+</Defs>

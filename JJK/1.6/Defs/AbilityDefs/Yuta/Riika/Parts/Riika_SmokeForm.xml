@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<BodyPartDef>
+  <defName>SmokeForm</defName>
+  <label>smoke form</label>
+  <hitPoints>40</hitPoints>
+  <frostbiteVulnerability>0</frostbiteVulnerability>
+  <skinCovered>false</skinCovered>
+  <tags>
+    <li>MovingLimbSegment</li>
+  </tags>
+</BodyPartDef>
+</Defs>

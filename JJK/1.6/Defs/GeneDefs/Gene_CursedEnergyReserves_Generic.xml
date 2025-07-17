@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<GeneDef>
+  <defName>GeneJJK_CursedEnergyMaster</defName>
+  <label>Cursed Energy Master</label>
+  <description>Increases Cursed Energy capacity by 50%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
+  <statFactors>
+    <JJK_CursedEnergy>1.5</JJK_CursedEnergy>
+  </statFactors>
+  <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+</GeneDef>
+
+<GeneDef>
+  <defName>GeneJJK_CursedEnergyWeak</defName>
+  <label>Cursed Energy Weak</label>
+  <description>Decreases Cursed Energy capacity by 50%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
+  <statFactors>
+    <JJK_CursedEnergy>0.5</JJK_CursedEnergy>
+  </statFactors>
+  <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+</GeneDef>
+
+<GeneDef>
+  <defName>GeneJJK_CursedEnergyJuggernaut</defName>
+  <label>Cursed Energy Juggernaut</label>
+  <description>Increases Cursed Energy capacity by 100%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
+  <statFactors>
+    <JJK_CursedEnergy>2</JJK_CursedEnergy>
+  </statFactors>
+  <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+</GeneDef>
+
+<GeneDef>
+  <defName>GeneJJK_CursedEnergyInept</defName>
+  <label>Cursed Energy Inept</label>
+  <description>Decreases Cursed Energy capacity by 80%.</description>
+    <displayCategory>CursedEnergy</displayCategory>
+  <statFactors>
+    <JJK_CursedEnergy>0.2</JJK_CursedEnergy>
+  </statFactors>
+  <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+</GeneDef>
+</Defs>

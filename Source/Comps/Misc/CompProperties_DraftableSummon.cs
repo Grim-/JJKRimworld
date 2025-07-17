@@ -25,15 +25,13 @@ namespace JJK
 
         }
 
-        public override void PostDeSpawn(Map map)
+        public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
         {
+            base.PostDeSpawn(map, mode);
             if (parent is Pawn parentPawn)
             {
                 DraftingUtility.UnregisterDraftableCreature(parentPawn);
             }
-
-   
-            base.PostDeSpawn(map);
         }
 
         public override void PostDestroy(DestroyMode mode, Map previousMap)

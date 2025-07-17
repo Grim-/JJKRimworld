@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <!-- MoteDef -->
+    <ThingDef ParentName="MoteBase">
+        <defName>JJK_BlueAOEAura</defName>
+        <graphicData>
+          <texPath>VFX/ArcaneRing</texPath>
+          <graphicClass>Graphic_Mote</graphicClass>
+          <shaderType>MoteGlow</shaderType>
+          <drawSize>1</drawSize>
+          <color>(0.5, 0, 255, 255)</color>
+        </graphicData>
+        <altitudeLayer>MoteOverhead</altitudeLayer>
+        <mote>
+          <fadeInTime>0.08</fadeInTime>
+          <solidTime>0.2</solidTime>
+          <fadeOutTime>2</fadeOutTime>
+          <growthRate>-2</growthRate>
+        </mote>
+    </ThingDef>
+  </Defs>

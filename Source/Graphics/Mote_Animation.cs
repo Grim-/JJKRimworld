@@ -66,7 +66,7 @@ namespace JJK
 				}
 			}
 
-			public int CurLoopInd
+			public int CurrentLoopCount
 			{
 				get
 				{
@@ -119,7 +119,7 @@ namespace JJK
 
 			public virtual void OnCycle_Completion()
 			{
-				if (!this.destroy && this.CurLoopInd >= this.AnimationDef.maxLoopCount && (this.endLoop || this.AnimationDef.maxLoopCount > 0))
+				if (!this.destroy && this.CurrentLoopCount >= this.AnimationDef.maxLoopCount && (this.endLoop || this.AnimationDef.maxLoopCount > 0))
 				{
 					this.destroy = true;
 					if (this.AnimationDef.additionalLifetimeTicks > 0)
@@ -232,7 +232,7 @@ namespace JJK
 				this.Graphic.DrawWorker(loc, base.Rotation, this.def, this, 0f);
 			}
 
-			public override void Tick()
+			protected override void Tick()
 			{
 				base.Tick();
 				if (!base.Destroyed)

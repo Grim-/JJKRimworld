@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <DamageDef>
+    <defName>JJK_CursedEnergyDamage</defName>
+    <label>cursed</label>
+    <workerClass>JJK.DamageWorker_CursedEnergy</workerClass>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has been destroyed with cursed energy.</deathMessage>
+    <hediff>JJK_CursedEnergyWound</hediff>
+    <hediffSkin>JJK_CursedEnergyWound</hediffSkin>
+    <hediffSolid>JJK_CursedEnergyWound</hediffSolid>
+    <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+    <impactSoundType>Blunt</impactSoundType>
+    <armorCategory>Blunt</armorCategory>
+    <overkillPctToDestroyPart>0.5</overkillPctToDestroyPart>
+  </DamageDef>
+
+  <HediffDef ParentName="InjuryBase">
+  <defName>JJK_CursedEnergyWound</defName>
+  <label>cursed energy wound</label>
+  <labelNoun>a cursed energy wound</labelNoun>
+  <tendable>true</tendable>
+  <description>A wound caused by cursed energy. It seems to resist normal healing methods.</description>
+  <comps>
+    <li Class="HediffCompProperties_TendDuration">
+      <severityPerDayTended>-0.05</severityPerDayTended>
+    </li>
+  </comps>
+</HediffDef>
+</Defs>

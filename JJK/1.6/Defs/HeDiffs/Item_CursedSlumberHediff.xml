@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<!-- HediffDef for the Cursed Slumber -->
+<HediffDef>
+  <defName>JJK_CursedSlumber</defName>
+  <label>cursed slumber</label>
+  <description>In a deep, unnatural coma induced by the Cursed Slumber Stone.</description>
+  <hediffClass>HediffWithComps</hediffClass>
+  <defaultLabelColor>(0.5, 0, 0.5)</defaultLabelColor>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>false</isBad>
+  <comps>
+    <li Class="JJK.HediffCompProperties_RandomDisappear">
+      <minDurationTicks>1800</minDurationTicks>
+      <maxDurationTicks>6000</maxDurationTicks>
+    </li>
+    <li Class="JJK.HediffCompProperties_AddGeneOnRemoved">
+      <GeneDefName>Gene_JJKCursedEnergy</GeneDefName>
+    </li>
+    <li Class="JJK.HediffCompProperties_GiveRandomGene">
+    <Genes>
+      <li>Gene_JJKHeavenlyPact</li>
+      <li>Gene_JJKInumaki</li>
+      <li>Gene_JJKLimitless</li>
+      <li>Gene_JJKMahito</li>
+      <li>Gene_JJKSixEyes</li>
+      <li>Gene_JJKSukuna</li>
+      <li>Gene_Kenjaku</li>
+      <li>Gene_Shoko</li>
+    </Genes>
+    </li>
+  </comps>
+  <stages>
+  </stages>
+</HediffDef>
+</Defs>

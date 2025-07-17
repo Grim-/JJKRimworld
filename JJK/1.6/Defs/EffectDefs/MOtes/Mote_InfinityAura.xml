@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AnimatedMotes.AnimationDef ParentName="AuraTestBase">
+    <defName>JJK_InfinityAuraMote</defName>
+    <graphicData Class="AnimatedMotes.GraphicDataAnimation">
+      <texPath>VFX/PurpleAura</texPath>
+      <drawSize>1</drawSize>
+      <color>(1, 1, 1, 0.2)</color>
+    </graphicData>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <mote>
+      <fadeInTime>0.08</fadeInTime>
+      <solidTime>4</solidTime>
+      <fadeOutTime>0.1</fadeOutTime>
+      <growthRate>0</growthRate>
+    </mote>
+    <fpsRate>1</fpsRate>
+    <maxLoopCount>9999</maxLoopCount>
+  </AnimatedMotes.AnimationDef>
+</Defs>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GeneDef>
+    <defName>Gene_JJKGrade1</defName>
+    <label>Grade 1 Sorcerer</label>
+    <description>The highest grade of Jujutsu Sorcerer</description>
+    <iconPath>UI/Icons/Gene_CursedEnergy</iconPath>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+  <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>1.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <modExtensions>
+    <li Class="JJK.CursedEnergyGeneExtension">
+      <priority>17</priority>
+    </li>
+  </modExtensions>
+    <statFactors>
+      <JJK_CursedEnergy>5</JJK_CursedEnergy><!-- 100 * 5  = 500-->
+      <JJK_CursedEnergyRegen>1</JJK_CursedEnergyRegen> <!-- 1 Cursed Energy every hour -->
+      <JJK_CursedEnergyRegenSpeed>1</JJK_CursedEnergyRegenSpeed> <!--  Multiplier on CursedEnergyRegenTicks (1250) -->
+      <JJK_CursedEnergyDamageBonus>1</JJK_CursedEnergyDamageBonus>
+      <JJK_CursedEnergyCost>1</JJK_CursedEnergyCost> <!-- cost multiplier, 1 = 100%  -->
+      <JJK_RCTHealingBonus>1</JJK_RCTHealingBonus>
+    </statFactors>
+    <exclusionTags>
+      <li>CursedEnergyMultiplierGene</li>
+    </exclusionTags>
+  </GeneDef>
+</Defs>

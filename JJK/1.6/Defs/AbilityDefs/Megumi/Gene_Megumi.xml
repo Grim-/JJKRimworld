@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.TenShadowsGeneDef>
+    <defName>Gene_JJKMegumi</defName>
+    <label>Cursed Technique : Ten Shadows</label>
+    <description>wwww</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <geneClass>JJK.TenShadowGene</geneClass>
+    <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+    <displayCategory>CursedEnergy</displayCategory>
+    <marketValueFactor>2.5</marketValueFactor>
+    <biostatMet>-1</biostatMet>
+    <startingShikigami>
+      <li>Shikigami_DivineDogs</li>
+    </startingShikigami>
+    <modExtensions>
+      <li Class="JJK.CursedTechniqueGeneExtension">
+        <priority>16</priority>
+      </li>
+    </modExtensions>
+</JJK.TenShadowsGeneDef>
+</Defs>

@@ -39,7 +39,7 @@ namespace JJK
 	public interface IAnimated
 	{
 		int CurInd { get; set; }
-		int CurLoopInd { get; set; }
+		int CurrentLoopCount { get; set; }
 		int PrevTick { get; set; }
 		void OnCycle_Completion();
 		Vector2? SizeOverride { get; }

@@ -52,11 +52,11 @@ namespace JJK
             }
 
 
-            DomainManagerComp domainManagerComp = Find.World.GetComponent<DomainManagerComp>();
+            DomainManagerWorldComp domainManagerComp = Find.World.GetComponent<DomainManagerWorldComp>();
 
             if (domainManagerComp != null)
             { 
-                var DomainComp = DomainManagerComp.CreateDomain(domainThingDef, cell, pawn.Map);
+                var DomainComp = DomainManagerWorldComp.CreateDomain(domainThingDef, cell, pawn.Map);
                 if (DomainComp == null)
                 {
                     Log.Error($"Failed to find CompDomainEffect on DomainThing from {domainDef.DomainThingDefName}");

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.ShikigamiDef>
+    <defName>Shikigami_FleeingHares</defName>
+    <summonAbility>JJK_SummonFleeingHares</summonAbility>
+    <shikigami>JJK_FleeingHare</shikigami>
+    <shikigamiAbilities>
+    </shikigamiAbilities>
+  </JJK.ShikigamiDef>
+</Defs>

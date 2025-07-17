@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <HediffDef>
+    <defName>JJK_CursedTechniqueStrain</defName>
+    <label>cursed technique strain</label>
+    <description>Mental and physical strain from using cursed techniques, when the severity reaches severe you have a chance to cause a burnout of your techniques, which will heal over time or with reversed curse technique.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+      <duplicationAllowed>false</duplicationAllowed>
+    <stages>
+      <li>
+        <label>minor</label>
+      </li>
+      <li>
+        <label>moderate</label>
+        <minSeverity>0.6</minSeverity>
+      </li>
+      <li>
+        <label>severe</label>
+        <minSeverity>0.85</minSeverity>
+        <hediffGivers>
+          <li Class="HediffGiver_Random">
+            <hediff>JJK_CursedTechniqueBurnout</hediff>
+            <partsToAffect>
+              <li>Brain</li>
+            </partsToAffect>
+            <mtbDays>0</mtbDays>
+          </li>
+        </hediffGivers>
+      </li>
+    </stages>
+    <comps>
+      <li Class="JJK.HediffCompProperties_SeverityPerInterval">
+        <severityChange>-0.15</severityChange>
+        <tickInterval>2500</tickInterval>
+      </li>
+    </comps>
+  </HediffDef>
+</Defs>

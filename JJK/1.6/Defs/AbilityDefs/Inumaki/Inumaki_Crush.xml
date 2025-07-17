@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>InumakiCursedSpeech_Crush</defName>
+    <label>CRUSH!</label>
+    <description>Causes an overwhelming force to bear down on pawns in the target area, dealing crushing damage.</description>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <displayOrder>10</displayOrder>
+    <warmupSound>Ability_PsychicPulse</warmupSound>
+    <category>Cursed_Energy</category>
+    <cooldownTicksRange>
+      <min>6000</min>
+      <max>6000</max>
+    </cooldownTicksRange>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <range>20</range>
+      <warmupTime>1</warmupTime>
+      <targetParams>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>true</canTargetBuildings>
+        <canTargetLocations>true</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_CursedSpeechCrush">
+        <baseDamage>10</baseDamage>
+        <maxTargets>5</maxTargets>
+        <radius>8</radius>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

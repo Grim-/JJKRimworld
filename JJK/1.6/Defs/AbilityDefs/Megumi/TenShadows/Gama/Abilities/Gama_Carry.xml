@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_Gama_Carry</defName>
+    <label>Carry</label>
+    <description>Carry a pawn in your mouth.</description>
+    <iconPath>UI/Abilities/ShapeFlesh</iconPath>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <category>Cursed_Innate</category>
+    <verbProperties>
+      <verbClass>Verb_CastAbilityTouch</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <range>-1</range>
+      <warmupTime>0.15</warmupTime>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_Gama_Carry">
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

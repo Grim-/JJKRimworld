@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<HediffDef>
+  <defName>JJK_BlackFlash</defName>
+  <label>Black Flash</label>
+  <description>This pawn by striking with their fist using a thin layer of cursed energy, a second wave of cursed energy is unleashed a few moments afterward, effectively creating two impacts with one punch.</description>
+  <hediffClass>HediffWithComps</hediffClass>
+  <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+  <initialSeverity>1</initialSeverity>
+  <maxSeverity>1.0</maxSeverity>
+  <isBad>false</isBad>
+  <duplicationAllowed>false</duplicationAllowed>
+  <comps>
+    <li Class="JJK.HediffCompProperties_BlackFlash"/>
+  </comps>
+</HediffDef>
+</Defs>

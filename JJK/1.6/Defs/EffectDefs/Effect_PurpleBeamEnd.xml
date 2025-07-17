@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <EffecterDef>
+    <defName>JJK_PurpleHollowBeamEnd</defName>
+    <children>
+    <li>
+      <subEffecterClass>SubEffecter_SprayerContinuous</subEffecterClass>
+      <chancePerTick>1</chancePerTick>
+      <ticksBetweenMotes>120</ticksBetweenMotes>
+      <moteDef>Mote_PowerBeamEnd</moteDef>
+      <spawnLocType>OnTarget</spawnLocType>
+      <burstCount>1~2</burstCount>
+      <positionRadius>0</positionRadius>
+      <positionRadiusMin>0</positionRadiusMin>
+      <maxMoteCount>15</maxMoteCount>
+      <scale>6~8</scale>
+      <rotation>0~360</rotation>
+      <rotationRate>600</rotationRate>
+      <angle>0~360</angle>
+      <speed>0</speed>
+      <positionOffset>(0, 0, 0)</positionOffset>
+      <color>(0, 0, 255, 255)</color>
+      <fleckUsesAngleForVelocity>false</fleckUsesAngleForVelocity>
+      <rotateTowardsTargetCenter>false</rotateTowardsTargetCenter>
+      <attachToSpawnThing>false</attachToSpawnThing>
+    </li>
+    </children>
+  </EffecterDef>
+
+  <!-- MoteDef -->
+  <ThingDef ParentName="MoteBase">
+    <defName>Mote_PowerBeamEnd</defName>
+    <graphicData>
+      <texPath>VFX/spiral_29</texPath>
+      <graphicClass>Graphic_Mote</graphicClass>
+      <shaderType>MoteGlow</shaderType>
+      <drawSize>1</drawSize>
+      <color>(0.5, 0, 0.5, 255)</color>
+    </graphicData>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.08</fadeInTime>
+      <solidTime>0.2</solidTime>
+      <fadeOutTime>2</fadeOutTime>
+      <growthRate>-2</growthRate>
+    </mote>
+  </ThingDef>
+</Defs>

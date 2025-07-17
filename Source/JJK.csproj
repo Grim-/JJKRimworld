@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\Games\RimWorld\Mods\JJK\1.5\Assemblies\</OutputPath>
+    <OutputPath>H:\SteamLibrary\steamapps\common\RimWorld\Mods\JJK\1.6\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
@@ -35,9 +35,10 @@
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Lib.Harmony.2.3.3\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>D:\Games\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>H:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -118,6 +119,9 @@
     <Compile Include="Comps\Abilities\Megumi\TenShadowsComps\IHaveAMaster.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_NeedChangePerTick.cs" />
     <Compile Include="Extensions\ThingCompExtension_ShowAnimalFloatMenu.cs" />
+    <Compile Include="Stat\StatPart_CursedEnergyDamageBonus.cs" />
+    <Compile Include="Stat\StatPart_CursedEnergyRegen.cs" />
+    <Compile Include="Stat\StatPart_CursedEnergyReserves.cs" />
     <Compile Include="Tabs\ITab_TenShadows.cs" />
     <Compile Include="Comps\Abilities\Megumi\Shikigami\NueMergeEffect.cs" />
     <Compile Include="Comps\Abilities\Megumi\Shikigami\ShikigamiMergeEffectDef.cs" />
@@ -131,10 +135,10 @@
     <Compile Include="Verbs\Verb_StealCursedTechnique.cs" />
     <Compile Include="Comps\Hediff\CursedEnergyDamageTraitDef.cs" />
     <Compile Include="Comps\Abilities\Megumi\Shikigami\ShikigamiData.cs" />
-    <Compile Include="Comps\World\DomainManagerComp.cs" />
+    <Compile Include="Comps\World\DomainManagerWorldComp.cs" />
     <Compile Include="Comps\World\SummonPair.cs" />
-    <Compile Include="Comps\World\WorldComponent_DraftableCreatures.cs" />
-    <Compile Include="Custom Damage Workers\CompProperties_GameOfLife.cs" />
+    <Compile Include="Comps\World\DraftableCreaturesWorldComp.cs" />
+    <Compile Include="Comps\CompProperties_GameOfLife.cs" />
     <Compile Include="CustomShaderTypeDef.cs" />
     <Compile Include="Patches\Patch_CursedEnergyReinforcement.cs" />
     <Compile Include="Extensions\PawnExtension_NoCorpse.cs" />
@@ -213,8 +217,7 @@
     <Compile Include="CursedObjects\Recipe_CreateCursedObject.cs" />
     <Compile Include="Genes\Gene_Geto.cs" />
     <Compile Include="Genes\Gene_Yuta.cs" />
-    <Compile Include="Genes\Graphic_Animated.cs" />
-    <Compile Include="Genes\KenjakuUtil.cs" />
+    <Compile Include="Utils\KenjakuUtil.cs" />
     <Compile Include="Graphics\AnimationDef.cs" />
     <Compile Include="Graphics\AssetBundleShaderManager.cs" />
     <Compile Include="Graphics\ABSGraphicData.cs" />
@@ -231,7 +234,6 @@
     <Compile Include="Patches\Patch_AddGene.cs" />
     <Compile Include="Patches\Patch_AddTrait.cs" />
     <Compile Include="Patches\Patch_Pawn_GetDisabledWorkTypes.cs" />
-    <Compile Include="Utils\CEResourceDrainUtility.cs" />
     <Compile Include="Ability\AbilityDef_Toggleable.cs" />
     <Compile Include="Ability\Ability_Toggleable.cs" />
     <Compile Include="Gizmo\Command_ToggleAbility.cs" />
@@ -290,18 +292,18 @@
     <Compile Include="Utils\JJKGeneUtil.cs" />
     <Compile Include="Utils\PawnHealingUtility.cs" />
     <Compile Include="AI\JobDriver_DefendMaster.cs" />
-    <Compile Include="Comps\World\SummonedCreatureManager.cs" />
+    <Compile Include="Comps\World\SummonedCreatureWorldComp.cs" />
     <Compile Include="Comps\Misc\SummonUtility.cs" />
     <Compile Include="Comps\Misc\ThingCompExt.cs" />
     <Compile Include="Comps\Misc\TransfigurationOption.cs" />
-    <Compile Include="Comps\CompEffect_BlueAOE.cs" />
+    <Compile Include="Comps\Abilities\CompEffect_BlueAOE.cs" />
     <Compile Include="Comps\Abilities\Mahito\CompProperties_AbilityZombifyWorkSlave.cs" />
     <Compile Include="Comps\Misc\CompProperties_BodyTintComp.cs" />
     <Compile Include="Comps\Misc\CompProperties_DraftableSummon.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_ZombieWorkSlaveEffect.cs" />
     <Compile Include="Comps\Hediff\Hediff_ZombieWorkSlave.cs" />
     <Compile Include="Comps\Misc\CompStoredPawn.cs" />
-    <Compile Include="Comps\World\DollTransformationWorldComponent.cs" />
+    <Compile Include="Comps\World\DollTransformationWorldComp.cs" />
     <Compile Include="Comps\World\AbsorbedData.cs" />
     <Compile Include="Ability\CursedAbilityClass.cs" />
     <Compile Include="Ability\CursedAbilityDef.cs" />

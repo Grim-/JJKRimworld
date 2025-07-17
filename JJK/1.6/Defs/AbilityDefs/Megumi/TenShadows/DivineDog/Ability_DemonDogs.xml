@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+  <defName>JJK_SummonDivineDogs</defName>
+  <label>Summon Divine dogs</label>
+  <description>Summons a canine wrought of shadow to attack enemies, it will find the nearest enemy in range from its inital spawn point, attempt to move towards this target and bite them, it has a 30% chance to cause a bleed.</description>
+  <verbProperties>
+    <verbClass>Verb_CastAbility</verbClass>
+    <drawAimPie>true</drawAimPie>
+    <range>20</range>
+    <warmupTime>0.5</warmupTime>
+    <targetParams>
+      <canTargetLocations>true</canTargetLocations>
+      <canTargetPawns>true</canTargetPawns>
+    </targetParams>
+  </verbProperties>
+  <comps>
+    <li Class="JJK.CompProperties_AbilityDemondogSummon">
+      <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
+      <shikigamiDef>Shikigami_DivineDogs</shikigamiDef>
+    </li>
+  </comps>
+</AbilityDef>
+</Defs>

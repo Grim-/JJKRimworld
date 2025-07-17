@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<GeneDef>
+  <defName>Gene_JJKRCTAffinity</defName>
+  <label>RCT Affinity</label>
+  <description>A very rare gene allowing a cursed energy user to heal themselves by turning their negative cursed energy into positive healing energy, this can restore limbs, cure diseases, and restore blood. 'Using positive energy by reversing cursed energy is extremely difficult. Among jujutsu sorcerers, only one in a million can do it.'</description>
+  <iconPath>Abilities/Gojo/Red</iconPath>
+  <prerequisite>Gene_JJKCursedEnergy</prerequisite>
+  <displayCategory>CursedEnergy</displayCategory>
+  <marketValueFactor>6</marketValueFactor>
+  <selectionWeight>0.01</selectionWeight>
+  <biostatMet>0</biostatMet>
+  <abilities>
+    <li>JJK_ReversedCurseTechnique</li>
+  </abilities>
+</GeneDef>
+</Defs>

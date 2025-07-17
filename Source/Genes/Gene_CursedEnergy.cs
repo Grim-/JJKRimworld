@@ -75,6 +75,11 @@ namespace JJK
         public float CostMult => Pawn.GetStatValue(JJKDefOf.JJK_CursedEnergyCost, true, 100);
 
 
+
+
+        public float GrowthMax = 15000f;
+
+
         public float TotalUsedCursedEnergy = 0;
 
 

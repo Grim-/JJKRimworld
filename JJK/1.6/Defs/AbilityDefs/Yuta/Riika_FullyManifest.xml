@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_RiikaFullManifest</defName>
+    <label>Manifest Riika</label>
+    <description>Toggle the summoning of Riika, your Shikigami. When active, Riika will appear to assist you. When deactivated, she will return to her realm.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <aiCanUse>true</aiCanUse>
+    <abilityClass>JJK.Ability_Toggleable</abilityClass>
+    <warmupEffecter>WaterMist</warmupEffecter>
+    <emittedFleck>ShockwaveFast</emittedFleck>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <stunTargetWhileCasting>false</stunTargetWhileCasting>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>0</range>
+      <warmupTime>0</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetable>False</targetable>
+      <nonInterruptingSelfCast>true</nonInterruptingSelfCast>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_FullyManifestRika">
+        <riikaKindDef>JJK_RiikaManifested</riikaKindDef>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>
