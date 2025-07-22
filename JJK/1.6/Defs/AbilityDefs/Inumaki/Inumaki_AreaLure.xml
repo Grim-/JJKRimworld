@@ -6,8 +6,7 @@
     <description>Lures enemy pawns in an area towards the caster.</description>
     <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
     <displayOrder>10</displayOrder>
-    <warmupSound>Ability_PsychicPulse</warmupSound>
-        <category>Cursed_Energy</category>
+    <category>Cursed_Energy</category>
     <cooldownTicksRange>
       <min>1800</min>
       <max>1800</max>

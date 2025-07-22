@@ -20,7 +20,6 @@
         </capacities>
         <power>15.0</power>
         <cooldownTime>2.5</cooldownTime>
-        <linkedBodyPartsGroup>Beak</linkedBodyPartsGroup>
       </li>
       <li>
         <label>left claw</label>
@@ -30,7 +29,6 @@
         </capacities>
         <power>25</power>
         <cooldownTime>2.0</cooldownTime>
-        <linkedBodyPartsGroup>LeftClaw</linkedBodyPartsGroup>
         <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
         <chanceFactor>0.9</chanceFactor>
       </li>
@@ -42,7 +40,6 @@
         </capacities>
         <power>25</power>
         <cooldownTime>2.0</cooldownTime>
-        <linkedBodyPartsGroup>RightClaw</linkedBodyPartsGroup>
         <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
         <chanceFactor>0.9</chanceFactor>
       </li>
@@ -53,7 +50,6 @@
         </capacities>
         <power>35</power>
         <cooldownTime>2</cooldownTime>
-        <linkedBodyPartsGroup>Torso</linkedBodyPartsGroup>
         <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
         <chanceFactor>0.7</chanceFactor>
       </li>
@@ -62,7 +58,6 @@
       <body>Nue</body>
       <thinkTreeMain>Animal</thinkTreeMain>
       <thinkTreeConstant>AnimalConstant</thinkTreeConstant>
-      <wildness>0</wildness>
       <canReleaseToWild>false</canReleaseToWild>
       <needsRest>false</needsRest>
       <hasGenders>false</hasGenders>
@@ -77,10 +72,6 @@
         <li>
           <def>AnimalAdult</def>
           <minAge>0</minAge>
-          <soundWounded>Pawn_BigCat_Wounded</soundWounded>
-          <soundDeath>Pawn_BigCat_Death</soundDeath>
-          <soundCall>Pawn_BigCat_Call</soundCall>
-          <soundAngry>Pawn_BigCat_Angry</soundAngry>
         </li>
       </lifeStageAges>
       <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>

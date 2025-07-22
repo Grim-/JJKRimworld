@@ -27,17 +27,48 @@
         <li Class="CompProperties_AbilityLaunchProjectile">
           <projectileDef>Hollow_Purple</projectileDef>
         </li>
-        <li Class="JJK.CompProperties_BeamDamageInRect">
-          <rectWidth>4</rectWidth>
-          <rectLength>20</rectLength>
-          <beamMoteDef>Mote_PowerBeam</beamMoteDef>
-          <beamDurationTicks>80</beamDurationTicks>
-          <damageType>Blunt</damageType>
-          <beamWidth>10</beamWidth>
-        </li>
         <li Class="JJK.CompProperties_UseCE">
           <cursedEnergyCost>60</cursedEnergyCost>
         </li>
       </comps>
     </AbilityDef>
+
+    <ThingDef ParentName="BaseBullet">
+      <defName>Hollow_Purple</defName>
+      <label>hollow purple</label>
+      <thingClass>EMF.ProjectileWithComps</thingClass>
+      <graphicData>
+        <texPath>Things/Projectile/Gojo/HollowPurple</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <shaderType>MoteGlowDistorted</shaderType>
+        <drawSize>4</drawSize>
+        <shaderParameters>
+          <_Color>(1, 1, 1, 1)</_Color>
+          <_DistortionTex>/Other/Ripples</_DistortionTex>
+          <_distortionIntensity>0.1</_distortionIntensity>
+          <_DistortionScale>0.4</_DistortionScale>
+          <_distortionScrollSpeed>(0.2, 0.2, 0.0)</_distortionScrollSpeed>
+        </shaderParameters>
+      </graphicData>
+      <projectile>
+        <damageDef>Blunt</damageDef>
+        <damageAmountBase>100</damageAmountBase>
+        <speed>15</speed>
+      </projectile>
+      <comps>
+        <li Class="EMF.ProjectileCompProperties_PeriodicAOEDamage">
+          <damageDef>Bomb</damageDef>
+          <damageAmount>15</damageAmount>
+          <radius>4</radius>
+          <tickInterval>3</tickInterval>
+          <effecterDef>JJK_GRoundCrack</effecterDef>
+          <friendlyFireSettings>
+            <canTargetHostile>true</canTargetHostile>
+            <canTargetFriendly>false</canTargetFriendly>
+            <canTargetNeutral>true</canTargetNeutral>
+            <canTargetSelf>false</canTargetSelf>
+          </friendlyFireSettings>
+        </li>
+      </comps>
+    </ThingDef>
 </Defs>

@@ -36,13 +36,13 @@ namespace JJK
 
             if (PullTickTimer == null)
             {
-                PullTickTimer = new Ticker(Props.PullTicks, PullPawnsTowardsCenter);
+                PullTickTimer = new Ticker(Props.PullTicks, PullPawnsTowardsCenter, null);
             }
 
 
             if (DamageTickTimer == null)
             {
-                DamageTickTimer = new Ticker(Props.DamageTicks, DamagePawnsInRadius);
+                DamageTickTimer = new Ticker(Props.DamageTicks, DamagePawnsInRadius, null);
             }
 
 

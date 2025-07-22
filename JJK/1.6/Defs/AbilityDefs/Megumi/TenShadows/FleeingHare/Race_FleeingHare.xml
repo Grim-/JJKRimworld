@@ -37,7 +37,6 @@
       <body>QuadrupedAnimalWithPawsAndTail</body>
       <thinkTreeMain>JJK_EmptyThinkTree</thinkTreeMain>
       <thinkTreeConstant>JJK_EmptyThinkTree</thinkTreeConstant>
-      <wildness>0</wildness>
       <canReleaseToWild>false</canReleaseToWild>
       <needsRest>false</needsRest>
       <hasGenders>false</hasGenders>

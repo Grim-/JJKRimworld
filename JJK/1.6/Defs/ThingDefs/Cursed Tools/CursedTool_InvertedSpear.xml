@@ -31,7 +31,7 @@
     <Plasteel>50</Plasteel>
     <ComponentSpacer>2</ComponentSpacer>
   </costList>
-    <costStuffCount>150</costStuffCount>
+    <costStuffCount>0</costStuffCount>
     <thingSetMakerTags>
       <li>RewardStandardQualitySuper</li>
     </thingSetMakerTags>

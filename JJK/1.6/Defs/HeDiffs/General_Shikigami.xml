@@ -19,11 +19,6 @@
       <changeAmount>10</changeAmount>
       <tickInterval>2400</tickInterval>
     </li>
-    <li Class="JJK.HediffCompProperties_NeedChangePerTick">
-      <need>Food</need>
-      <changeAmount>10</changeAmount>
-      <tickInterval>2400</tickInterval>
-    </li>
   </comps>
 </HediffDef>
 </Defs>

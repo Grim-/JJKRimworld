@@ -4,7 +4,7 @@
     <defName>InumakiCursedSpeech_Stop</defName>
     <label>Cursed Speech: Stop</label>
     <description>Command a target to stop moving. This effect scales depending on the cursed energy of the caster and the target, pawns without cursed energy always take the full force of the effect.</description>
-        <category>Cursed_Energy</category>
+    <category>Cursed_Energy</category>
     <comps>
       <li Class="JJK.CompProperties_CursedSpeechEffect">
         <compClass>JJK.CompCursedSpeechEffect</compClass>

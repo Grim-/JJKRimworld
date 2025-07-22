@@ -95,7 +95,6 @@
         <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
         <baseBodySize>4.0</baseBodySize>
         <baseHealthScale>2.0</baseHealthScale>
-        <wildness>0</wildness>
         <canReleaseToWild>false</canReleaseToWild>
         <lifeStageAges>
           <li>

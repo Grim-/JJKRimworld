@@ -45,10 +45,10 @@
         <cooldownTime>1.5</cooldownTime>
       </li> </tools>
     <comps>
-      <li Class="JJK.CompProperties_GrantAbilityOnEquip">
+      <li Class="EMF.CompProperties_GrantAbilityOnEquip">
         <AbilityToGrant>JJK_DeflectProjectiles</AbilityToGrant>
       </li>
-      <li Class="JJK.CompProperties_GrantAbilityOnEquip">
+      <li Class="EMF.CompProperties_GrantAbilityOnEquip">
         <AbilityToGrant>JJK_CloudStrike</AbilityToGrant>
       </li>
       <li Class="JJK.CompProperties_KnockbackOnHit">

@@ -31,7 +31,6 @@
       <li>CursedTool</li>
       <li>LightningWeapon</li>
     </weaponTags>
-    <costStuffCount>120</costStuffCount>
     <thingSetMakerTags><li>RewardStandardQualitySuper</li></thingSetMakerTags>
     <statBases>
       <WorkToMake>25000</WorkToMake>

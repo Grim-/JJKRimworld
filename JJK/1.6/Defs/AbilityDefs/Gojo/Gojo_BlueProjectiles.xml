@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>Gojo_BlueProjectile</defName>
+    <label>Cursed Technique : Blue</label>
+    <description>This technique is.</description>
+    <iconPath>Abilities/Gojo/HollowPurple</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <aiCanUse>true</aiCanUse>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>20</range>
+      <warmupTime>3</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <warmupEffecter>JJK_PurpleSparksCastEffect</warmupEffecter>
+      <targetParams>
+        <canTargetPawns>True</canTargetPawns>
+        <canTargetLocations>True</canTargetLocations>
+        <canTargetSelf>false</canTargetSelf>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="CompProperties_AbilityLaunchProjectile">
+        <projectileDef>Gojo_BlueProjectile</projectileDef>
+      </li>
+      <li Class="JJK.CompProperties_UseCE">
+        <cursedEnergyCost>60</cursedEnergyCost>
+      </li>
+    </comps>
+  </AbilityDef>
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Gojo_BlueProjectile</defName>
+    <label>Reversed Cursed Technique: Blue</label>
+    <thingClass>EMF.ProjectileWithComps</thingClass>
+    <tickerType>Normal</tickerType>
+    <graphicData>
+      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Projectile/Gojo/Blue</texPath>
+      <shaderType>MoteGlowDistorted</shaderType>
+      <drawSize>2</drawSize>
+      <shaderParameters>
+        <_DistortionTex>/Other/Ripples</_DistortionTex>
+        <_distortionIntensity>0.1</_distortionIntensity>
+        <_DistortionScale>0.4</_DistortionScale>
+        <_distortionScrollSpeed>(0.07, 0.07, 0.0)</_distortionScrollSpeed>
+      </shaderParameters>
+    </graphicData>
+    <projectile>
+      <damageDef>Bomb</damageDef>
+      <speed>50</speed>
+    </projectile>
+    <comps>
+        <li Class="EMF.ProjectileCompProperties_PeriodicAOEDamage">
+          <damageDef>Blunt</damageDef>
+          <damageAmount>3~4</damageAmount>
+          <radius>2</radius>
+          <tickInterval>5</tickInterval>
+          <effecterDef>JJK_GRoundCrack</effecterDef>
+          <friendlyFireSettings>
+            <canTargetHostile>true</canTargetHostile>
+            <canTargetFriendly>false</canTargetFriendly>
+            <canTargetNeutral>true</canTargetNeutral>
+            <canTargetSelf>false</canTargetSelf>
+          </friendlyFireSettings>
+        </li>
+    </comps>
+  </ThingDef>
+</Defs>

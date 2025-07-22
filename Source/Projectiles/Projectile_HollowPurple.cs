@@ -39,7 +39,6 @@ namespace JJK
                 }
             }
 
-            // Perform explosion, excluding ignored things
             if (launcher != null && intendedTarget != null)
             {
                 GenExplosion.DoExplosion(

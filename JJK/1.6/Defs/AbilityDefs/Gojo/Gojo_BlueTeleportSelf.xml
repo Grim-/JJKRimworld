@@ -23,7 +23,7 @@
       <comps>
         <li Class="JJK.CompProperties_BlueSelfTeleport">
           <compClass>JJK.CompAbilityEffect_BlueSelfTeleport</compClass>
-          <MaxRange>20</MaxRange>
+          <MaxRange>40</MaxRange>
           <TeleportOutEffecter>Skip_EntryNoDelay</TeleportOutEffecter>
           <TeleportInEffecter>Skip_EntryNoDelay</TeleportInEffecter>
           <DistanceCostMult>1.1</DistanceCostMult>

@@ -44,7 +44,7 @@ namespace JJK
             DamagePerCut = Props.BaseDamage;
 
             // Initialize the Ticker
-            DamageTicker = new Ticker(Props.TicksBetweenCuts, ApplyCut, true, Props.NumberOfCuts);
+            DamageTicker = new Ticker(Props.TicksBetweenCuts, ApplyCut, null, true, Props.NumberOfCuts);
 
             // Launch the pawn
             IntVec3 launchDirection = pawn.Position - parent.pawn.Position;

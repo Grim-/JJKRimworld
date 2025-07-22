@@ -25,7 +25,7 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_AbilityLaunchScalingProjectile">
-        <projectileDef>ReversedCursedTechnique_RedProjecitle</projectileDef>
+        <projectileDef>ReversedCursedTechnique_RedProjectile</projectileDef>
         <damageFactor>JJK_CursedEnergyDamageBonus</damageFactor>
       </li>
       <li Class="JJK.CompProperties_UseCE">
@@ -33,5 +33,40 @@
       </li>
     </comps>
   </AbilityDef>
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>ReversedCursedTechnique_RedProjectile</defName>
+    <label>Red</label>
+    <thingClass>EMF.ProjectileWithComps</thingClass>
+    <tickerType>Normal</tickerType>
+    <graphicData>
+      <texPath>Things/Projectile/Projectile_RedNew</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>0.7</drawSize>
+      <shaderParameters>
+        <_Color>(255, 0, 0, 1)</_Color>
+        <_brightnessMultiplier>1</_brightnessMultiplier>
+      </shaderParameters>
+    </graphicData>
+    <projectile>
+      <damageDef>Blunt</damageDef>
+      <damageAmountBase>10</damageAmountBase>
+      <armorPenetrationBase>0.3</armorPenetrationBase>
+      <stoppingPower>1</stoppingPower>
+      <speed>25</speed>
+    </projectile>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>15</glowRadius>
+        <glowColor>(255,0,0,0)</glowColor>
+      </li>
+      <li Class="EMF.ProjectileCompProperties_ImpactAOEDamage">
+        <damageDef>Blunt</damageDef>
+        <damageAmount>3</damageAmount>
+        <radius>2</radius>
+      </li>
+    </comps>
+  </ThingDef>
 
 </Defs>

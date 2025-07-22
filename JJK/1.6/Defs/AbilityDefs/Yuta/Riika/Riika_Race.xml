@@ -49,7 +49,6 @@
       <body>Human</body>
       <thinkTreeMain>Animal</thinkTreeMain>
       <thinkTreeConstant>AnimalConstant</thinkTreeConstant>
-      <wildness>0</wildness>
       <canReleaseToWild>false</canReleaseToWild>
       <needsRest>false</needsRest>
       <hasGenders>false</hasGenders>
@@ -64,10 +63,6 @@
         <li>
           <def>AnimalAdult</def>
           <minAge>0</minAge>
-          <soundWounded>Pawn_BigCat_Wounded</soundWounded>
-          <soundDeath>Pawn_BigCat_Death</soundDeath>
-          <soundCall>Pawn_BigCat_Call</soundCall>
-          <soundAngry>Pawn_BigCat_Angry</soundAngry>
         </li>
       </lifeStageAges>
       <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>

@@ -64,7 +64,6 @@
       <foodType>VegetarianRoughAnimal</foodType>
       <leatherDef>Leather_Elephant</leatherDef>
       <gestationPeriodDays>999</gestationPeriodDays>
-      <wildness>0</wildness>
       <trainability>Advanced</trainability>
       <lifeExpectancy>50</lifeExpectancy>
       <packAnimal>false</packAnimal>

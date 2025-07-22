@@ -10,6 +10,7 @@
     <marketValueFactor>1.5</marketValueFactor>
     <abilities>
       <li>JJK_InfinityNeutral</li>
+      <li>Gojo_BlueProjectile</li>
       <li>CursedTechniqueAmplification_Blue</li>
       <li>ReversedCursedTechnique_Red</li>
       <li>CursedTechnique_BlueApplicationTeleport</li>

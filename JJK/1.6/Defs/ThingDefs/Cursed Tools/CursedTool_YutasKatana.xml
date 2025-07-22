@@ -28,7 +28,6 @@
     <li>MedievalMeleeAdvanced</li>
     <li>LongSword</li>
   </weaponTags>
-  <costStuffCount>100</costStuffCount>
   <thingSetMakerTags><li>RewardStandardQualitySuper</li></thingSetMakerTags>
   <statBases>
     <WorkToMake>18000</WorkToMake>

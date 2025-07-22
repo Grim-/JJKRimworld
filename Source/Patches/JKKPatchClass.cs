@@ -24,37 +24,37 @@ namespace JJK
 
 
 
-	[HarmonyPatch(typeof(FloatMenuMakerMap))]
-	[HarmonyPatch("ChoicesAtFor")]
-	public static class Patch_FloatMenuMakerMap_ChoicesAtFor
-	{
-		public static void Postfix(Vector3 clickPos, Pawn pawn, bool suppressAutoTakeableGoto, ref List<FloatMenuOption> __result)
-		{
-			if (pawn == null || pawn.Map == null)
-				return;
+	//[HarmonyPatch(typeof(FloatMenuMakerMap))]
+	//[HarmonyPatch("GetOptions")]
+	//public static class Patch_FloatMenuMakerMap_ChoicesAtFor
+	//{
+	//	public static void Postfix(Vector3 clickPos, List<Pawn> selectedPawns, bool suppressAutoTakeableGoto, ref List<FloatMenuOption> __result)
+	//	{
+	//		if (selectedPawns == null || selectedPawns.Count == 0)
+	//			return;
 
-			if (pawn.RaceProps.Humanlike || pawn.Drafted) 
-				return;
+	//		if (pawn.RaceProps.Humanlike || pawn.Drafted) 
+	//			return;
 
-			IntVec3 intVec = IntVec3.FromVector3(clickPos);
+	//		IntVec3 intVec = IntVec3.FromVector3(clickPos);
 
-			if (!intVec.InBounds(pawn.Map)) return;
+	//		if (!intVec.InBounds(pawn.Map)) return;
 
-			var toadComp = pawn.GetComp<Comp_TenShadowsToad>();
-			if (toadComp == null) 
-				return;
+	//		var toadComp = pawn.GetComp<Comp_TenShadowsToad>();
+	//		if (toadComp == null) 
+	//			return;
 
-            if (__result == null)
-            {
-				__result = new List<FloatMenuOption>();
-            }
+ //           if (__result == null)
+ //           {
+	//			__result = new List<FloatMenuOption>();
+ //           }
 
-			foreach (FloatMenuOption option in toadComp.CompFloatMenuOptions(pawn))
-			{
-				__result.Add(option);
-			}
-		}
-	}
+	//		foreach (FloatMenuOption option in toadComp.CompFloatMenuOptions(pawn))
+	//		{
+	//			__result.Add(option);
+	//		}
+	//	}
+	//}///////////
 
 	[HarmonyPatch(typeof(Pawn_AgeTracker))]
 	[HarmonyPatch("BirthdayBiological")]
@@ -326,20 +326,20 @@ namespace JJK
 		}
 	}
 
-	[HarmonyPatch(typeof(ITab_Pawn_Gear), "IsVisible", MethodType.Getter)]
-	public static class Patch_HideEquipTabOnSummons
-	{
-		public static bool Prefix(ITab_Pawn_Gear __instance, ref bool __result)
-		{
-			Pawn pawn = Traverse.Create(__instance).Property("SelPawn").GetValue<Pawn>();
-			if (pawn != null && pawn.IsShikigami())
-			{
-				__result = false;
-				return false;
-			}
-			return true;
-		}
-	}
+	//[HarmonyPatch(typeof(ITab_Pawn_Gear), "IsVisible", MethodType.Getter)]
+	//public static class Patch_HideEquipTabOnSummons
+	//{
+	//	public static bool Prefix(ITab_Pawn_Gear __instance, ref bool __result)
+	//	{
+	//		Pawn pawn = Traverse.Create(__instance).Property("SelPawn").GetValue<Pawn>();
+	//		if (pawn != null && pawn.IsShikigami())
+	//		{
+	//			__result = false;
+	//			return false;
+	//		}
+	//		return true;
+	//	}
+	//}
 
 
 	[HarmonyPatch(typeof(HediffWithParents))]

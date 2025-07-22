@@ -23,6 +23,11 @@ namespace JJK
 
         protected override void RespawnPawn()
         {
+            if (this.FlyingPawn == null || this.FlyingPawn.Destroyed)
+            {
+                this.Destroy(DestroyMode.Vanish);
+                return;
+            }
             Pawn pawn = this.FlyingPawn;
             OnBeforeRespawnPawn?.Invoke(this.FlyingPawn, this, this.Map);
             base.RespawnPawn();

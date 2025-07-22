@@ -31,4 +31,21 @@
         </li>
       </comps>
     </AbilityDef>
+
+    <ThingDef ParentName="BaseBullet">
+      <defName>Fire_Arrow</defName>
+      <label>Fire Arrow</label>
+      <thingClass>JJK.Projectile_ScalingDoomsdayRocket</thingClass>
+      <graphicData>
+        <texPath>Things/Projectile/Sukuna/Fire_Arrow</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <shaderType>TransparentPostLight</shaderType>
+        <drawSize>4</drawSize>
+      </graphicData>
+      <projectile>
+        <damageDef>Bomb</damageDef>
+        <explosionRadius>10</explosionRadius>
+        <speed>50</speed>
+      </projectile>
+    </ThingDef>
 </Defs>
