@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <AbilityDef>
+    <defName>JJK_Nue_Fly</defName>
+    <label>Fly</label>
+    <description>Carry a friendly pawn to the target location.</description>
+    <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+    <category>Cursed_Innate</category>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <warmupTime>0</warmupTime>
+      <range>50</range>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetLocations>false</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_AbilityCarryFly">
+      </li>
+      <li Class="JJK.CompProperties_UseMasterCE">
+        <cursedEnergyCost>10</cursedEnergyCost>
+        <burnoutStrain>0</burnoutStrain>
+      </li>
+    </comps>
+  </AbilityDef>
+</Defs>

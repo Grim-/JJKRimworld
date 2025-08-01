@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="MoteBase">
+      <defName>JJK_InfinityAuraMote</defName>
+      <thingClass>MoteAttached</thingClass>
+      <graphicData>
+        <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+        <shaderType>GlowAnimated</shaderType>
+        <texPath>Animations/Unused/auratest</texPath>
+        <shaderParameters>
+          <_NumFrames>3</_NumFrames>
+          <_FramesPerSec>2</_FramesPerSec>
+        </shaderParameters>
+      </graphicData>
+      <altitudeLayer>MoteOverhead</altitudeLayer>
+      <mote>
+        <fadeInTime>0</fadeInTime>
+        <solidTime>9999</solidTime>
+        <fadeOutTime>0</fadeOutTime>
+        <growthRate>0</growthRate>
+      </mote>
+    </ThingDef>
+</Defs>

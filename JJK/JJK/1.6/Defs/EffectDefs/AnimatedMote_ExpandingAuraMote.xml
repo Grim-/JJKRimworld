@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- <AnimatedMotes.AnimationDef ParentName="AuraTestBase">
+    <defName>ExpandingAuraMote</defName>
+    <graphicData Class="AnimatedMotes.GraphicDataAnimation">
+      <texPath>RCTAura</texPath>
+      <drawSize>1.5</drawSize>
+      <color>(1, 1, 1, 0.2)</color>
+    </graphicData>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <mote>
+      <fadeInTime>0.25</fadeInTime>
+      <solidTime>5</solidTime>
+      <fadeOutTime>0.1</fadeOutTime>
+      <growthRate>0.24</growthRate>
+      <speedPerTime>0</speedPerTime>
+    </mote>
+    <fpsRate>3</fpsRate>
+    <maxLoopCount>9999</maxLoopCount>
+  </AnimatedMotes.AnimationDef> -->
+</Defs>

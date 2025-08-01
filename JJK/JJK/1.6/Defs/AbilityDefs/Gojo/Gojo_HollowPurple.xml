@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <AbilityDef>
+      <defName>Gojo_HollowPurple</defName>
+      <label>Hollow Purple</label>
+      <description>This technique brings the concept of motion and reversal into reality. Purple is born from merging both infinites: Blue and Red, to produce an imaginary mass that rushes forth. Sends forth a projectile that damages anything in its way.</description>
+      <iconPath>Abilities/Gojo/HollowPurple</iconPath>
+      <cooldownTicksRange>30</cooldownTicksRange>
+      <jobDef>EMF_CastAbilityChannel</jobDef>
+      <aiCanUse>true</aiCanUse>
+      <sendMessageOnCooldownComplete>true</sendMessageOnCooldownComplete>
+      <warmupStartSound>FireSpew_Warmup</warmupStartSound>
+      <verbProperties>
+        <verbClass>Verb_CastAbility</verbClass>
+        <range>55</range>
+        <warmupTime>1</warmupTime>
+        <soundCast>FireSpew_Resolve</soundCast>
+        <targetParams>
+          <canTargetPawns>True</canTargetPawns>
+          <canTargetLocations>True</canTargetLocations>
+          <canTargetSelf>True</canTargetSelf>
+          <canTargetAnimals>True</canTargetAnimals>
+          <canTargetItems>True</canTargetItems>
+        </targetParams>
+      </verbProperties>
+      <comps>
+        <li Class="JJK.CompProperties_UseCE">
+          <cursedEnergyCost>60</cursedEnergyCost>
+        </li>
+        <li Class="EMF.CompProperties_AbilityEffectChannelableBeam">
+          <channelTicks>500</channelTicks>
+          <beamParameters>
+            <baseDamage>600</baseDamage>
+            <damageTickInterval>5</damageTickInterval>
+            <beamColor>(1,1,1)</beamColor>
+            <beamWidth>5</beamWidth>
+            <maxTravelDistance>150</maxTravelDistance>
+            <travelSpeed>0.5</travelSpeed>
+            <damageType>Bomb</damageType>
+            <impactBaseDamage>500</impactBaseDamage>
+            <travelingBeam>true</travelingBeam>
+            <stopOnHit>true</stopOnHit>
+            <tileBeam>true</tileBeam>
+            <beamGraphic>
+              <texPath>VFX/VoidRibbon</texPath>
+              <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+              <shaderParameters>
+                <_Color>(1, 1, 1, 1)</_Color>
+                <_DistortionTex>/Other/Ripples</_DistortionTex>
+                <_distortionIntensity>0.1</_distortionIntensity>
+                <_DistortionScale>0.4</_DistortionScale>
+                <_distortionScrollSpeed>(0.2, 0.2, 0.0)</_distortionScrollSpeed>
+              </shaderParameters>
+              <shaderType>MoteGlowDistorted</shaderType>
+            </beamGraphic>
+            <beamStartGraphic>
+              <texPath>Things/Projectile/Gojo/HollowPurple4</texPath>
+              <graphicClass>Graphic_Single</graphicClass>
+              <shaderType>MoteGlowDistorted</shaderType>
+              <drawSize>2</drawSize>
+              <shaderParameters>
+                <_Color>(1, 1, 1, 1)</_Color>
+                <_DistortionTex>/Other/Ripples</_DistortionTex>
+                <_distortionIntensity>0.1</_distortionIntensity>
+                <_DistortionScale>0.4</_DistortionScale>
+                <_distortionScrollSpeed>(0.2, 0.2, 0.0)</_distortionScrollSpeed>
+              </shaderParameters>
+            </beamStartGraphic>
+            <beamEndGraphic>
+              <texPath>Things/Projectile/Gojo/HollowPurple4</texPath>
+              <graphicClass>Graphic_Single</graphicClass>
+              <shaderType>MoteGlowDistorted</shaderType>
+              <drawSize>4</drawSize>
+              <shaderParameters>
+                <_Color>(1, 1, 1, 1)</_Color>
+                <_DistortionTex>/Other/Ripples</_DistortionTex>
+                <_distortionIntensity>0.1</_distortionIntensity>
+                <_DistortionScale>0.4</_DistortionScale>
+                <_distortionScrollSpeed>(0.2, 0.2, 0.0)</_distortionScrollSpeed>
+              </shaderParameters>
+            </beamEndGraphic>
+          </beamParameters>
+        </li>
+      </comps>
+    </AbilityDef>
+    
+    <ThingDef ParentName="BaseBullet">
+      <defName>Hollow_Purple</defName>
+      <label>hollow purple</label>
+      <thingClass>EMF.ProjectileWithComps</thingClass>
+      <graphicData>
+        <texPath>Things/Projectile/Gojo/HollowPurple4</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <shaderType>MoteGlowDistorted</shaderType>
+        <drawSize>4</drawSize>
+        <shaderParameters>
+          <_Color>(1, 1, 1, 1)</_Color>
+          <_DistortionTex>/Other/Ripples</_DistortionTex>
+          <_distortionIntensity>0.1</_distortionIntensity>
+          <_DistortionScale>0.4</_DistortionScale>
+          <_distortionScrollSpeed>(0.2, 0.2, 0.0)</_distortionScrollSpeed>
+        </shaderParameters>
+      </graphicData>
+      <projectile>
+        <damageDef>Blunt</damageDef>
+        <damageAmountBase>100</damageAmountBase>
+        <speed>15</speed>
+      </projectile>
+      <comps>
+        <li Class="EMF.ProjectileCompProperties_PeriodicAOEDamage">
+          <damageDef>Bomb</damageDef>
+          <damageAmount>15</damageAmount>
+          <radius>4</radius>
+          <tickInterval>3</tickInterval>
+          <effecterDef>JJK_GRoundCrack</effecterDef>
+          <friendlyFireSettings>
+            <canTargetHostile>true</canTargetHostile>
+            <canTargetFriendly>false</canTargetFriendly>
+            <canTargetNeutral>true</canTargetNeutral>
+            <canTargetSelf>false</canTargetSelf>
+          </friendlyFireSettings>
+        </li>
+        <li Class="EMF.ProjectileCompProperties_ImpactAOEDamage">
+          <damageDef>Bomb</damageDef>
+          <damageAmount>25</damageAmount>
+          <radius>5</radius>
+          <effecterDef>JJK_GRoundCrack</effecterDef>
+        </li>
+        <li Class="EMF.ProjectileCompProperties_ImpactCameraShake">
+          <ticks>20</ticks>
+          <shakeMagnitude>0.4</shakeMagnitude>
+        </li>
+      </comps>
+    </ThingDef>
+</Defs>

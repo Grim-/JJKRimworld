@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JJK.AbilityDef_Toggleable>
+    <defName>JJK_RiikaPartialManifest</defName>
+    <label>call riika</label>
+    <description>Upon using this ability Riika partially manifests around you, riika will attempt to defend and attack with her claws. Partially manifesting Rika allows you to use the Consume Ability and gain the abilities from the corpses of Jujutsu Sorcerers.</description>
+    <iconPath>UI/Icons/Gene_FireArrow</iconPath>
+    <cooldownTicksRange>60</cooldownTicksRange>
+    <category>Cursed_Energy</category>
+    <displayOrder>200</displayOrder>
+    <aiCanUse>true</aiCanUse>
+    <warmupEffecter>WaterMist</warmupEffecter>
+    <emittedFleck>ShockwaveFast</emittedFleck>
+    <displayGizmoWhileUndrafted>True</displayGizmoWhileUndrafted>
+    <disableGizmoWhileUndrafted>False</disableGizmoWhileUndrafted>
+    <stunTargetWhileCasting>false</stunTargetWhileCasting>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>0</range>
+      <warmupTime>0</warmupTime>
+      <soundCast>FireSpew_Resolve</soundCast>
+      <targetable>False</targetable>
+      <nonInterruptingSelfCast>true</nonInterruptingSelfCast>
+    </verbProperties>
+    <comps>
+      <li Class="JJK.CompProperties_ToggleHediff">
+        <hediffDefs>
+          <li>JJK_RiikaOverlay</li>
+        </hediffDefs>
+        <cursedEnergyCostPerTick>10</cursedEnergyCostPerTick>
+        <Ticks>1250</Ticks>
+      </li>
+    </comps>
+  </JJK.AbilityDef_Toggleable>
+
+  <HediffDef>
+    <defName>JJK_RiikaOverlay</defName>
+    <label>Riika</label>
+    <description>wfwfwfw</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.5, 0, 0.5)</defaultLabelColor>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <renderNodeProperties>
+      <li Class="JJK.PawnOverlayNodeProperties">
+        <texPath>Animations/Moon1</texPath>
+         <tagDef>Body</tagDef>
+        <graphicData>
+          <texPath>Things/Riika/RikaBody</texPath>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>3</drawSize>
+        </graphicData>
+        <overlayColor>(1, 1, 1)</overlayColor>
+        <overlayAlpha>1</overlayAlpha>
+        <overlayLayer>Body</overlayLayer>
+        <offset>(0, 0, 1)</offset>
+        <layerOffset>0</layerOffset>
+        <workerClass>JJK.PawnOverlayNodeWorker</workerClass>
+        <shaderTypeDef>CutoutComplex</shaderTypeDef>
+      </li>
+    </renderNodeProperties>
+    <stages>
+    </stages>
+    <comps>
+      <li Class="JJK.HediffCompProperties_YutaToggleAbilities">
+      </li>
+      <li Class="HediffCompProperties_VerbGiver">
+        <tools>
+          <li>
+            <label>cursed technique steal</label>
+            <capacities>
+              <li>Scratch</li>
+            </capacities>
+            <power>12</power>
+            <cooldownTime>2</cooldownTime>
+          </li>
+        </tools>
+        <verbs>
+          <li>
+            <verbClass>JJK.Verb_StealCursedTechnique</verbClass>
+            <defaultCooldownTime>3.5</defaultCooldownTime>
+            <meleeDamageBaseAmount>10</meleeDamageBaseAmount>
+            <meleeDamageDef>JJK_CursedEnergyDamage</meleeDamageDef>
+          </li>
+        </verbs>
+      </li>
+    </comps>
+    <abilities>
+      <li>JJK_RiikaEat</li>
+    </abilities>
+
+  </HediffDef>
+</Defs>

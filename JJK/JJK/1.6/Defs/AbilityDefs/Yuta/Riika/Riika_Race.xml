@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThingDef ParentName="AnimalThingBase">
+    <defName>JJK_Riika_Race</defName>
+    <label>Riika</label>
+    <description>Riika, a cursed spirit from Jujutsu Kaisen. This entity takes the form of a giant, monstrous catfish with multiple eyes and mouths. It serves its summoner and possesses formidable strength.</description>
+    <statBases>
+      <MoveSpeed>8</MoveSpeed>
+      <ComfyTemperatureMin>-150</ComfyTemperatureMin>
+      <ComfyTemperatureMax>150</ComfyTemperatureMax>
+      <MarketValue>50000</MarketValue>
+      <PsychicSensitivity>0</PsychicSensitivity>
+      <Flammability>0</Flammability>
+    </statBases>
+    <tools>
+        <li>
+          <capacities>
+            <li>Bite</li>
+          </capacities>
+          <power>55</power>
+          <cooldownTime>2.5</cooldownTime>
+          <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        </li>
+        <li>
+          <label>claws</label>
+          <capacities>
+            <li>Scratch</li>
+            <li>Stab</li>
+          </capacities>
+          <power>40</power>
+          <cooldownTime>2.0</cooldownTime>
+          <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+          <chanceFactor>0.9</chanceFactor>
+        </li>
+        <li>
+          <label>body</label>
+          <capacities>
+            <li>Blunt</li>
+          </capacities>
+          <power>18</power>
+          <cooldownTime>2</cooldownTime>
+          <linkedBodyPartsGroup>Torso</linkedBodyPartsGroup>
+          <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+          <chanceFactor>0.7</chanceFactor>
+        </li>
+      </tools>
+    <race>
+      <body>Human</body>
+      <thinkTreeMain>JJK_EmptyThinkTree</thinkTreeMain>
+      <thinkTreeConstant>JJK_EmptyThinkTree</thinkTreeConstant>
+      <canReleaseToWild>false</canReleaseToWild>
+      <needsRest>false</needsRest>
+      <hasGenders>false</hasGenders>
+      <baseBodySize>20</baseBodySize>
+      <baseHungerRate>0</baseHungerRate>
+      <baseHealthScale>5.0</baseHealthScale>
+      <foodType>None</foodType>
+      <trainability>Advanced</trainability>
+      <petness>0</petness>
+      <lifeExpectancy>1000</lifeExpectancy>
+      <lifeStageAges>
+        <li>
+          <def>AnimalAdult</def>
+          <minAge>0</minAge>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+    </race>
+    <butcherProducts />
+    <comps>
+      <li Class="JJK.CompProperties_DeathHandler">
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
