@@ -9,8 +9,9 @@
       <ComfyTemperatureMin>10</ComfyTemperatureMin>
       <ComfyTemperatureMax>90</ComfyTemperatureMax>
       <MarketValue>2000</MarketValue>
-      <PsychicSensitivity>1.5</PsychicSensitivity>
+      <PsychicSensitivity>0</PsychicSensitivity>
       <Flammability>0</Flammability>
+      <VacuumResistance>2</VacuumResistance>
     </statBases>
     <tools>
       <li>
@@ -80,6 +81,11 @@
           <minAge>0</minAge>
         </li>
       </lifeStageAges>
+      <specialTrainables>
+        <li>Obedience</li>
+        <li>Release</li>
+        <li>AttackTarget</li>
+      </specialTrainables>
     </race>
     <butcherProducts />
     <comps>

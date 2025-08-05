@@ -43,24 +43,25 @@
         </capacities>
         <power>12</power>
         <cooldownTime>1.5</cooldownTime>
-      </li> </tools>
+      </li>
+    </tools>
     <comps>
-      <li Class="EMF.CompProperties_GrantAbilityOnEquip">
-        <AbilityToGrant>JJK_DeflectProjectiles</AbilityToGrant>
+      <li Class="EMF.CompProperties_EquippableAbility">
+        <abilityDefs>
+          <li>JJK_DeflectProjectiles</li>
+          <li>JJK_CloudStrike</li>
+        </abilityDefs>
       </li>
-      <li Class="EMF.CompProperties_GrantAbilityOnEquip">
-        <AbilityToGrant>JJK_CloudStrike</AbilityToGrant>
-      </li>
-      <li Class="JJK.CompProperties_KnockbackOnHit">
+      <li Class="EMF.CompProperties_KnockbackOnHit">
         <knockbackChance>0.15</knockbackChance>
         <knockbackRange>1~3</knockbackRange>
       </li>
-      <li Class="JJK.CompProperties_EquipCompScaleableDamage">
+      <li Class="EMF.CompProperties_EquipCompScaleableDamage">
         <baseIncrease>0</baseIncrease>
         <highSkillIncrease>0.25</highSkillIncrease>
         <highSkillThreshold>18</highSkillThreshold>
       </li>
-      <li Class="JJK.CompProperties_EquipCompApplyHediffOnHit">
+      <li Class="EMF.CompProperties_EquipCompApplyHediffOnHit">
         <ApplyToSelf>false</ApplyToSelf>
         <ApplyOnTarget>true</ApplyOnTarget>
         <ApplyChance>0.2</ApplyChance>

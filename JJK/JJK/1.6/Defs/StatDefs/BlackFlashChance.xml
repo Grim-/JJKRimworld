@@ -6,6 +6,7 @@
     <category>PawnMisc</category>
     <description>The % chance Black Flash has to trigger while using a melee attack.</description>
     <defaultBaseValue>0.05</defaultBaseValue>
+    <showOnDefaultValue>false</showOnDefaultValue>
     <minValue>0</minValue>
     <maxValue>1</maxValue>
     <toStringStyle>PercentOne</toStringStyle>

@@ -11,6 +11,7 @@
       <MarketValue>50000</MarketValue>
       <PsychicSensitivity>0</PsychicSensitivity>
       <Flammability>0</Flammability>
+      <VacuumResistance>2</VacuumResistance>
     </statBases>
     <tools>
         <li>
@@ -19,7 +20,6 @@
           </capacities>
           <power>55</power>
           <cooldownTime>2.5</cooldownTime>
-          <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
         </li>
         <li>
           <label>claws</label>
@@ -32,27 +32,22 @@
           <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
           <chanceFactor>0.9</chanceFactor>
         </li>
-        <li>
-          <label>body</label>
-          <capacities>
-            <li>Blunt</li>
-          </capacities>
-          <power>18</power>
-          <cooldownTime>2</cooldownTime>
-          <linkedBodyPartsGroup>Torso</linkedBodyPartsGroup>
-          <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
-          <chanceFactor>0.7</chanceFactor>
-        </li>
       </tools>
     <race>
       <body>Human</body>
-      <thinkTreeMain>JJK_EmptyThinkTree</thinkTreeMain>
-      <thinkTreeConstant>JJK_EmptyThinkTree</thinkTreeConstant>
       <canReleaseToWild>false</canReleaseToWild>
       <needsRest>false</needsRest>
       <hasGenders>false</hasGenders>
       <baseBodySize>20</baseBodySize>
       <baseHungerRate>0</baseHungerRate>
+      <bleedRateFactor>0</bleedRateFactor>
+      <canBecomeShambler>false</canBecomeShambler>
+      <alwaysViolent>true</alwaysViolent>
+      <disableMating>true</disableMating>
+      <isImmuneToInfections>true</isImmuneToInfections>
+      <hasMeat>false</hasMeat>
+      <leatherDef IsNull="true"></leatherDef>
+      <meatDef IsNull="true"></meatDef>
       <baseHealthScale>5.0</baseHealthScale>
       <foodType>None</foodType>
       <trainability>Advanced</trainability>
@@ -67,6 +62,13 @@
       <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
       <soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+      <specialTrainables>
+        <li>Obedience</li>
+        <li>Release</li>
+        <li>AttackTarget</li>
+        <li>Forage</li>
+        <li>Dig</li>
+      </specialTrainables>
     </race>
     <butcherProducts />
     <comps>

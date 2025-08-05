@@ -97,18 +97,12 @@
           <customLabel>rear left leg</customLabel>
           <coverage>0.15</coverage>
           <height>Bottom</height>
-          <groups>
-            <li>JumpingLeg</li>
-          </groups>
         </li>
         <li>
           <def>Leg</def>
           <customLabel>rear right leg</customLabel>
           <coverage>0.15</coverage>
           <height>Bottom</height>
-          <groups>
-            <li>JumpingLeg</li>
-          </groups>
         </li>
       </parts>
     </corePart>

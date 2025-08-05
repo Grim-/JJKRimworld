@@ -58,8 +58,10 @@
       </li>
     </tools>
     <comps>
-      <li Class="JJK.CompProperties_GrantAbilityOnEquip">
-        <AbilityToGrant>JJK_CastLightningStrike</AbilityToGrant>
+      <li Class="EMF.CompProperties_EquippableAbility">
+        <abilityDefs>
+            <li>JJK_CastLightningStrike</li>
+        </abilityDefs>
       </li>
     </comps>
   </ThingDef>

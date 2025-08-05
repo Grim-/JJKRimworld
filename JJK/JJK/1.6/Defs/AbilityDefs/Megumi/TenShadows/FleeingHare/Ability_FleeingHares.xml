@@ -15,7 +15,6 @@
     </verbProperties>
     <comps>
       <li Class="JJK.CompProperties_AbilityFleeingHareSummon">
-        <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
         <shikigamiDef>Shikigami_FleeingHares</shikigamiDef>
         <SummonCost>15</SummonCost>
       </li>

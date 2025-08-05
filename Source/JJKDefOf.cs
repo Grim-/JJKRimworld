@@ -66,9 +66,9 @@ namespace JJK
         public static AbilityDef JJK_RiikaFullManifest;
         public static AbilityDef JJK_MaxElephant_Deluge;
 
-        public static ThinkTreeDef JJK_EmptyConstantThinkTree;
-        public static ThinkTreeDef JJK_SummonedCreature;
-        public static ThinkTreeDef ZombieWorkSlave;
+        //public static ThinkTreeDef JJK_EmptyConstantThinkTree;
+        //public static ThinkTreeDef JJK_SummonedCreature;
+        //public static ThinkTreeDef ZombieWorkSlave;
 
         public static TraitDef JJK_SukunaTrait;
 
@@ -90,8 +90,6 @@ namespace JJK
         public static HediffDef JJK_SimpleShadowDomain;
         public static HediffDef JJK_HollowWickerBasket;
         public static HediffDef JJK_KenjakuPossession;
-        public static HediffDef JJ_SummonedCreatureTag;
-        public static HediffDef JJK_ThinkTreeOverrideSummonBehaviour;
         public static HediffDef JJK_RCTRegenHediff;
         public static HediffDef JJK_ZombieWorkSlaveHediff;
         public static HediffDef JJK_IdleTransfigurationCooldown;
@@ -123,8 +121,6 @@ namespace JJK
 
         public static EffecterDef JJK_Deflect;
         public static EffecterDef JJK_RCTAura;
-        public static EffecterDef JJK_ShadowSummonEffect;
-        public static EffecterDef JJK_ShadowSummonEffectLarge;
         public static EffecterDef JJK_BlueAOEAuraEffect;
         public static FleckDef JJK_BlackSmoke;
 

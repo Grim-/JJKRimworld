@@ -123,6 +123,9 @@
     <Compile Include="Comps\Abilities\Megumi\TenShadowsComps\IHaveAMaster.cs" />
     <Compile Include="Comps\Hediff\HediffCompProperties_NeedChangePerTick.cs" />
     <Compile Include="Extensions\ThingCompExtension_ShowAnimalFloatMenu.cs" />
+    <Compile Include="Genes\MergeTracker.cs" />
+    <Compile Include="Genes\ShikigamiTracker.cs" />
+    <Compile Include="Genes\UnlockedShadowsTracker.cs" />
     <Compile Include="Stat\StatPart_CursedEnergyDamageBonus.cs" />
     <Compile Include="Stat\StatPart_CursedEnergyRegen.cs" />
     <Compile Include="Stat\StatPart_CursedEnergyReserves.cs" />

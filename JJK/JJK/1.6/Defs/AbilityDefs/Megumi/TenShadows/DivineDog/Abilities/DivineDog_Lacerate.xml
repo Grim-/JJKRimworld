@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+  <TrainableDef>
+    <defName>JJK_DemonDogLacerate</defName>
+    <label>leap</label>
+    <description>Command your divine dog to leap at the target biting them.</description>
+    <listPriority>0</listPriority>
+    <difficulty>200</difficulty>
+    <steps>1</steps>
+    <specialTrainable>true</specialTrainable>
+    <enablesAbility>JJK_DivineDog_Lacerate</enablesAbility>
+  </TrainableDef>
+
   <AbilityDef>
     <defName>JJK_DivineDog_Lacerate</defName>
     <label>Lacerate</label>
@@ -25,10 +36,6 @@
         <applyToTarget>true</applyToTarget>
         <applyToSelf>false</applyToSelf>
         <replaceExisting>true</replaceExisting>
-      </li>
-      <li Class="JJK.CompProperties_UseMasterCE">
-        <cursedEnergyCost>20</cursedEnergyCost>
-        <burnoutStrain>0</burnoutStrain>
       </li>
     </comps>
   </AbilityDef>

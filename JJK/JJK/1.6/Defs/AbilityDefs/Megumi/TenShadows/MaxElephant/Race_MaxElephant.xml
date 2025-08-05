@@ -11,6 +11,7 @@
       <MarketValue>1300</MarketValue>
       <PsychicSensitivity>0</PsychicSensitivity>
       <Flammability>0</Flammability>
+      <VacuumResistance>2</VacuumResistance>
     </statBases>
     <tools>
       <li>
@@ -88,6 +89,11 @@
         <li>(0, 0, 0)</li>
         <li>(-0.23, 0, 0.11)</li>
       </headPosPerRotation>
+      <specialTrainables>
+        <li>Obedience</li>
+        <li>Release</li>
+        <li>AttackTarget</li>
+      </specialTrainables>
     </race>
     <butcherProducts />
     <comps>

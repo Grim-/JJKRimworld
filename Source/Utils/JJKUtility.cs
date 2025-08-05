@@ -401,15 +401,6 @@ namespace JJK
             }
         }
 
-        public static ZanpaktoWeapon GetZanpaktoWeapon(this Pawn pawn)
-        {
-            if (pawn.equipment?.Primary is ZanpaktoWeapon zanpaktoWeapon)
-            {
-                return zanpaktoWeapon;
-            }
-
-            return null;
-        }
 
         public static bool IsLimitlessUser(this Pawn pawn)
         {

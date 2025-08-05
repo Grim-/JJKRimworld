@@ -12,6 +12,7 @@
       <MarketValue>100</MarketValue>
       <PsychicSensitivity>0</PsychicSensitivity>
       <Flammability>0</Flammability>
+            <VacuumResistance>2</VacuumResistance>
     </statBases>
     <tools>
       <li>
@@ -86,8 +87,6 @@
       <body>QuadrupedAnimalWithPawsAndTail</body>
       <trainability>Advanced</trainability>
       <predator>false</predator>
-      <thinkTreeMain>JJK_EmptyThinkTree</thinkTreeMain>
-      <thinkTreeConstant>JJK_EmptyThinkTree</thinkTreeConstant>
       <needsRest>false</needsRest>
       <hasGenders>false</hasGenders>
       <foodType>None</foodType>
@@ -107,6 +106,14 @@
           <soundAngry>Pawn_Dog_Angry</soundAngry>
         </li>
       </lifeStageAges>
+      <specialTrainables>
+        <li>Obedience</li>
+        <li>Release</li>
+        <li>AttackTarget</li>
+        <li>Forage</li>
+        <li>JJK_DemonDogLeapBite</li>
+        <li>JJK_DemonDogLacerate</li>
+      </specialTrainables>
     </race>
     <comps>
       <li Class="JJK.CompProperties_TenShadowsDemonDogSummon">

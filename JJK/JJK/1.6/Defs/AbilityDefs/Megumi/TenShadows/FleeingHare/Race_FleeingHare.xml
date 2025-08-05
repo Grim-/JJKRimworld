@@ -11,6 +11,7 @@
       <MarketValue>100</MarketValue>
       <PsychicSensitivity>0</PsychicSensitivity>
       <Flammability>0</Flammability>
+            <VacuumResistance>2</VacuumResistance>
     </statBases>
     <tools>
       <li>
@@ -35,8 +36,6 @@
     </tools>
     <race>
       <body>QuadrupedAnimalWithPawsAndTail</body>
-      <thinkTreeMain>JJK_EmptyThinkTree</thinkTreeMain>
-      <thinkTreeConstant>JJK_EmptyThinkTree</thinkTreeConstant>
       <canReleaseToWild>false</canReleaseToWild>
       <needsRest>false</needsRest>
       <hasGenders>false</hasGenders>
@@ -76,6 +75,11 @@
           <soundAngry>Pawn_Hare_Angry</soundAngry>
         </li>
       </lifeStageAges>
+      <specialTrainables>
+        <li>Obedience</li>
+        <li>Release</li>
+        <li>AttackTarget</li>
+      </specialTrainables>
       <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
       <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>

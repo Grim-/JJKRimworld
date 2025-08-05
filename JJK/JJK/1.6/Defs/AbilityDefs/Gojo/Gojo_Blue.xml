@@ -77,8 +77,10 @@
         </li>
         <li Class="EMF.CompProperties_ActiveZoneDamage">
           <ticksBetweenDamage>120</ticksBetweenDamage>
-          <damageDef>Blunt</damageDef>
-          <damage>16</damage>
+          <damageParms>
+            <damageDef>Blunt</damageDef>
+            <damageAmount>16</damageAmount>
+          </damageParms>
           <friendlyFireSettings>
             <canTargetHostile>true</canTargetHostile>
             <canTargetFriendly>true</canTargetFriendly>

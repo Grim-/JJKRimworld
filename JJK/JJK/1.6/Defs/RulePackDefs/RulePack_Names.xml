@@ -4,16 +4,18 @@
     <defName>NamerPersonJujutsuSorcerer_Male</defName>
     <rulePack>
       <rulesStrings>
-        <li>r_name(p=10)->[JapaneseNameMale]</li>
-        <li>r_name(p=5)->[JapaneseNameMale] [JapaneseSurname]</li>
-        <li>r_name(p=3)->[JujutsuTechnique] [JapaneseNameMale]</li>
-        <li>r_name(p=2)->[Color] [JapaneseNameMale]</li>
-        <li>r_name->[ConceptPositive] [JapaneseNameMale]</li>
-        <li>JapaneseNameMale->Satoru|Yuji|Megumi|Kento|Toge|Panda|Yuta|Kinji|Kiyotaka|Masamichi|Atsuya|Yoshinobu</li>
-        <li>JapaneseSurname->Gojo|Itadori|Fushiguro|Nanami|Inumaki|Okkotsu|Zenin|Kamo|Yaga|Jogo|Hanami|Mahito</li>
-        <li>JujutsuTechnique->Limitless|Reversal|Shadow|Ratio|Cursed Speech|Copy|Blood Manipulation|Projection|Boogie Woogie</li>
-        <li>Color->Black|White|Red|Blue|Purple|Golden</li>
-        <li>ConceptPositive->Noble|Wise|Brave|Honored|Revered|Esteemed</li>
+        <li>name->Satoru</li>
+        <li>name->Yuji</li>
+        <li>name->Megumi</li>
+        <li>name->Kento</li>
+        <li>name->Toge</li>
+        <li>name->Panda</li>
+        <li>name->Yuta</li>
+        <li>name->Kinji</li>
+        <li>name->Kiyotaka</li>
+        <li>name->Masamichi</li>
+        <li>name->Atsuya</li>
+        <li>name->Yoshinobu</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -22,16 +24,18 @@
     <defName>NamerPersonJujutsuSorcerer_Female</defName>
     <rulePack>
       <rulesStrings>
-        <li>r_name(p=10)->[JapaneseNameFemale]</li>
-        <li>r_name(p=5)->[JapaneseNameFemale] [JapaneseSurname]</li>
-        <li>r_name(p=3)->[JujutsuTechnique] [JapaneseNameFemale]</li>
-        <li>r_name(p=2)->[Color] [JapaneseNameFemale]</li>
-        <li>r_name->[ConceptPositive] [JapaneseNameFemale]</li>
-        <li>JapaneseNameFemale->Nobara|Maki|Mai|Kasumi|Miwa|Utahime|Mei|Yuki|Rika|Shoko|Tsumiki|Riko</li>
-        <li>JapaneseSurname->Kugisaki|Zenin|Miwa|Ieiri|Orimoto|Iori|Nitta|Amanai|Fushiguro|Utahime</li>
-        <li>JujutsuTechnique->Straw Doll|Cursed Tools|New Shadow Style|Cursed Speech|Ice Formation|Reverse Cursed|Projection Sorcery</li>
-        <li>Color->Black|White|Red|Pink|Purple|Silver</li>
-        <li>ConceptPositive->Graceful|Wise|Fierce|Honored|Revered|Esteemed</li>
+        <li>name->Nobara</li>
+        <li>name->Maki</li>
+        <li>name->Mai</li>
+        <li>name->Kasumi</li>
+        <li>name->Miwa</li>
+        <li>name->Utahime</li>
+        <li>name->Mei</li>
+        <li>name->Yuki</li>
+        <li>name->Rika</li>
+        <li>name->Shoko</li>
+        <li>name->Tsumiki</li>
+        <li>name->Riko</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>

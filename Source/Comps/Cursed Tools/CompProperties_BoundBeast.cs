@@ -47,13 +47,6 @@ namespace JJK
             PawnKindDef pawnKindDef = Props.summonedCreatureKind;
             Pawn pawn = PawnGenerator.GeneratePawn(pawnKindDef, parent.pawn.Faction);
             GenSpawn.Spawn(pawn, parent.pawn.Position, map);
-            pawn.health.AddHediff(JJKDefOf.JJ_SummonedCreatureTag);
-
-
-            //SummonedCreatureManager summonManager = JJKUtility.SummonedCreatureManager;
-            //summonManager.RegisterSummon(pawn, parent.pawn);
-
-
             summonedCreature = pawn;
             Messages.Message($"{parent.pawn.LabelShort} has summoned a {pawn.KindLabel}.", MessageTypeDefOf.PositiveEvent);
         }
@@ -62,8 +55,6 @@ namespace JJK
         {
             if (summonedCreature != null && summonedCreature.Spawned)
             {
-                //SummonedCreatureManager summonManager = JJKUtility.SummonedCreatureManager;
-                //summonManager.UnregisterSummon(summonedCreature);
                 Messages.Message($"{parent.pawn.LabelShort} has unsummoned the {summonedCreature.KindLabel}.", MessageTypeDefOf.PositiveEvent);
                 summonedCreature.Destroy(DestroyMode.Vanish);
                 summonedCreature = null;

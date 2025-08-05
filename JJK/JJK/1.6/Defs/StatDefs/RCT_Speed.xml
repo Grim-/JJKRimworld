@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<StatDef>
-  <defName>JJK_RCTSpeed</defName>
-  <label>Reverse Curse Technique Speed</label>
-  <category>PawnMisc</category>
-  <description>Multiplier on RCT Ticks (Base 300 ticks).</description>
-  <defaultBaseValue>1</defaultBaseValue>
-  <minValue>1</minValue>
-  <maxValue>100</maxValue>
-  <toStringStyle>FloatOne</toStringStyle>
-  <showOnPawns>true</showOnPawns>
-</StatDef>
+  <StatDef>
+    <defName>JJK_RCTSpeed</defName>
+    <label>Reverse Curse Technique Speed</label>
+    <category>PawnMisc</category>
+    <description>Multiplier on RCT Ticks (Base 300 ticks).</description>
+    <defaultBaseValue>1</defaultBaseValue>
+      <showOnDefaultValue>false</showOnDefaultValue>
+    <minValue>1</minValue>
+    <maxValue>100</maxValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <showOnPawns>true</showOnPawns>
+  </StatDef>
 </Defs>

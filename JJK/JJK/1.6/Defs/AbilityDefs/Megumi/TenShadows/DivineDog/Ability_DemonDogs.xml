@@ -16,7 +16,6 @@
   </verbProperties>
   <comps>
     <li Class="JJK.CompProperties_AbilityDemondogSummon">
-      <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
       <shikigamiDef>Shikigami_DivineDogs</shikigamiDef>
     </li>
   </comps>

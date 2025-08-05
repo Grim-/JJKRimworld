@@ -48,7 +48,7 @@
     <renderSkipFlags>
       <li>None</li>
     </renderSkipFlags>
-    <blocksVision>true</blocksVision>
+    <blocksVision>false</blocksVision>
     <canBeGeneratedToSatisfyWarmth>false</canBeGeneratedToSatisfyWarmth>
     <canBeGeneratedToSatisfyToxicEnvironmentResistance>false</canBeGeneratedToSatisfyToxicEnvironmentResistance>
   </apparel>

@@ -9,8 +9,9 @@
       <ComfyTemperatureMin>-150</ComfyTemperatureMin>
       <ComfyTemperatureMax>150</ComfyTemperatureMax>
       <MarketValue>2000</MarketValue>
-      <PsychicSensitivity>1.5</PsychicSensitivity>
+      <PsychicSensitivity>0</PsychicSensitivity>
       <Flammability>0</Flammability>
+      <VacuumResistance>2</VacuumResistance>
     </statBases>
     <tools>
       <li>
@@ -77,6 +78,11 @@
       <soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
       <soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+      <specialTrainables>
+        <li>Obedience</li>
+        <li>Release</li>
+        <li>AttackTarget</li>
+      </specialTrainables>
     </race>
     <butcherProducts />
     <comps>

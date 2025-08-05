@@ -15,7 +15,6 @@
   </verbProperties>
   <comps>
     <li Class="JJK.CompProperties_BaseShikigami">
-      <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
       <shikigamiDef>Shikigami_MaxElephant</shikigamiDef>
       <SummonCost>40</SummonCost>
     </li>

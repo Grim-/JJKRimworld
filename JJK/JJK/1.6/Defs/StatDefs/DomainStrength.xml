@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<StatDef>
-  <defName>JJK_DomainStrength</defName>
-  <label>Domain Strength</label>
-  <category>PawnMisc</category>
-  <description>The strength of any domain you expand.</description>
-  <defaultBaseValue>1</defaultBaseValue>
-  <minValue>1</minValue>
-  <maxValue>10</maxValue>
-  <toStringStyle>PercentOne</toStringStyle>
-  <showOnPawns>true</showOnPawns>
-</StatDef>
+  <StatDef>
+    <defName>JJK_DomainStrength</defName>
+    <label>Domain Strength</label>
+    <category>PawnMisc</category>
+    <description>The strength of any domain you expand.</description>
+    <defaultBaseValue>1</defaultBaseValue>
+    <showOnDefaultValue>false</showOnDefaultValue>
+    <minValue>1</minValue>
+    <maxValue>10</maxValue>
+    <toStringStyle>PercentOne</toStringStyle>
+    <showOnPawns>true</showOnPawns>
+  </StatDef>
 </Defs>

@@ -16,24 +16,16 @@ namespace JJK
         }
     }
 
-    public class TenShadowGene : Gene
+    public class TenShadowGene : Gene, IThingHolder
     {
-
         private TenShadowsGeneDef Def => (TenShadowsGeneDef)def;
 
-        private Dictionary<ShikigamiDef, ShikigamiMergeTracker> mergedShikigami = new Dictionary<ShikigamiDef, ShikigamiMergeTracker>();
-
-
-        private List<ShikigamiDef> earnedShadows = new List<ShikigamiDef>();
-        public List<ShikigamiDef> EarnedShadows => earnedShadows;
-
-
-        private Dictionary<ShikigamiDef, ShikigamiData> shikigami = new Dictionary<ShikigamiDef, ShikigamiData>();
-        public Dictionary<ShikigamiDef, ShikigamiData> Shikigami => shikigami;
+        private ShikigamiTracker shikigamiTracker;
+        private UnlockedShadowsTracker unlockedShadowsTracker;
+        private MergeTracker mergeTracker;
 
         public bool ShouldSummonTotalityDivineDog = false;
         private Pawn ParentPawn => pawn;
-
 
         public Gene_CursedEnergy _CursedEnergy;
         public Gene_CursedEnergy CursedEnergy
@@ -44,17 +36,28 @@ namespace JJK
                 {
                     _CursedEnergy = ParentPawn.GetCursedEnergy();
                 }
-
                 return _CursedEnergy;
             }
         }
 
+        public TenShadowGene()
+        {
+            shikigamiTracker = new ShikigamiTracker(this);
+            unlockedShadowsTracker = new UnlockedShadowsTracker();
+            mergeTracker = new MergeTracker();
+        }
 
-        public FormationUtils.FormationType FormationType = FormationUtils.FormationType.Column;
-        public float FormationRadius = 3f;
-        public bool IsFollowMode = true;
+        public IThingHolder ParentHolder => pawn;
 
+        public void GetChildHolders(List<IThingHolder> outChildren)
+        {
+            outChildren.Add(shikigamiTracker);
+        }
 
+        public ThingOwner GetDirectlyHeldThings()
+        {
+            return null;
+        }
 
         public override void PostAdd()
         {
@@ -90,25 +93,20 @@ namespace JJK
                 return;
             }
 
-
             Log.Message("Ticking Ten Shadow Regen");
-            foreach (var item in shikigami)
+
+            foreach (var storedPawn in shikigamiTracker.GetDirectlyHeldThings())
             {
-                ShikigamiDef currentDef = item.Key;
-                foreach (var storedPawn in item.Value.StoredPawns)
+                ShikigamiDef currentDef = shikigamiTracker.GetShikigamiDefForPawn(storedPawn as Pawn);
+                if (currentDef != null)
                 {
-                    float regenCost = GetShadowRegenCost(currentDef, storedPawn);
-                    if (PawnHealingUtility.HealHealthProblem(storedPawn) && CursedEnergy.HasCursedEnergy(regenCost))
-                    {                
+                    float regenCost = GetShadowRegenCost(currentDef, storedPawn as Pawn);
+                    if (PawnHealingUtility.HealHealthProblem(storedPawn as Pawn) && CursedEnergy.HasCursedEnergy(regenCost))
+                    {
                         ParentPawn.GetCursedEnergy()?.ConsumeCursedEnergy(regenCost);
                     }
                 }
             }
-        }
-
-        public void SetFormationType(FormationUtils.FormationType formationType)
-        {
-            this.FormationType = formationType;
         }
 
         private float GetShadowRegenCost(ShikigamiDef kindDef, Pawn shadowPawn)
@@ -117,7 +115,6 @@ namespace JJK
                 return 0f;
 
             float baseCost = kindDef.maintainCost * 0.5f;
-
             float modifiedCost = baseCost * kindDef.regenCostModifier;
             float healthPercentage = shadowPawn.health.summaryHealth.SummaryHealthPercent;
             float severityMultiplier = 1f + (1f - healthPercentage);
@@ -137,9 +134,8 @@ namespace JJK
         {
             if (!HasUnlockedShikigami(shikigamiDef))
             {
-                earnedShadows.Add(shikigamiDef);
+                unlockedShadowsTracker.UnlockShikigami(shikigamiDef);
                 GrantUserSummonAbility(shikigamiDef);
-
                 Messages.Message($"{pawn.Label} has unlocked {shikigamiDef.defName} Shikigami.", MessageTypeDefOf.PositiveEvent);
             }
         }
@@ -167,53 +163,32 @@ namespace JJK
 
         public bool HasUnlockedShikigami(ShikigamiDef shikigamiDef)
         {
-            return earnedShadows.Contains(shikigamiDef);
+            return unlockedShadowsTracker.HasUnlockedShikigami(shikigamiDef);
         }
 
         public bool IsShikigamiPermanentlyDead(ShikigamiDef KindDef)
         {
-            return HasShikigamiKind(KindDef) && shikigami[KindDef].IsPermanentlyDead;
+            return shikigamiTracker.HasShikigamiKind(KindDef) &&
+                   shikigamiTracker.GetShikigamiData(KindDef).IsPermanentlyDead;
         }
 
-        public void StartShikigamiCooldown(ShikigamiDef ShikigamiDef)
-        {
-
-        }
-
-        public bool HasShikigamiKind(ShikigamiDef KindDef)
-        {
-            return shikigami.ContainsKey(KindDef);
-        }
-
-        public ShikigamiData GetShikigamiData(ShikigamiDef KindDef)
-        {
-            if (HasShikigamiKind(KindDef))
-            {
-                return shikigami[KindDef];
-            }
-
-            return null;
-        }
-
-        private ShikigamiData AddNewShikigamiData(ShikigamiDef KindDef)
-        {
-            ShikigamiData shikigamiData = new ShikigamiData(KindDef);
-            shikigami.Add(KindDef, shikigamiData);
-            return shikigamiData;
-        }
         public Pawn GetOrGenerateShikigami(ShikigamiDef KindDef, PawnKindDef pawnKind, IntVec3 Position, Map Map, bool alwaysGenerateNew = false)
         {
             Log.Message($"Attempting to summon a {KindDef.label} shikigami for {ParentPawn.Label}.");
 
             Pawn newPawn = null;
 
-            if (!alwaysGenerateNew && HasShikigamiKind(KindDef) && shikigami[KindDef].HasStoredPawnOfKind(pawnKind))
+            if (!alwaysGenerateNew && shikigamiTracker.HasShikigamiKind(KindDef))
             {
-                newPawn = shikigami[KindDef].GetStoredPawnOfKind(pawnKind);
+                newPawn = shikigamiTracker.GetStoredPawn(KindDef, pawnKind);
             }
-            else
+
+            if (newPawn == null)
             {
-                var shikigamiData = HasShikigamiKind(KindDef) ? shikigami[KindDef] : AddNewShikigamiData(KindDef);
+                var shikigamiData = shikigamiTracker.HasShikigamiKind(KindDef) ?
+                    shikigamiTracker.GetShikigamiData(KindDef) :
+                    shikigamiTracker.AddNewShikigamiData(KindDef);
+
                 newPawn = GenerateNewShikigami(KindDef, pawnKind, this.pawn, Map, Position);
                 shikigamiData.ActiveShadows.Add(newPawn);
             }
@@ -235,7 +210,6 @@ namespace JJK
             }
 
             Pawn shikigami = PawnGenerator.GeneratePawn(pawnKindDef, Master.Faction);
-
             SetupSummon(KindDef, Master, shikigami);
             return shikigami;
         }
@@ -250,18 +224,16 @@ namespace JJK
             }
 
             Hediff_Shikigami shikigamiHediff = (Hediff_Shikigami)Summon.health.GetOrAddHediff(JJKDefOf.JJK_Shikigami);
- 
             if (shikigamiHediff != null)
             {
                 shikigamiHediff.SetMaster(Master);
             }
 
-            ShikigamiData shikigamiData = GetShikigamiData(KindDef);
+            ShikigamiData shikigamiData = shikigamiTracker.GetShikigamiData(KindDef);
             if (shikigamiData != null)
             {
                 shikigamiData.AddActivePawn(Summon);
             }
-
 
             if (Summon.TryGetComp(out Comp_TenShadowsSummon shadowsSummon))
             {
@@ -272,10 +244,14 @@ namespace JJK
             if (Summon.Faction != Master.Faction)
             {
                 Summon.SetFaction(Master.Faction);
-            } 
+            }
 
             DraftingUtility.MakeDraftable(Summon);
             JJKUtility.TrainPawn(Summon, Master);
+            Summon.playerSettings.followDrafted = true;
+            Summon.playerSettings.followFieldwork = true;
+            Summon.playerSettings.Master = Master;
+            Summon.relations.AddDirectRelation(PawnRelationDefOf.Bond, Master);
         }
 
         public void MergeShikigami(ShikigamiDef KindDef, ShikigamiDef MergeIntoKindDef)
@@ -283,6 +259,7 @@ namespace JJK
             if (KindDef.mergeEffect?.workerClass == null)
                 return;
 
+            mergeTracker.MergeShikigami(KindDef, MergeIntoKindDef);
 
             if (KindDef.summonAbility != null)
             {
@@ -292,16 +269,18 @@ namespace JJK
 
         public void UnmergeShikigami(ShikigamiDef KindDef)
         {
-            if (!mergedShikigami.TryGetValue(KindDef, out var tracker))
+            if (!mergeTracker.IsShikigamiMerged(KindDef))
                 return;
 
-            if (tracker.OriginalShikigami.summonAbility != null)
+            var mergeData = mergeTracker.GetMergeData(KindDef);
+            if (mergeData?.OriginalShikigami.summonAbility != null)
             {
-                pawn.abilities.GainAbility(tracker.OriginalShikigami.summonAbility);
+                pawn.abilities.GainAbility(mergeData.OriginalShikigami.summonAbility);
             }
 
-            mergedShikigami.Remove(KindDef);
+            mergeTracker.UnmergeShikigami(KindDef);
         }
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             if (Prefs.DevMode)
@@ -315,125 +294,41 @@ namespace JJK
                     }
                 };
             }
-
-            //// Formation Type Selection
-            //yield return new Command_Action
-            //{
-            //    defaultLabel = $"Formation: {FormationType}",
-            //    defaultDesc = "Change the formation type for your shadows",
-            //    icon = TexCommand.HoldOpen,
-            //    action = () =>
-            //    {
-            //        List<FloatMenuOption> options = new List<FloatMenuOption>();
-            //        foreach (FormationUtils.FormationType type in Enum.GetValues(typeof(FormationUtils.FormationType)))
-            //        {
-            //            options.Add(new FloatMenuOption(type.ToString(), () =>
-            //            {
-            //                SetFormationType(type);
-            //            }));
-            //        }
-            //        Find.WindowStack.Add(new FloatMenu(options));
-            //    }
-            //};
-
-            //// Formation Radius Adjustment
-            //yield return new Command_Action
-            //{
-            //    defaultLabel = $"Radius: {FormationRadius:F1}",
-            //    defaultDesc = "Adjust the formation radius",
-            //    icon = TexCommand.GatherSpotActive,
-            //    action = () =>
-            //    {
-            //        List<FloatMenuOption> options = new List<FloatMenuOption>();
-            //        float[] radiusOptions = { 1f, 2f, 3f, 4f, 5f, 6f };
-            //        foreach (float radius in radiusOptions)
-            //        {
-            //            options.Add(new FloatMenuOption($"{radius:F1}", () =>
-            //            {
-            //                FormationRadius = radius;
-            //            }));
-            //        }
-            //        Find.WindowStack.Add(new FloatMenu(options));
-            //    }
-            //};
-
-            //// Follow Toggle
-            //yield return new Command_Toggle
-            //{
-            //    defaultLabel = "Follow Mode",
-            //    defaultDesc = "Toggle whether shadows follow in formation",
-            //    icon = TexCommand.ForbidOn,
-            //    isActive = () => IsFollowMode,
-            //    toggleAction = () =>
-            //    {
-            //        IsFollowMode = !IsFollowMode;
-            //        if (IsFollowMode)
-            //        {
-            //            Messages.Message($"{pawn.Label}'s shadows will now follow in formation.", MessageTypeDefOf.NeutralEvent);
-            //        }
-            //        else
-            //        {
-            //            Messages.Message($"{pawn.Label}'s shadows will hold position.", MessageTypeDefOf.NeutralEvent);
-            //        }
-            //    }
-            //};
         }
 
         public List<Pawn> GetAllActiveShadows()
         {
-            var List = new List<Pawn>();
-
-            foreach (var shikigami in shikigami.Values)
+            var list = new List<Pawn>();
+            foreach (var kvp in shikigamiTracker.ShikigamiData)
             {
-                foreach (var item in shikigami.ActiveShadows)
-                {
-                    List.Add(item);
-                }
+                list.AddRange(kvp.Value.ActiveShadows);
             }
-            return List;
+            return list;
         }
 
         public void UnsummonShikigami(ShikigamiDef KindDef)
         {
-            if (KindDef == null || !HasShikigamiKind(KindDef))
+            if (KindDef == null || !shikigamiTracker.HasShikigamiKind(KindDef))
                 return;
+
             Log.Message($"{ParentPawn.Label} unsummoning Shikigami {KindDef}");
-
-            ShikigamiData shikigamiData = GetShikigamiData(KindDef);
-
-            if (shikigamiData != null)
-            {
-                shikigamiData.StoreActivePawns();
-            }
+            shikigamiTracker.StoreAllActivePawns(KindDef);
         }
 
         public List<Pawn> GetActiveSummonsOfKind(ShikigamiDef KindDef)
         {
-            if (HasShikigamiKind(KindDef))
-            {
-                return shikigami[KindDef].ActiveShadows;
-            }
-            else
-            {
-                Log.Message($"{ParentPawn.Label} has no shikigami of kind {KindDef}");
-                return null;
-            }
+            return shikigamiTracker.GetActiveSummonsOfKind(KindDef);
         }
 
         public void OnShikigamiDeath(Pawn Pawn)
         {
             Comp_TenShadowsSummon shadowsSummon = Pawn.GetComp<Comp_TenShadowsSummon>();
-
-            if (shadowsSummon != null)
+            if (shadowsSummon != null && shikigamiTracker.HasShikigamiKind(shadowsSummon.ShikigamiDef))
             {
-                if (HasShikigamiKind(shadowsSummon.ShikigamiDef))
+                ShikigamiData shikigamiData = shikigamiTracker.GetShikigamiData(shadowsSummon.ShikigamiDef);
+                if (shikigamiData != null)
                 {
-                    ShikigamiData shikigamiData = GetShikigamiData(shadowsSummon.ShikigamiDef);
-
-                    if (shikigamiData != null)
-                    {
-                        shikigamiData.ActiveShadows.Remove(Pawn);
-                    }           
+                    shikigamiData.ActiveShadows.Remove(Pawn);
                 }
             }
         }
@@ -441,10 +336,26 @@ namespace JJK
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Collections.Look(ref shikigami, "shikigami", LookMode.Def, LookMode.Deep);
-            Scribe_Collections.Look(ref mergedShikigami, "mergedShikigami", LookMode.Def, LookMode.Deep);
-            Scribe_Collections.Look(ref earnedShadows, "earnedShadows", LookMode.Def);
+            Scribe_Deep.Look(ref shikigamiTracker, "shikigamiTracker", this);
+            Scribe_Deep.Look(ref unlockedShadowsTracker, "unlockedShadowsTracker");
+            Scribe_Deep.Look(ref mergeTracker, "mergeTracker");
             Scribe_Values.Look(ref ShouldSummonTotalityDivineDog, "shouldSummonTotalityDivineDog", false);
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (shikigamiTracker == null)
+                {
+                    shikigamiTracker = new ShikigamiTracker(this);
+                }
+                if (unlockedShadowsTracker == null)
+                {
+                    unlockedShadowsTracker = new UnlockedShadowsTracker();
+                }
+                if (mergeTracker == null)
+                {
+                    mergeTracker = new MergeTracker();
+                }
+            }
         }
     }
 }

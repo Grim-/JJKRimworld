@@ -50,7 +50,7 @@ namespace JJK
 
             Job job = JobMaker.MakeJob(JJKDefOf.JJK_FormationFollow, followee);
             job.expiryInterval = 200;
-            job.followRadius = TenShadowGene.FormationRadius;
+            job.followRadius = 4;
             job.SetTarget(TargetIndex.A, followee);
             job.reportStringOverride = "Following in formation";
             return job;
@@ -87,7 +87,7 @@ namespace JJK
                     }
 
                     IntVec3 targetCell = FormationUtils.GetFormationPosition(
-                        TenShadows.FormationType,
+                        FormationUtils.FormationType.Column,
                         followee.Position.ToVector3(),
                         followee.Rotation,
                         formationIndex,

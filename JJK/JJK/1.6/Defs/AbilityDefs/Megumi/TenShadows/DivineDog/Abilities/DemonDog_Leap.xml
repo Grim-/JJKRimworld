@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+
+  <TrainableDef>
+    <defName>JJK_DemonDogLeapBite</defName>
+    <label>leap</label>
+    <description>Command your divine dog to leap at the target biting them.</description>
+    <listPriority>0</listPriority>
+    <difficulty>200</difficulty>
+    <steps>1</steps>
+    <specialTrainable>true</specialTrainable>
+    <enablesAbility>JJK_DivineDog_Leap</enablesAbility>
+  </TrainableDef>
+
+
   <AbilityDef>
     <defName>JJK_DivineDog_Leap</defName>
     <label>leap</label>
@@ -24,10 +37,6 @@
         <damageType>Bite</damageType>
         <radius>1</radius>
         <canTargetFriendly>false</canTargetFriendly>
-      </li>
-      <li Class="JJK.CompProperties_UseMasterCE">
-        <cursedEnergyCost>10</cursedEnergyCost>
-        <burnoutStrain>0</burnoutStrain>
       </li>
     </comps>
   </AbilityDef>

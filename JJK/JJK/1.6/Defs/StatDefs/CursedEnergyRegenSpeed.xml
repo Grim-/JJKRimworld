@@ -6,6 +6,7 @@
   <category>PawnMisc</category>
   <description>How often you regenerate cursed energy (ticks).</description>
   <defaultBaseValue>1250</defaultBaseValue>
+  <showOnDefaultValue>false</showOnDefaultValue>
   <minValue>100</minValue>
   <maxValue>10000</maxValue>
   <toStringStyle>Integer</toStringStyle>

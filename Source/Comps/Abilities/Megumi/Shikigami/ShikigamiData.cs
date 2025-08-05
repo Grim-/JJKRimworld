@@ -8,12 +8,8 @@ namespace JJK
     {
         public ShikigamiDef KindDef;
 
-        //any already created but not currently summoned onto a map pawns
-        private Dictionary<PawnKindDef, Pawn> storedPawnsByKind = new Dictionary<PawnKindDef, Pawn>();
-        public List<Pawn> StoredPawns => storedPawnsByKind.Values.ToList();
+        private Dictionary<PawnKindDef, string> storedPawnIdsByKind = new Dictionary<PawnKindDef, string>();
 
-
-        // Active pawns currently summoned on map
         private List<Pawn> activeShadows = new List<Pawn>();
         public List<Pawn> ActiveShadows => activeShadows;
 
@@ -23,7 +19,7 @@ namespace JJK
 
         public ShikigamiData()
         {
-            storedPawnsByKind = new Dictionary<PawnKindDef, Pawn>();
+            storedPawnIdsByKind = new Dictionary<PawnKindDef, string>();
             activeShadows = new List<Pawn>();
             IsPermanentlyDead = false;
         }
@@ -33,33 +29,28 @@ namespace JJK
             KindDef = kindDef;
         }
 
-        public void StorePawn(Pawn pawn)
+        public void StorePawn(Pawn pawn, ThingOwner<Pawn> container)
         {
-            if (pawn == null || pawn.Destroyed) 
+            if (pawn == null || pawn.Destroyed)
                 return;
 
-            if (storedPawnsByKind.ContainsKey(pawn.kindDef))
-            {
-                storedPawnsByKind[pawn.kindDef] = pawn;
-            }
-            else
-            {
-                storedPawnsByKind.Add(pawn.kindDef, pawn);
-            }
+            storedPawnIdsByKind[pawn.kindDef] = pawn.GetUniqueLoadID();
+
             if (pawn.TryGetComp(out Comp_TenShadowsSummon shadowsSummon))
             {
                 shadowsSummon.OnUnSummon();
             }
 
-            if (!Find.WorldPawns.Contains(pawn))
+            if (pawn.Spawned)
             {
-                if (pawn.Spawned)
-                {
-                    pawn.DeSpawn();
-                }
-
-                Find.WorldPawns.PassToWorld(pawn, RimWorld.Planet.PawnDiscardDecideMode.KeepForever);
+                pawn.DeSpawn();
             }
+
+            if (!container.Contains(pawn))
+            {
+                container.TryAdd(pawn, true);
+            }
+
             activeShadows.Remove(pawn);
         }
 
@@ -71,7 +62,7 @@ namespace JJK
             }
         }
 
-        public void StoreActivePawns()
+        public void StoreActivePawns(ThingOwner<Pawn> container)
         {
             foreach (var item in activeShadows.ToList())
             {
@@ -80,7 +71,7 @@ namespace JJK
                     continue;
                 }
 
-                StorePawn(item);
+                StorePawn(item, container);
             }
 
             activeShadows.Clear();
@@ -88,17 +79,21 @@ namespace JJK
 
         public bool HasStoredPawnOfKind(PawnKindDef kindDef)
         {
-            return storedPawnsByKind.ContainsKey(kindDef) && storedPawnsByKind[kindDef] != null;
+            return storedPawnIdsByKind.ContainsKey(kindDef);
         }
 
-        public Pawn GetStoredPawnOfKind(PawnKindDef def)
+        public Pawn GetStoredPawnOfKind(PawnKindDef def, ThingOwner<Pawn> container)
         {
-            if (storedPawnsByKind.ContainsKey(def))
+            if (storedPawnIdsByKind.ContainsKey(def))
             {
-                var pawn = storedPawnsByKind[def];
+                string pawnId = storedPawnIdsByKind[def];
+                Pawn pawn = container.InnerListForReading.FirstOrDefault(p => p.GetUniqueLoadID() == pawnId);
+
                 if (pawn != null && !pawn.Destroyed)
                 {
-                    storedPawnsByKind.Remove(def);
+                    container.Remove(pawn);
+                    storedPawnIdsByKind.Remove(def);
+
                     if (!activeShadows.Contains(pawn))
                     {
                         activeShadows.Add(pawn);
@@ -109,47 +104,44 @@ namespace JJK
             return null;
         }
 
+        public bool ContainsPawn(Pawn pawn)
+        {
+            if (activeShadows.Contains(pawn))
+                return true;
+
+            string pawnId = pawn.GetUniqueLoadID();
+            return storedPawnIdsByKind.ContainsValue(pawnId);
+        }
+
         public void ExposeData()
         {
             Scribe_Defs.Look(ref KindDef, "kindDef");
 
-            List<PawnKindDef> storedPawnKeys = null;
-            List<Pawn> storedPawnValues = null;
- 
-            if (Scribe.mode == LoadSaveMode.Saving && storedPawnsByKind != null)
+            if (Scribe.mode == LoadSaveMode.Saving)
             {
-                storedPawnKeys = storedPawnsByKind.Keys.ToList();
-                storedPawnValues = storedPawnsByKind.Values.ToList();
+                var tempDict = new Dictionary<PawnKindDef, string>(storedPawnIdsByKind);
+                Scribe_Collections.Look(ref tempDict, "storedPawnIdsByKind", LookMode.Def, LookMode.Value);
             }
-
-            Scribe_Collections.Look(ref storedPawnKeys, "storedPawnKeys", LookMode.Def);
-            Scribe_Collections.Look(ref storedPawnValues, "storedPawnValues", LookMode.Reference);
-
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            else
             {
-                if (storedPawnKeys != null && storedPawnValues != null &&
-                    storedPawnKeys.Count == storedPawnValues.Count)
-                {
-                    storedPawnsByKind = new Dictionary<PawnKindDef, Pawn>();
-                    for (int i = 0; i < storedPawnKeys.Count; i++)
-                    {
-                        if (storedPawnKeys[i] != null && storedPawnValues[i] != null)
-                        {
-                            storedPawnsByKind[storedPawnKeys[i]] = storedPawnValues[i];
-                        }
-                    }
-                }
-                else
-                {
-                    storedPawnsByKind = new Dictionary<PawnKindDef, Pawn>();
-                }
+                Scribe_Collections.Look(ref storedPawnIdsByKind, "storedPawnIdsByKind", LookMode.Def, LookMode.Value);
             }
 
             Scribe_Collections.Look(ref activeShadows, "activePawns", LookMode.Reference);
             Scribe_Values.Look(ref IsPermanentlyDead, "isPermanentlyDead", false);
             Scribe_Values.Look(ref deathCooldownStartTick, "deathCooldownStartTick", -1);
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (storedPawnIdsByKind == null)
+                {
+                    storedPawnIdsByKind = new Dictionary<PawnKindDef, string>();
+                }
+                if (activeShadows == null)
+                {
+                    activeShadows = new List<Pawn>();
+                }
+            }
         }
     }
 }
-
-

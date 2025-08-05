@@ -63,15 +63,4 @@ namespace JJK
             return base.Notify_ApplyMeleeDamageToTarget(target, DamageWorkerResult);
         }
     }
-
-
-
-    public interface IThingTrait
-    {
-        Color TraitColor { get; }
-        string TraitName { get; }
-        string TraitDescription { get; }
-        bool TraitIsValid { get; }
-
-    }
 }

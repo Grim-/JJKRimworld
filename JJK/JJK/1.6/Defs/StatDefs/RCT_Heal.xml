@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-<StatDef>
-  <defName>JJK_RCTHealingBonus</defName>
-  <label>Reverse Curse Technique Healing Bonus</label>
-  <category>PawnMisc</category>
-  <description>Reversed Cursed Technique Healing Bonus</description>
-  <defaultBaseValue>25</defaultBaseValue>
-  <minValue>0</minValue>
-  <maxValue>1000</maxValue>
-  <toStringStyle>FloatOne</toStringStyle>
-  <showOnPawns>true</showOnPawns>
-</StatDef>
+  <StatDef>
+    <defName>JJK_RCTHealingBonus</defName>
+    <label>Reverse Curse Technique Healing Bonus</label>
+    <category>PawnMisc</category>
+    <description>Reversed Cursed Technique Healing Bonus</description>
+    <defaultBaseValue>25</defaultBaseValue>
+      <showOnDefaultValue>false</showOnDefaultValue>
+    <minValue>0</minValue>
+    <maxValue>1000</maxValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <showOnPawns>true</showOnPawns>
+  </StatDef>
 </Defs>

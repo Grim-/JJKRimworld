@@ -16,7 +16,6 @@
   </verbProperties>
   <comps>
     <li Class="JJK.CompProperties_BaseShikigami">
-      <SummonEffecter>JJK_ShadowSummonEffect</SummonEffecter>
       <shikigamiDef>Shikigami_Nue</shikigamiDef>
       <SummonCost>25</SummonCost>
     </li>

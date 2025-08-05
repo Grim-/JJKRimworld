@@ -65,7 +65,7 @@
     </li>
   </tools>
   <comps>
-    <li Class="JJK.CompProperties_EquipCompApplyHediffOnHit">
+    <li Class="EMF.CompProperties_EquipCompApplyHediffOnHit">
       <ApplyToSelf>false</ApplyToSelf>
       <ApplyOnTarget>true</ApplyOnTarget>
       <ApplyChance>0.25</ApplyChance>
